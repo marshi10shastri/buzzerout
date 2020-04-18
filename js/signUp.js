@@ -39,3 +39,27 @@ function signUp() {
     console.log("function end");
 }
 console.log("end of file");
+
+var usernameInput = document.getElementById('exampleInputEmail0');
+usernameInput.addEventListener('keyup', checkUsername());
+
+function checkUsername(){
+    if(usernameInput.value != ""){
+        $.ajax({
+            type: 'POST',
+            url:'',
+            data:{
+                username: usernameInput.value
+            },
+
+            success: function(data){
+                console.log(data);
+            },
+
+            error: function(data){
+                console.log(data);
+            }
+        });
+    }
+
+}
