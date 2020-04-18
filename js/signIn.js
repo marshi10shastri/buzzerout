@@ -1,27 +1,26 @@
 var signInBtn = document.getElementById('signInBtn');
 signInBtn.addEventListener('click', signIn);
 
-function signIn(){
+function signIn() {
     console.log('hello');
-    var email = document.getElementById('exampleInputEmail1').value;
+    var username = document.getElementById('exampleInputEmail1').value;
     var password = document.getElementById('exampleInputPassword1').value;
 
-    alert(email);
+    alert(username);
     alert(password);
     $.ajax({
-        type:'POST',
-        url:'',
-        data:{
-            email:email,
-            password:password
+        type: 'POST',
+        url: 'http://buzzerout.com/buzzerout_server/v1/user/login',
+        data: {
+            username: username,
+            password: password
         },
-
-        success: function(data){
+        success: function(data) {
             console.log(data);
+            window.location = "index.html";
             // redirect to index.html
         },
-
-        error: function(data){
+        error: function(data) {
             console.log(data);
             // reload page
         },
