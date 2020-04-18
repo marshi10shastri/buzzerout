@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="css/responsive.css">
 
     <!-- AJAX link -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 </head>
@@ -127,7 +127,15 @@
 
                         <p>Enter your email address and password to access your account.</p>
 
-                        <form class="mt-4">
+                        <div class="mt-4">
+
+                            <div class="form-group">
+
+                                <label for="exampleInputEmail1">Choose Username</label>
+
+                                <input type="text" class="form-control mb-0" id="exampleInputEmail0" placeholder="Your Username">
+
+                            </div>
 
                             <div class="form-group">
 
@@ -163,7 +171,7 @@
 
                                 </div>
 
-                                <button id ="signUpBtn" type="submit" class="btn btn-primary float-right" onclick="signUp()">Sign Up</button>
+                                <button id="signUpBtn" class="btn btn-primary float-right" onclick="signUp()">Sign Up</button>
 
                             </div>
 
@@ -183,7 +191,7 @@
 
                             </div>
 
-                        </form>
+                        </div>
 
                     </div>
 
@@ -263,7 +271,7 @@
 
     <!-- Register User Javascript -->
 
-    <script src ="js/signUp.js"></script>
+    <script src="js/signUp.js"></script>
 
 </body>
 
