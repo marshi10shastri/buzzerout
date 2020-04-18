@@ -34,6 +34,10 @@
 
     <link rel="stylesheet" href="css/responsive.css">
 
+    <!-- AJAX link -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>    
+
+
 </head>
 
 <body>
@@ -129,7 +133,7 @@
 
                                 <label for="exampleInputEmail1">Your Full Name</label>
 
-                                <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Your Full Name">
+                                <input type="text" class="form-control mb-0" id="exampleInputEmail1" placeholder="Your Full Name">
 
                             </div>
 
@@ -159,7 +163,7 @@
 
                                 </div>
 
-                                <button id ="signUpBtn" type="submit" class="btn btn-primary float-right">Sign Up</button>
+                                <button id ="signUpBtn" type="submit" class="btn btn-primary float-right" onclick="signUp()">Sign Up</button>
 
                             </div>
 
