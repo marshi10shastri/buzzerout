@@ -17,8 +17,10 @@ function signIn() {
         },
         success: function(data) {
             console.log(data);
+            setLocalStorage(USER, "true");
+            setJSONLocalStorage(USER_INFO, data.user);
             window.location = "index.html";
-            // redirect to index.html
+            setPersonName();
         },
         error: function(data) {
             console.log(data);
