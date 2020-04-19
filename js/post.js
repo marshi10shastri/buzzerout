@@ -1,88 +1,108 @@
-function focusLocation(){
+function focusLocation() {
     var locationInput = document.getElementById("buzz-location-input");
     locationInput.style.display = 'block';
     locationInput.focus();
 }
 
 
-function createBuzz(){
+function createBuzz() {
     var buzzVideo = document.getElementById('buzz-video-input').files;
     var buzzPhoto = document.getElementById('buzz-photo-input').files;
-    if(buzzPhoto.length == 0 && buzzVideo.length == 0){
+    if (buzzPhoto.length == 0 && buzzVideo.length == 0) {
         console.log("no photo");
         noMediaPost();
     }
-    if(buzzPhoto.length != 0){
+    if (buzzPhoto.length != 0) {
         console.log("photo wala");
         photoPost();
     }
-    if(buzzVideo != 0){
+    if (buzzVideo != 0) {
         videoPost();
     }
 
 }
 
 
-function noMediaPost(){
+function noMediaPost() {
     var buzzText = document.getElementById('buzz-post-input');
     var buzzLocation = document.getElementById("buzz-location-input");
     var username = getLocalStorage(USER);
 
-    $.ajax({
-        type:'POST',
-        url:'',
-        data:{
-            username: username,
-            title:"title of post",
-            description: buzzText,
-            location: buzzLocation,
-        },
+    // fetchDataFrom JSON();
 
-        success: function(data){
-            console.log(data);
-        },
 
-        error: function(data){
-            console.log(data);
-        }
-    });
+
+
+
+
+
+
+    var div = document.getElementById("posting-box");
+    let text = div.innerHTML;
+    div.innerHTML = "";
+
+    var arrr = ["raman", "aman", "naman"];
+    for (let i = 0; i < 3; i++) {
+        div.innerHTML += post_template_x + arrr[i] + post_template_z;
+    }
+
+
+    // $.ajax({
+    //     type: 'POST',
+    //     url: '',
+    //     data: {
+    //         username: username,
+    //         title: "title of post",
+    //         description: buzzText,
+    //         location: buzzLocation,
+    //     },
+
+    //     success: function(data) {
+
+    //         console.log(data);
+    //     },
+
+    //     error: function(data) {
+    //         console.log(data);
+    //     }
+    // });
 }
 
-function photoPost(){
+function photoPost() {
     var buzzPhoto = document.getElementById('buzz-photo-input').files[0];
     $.ajax({
-        type:'POST',
-        url:'',
-        data:{
+        type: 'POST',
+        url: '',
+        data: {
             feedId: 1234,
-            img:buzzPhoto,
+            img: buzzPhoto,
         },
 
-        success: function(data){
+        success: function(data) {
             console.log(data);
         },
 
-        error: function(data){
+        error: function(data) {
             console.log(data);
         }
     });
 }
 
-function videoPost(){
+function videoPost() {
     var buzzVideo = document.getElementById('buzz-video-input').files[0];
     $.ajax({
-        type:'POST',
-        url:'',
-        data:{
+        type: 'POST',
+        url: '',
+        data: {
             feedId: 1234,
-            video:buzzVideo,
+            video: buzzVideo,
         },
 
-        success: function(data){
+        success: function(data) {
             console.log(data);
         },
 
-        error: function(data){
+        error: function(data) {
             console.log(data);
         }
     });
