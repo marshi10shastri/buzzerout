@@ -1276,7 +1276,7 @@
 
                                         <form class="post-text ml-3 w-100" action="javascript:void();">
 
-                                            <input type="text" class="form-control rounded" placeholder="Write something here..." style="border:none;">
+                                            <input type="text" id = "buzz-text-input" class="form-control rounded" placeholder="Write something here..." style="border:none;">
 
                                         </form>
 
@@ -1357,7 +1357,11 @@
 
                                                     <form class="post-text ml-3 w-100" action="javascript:void();">
 
-                                                        <input type="text" class="form-control rounded" placeholder="Write something here..." style="border:none;">
+                                                        <input type="text" id = "buzz-post-input" class="form-control rounded" placeholder="Write something here..." style="border:none;">
+
+                                                        <input type="text" id = "buzz-location-input" class="form-control rounded" placeholder="Location" style="border:none; display:none;">
+                                                        <input type="text" id = "buzz-photo-name" class="form-control rounded" placeholder="Location" style="border:none; display:none;">
+                                                        <input type="text" id = "buzz-video-name" class="form-control rounded" placeholder="Location" style="border:none; display:none;">
 
                                                     </form>
 
@@ -1370,6 +1374,16 @@
                                                     <li class="col-md-6 mb-3">
 
                                                         <div class="iq-bg-primary rounded p-2 pointer mr-3">
+                                                            <input type="file" id="buzz-photo-input" accept="image/*, image/heic, image/heif" style="position: absolute;
+                                                            height:150px;
+                                                            width:100%;
+                                                            border:none;
+                                                            background: none;
+                                                            left:0;
+                                                            top:0;
+                                                            margin:auto;
+                                                            padding:0;
+                                                            opacity: 0;">
                                                             <a href="#"></a><img src="images/small/07.png" alt="icon" class="img-fluid"> Photo/Video</div>
 
                                                     </li>
@@ -1390,7 +1404,7 @@
 
                                                     <li class="col-md-6 mb-3">
 
-                                                        <div class="iq-bg-primary rounded p-2 pointer mr-3">
+                                                        <div class="iq-bg-primary rounded p-2 pointer mr-3" onclick="focusLocation()">
                                                             <a href="#"></a><img src="images/small/10.png" alt="icon" class="img-fluid"> Check in</div>
 
                                                     </li>
@@ -1537,7 +1551,7 @@
 
                                                 </div>
 
-                                                <button type="submit" class="btn btn-primary d-block w-100 mt-3">Post</button>
+                                                <button onclick="createBuzz()" class="btn btn-primary d-block w-100 mt-3">Post</button>
 
                                             </div>
 
@@ -3755,6 +3769,11 @@
 
     <script src="js/base.js"></script>
 
+    <script src = "js/post.js"></script>
+
 </body>
 
 </html>
+
+
+
