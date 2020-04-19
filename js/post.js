@@ -24,27 +24,44 @@ function createBuzz() {
 
 
 function noMediaPost() {
-    var buzzText = document.getElementById('buzz-post-input');
-    var buzzLocation = document.getElementById("buzz-location-input");
-    var username = getLocalStorage(USER);
+    // var buzzText = document.getElementById('buzz-post-input');
+    // var buzzLocation = document.getElementById("buzz-location-input");
+    // var username = getLocalStorage(USER);
 
     // fetchDataFrom JSON();
 
+    var inhtml = document.getElementById("posting-box").innerHTML;
+    inhtml = ""
+    console.log(data);
+    for(let i=0; i<data.length; i++){
+        inhtml += post_template_userimage(data[i].userimage)+
+                 post_template_username(data[i].name)+
+                 post_template_time(data[i].time) + 
+                 post_template_description(data[i].description) + 
+                 post_template_likes(data[i].likes) + 
+                 post_template_comment_no(data[i].commentNo);
 
-
-
-
-
-
-
-    var div = document.getElementById("posting-box");
-    let text = div.innerHTML;
-    div.innerHTML = "";
-
-    var arrr = ["raman", "aman", "naman"];
-    for (let i = 0; i < 3; i++) {
-        div.innerHTML += post_template_x + arrr[i] + post_template_z;
+        if(data[i].commentNo>0){
+        for(let j=0; j<data[i].commentNo; j++){
+            inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
+        }
+        }
+        inhtml += post_template_end()
     }
+    document.getElementById("posting-box").innerHTML = inhtml;
+
+
+
+
+
+    // var div = document.getElementById("posting-box");
+    // let text = div.innerHTML;
+    // div.innerHTML = "";
+
+    // var arrr = ["raman", "aman", "naman"];
+    // for (let i = 0; i < 3; i++) {
+    //     div.innerHTML += post_template_x + arrr[i] + post_template_z;
+    // }
 
 
     // $.ajax({
