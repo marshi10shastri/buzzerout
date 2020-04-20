@@ -34,7 +34,7 @@
 
 </head>
 
-<body class="sidebar-main-active right-column-fixed">
+<body class="sidebar-main-active right-column-fixed" onload="initProfile()">
 
     <!-- loader Start -->
 
@@ -907,7 +907,7 @@
 
                                             <div class="bg-primary p-3 line-height">
 
-                                                <h5 class="mb-0 text-white line-height">Hello Bni Cyst</h5>
+                                                <h5 class="mb-0 text-white line-height" id="profile-greet-user">Hello Bni Cyst</h5>
 
                                                 <span class="text-white font-size-12">Available</span>
 
@@ -1279,7 +1279,7 @@
 
                                         <div class="profile-detail">
 
-                                            <h3 class="">Bni Cyst</h3>
+                                            <h3 id="profile-user-name" class="">Bni Cyst</h3>
 
                                         </div>
 
@@ -9320,7 +9320,7 @@
     <script src="js/custom.js"></script>
     <script src="js/constant.js"></script>
     <script src="js/base.js"></script>
-    <script src="js/profile_template"></script>
+    <script src="js/profile_template.js"></script>
     <script src="js/profile.js"></script>
 
 

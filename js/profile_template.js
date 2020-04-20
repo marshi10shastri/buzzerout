@@ -67,7 +67,7 @@ function profile_template_contactInfo(email,mobileno,address){
 
                                 <p class="mb-0">` + email + `</p>
 
-                            </div>`
+                            </div>` +
                             `<div class="col-3">
 
                                 <h6>Mobile</h6>
@@ -78,7 +78,7 @@ function profile_template_contactInfo(email,mobileno,address){
 
                                 <p class="mb-0">`+ mobileno +`</p>
 
-                            </div>`
+                            </div>`+
                             `<div class="col-3">
 
                                 <h6>Address</h6>

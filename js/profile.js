@@ -1,5 +1,6 @@
 function initProfile(){
-    setProfileNameImage()
+    setProfileNameImage();
+    showProfile();
 }
 
 function showProfile(){
@@ -7,7 +8,7 @@ function showProfile(){
     userDetails = '';
 
     // adding dummy values
-    userDetails = profile_template_contactInfo(DUMMY_USER.email, DUMMY_USER.mobile, DUMMY_USER.address)+
+    userDetails += profile_template_contactInfo(DUMMY_USER.email, DUMMY_USER.mobile, DUMMY_USER.address)+
                 profile_template_websites(DUMMY_USER.website, DUMMY_USER.socialLink)+
                 profile_template_basicInfo(DUMMY_USER.dob, DUMMY_USER.yob, DUMMY_USER.gender, DUMMY_USER.interest, DUMMY_USER.language)+
                 profile_family()+
@@ -25,7 +26,7 @@ function showProfile(){
                     profile_template_city();
         
         // adding multiple cities
-        for(let j=0; j<DUMMY_USER.cities.length; j++){
+        for(let j=0; j<DUMMY_USER.city.length; j++){
             userDetails += profile_template_addCity(DUMMY_USER.city[j].placeName, DUMMY_USER.city[j].placeState)
         }
         

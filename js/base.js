@@ -31,4 +31,6 @@ function setProfileNameImage() {
     document.getElementById('profile-write-post-user-image').src = getJSONLocalStorage(USER_INFO).userimage;
     document.getElementById('profile-write-post-user-image-inside').src = getJSONLocalStorage(USER_INFO).userimage;
     document.getElementById('profile-story-image-inside').src = getJSONLocalStorage(USER_INFO).userimage;
+    document.getElementById('profile-greet-user').textContent = "Hello " + getJSONLocalStorage(USER_INFO).first_name;
+    document.getElementById('profile-user-name').textContent = getJSONLocalStorage(USER_INFO).first_name;
 }
