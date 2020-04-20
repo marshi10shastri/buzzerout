@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="css/extra.css">
 
     <script src="js/constant.js"></script>
+    <script src="js/data.js"></script>
 
     <script src="js/base.js"></script>
     <script>
@@ -46,6 +47,8 @@
         } else {
             setJSONLocalStorage(USER_INFO, DUMMY_USER);
         }
+
+        setJSONLocalStorage(POSTS, DATA)
     </script>
 
 </head>
@@ -1355,7 +1358,7 @@
 
                                                 <h5 class="modal-title" id="post-modalLabel">Create Post</h5>
 
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ri-close-fill"></i></button>
+                                                <button type="button" id="close-modal" class="btn btn-secondary" data-dismiss="modal"><i class="ri-close-fill"></i></button>
 
                                             </div>
 
@@ -1565,7 +1568,7 @@
 
                                                 </div>
 
-                                                <button onclick="createBuzz()" class="btn btn-primary d-block w-100 mt-3">Post</button>
+                                                <button onclick="createPost()" class="btn btn-primary d-block w-100 mt-3">Post</button>
 
                                             </div>
 

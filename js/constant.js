@@ -25,3 +25,4 @@ const DUMMY_USER = {
 
 const USER_INFO = "user_info"
 const USER = "user"
+const POSTS = "posts"

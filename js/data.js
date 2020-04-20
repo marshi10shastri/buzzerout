@@ -58,7 +58,7 @@
 
 
 
-var data = [{
+var DATA = [{
         name: "Anna Sthesia",
         userimage: 'images/user/01.jpg',
         images: [
