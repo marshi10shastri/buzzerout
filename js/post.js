@@ -41,14 +41,13 @@ function noMediaPost() {
 
         if (data[i].images.length > 0) {
             if (data[i].images.length == 1) {
-                console.log("one called")
                 inhtml += post_template_image(data[i].images[0]);
             } else if (data[i].images.length == 2) {
-                console.log("two called")
                 inhtml += post_template_image_two(data[i].images[0], data[i].images[1]);
             } else if (data[i].images.length == 3) {
-                console.log("three called")
                 inhtml += post_template_image_three(data[i].images[0], data[i].images[1], data[i].images[2]);
+            } else {
+                inhtml += post_template_image_more(data[i].images[0], data[i].images[1], data[i].images[2]);
             }
         }
 

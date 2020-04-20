@@ -3,7 +3,8 @@ const DUMMY_USER = {
     first_name: "Anonymous",
     last_name: "User",
     userimage: 'images/user/04.jpg',
-    email: 'abc@exapmle.com'
+    email: 'abc@exapmle.com',
+    posts: '420'
 }
 
 const USER_INFO = "user_info"

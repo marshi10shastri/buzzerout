@@ -123,6 +123,27 @@ function post_template_image_three(image_path_1, image_path_2, image_path_3) {
     </div>`;
 }
 
+function post_template_image_more(image_path_1, image_path_2, image_path_3) {
+    return `<div class="user-post">
+    <div class="d-flex">
+        <div class="col-md-6">
+            <a href="javascript:void();"><img src="` + image_path_1 + `" alt="post-image" class="img-fluid rounded w-100"></a>
+        </div>
+        <div class="col-md-6 row m-0 p-0">
+        <div class="col-sm-12">
+        <a href="javascript:void();"><img src="` + image_path_2 + `" class="img-fluid rounded w-100"></a>
+        </div>
+        <div class="col-sm-12 mt-3">
+        <div class="img-fluid rounded w-100 cover-img">
+        <span>More</span>
+        </div>
+        <a href="javascript:void();"><img src="` + image_path_3 + `" alt="post-image" class="img-fluid rounded w-100"></a>
+        </div>
+        </div>
+    </div>
+    </div>`;
+}
+
 function post_template_likes(likes) {
     return '<div class="comment-area mt-3">\
             <div class="d-flex justify-content-between align-items-center">\
