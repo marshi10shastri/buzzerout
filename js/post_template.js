@@ -200,10 +200,10 @@ function post_template_comment_no(commentNo) {
         </div>\
         </div>\
         </div>\
-        <div class="share-block d-flex align-items-center feather-icon mr-3">\
+        <!-- <div class="share-block d-flex align-items-center feather-icon mr-3">\
         <a href="javascript:void();"><i class="ri-share-line"></i>\
         <span class="ml-1">99 Share</span></a>\
-        </div>\
+        </div> -->\
         </div>\
         <hr>\
         <ul class="post-comments p-0 m-0">';

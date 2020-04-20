@@ -23,7 +23,7 @@ function createBuzz() {
 }
 
 
-function noMediaPost() {
+function fetchPost() {
     // var buzzText = document.getElementById('buzz-post-input');
     // var buzzLocation = document.getElementById("buzz-location-input");
     // var username = getLocalStorage(USER);

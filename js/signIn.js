@@ -6,8 +6,8 @@ function signIn() {
     var username = document.getElementById('exampleInputEmail1').value;
     var password = document.getElementById('exampleInputPassword1').value;
 
-    alert(username);
-    alert(password);
+    // alert(username);
+    // alert(password);
     $.ajax({
         type: 'POST',
         url: 'http://buzzerout.com/buzzerout_server/v1/user/login',
@@ -27,7 +27,8 @@ function signIn() {
         },
         error: function(data) {
             console.log(data);
-            // reload page
+            alert("Invalid Credentials")
+            location.reload()
         },
     });
 }
