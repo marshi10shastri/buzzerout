@@ -1,6 +1,5 @@
 function profile_template_contactInfo(email,mobileno,address){
-    return `<div class="tab-pane fade" id="about" role="tabpanel">
-
+    return `
 <div class="iq-card">
 
     <div class="iq-card-body">
@@ -476,6 +475,5 @@ function profile_template_about(about, otherName, favQuote){
     </div>
 
 </div>
-
-</div>`
+`
 }
