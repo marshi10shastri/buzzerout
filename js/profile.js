@@ -22,7 +22,7 @@ function showProfile(){
 
         userDetails += profile_template_professional_skill()+
                     profile_template_college()+
-                    profile_template_addCollege(DUMMY_USER.collegeName, DUMMY_USER.collegePlace)+
+                    profile_template_addCollege(DUMMY_USER.college.collegeName, DUMMY_USER.college.collegePlace)+
                     profile_template_city();
         
         // adding multiple cities
