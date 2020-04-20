@@ -23,7 +23,7 @@ function signUp() {
         console.log(password);
         $.ajax({
             type: 'POST',
-            url: 'http://buzzerout.com/buzzerout_server/v1/user/register',
+            url: 'http://buzzerout.com/buzzerout_server/v1/register/registerUser',
             data: {
                 firstname: name[0],
                 lastname: name[1],

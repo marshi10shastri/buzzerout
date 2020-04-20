@@ -17,9 +17,14 @@ function signIn() {
         },
         success: function(data) {
             console.log(data);
-            setLocalStorage(USER, "true");
-            setJSONLocalStorage(USER_INFO, data.user);
-            window.location = "index.html";
+            if (error == "false") {
+                setLocalStorage(USER, "true");
+                setJSONLocalStorage(USER_INFO, data.user);
+                window.location = "index.html";
+            } else {
+                setLocalStorage(USER, "false");
+            }
+
             setPersonName();
         },
         error: function(data) {
