@@ -1,24 +1,24 @@
-function post_template_userimage(image){
+function post_template_userimage(image) {
     return '<div class="col-sm-12">\
     <div class="iq-card iq-card-block iq-card-stretch iq-card-height">\
         <div class="iq-card-body">\
             <div class="user-post-data">\
                 <div class="d-flex flex-wrap">\
                     <div class="media-support-user-img mr-3">\
-                        <img class="rounded-circle img-fluid" src= '+ image + '\
-                        ' ;
+                        <img class="rounded-circle img-fluid" src= ' + image + '\
+                        ';
 }
 
-function post_template_username(name){
+function post_template_username(name) {
     return '\
             alt="">\
             </div>\
             <div class="media-support-info mt-2">\
-            <h5 class="mb-0 d-inline-block"><a href="#" class="">' + name +'\
-            ' ; 
+            <h5 class="mb-0 d-inline-block"><a href="#" class="">' + name + '\
+            ';
 }
 
-function post_template_time(timeh){
+function post_template_time(timeh) {
     return '\
             </a></h5>\
             <p class="mb-0 d-inline-block">Update her Status</p>\
@@ -26,8 +26,8 @@ function post_template_time(timeh){
             '
 }
 
-function post_template_description(desc){
-    return  '</div>\
+function post_template_description(desc) {
+    return '</div>\
             <div class="iq-card-post-toolbar">\
             <div class="dropdown">\
             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
@@ -76,13 +76,55 @@ function post_template_description(desc){
             </div>\
             </div>\
             <div class="mt-3">\
-            <p>'+ desc +'</p>\
+            <p>' + desc + '</p>\
             </div>\
             '
 }
 
-function post_template_likes(likes){
-    return  '<div class="comment-area mt-3">\
+function post_template_image(image_path) {
+    return `<div class="user-post">
+    <div class="d-flex">    
+        <div class="col-md-12">    
+            <a href="javascript:void();"><img src="` + image_path + `" alt="post-image" class="img-fluid rounded w-100"></a>    
+        </div>   
+    </div>
+    </div>`;
+}
+
+
+function post_template_image_two(image_path_1, image_path_2) {
+    return `<div class="user-post">
+    <div class="d-flex">
+        <div class="col-md-6">
+            <a href="javascript:void();"><img src="` + image_path_1 + `" alt="post-image" class="img-fluid rounded w-100"></a>
+        </div>
+        <div class="col-md-6">
+                <a href="javascript:void();"><img src="` + image_path_2 + `" alt="post-image" class="img-fluid rounded w-100"></a>
+        </div>
+    </div>
+    </div>`;
+}
+
+function post_template_image_three(image_path_1, image_path_2, image_path_3) {
+    return `<div class="user-post">
+    <div class="d-flex">
+        <div class="col-md-6">
+            <a href="javascript:void();"><img src="` + image_path_1 + `" alt="post-image" class="img-fluid rounded w-100"></a>
+        </div>
+        <div class="col-md-6 row m-0 p-0">
+        <div class="col-sm-12">
+        <a href="javascript:void();"><img src="` + image_path_2 + `" class="img-fluid rounded w-100"></a>
+        </div>
+        <div class="col-sm-12 mt-3">
+        <a href="javascript:void();"><img src="` + image_path_3 + `" alt="post-image" class="img-fluid rounded w-100"></a>
+        </div>
+        </div>
+    </div>
+    </div>`;
+}
+
+function post_template_likes(likes) {
+    return '<div class="comment-area mt-3">\
             <div class="d-flex justify-content-between align-items-center">\
             <div class="like-block position-relative d-flex align-items-center">\
             <div class="d-flex align-items-center">\
@@ -104,11 +146,11 @@ function post_template_likes(likes){
                 </div>\
                 <div class="total-like-block ml-2 mr-3">\
                     <div class="dropdown">\
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + likes +'\
-                        ' ; 
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + likes + ' likes\
+                        ';
 }
 
-function post_template_comment_no(commentNo){
+function post_template_comment_no(commentNo) {
     return '</span>\
         <div class="dropdown-menu">\
         <a class="dropdown-item" href="#">Max Emum</a>\
@@ -124,7 +166,7 @@ function post_template_comment_no(commentNo){
         </div>\
         <div class="total-comment-block">\
         <div class="dropdown">\
-        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + commentNo +  '</span>\
+        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + commentNo + ' comments</span>\
         <div class="dropdown-menu">\
             <a class="dropdown-item" href="#">Max Emum</a>\
             <a class="dropdown-item" href="#">Bill Yerds</a>\
@@ -146,15 +188,15 @@ function post_template_comment_no(commentNo){
         <ul class="post-comments p-0 m-0">';
 }
 
-function post_template_comment(commentImg, commentUser, commentText){
+function post_template_comment(commentImg, commentUser, commentText) {
     return '<li class="mb-2">\
             <div class="d-flex flex-wrap">\
             <div class="user-img">\
-            <img src='+ commentImg +'alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+            <img src=' + commentImg + ' alt="userimg" class="avatar-35 rounded-circle img-fluid">\
             </div>\
             <div class="comment-data-block ml-3">\
-            <h6>'+  commentUser +'</h6>\
-            <p class="mb-0">'+ commentText +'</p>\
+            <h6>' + commentUser + '</h6>\
+            <p class="mb-0">' + commentText + '</p>\
             <div class="d-flex flex-wrap align-items-center comment-activity">\
                 <a href="javascript:void();">like</a>\
                 <a href="javascript:void();">reply</a>\
@@ -166,7 +208,7 @@ function post_template_comment(commentImg, commentUser, commentText){
             </li>'
 }
 
-function post_template_end(){
+function post_template_end() {
     return '</ul>\
             <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">\
             <input type="text" class="form-control rounded">\
@@ -181,6 +223,37 @@ function post_template_end(){
             </div>\
             </div>'
 }
+
+
+// var images_template = `<div class="user-post">
+
+// <div class="d-flex">
+
+//     <div class="col-md-6">
+
+//         <a href="javascript:void();"><img src="images/page-img/p2.jpg" alt="post-image" class="img-fluid rounded w-100"></a>
+
+//     </div>
+
+//     <div class="col-md-6 row m-0 p-0">
+
+//         <div class="col-sm-12">
+
+//             <a href="javascript:void();"><img src="images/page-img/p1.jpg" alt="post-image" class="img-fluid rounded w-100"></a>
+
+//         </div>
+
+//         <div class="col-sm-12 mt-3">
+
+//             <a href="javascript:void();"><img src="images/page-img/p3.jpg" alt="post-image" class="img-fluid rounded w-100"></a>
+
+//         </div>
+
+//     </div>
+
+// </div>
+
+// </div>`
 
 
 // var post_template_boxes = '\

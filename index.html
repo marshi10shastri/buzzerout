@@ -34,9 +34,22 @@
 
     <script src="js/constant.js"></script>
 
+    <script src="js/base.js"></script>
+    <script>
+        if (getLocalStorage(USER) != undefined) {
+            if (getLocalStorage(USER) == 'true') {
+                setJSONLocalStorage(USER_INFO, DUMMY_USER);
+            } else {
+                setJSONLocalStorage(USER_INFO, DUMMY_USER);
+            }
+        } else {
+            setJSONLocalStorage(USER_INFO, DUMMY_USER);
+        }
+    </script>
+
 </head>
 
-<body class="right-column-fixed">
+<body class="right-column-fixed" onload="initIndexPage()">
 
     <!-- loader Start -->
 
@@ -438,7 +451,7 @@
 
                                     <div class="caption">
 
-                                        <h6 id="person-name" class="mb-0 line-height">Bni Cyst</h6>
+                                        <h6 id="person-name" class="mb-0 line-height">Anonymous</h6>
 
                                     </div>
 
@@ -3768,10 +3781,11 @@
     <script src="js/custom.js"></script>
 
     <script src="js/base.js"></script>
+    <script src="js/init-index.js"></script>
     <script src="js/data.js"></script>
     <script src="js/post_template.js"></script>
     <script src="js/post.js"></script>
-    
+
 
 </body>
 

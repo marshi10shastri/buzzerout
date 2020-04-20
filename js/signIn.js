@@ -17,15 +17,13 @@ function signIn() {
         },
         success: function(data) {
             console.log(data);
-            if (error == "false") {
+            if (data.error == false) {
                 setLocalStorage(USER, "true");
                 setJSONLocalStorage(USER_INFO, data.user);
                 window.location = "index.html";
             } else {
                 setLocalStorage(USER, "false");
             }
-
-            setPersonName();
         },
         error: function(data) {
             console.log(data);

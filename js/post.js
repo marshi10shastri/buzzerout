@@ -33,18 +33,30 @@ function noMediaPost() {
     var inhtml = document.getElementById("posting-box").innerHTML;
     inhtml = ""
     console.log(data);
-    for(let i=0; i<data.length; i++){
-        inhtml += post_template_userimage(data[i].userimage)+
-                 post_template_username(data[i].name)+
-                 post_template_time(data[i].time) + 
-                 post_template_description(data[i].description) + 
-                 post_template_likes(data[i].likes) + 
-                 post_template_comment_no(data[i].commentNo);
+    for (let i = 0; i < data.length; i++) {
+        inhtml += post_template_userimage(data[i].userimage) +
+            post_template_username(data[i].name) +
+            post_template_time(data[i].time) +
+            post_template_description(data[i].description);
 
-        if(data[i].commentNo>0){
-        for(let j=0; j<data[i].commentNo; j++){
-            inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
+        if (data[i].images.length > 0) {
+            if (data[i].images.length == 1) {
+                console.log("one called")
+                inhtml += post_template_image(data[i].images[0]);
+            } else if (data[i].images.length == 2) {
+                console.log("two called")
+                inhtml += post_template_image_two(data[i].images[0], data[i].images[1]);
+            } else if (data[i].images.length == 3) {
+                console.log("three called")
+                inhtml += post_template_image_three(data[i].images[0], data[i].images[1], data[i].images[2]);
+            }
         }
+
+        inhtml += post_template_likes(data[i].likes) + post_template_comment_no(data[i].comments.length);
+        if (data[i].comments.length > 0) {
+            for (let j = 0; j < data[i].comments.length; j++) {
+                inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
+            }
         }
         inhtml += post_template_end()
     }
