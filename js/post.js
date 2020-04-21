@@ -23,54 +23,100 @@ function focusLocation() {
 // }
 
 function createPost() {
-    // ----------------------------------------
-    var link = [];
     var file = document.getElementById('buzz-photo-input').files[0];
+    var resizedImage;
 
-    var formData = new FormData();
-    email = 'raman.10102@gmail.com'
-    formData.append('file', file);
-    formData.append('product', 'buzzerout');
-    formData.append('application', 'buzzerout');
-    formData.append('to', email);
-    formData.append('from', email);
-    formData.append('message', 'My Buzz');
-    $.ajax({
-        type: 'POST',
-        url: 'http://appnivi.com/server/v1/file/fileupload',
-        data: formData,
-        success: function(data) {
-            link.push(data.link);
-            console.log(data.link);
+    // ---------------------------------------
+    if (file.type.match(/image.*/)) {
+        console.log('An image has been loaded');
 
-            // on success
-            var post = [{
-                name: getJSONLocalStorage(USER_INFO).firstname,
-                userimage: getJSONLocalStorage(USER_INFO).userimage,
-                images: link,
-                description: document.getElementById('buzz-post-input').value,
-                time: 'Just Now',
-                likes: 0,
-                comments: [],
-            }];
-            var local_posts = getJSONLocalStorage(POSTS);
-            setJSONLocalStorage(POSTS, post.concat(local_posts));
-            document.getElementById('close-modal').click();
-            fetchPost();
-        },
-        error: function(error) {
-            console.log(error);
-        },
-        cache: false,
-        contentType: false,
-        processData: false
-    });
+        // Load the image
+        var reader = new FileReader();
+        reader.onload = function(readerEvent) {
+            var image = new Image();
+            image.onload = function(imageEvent) {
+
+                // Resize the image
+                var canvas = document.createElement('canvas'),
+                    max_size = 544, // TODO : pull max size from a site config
+                    width = image.width,
+                    height = image.height;
+                if (width > height) {
+                    if (width > max_size) {
+                        console.log("width max")
+                        height *= max_size / width;
+                        width = max_size;
+                    }
+                } else {
+                    if (height > max_size) {
+                        console.log("height max")
+                        width *= max_size / height;
+                        height = max_size;
+                    }
+                }
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+                var dataUrl = canvas.toDataURL('image/jpeg');
+                resizedImage = dataURLToBlob(dataUrl);
+                $.event.trigger({
+                    type: "imageResized",
+                    blob: resizedImage,
+                    url: dataUrl
+                });
+            }
+            image.src = readerEvent.target.result;
+        }
+
+
+        // ----------------------------------------
+        var link = [];
+
+        var formData = new FormData();
+        email = 'raman.10102@gmail.com'
+        formData.append('file', );
+        formData.append('product', 'buzzerout');
+        formData.append('application', 'buzzerout');
+        formData.append('to', email);
+        formData.append('from', email);
+        formData.append('message', 'My Buzz');
+        $.ajax({
+            type: 'POST',
+            url: 'http://appnivi.com/server/v1/file/fileupload',
+            data: formData,
+            success: function(data) {
+                link.push(data.link);
+                console.log(data.link);
+
+                // on success
+                var post = [{
+                    name: getJSONLocalStorage(USER_INFO).first_name,
+                    userimage: getJSONLocalStorage(USER_INFO).userimage,
+                    images: link,
+                    description: document.getElementById('buzz-post-input').value,
+                    time: 'Just Now',
+                    likes: 0,
+                    comments: [],
+                }];
+                var local_posts = getJSONLocalStorage(POSTS);
+                setJSONLocalStorage(POSTS, post.concat(local_posts));
+                document.getElementById('close-modal').click();
+                fetchPost();
+            },
+            error: function(error) {
+                console.log(error);
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
 
 
 
-    // ------------------------------------------
+        // ------------------------------------------
+    }
+
 }
-
 
 function fetchPost() {
     // var buzzText = document.getElementById('buzz-post-input');

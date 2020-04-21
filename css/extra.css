@@ -14,3 +14,11 @@
     top: 0;
     bottom: 0;
 }
+
+#horizontal-profile-box {
+    z-index: 10;
+}
+
+.clickable-icons {
+    z-index: 20;
+}
