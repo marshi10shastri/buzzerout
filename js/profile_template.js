@@ -52,6 +52,8 @@ function profile_template_contactInfo(email,mobileno,address){
 
                         <h4>Contact Information</h4>
 
+                            <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#contactInfoModal"><i class="ri-pencil-line"></i></a></li>
+
                         <hr>
 
                         <div class="row">
@@ -96,6 +98,8 @@ function profile_template_websites(website, social){
     return `
                         <h4 class="mt-3">Websites and Social Links</h4>
 
+                        <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#websiteModal"><i class="ri-pencil-line"></i></a></li>
+
                         <hr>
 
                         <div class="row">
@@ -130,6 +134,7 @@ function profile_template_websites(website, social){
 
 function profile_template_basicInfo(dob, yob, gender, interest, language){
     return                    `<h4 class="mt-3">Basic Information</h4>
+                        <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#basicModal"><i class="ri-pencil-line"></i></a></li>
 
                         <hr>
 
@@ -297,6 +302,7 @@ function profile_template_work(){
                         <h4 class="mb-3">Work</h4>
 
                         <ul class="suggestions-lists m-0 p-0">
+                        <a href="javascript:void();" data-toggle="modal" data-target="#addWorkModal">
 
                             <li class="d-flex mb-4 align-items-center">
 
@@ -308,7 +314,8 @@ function profile_template_work(){
 
                                 </div>
 
-                            </li>`
+                            </li>
+                            </a>`
 }
 
 
@@ -358,6 +365,7 @@ function profile_template_college(){
     return                    `<h4 class="mt-3 mb-3">College</h4>
 
                         <ul class="suggestions-lists m-0 p-0">
+                        <a href="javascript:void();" data-toggle="modal" data-target="#addCollegeModal">
 
                             <li class="d-flex mb-4 align-items-center">
 
@@ -369,7 +377,8 @@ function profile_template_college(){
 
                                 </div>
 
-                            </li>`
+                            </li>
+                        </a>`
 }
 
 
@@ -431,6 +440,7 @@ function profile_template_place_extra(){
                         <h4 class="mt-3 mb-3">Other Places Lived</h4>
 
                         <ul class="suggestions-lists m-0 p-0">
+                        <a href="javascript:void();" data-toggle="modal" data-target="#addPlaceModal">
 
                             <li class="d-flex mb-4 align-items-center">
 
@@ -443,7 +453,7 @@ function profile_template_place_extra(){
                                 </div>
 
                             </li>
-
+                        </a>
                         </ul>
 
                     </div>`
@@ -453,6 +463,7 @@ function profile_template_about(about, otherName, favQuote){
     return          `<div class="tab-pane fade" id="details" role="tabpanel">
 
                         <h4 class="mb-3">About You</h4>
+                        <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#editDetailsModal"><i class="ri-pencil-line"></i></a></li>
 
                         <p>`+ about +`</p>
 

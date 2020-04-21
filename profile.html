@@ -9249,6 +9249,311 @@
 
                 <div class="modal-body">
 
+                    <div class="form-group row">
+
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="fNameInput">First Name:</label>
+
+                        <div class="col-sm-10">
+
+                           <input type="text" class="form-control" id="fNameInput" placeholder="First Name">
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="lNameInput">Last Name:</label>
+
+                        <div class="col-sm-10">
+
+                           <input type="text" class="form-control" id="lNameInput" placeholder="Last Name">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editName()">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- contact info modal -->
+    <div id="contactInfoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-row">
+
+                        <div class="col">
+
+                           <input type="text" id="mobileInput" class="form-control" placeholder="Mobile">
+
+                        </div>
+
+                        <div class="col">
+
+                           <input type="text" id="addressInput" class="form-control" placeholder="Address">
+
+                        </div>
+
+                     </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editContactInfo()">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- website/social modal -->
+    <div id="websiteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-row">
+
+                        <div class="col">
+
+                           <input type="text" id="websiteInput" class="form-control" placeholder="Website">
+
+                        </div>
+
+                        <div class="col">
+
+                           <input type="text" id="socialInput" class="form-control" placeholder="Social">
+
+                        </div>
+
+                     </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editWebsite()">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- basic info modal -->
+    <div id="basicModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group row">
+
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="inputDob">Birth Date:</label>
+
+                        <div class="col-sm-10">
+
+                           <input type="text" class="form-control" id="inputDob" placeholder="Date and Month">
+
+                        </div>
+
+                    </div>
+                     <div class="form-group row">
+
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="yearInput">Birth Year:</label>
+
+                        <div class="col-sm-10">
+
+                           <input type="text" class="form-control" id="yearInput" placeholder="Birth Year">
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="control-label col-sm-2 align-self-center mb-0">Gender:</label>
+
+                        <div class="form-group">
+
+                            <div class="custom-control custom-radio custom-control-inline">
+
+                               <input type="radio" id="maleRadio" name="customRadio1" class="custom-control-input">
+
+                               <label class="custom-control-label" for="maleRadio"> Male</label>
+
+                            </div>
+
+                            <div class="custom-control custom-radio custom-control-inline">
+
+                               <input type="radio" id="femaleRadio" name="customRadio1" class="custom-control-input">
+
+                               <label class="custom-control-label" for="femaleRadio"> Female</label>
+
+                            </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="interestInput">Interested In:</label>
+
+                        <div class="col-sm-10">
+
+                           <input type="text" class="form-control" id="interestInput" placeholder="Interest">
+
+                        </div>
+
+                     </div>
+                     <div class="form-group row">
+
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="languageInput">Interested In:</label>
+
+                        <div class="col-sm-10">
+
+                           <input type="text" class="form-control" id="languageInput" placeholder="Language">
+
+                        </div>
+
+                     </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editBasic()">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- add work modal -->
+    <div id="addWorkModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-row">
+
+                        <div class="col">
+
+                           <input type="text" class="form-control" placeholder="Work Place" id="workPlaceInput">
+
+                        </div>
+
+                        <div class="col">
+
+                           <input type="text" class="form-control" placeholder="Work Profile" id="workProfileInput">
+
+                        </div>
+
+                     </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addWork()">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- edit work modal -->
+    <div id="editWorkModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+
                     <div class="iq-example-row">
 
                         <div class="container-fluid">
@@ -9321,6 +9626,346 @@
 
     </div>
 
+    <!-- add college modal -->
+    <div id="addCollegeModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-row">
+
+                        <div class="col">
+
+                           <input type="text" class="form-control" placeholder="College Name" id="collegeNameInput">
+
+                        </div>
+
+                        <div class="col">
+
+                           <input type="text" class="form-control" placeholder="College Place" id="collegePlaceInput">
+
+                        </div>
+
+                     </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addCollege()">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- edit college modal -->
+    <div id="editCollegeModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="iq-example-row">
+
+                        <div class="container-fluid">
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-4">.col-md-4</div>
+
+                                <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
+
+                            </div>
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
+
+                                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
+
+                            </div>
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-9">
+
+                                    Level 1: .col-sm-9
+
+                                    <div class="row">
+
+                                        <div class="col-8 col-sm-6">
+
+                                            Level 2: .col-8 .col-sm-6
+
+                                        </div>
+
+                                        <div class="col-4 col-sm-6">
+
+                                            Level 2: .col-4 .col-sm-6
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- add place modal -->
+    <div id="addPlaceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-row">
+
+                        <div class="col">
+
+                           <input type="text" class="form-control" placeholder="Place Name" id="cityNameInput">
+
+                        </div>
+
+                        <div class="col">
+
+                           <input type="text" class="form-control" placeholder="Place State" id="cityStateInput">
+
+                        </div>
+
+                     </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addCity()">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- edit place modal -->
+    <div id="editPlaceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="iq-example-row">
+
+                        <div class="container-fluid">
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-4">.col-md-4</div>
+
+                                <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
+
+                            </div>
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
+
+                                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
+
+                            </div>
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-9">
+
+                                    Level 1: .col-sm-9
+
+                                    <div class="row">
+
+                                        <div class="col-8 col-sm-6">
+
+                                            Level 2: .col-8 .col-sm-6
+
+                                        </div>
+
+                                        <div class="col-4 col-sm-6">
+
+                                            Level 2: .col-4 .col-sm-6
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- edit details modal -->
+    <div id="editDetailsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group row">
+
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="aboutInput">About You:</label>
+
+                        <div class="col-sm-10">
+
+                           <input type="text" class="form-control" id="aboutInput" placeholder="About">
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="otherNameInput">Other Name:</label>
+
+                        <div class="col-sm-10">
+
+                           <input type="text" class="form-control" id="otherNameInput" placeholder="Other Name">
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="quoteInput">Favourite Quotes</label>
+
+                        <textarea class="form-control" id="quoteInput" rows="3"></textarea>
+
+                     </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editDetails()">Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
     <!-- MODAL END -->

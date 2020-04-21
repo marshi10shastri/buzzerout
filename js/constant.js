@@ -16,7 +16,7 @@ const DUMMY_USER = {
     language:'English',
     work:[{workPlace:'Appnivi', workProfile:'Web Developer'}, {workPlace:'Microsoft', workProfile:'Game Developer'}],
     city:[{placeName:'Pauri', placeState:'Uttarakhand'},{placeName:'Premnagar', placeState:'Dehradun'}],
-    college:{collegeName:'GB Pant', collegePlace:'Pauri'},
+    college:[{collegeName:'GB Pant', collegePlace:'Pauri'},],
     about:'Hi, I’m Bni, I’m 26 and I work as a Web Designer for the iqonicdesign.',
     otherName:'Roman',
     favQuote:'I tried so hard and thats so far but in the end everything mattered.',
