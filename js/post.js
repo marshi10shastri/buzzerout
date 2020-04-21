@@ -5,21 +5,38 @@ function focusLocation() {
 }
 
 
-function createBuzz() {
-    var buzzVideo = document.getElementById('buzz-video-input').files;
-    var buzzPhoto = document.getElementById('buzz-photo-input').files;
-    if (buzzPhoto.length == 0 && buzzVideo.length == 0) {
-        console.log("no photo");
-        noMediaPost();
-    }
-    if (buzzPhoto.length != 0) {
-        console.log("photo wala");
-        photoPost();
-    }
-    if (buzzVideo != 0) {
-        videoPost();
-    }
+// function createBuzz() {
+//     var buzzVideo = document.getElementById('buzz-video-input').files;
+//     var buzzPhoto = document.getElementById('buzz-photo-input').files;
+//     if (buzzPhoto.length == 0 && buzzVideo.length == 0) {
+//         console.log("no photo");
+//         noMediaPost();
+//     }
+//     if (buzzPhoto.length != 0) {
+//         console.log("photo wala");
+//         photoPost();
+//     }
+//     if (buzzVideo != 0) {
+//         videoPost();
+//     }
 
+// }
+
+function createPost(){
+    console.log(document.getElementById('buzz-photo-input').value);
+    var post = [{
+        name: getJSONLocalStorage(USER_INFO).firstname,
+        userimage: getJSONLocalStorage(USER_INFO).userimage,
+        images: document.getElementById('buzz-photo-input').value,
+        description:document.getElementById('buzz-post-input').value,
+        time:'Just Now',
+        likes:0,
+        comments:[],
+    }];
+    var local_posts = getJSONLocalStorage(POSTS);
+    setJSONLocalStorage(POSTS, post.concat(local_posts));
+    document.getElementById('close-modal').click();
+    fetchPost();
 }
 
 
@@ -30,6 +47,7 @@ function fetchPost() {
 
     // fetchDataFrom JSON();
 
+    var data = getJSONLocalStorage(POSTS);
     var inhtml = document.getElementById("posting-box").innerHTML;
     inhtml = ""
     console.log(data);
@@ -96,42 +114,42 @@ function fetchPost() {
     // });
 }
 
-function photoPost() {
-    var buzzPhoto = document.getElementById('buzz-photo-input').files[0];
-    $.ajax({
-        type: 'POST',
-        url: '',
-        data: {
-            feedId: 1234,
-            img: buzzPhoto,
-        },
+// function photoPost() {
+//     var buzzPhoto = document.getElementById('buzz-photo-input').files[0];
+//     $.ajax({
+//         type: 'POST',
+//         url: '',
+//         data: {
+//             feedId: 1234,
+//             img: buzzPhoto,
+//         },
 
-        success: function(data) {
-            console.log(data);
-        },
+//         success: function(data) {
+//             console.log(data);
+//         },
 
-        error: function(data) {
-            console.log(data);
-        }
-    });
-}
+//         error: function(data) {
+//             console.log(data);
+//         }
+//     });
+// }
 
-function videoPost() {
-    var buzzVideo = document.getElementById('buzz-video-input').files[0];
-    $.ajax({
-        type: 'POST',
-        url: '',
-        data: {
-            feedId: 1234,
-            video: buzzVideo,
-        },
+// function videoPost() {
+//     var buzzVideo = document.getElementById('buzz-video-input').files[0];
+//     $.ajax({
+//         type: 'POST',
+//         url: '',
+//         data: {
+//             feedId: 1234,
+//             video: buzzVideo,
+//         },
 
-        success: function(data) {
-            console.log(data);
-        },
+//         success: function(data) {
+//             console.log(data);
+//         },
 
-        error: function(data) {
-            console.log(data);
-        }
-    });
-}
+//         error: function(data) {
+//             console.log(data);
+//         }
+//     });
+// }
