@@ -22,21 +22,53 @@ function focusLocation() {
 
 // }
 
-function createPost(){
-    console.log(document.getElementById('buzz-photo-input').value);
-    var post = [{
-        name: getJSONLocalStorage(USER_INFO).firstname,
-        userimage: getJSONLocalStorage(USER_INFO).userimage,
-        images: document.getElementById('buzz-photo-input').value,
-        description:document.getElementById('buzz-post-input').value,
-        time:'Just Now',
-        likes:0,
-        comments:[],
-    }];
-    var local_posts = getJSONLocalStorage(POSTS);
-    setJSONLocalStorage(POSTS, post.concat(local_posts));
-    document.getElementById('close-modal').click();
-    fetchPost();
+function createPost() {
+    // ----------------------------------------
+    var link = [];
+    var file = document.getElementById('buzz-photo-input').files[0];
+
+    var formData = new FormData();
+    email = 'raman.10102@gmail.com'
+    formData.append('file', file);
+    formData.append('product', 'buzzerout');
+    formData.append('application', 'buzzerout');
+    formData.append('to', email);
+    formData.append('from', email);
+    formData.append('message', 'My Buzz');
+    $.ajax({
+        type: 'POST',
+        url: 'http://appnivi.com/server/v1/file/fileupload',
+        data: formData,
+        success: function(data) {
+            link.push(data.link);
+            console.log(data.link);
+
+            // on success
+            var post = [{
+                name: getJSONLocalStorage(USER_INFO).firstname,
+                userimage: getJSONLocalStorage(USER_INFO).userimage,
+                images: link,
+                description: document.getElementById('buzz-post-input').value,
+                time: 'Just Now',
+                likes: 0,
+                comments: [],
+            }];
+            var local_posts = getJSONLocalStorage(POSTS);
+            setJSONLocalStorage(POSTS, post.concat(local_posts));
+            document.getElementById('close-modal').click();
+            fetchPost();
+        },
+        error: function(error) {
+            console.log(error);
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+
+
+
+    // ------------------------------------------
 }
 
 
