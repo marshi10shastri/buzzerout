@@ -24,19 +24,19 @@ function profile_template_contactInfo(email, mobileno, address) {
 
                     <li>
 
-                        <a class="nav-link" data-toggle="pill" href="#work">Work and Education</a>
+                        <a class="nav-link" data-toggle="pill" href="#work" id="workLink">Work and Education</a>
 
                     </li>
 
                     <li>
 
-                        <a class="nav-link" data-toggle="pill" href="#lived">Places You've Lived</a>
+                        <a class="nav-link" data-toggle="pill" href="#lived" id="placeLink">Places You've Lived</a>
 
                     </li>
 
                     <li>
 
-                        <a class="nav-link" data-toggle="pill" href="#details">Details About You</a>
+                        <a class="nav-link" data-toggle="pill" href="#details" id="detailsLink">Details About You</a>
 
                     </li>
 
@@ -50,9 +50,7 @@ function profile_template_contactInfo(email, mobileno, address) {
 
                     <div class="tab-pane fade active show" id="basicinfo" role="tabpanel">
 
-                        <h4>Contact Information</h4>
-
-                            <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#contactInfoModal"><i class="ri-pencil-line"></i></a></li>
+                        <h4>Contact Information <a href="javascript:void();" data-toggle="modal" data-target="#contactInfoModal"><i class="ri-pencil-line clickable-icons"></i></a></h4> 
 
                         <hr>
 
@@ -96,9 +94,7 @@ function profile_template_contactInfo(email, mobileno, address) {
 
 function profile_template_websites(website, social) {
     return `
-                        <h4 class="mt-3">Websites and Social Links</h4>
-
-                        <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#websiteModal"><i class="ri-pencil-line"></i></a></li>
+                        <h4 class="mt-3">Websites and Social Links <a href="javascript:void();" data-toggle="modal" data-target="#websiteModal"><i class="ri-pencil-line clickable-icons"></i></a></h4>
 
                         <hr>
 
@@ -133,8 +129,8 @@ function profile_template_websites(website, social) {
 
 
 function profile_template_basicInfo(dob, yob, gender, interest, language) {
-    return `<h4 class="mt-3">Basic Information</h4>
-                        <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#basicModal"><i class="ri-pencil-line"></i></a></li>
+    return `<h4 class="mt-3">Basic Information <a href="javascript:void();" data-toggle="modal" data-target="#basicModal"><i class="ri-pencil-line clickable-icons"></i></a></h4>
+                        
 
                         <hr>
 
@@ -462,9 +458,7 @@ function profile_template_place_extra() {
 function profile_template_about(about, otherName, favQuote) {
     return `<div class="tab-pane fade" id="details" role="tabpanel">
 
-                        <h4 class="mb-3">About You</h4>
-                        <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#editDetailsModal"><i class="ri-pencil-line"></i></a></li>
-
+                        <h4 class="mb-3">About You <a href="javascript:void();" data-toggle="modal" data-target="#editDetailsModal"><i class="ri-pencil-line clickable-icons"></i></a></h4>
                         <p>` + about + `</p>
 
                         <h4 class="mt-3 mb-3">Other Name</h4>
