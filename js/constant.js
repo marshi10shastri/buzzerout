@@ -27,3 +27,7 @@ const DUMMY_USER = {
 const USER_INFO = "user_info"
 const USER = "user"
 const POSTS = "posts"
+const CURR_AP = "current_active_place"
+const CURR_AC = "current_active_college"
+const CURR_AW = "current_active_work"
+const T_POSTS = "timeline_posts"

@@ -315,7 +315,7 @@ function profile_template_work() {
 }
 
 
-function profile_template_addWork(workPlace, workProfile) {
+function profile_template_addWork(workPlace, workProfile, i) {
     return `<li class="d-flex mb-4 align-items-center">
 
                                 <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
@@ -327,8 +327,7 @@ function profile_template_addWork(workPlace, workProfile) {
                                     <p class="mb-0">` + workProfile + `</p>
 
                                 </div>
-
-                                <div class="edit-relation"><a href="javascript:void();"><i class="ri-edit-line mr-2"></i>Edit</a></div>
+                                <div class="edit-relation" id="work`+ i + `" onClick="reply_click_work(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editWorkModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
 
                             </li>`
 }
@@ -378,7 +377,7 @@ function profile_template_college() {
 }
 
 
-function profile_template_addCollege(collegeName, collegePlace) {
+function profile_template_addCollege(collegeName, collegePlace, i) {
     return `<li class="d-flex mb-4 align-items-center">
 
                                 <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
@@ -391,7 +390,7 @@ function profile_template_addCollege(collegeName, collegePlace) {
 
                                 </div>
 
-                                <div class="edit-relation"><a href="javascript:void();"><i class="ri-edit-line mr-2"></i>Edit</a></div>
+                                <div class="edit-relation" id="college`+i+`" onClick="reply_click_college(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editCollegeModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
 
                             </li>`
 }
@@ -410,7 +409,7 @@ function profile_template_city() {
 }
 
 
-function profile_template_addCity(placeName, placeState) {
+function profile_template_addCity(placeName, placeState, i) {
     return `<li class="d-flex mb-4 align-items-center">
 
                                 <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
@@ -423,7 +422,7 @@ function profile_template_addCity(placeName, placeState) {
 
                                 </div>
 
-                                <div class="edit-relation"><a href="javascript:void();"><i class="ri-edit-line mr-2"></i>Edit</a></div>
+                                <div class="edit-relation" id="city`+i+`" onClick="reply_click_city(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
 
                             </li>`
 }
