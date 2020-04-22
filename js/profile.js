@@ -47,7 +47,7 @@ function showProfile(){
 }
 
 
-
+// edit profile
 function editContactInfo(){
     let user = getJSONLocalStorage(USER_INFO);
     user.mobile = document.getElementById('mobileInput').value;
