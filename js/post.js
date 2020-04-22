@@ -74,7 +74,7 @@ function createPost() {
 
         var formData = new FormData();
         email = 'raman.10102@gmail.com'
-        formData.append('file',file);
+        formData.append('file', file);
         formData.append('product', 'buzzerout');
         formData.append('application', 'buzzerout');
         formData.append('to', email);
@@ -88,20 +88,37 @@ function createPost() {
                 link.push(data.link);
                 console.log(data.link);
 
+                let user_name = getJSONLocalStorage(USER_INFO).username;
+                let desc = document.getElementById('buzz-post-input').value;
                 // on success
-                var post = [{
-                    name: getJSONLocalStorage(USER_INFO).first_name,
-                    userimage: getJSONLocalStorage(USER_INFO).userimage,
-                    images: link,
-                    description: document.getElementById('buzz-post-input').value,
-                    time: 'Just Now',
-                    likes: 0,
-                    comments: [],
-                }];
-                var local_posts = getJSONLocalStorage(POSTS);
-                setJSONLocalStorage(POSTS, post.concat(local_posts));
-                document.getElementById('close-modal').click();
-                fetchPost();
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed',
+                    data: {
+                        username: user_name,
+                        title: 'title',
+                        description: desc,
+                        location: 'abc'
+                    },
+                    success: function(data) {
+                        var post = [{
+                            name: getJSONLocalStorage(USER_INFO).first_name,
+                            userimage: getJSONLocalStorage(USER_INFO).userimage,
+                            images: link,
+                            description: desc,
+                            time: 'Just Now',
+                            likes: 0,
+                            comments: [],
+                        }];
+                        var local_posts = getJSONLocalStorage(POSTS);
+                        setJSONLocalStorage(POSTS, post.concat(local_posts));
+                        document.getElementById('close-modal').click();
+                        fetchPost();
+                    },
+                    error: function(response) {
+                        console.log(response)
+                    }
+                });
             },
             error: function(error) {
                 console.log(error);
@@ -147,7 +164,7 @@ function fetchPost() {
 
                 <div class="user-img">
 
-                    <img id="post-write-userimage" src=`+ user.userimage +` alt="userimg" class="avatar-60 rounded-circle">
+                    <img id="post-write-userimage" src=` + user.userimage + ` alt="userimg" class="avatar-60 rounded-circle">
 
                 </div>
 
@@ -228,7 +245,7 @@ function fetchPost() {
 
                             <div class="user-img">
 
-                                <img id="post-write-userimage-inside" src=`+ user.userimage +` alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                                <img id="post-write-userimage-inside" src=` + user.userimage + ` alt="userimg" class="avatar-60 rounded-circle img-fluid">
 
                             </div>
 
@@ -326,7 +343,7 @@ function fetchPost() {
 
                                     <div class="user-img mr-3">
 
-                                        <img id="post-userimage-story" src=`+ user.userimage +` alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                                        <img id="post-userimage-story" src=` + user.userimage + ` alt="userimg" class="avatar-60 rounded-circle img-fluid">
 
                                     </div>
 

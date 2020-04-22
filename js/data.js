@@ -73,11 +73,13 @@ var DATA = [{
         comments: [{
             commentImg: "images/user/02.jpg",
             commentUser: "Monty Carlo",
-            commentText: "Lorem ipsum dolor sit amet"
+            commentText: "Lorem ipsum dolor sit amet",
+            timestamp: ""
         }, {
             commentImg: "images/user/03.jpg",
             commentUser: "Paul Molive",
-            commentText: "Lorem ipsum dolor sit amet"
+            commentText: "Lorem ipsum dolor sit amet",
+            timestamp: ""
         }],
         buzz_upvoted: true,
         buzz_followed: true,

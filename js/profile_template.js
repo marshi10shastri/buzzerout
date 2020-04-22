@@ -1,4 +1,4 @@
-function profile_template_contactInfo(email,mobileno,address){
+function profile_template_contactInfo(email, mobileno, address) {
     return `
 <div class="iq-card">
 
@@ -69,7 +69,7 @@ function profile_template_contactInfo(email,mobileno,address){
                                 <p class="mb-0">` + email + `</p>
 
                             </div>` +
-                            `<div class="col-3">
+        `<div class="col-3">
 
                                 <h6>Mobile</h6>
 
@@ -77,10 +77,10 @@ function profile_template_contactInfo(email,mobileno,address){
 
                             <div class="col-9">
 
-                                <p class="mb-0">`+ mobileno +`</p>
+                                <p class="mb-0">` + mobileno + `</p>
 
-                            </div>`+
-                            `<div class="col-3">
+                            </div>` +
+        `<div class="col-3">
 
                                 <h6>Address</h6>
 
@@ -88,13 +88,13 @@ function profile_template_contactInfo(email,mobileno,address){
 
                             <div class="col-9">
 
-                                <p class="mb-0">`+ address + `</p>
+                                <p class="mb-0">` + address + `</p>
 
                             </div></div>`
 }
 
 
-function profile_template_websites(website, social){
+function profile_template_websites(website, social) {
     return `
                         <h4 class="mt-3">Websites and Social Links</h4>
 
@@ -112,7 +112,7 @@ function profile_template_websites(website, social){
 
                             <div class="col-9">
 
-                                <p class="mb-0">`+ website +`</p>
+                                <p class="mb-0">` + website + `</p>
 
                             </div>
 
@@ -124,7 +124,7 @@ function profile_template_websites(website, social){
 
                             <div class="col-9">
 
-                                <p class="mb-0">`+ social +`</p>
+                                <p class="mb-0">` + social + `</p>
 
                             </div>
 
@@ -132,8 +132,8 @@ function profile_template_websites(website, social){
 }
 
 
-function profile_template_basicInfo(dob, yob, gender, interest, language){
-    return                    `<h4 class="mt-3">Basic Information</h4>
+function profile_template_basicInfo(dob, yob, gender, interest, language) {
+    return `<h4 class="mt-3">Basic Information</h4>
                         <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#basicModal"><i class="ri-pencil-line"></i></a></li>
 
                         <hr>
@@ -148,7 +148,7 @@ function profile_template_basicInfo(dob, yob, gender, interest, language){
 
                             <div class="col-9">
 
-                                <p class="mb-0">`+ dob +`</p>
+                                <p class="mb-0">` + dob + `</p>
 
                             </div>
 
@@ -160,7 +160,7 @@ function profile_template_basicInfo(dob, yob, gender, interest, language){
 
                             <div class="col-9">
 
-                                <p class="mb-0">`+ yob +`</p>
+                                <p class="mb-0">` + yob + `</p>
 
                             </div>
 
@@ -172,11 +172,11 @@ function profile_template_basicInfo(dob, yob, gender, interest, language){
 
                             <div class="col-9">
 
-                                <p class="mb-0">`+ gender +`</p>
+                                <p class="mb-0">` + gender + `</p>
 
                             </div>
 
-                            <div class="col-3">
+                            <!-- <div class="col-3">
 
                                 <h6>interested in</h6>
 
@@ -184,7 +184,7 @@ function profile_template_basicInfo(dob, yob, gender, interest, language){
 
                             <div class="col-9">
 
-                                <p class="mb-0">`+ interest +`</p>
+                                <p class="mb-0">` + interest + `</p>
 
                             </div>
 
@@ -196,9 +196,9 @@ function profile_template_basicInfo(dob, yob, gender, interest, language){
 
                             <div class="col-9">
 
-                                <p class="mb-0">`+ language +`</p>
+                                <p class="mb-0">` + language + `</p>
 
-                            </div>
+                            </div>-->
 
                         </div>
 
@@ -206,7 +206,7 @@ function profile_template_basicInfo(dob, yob, gender, interest, language){
 }
 
 
-function profile_family(){
+function profile_family() {
     return `<div class="tab-pane fade" id="family" role="tabpanel">
 
                         <h4 class="mb-3">Relationship</h4>
@@ -296,8 +296,8 @@ function profile_family(){
                     </div>`
 }
 
-function profile_template_work(){
-    return                `<div class="tab-pane fade" id="work" role="tabpanel">
+function profile_template_work() {
+    return `<div class="tab-pane fade" id="work" role="tabpanel">
 
                         <h4 class="mb-3">Work</h4>
 
@@ -319,16 +319,16 @@ function profile_template_work(){
 }
 
 
-function profile_template_addWork(workPlace, workProfile){
-    return                        `<li class="d-flex mb-4 align-items-center">
+function profile_template_addWork(workPlace, workProfile) {
+    return `<li class="d-flex mb-4 align-items-center">
 
                                 <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
 
                                 <div class="media-support-info ml-3">
 
-                                    <h6>`+ workPlace + `</h6>
+                                    <h6>` + workPlace + `</h6>
 
-                                    <p class="mb-0">`+ workProfile +`</p>
+                                    <p class="mb-0">` + workProfile + `</p>
 
                                 </div>
 
@@ -338,8 +338,8 @@ function profile_template_addWork(workPlace, workProfile){
 }
 
 
-function profile_template_professional_skill(){
-    return                    `</ul>
+function profile_template_professional_skill() {
+    return `</ul>
 
                         <h4 class="mb-3">Professional Skills</h4>
 
@@ -361,8 +361,8 @@ function profile_template_professional_skill(){
 }
 
 
-function profile_template_college(){
-    return                    `<h4 class="mt-3 mb-3">College</h4>
+function profile_template_college() {
+    return `<h4 class="mt-3 mb-3">College</h4>
 
                         <ul class="suggestions-lists m-0 p-0">
                         <a href="javascript:void();" data-toggle="modal" data-target="#addCollegeModal">
@@ -382,16 +382,16 @@ function profile_template_college(){
 }
 
 
-function profile_template_addCollege(collegeName, collegePlace){
-    return                        `<li class="d-flex mb-4 align-items-center">
+function profile_template_addCollege(collegeName, collegePlace) {
+    return `<li class="d-flex mb-4 align-items-center">
 
                                 <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
 
                                 <div class="media-support-info ml-3">
 
-                                    <h6>`+ collegeName +`</h6>
+                                    <h6>` + collegeName + `</h6>
 
-                                    <p class="mb-0">`+ collegePlace +`</p>
+                                    <p class="mb-0">` + collegePlace + `</p>
 
                                 </div>
 
@@ -401,8 +401,8 @@ function profile_template_addCollege(collegeName, collegePlace){
 }
 
 
-function profile_template_city(){
-    return               `</ul>
+function profile_template_city() {
+    return `</ul>
 
                     </div>
 
@@ -414,16 +414,16 @@ function profile_template_city(){
 }
 
 
-function profile_template_addCity(placeName, placeState){
-    return                    `<li class="d-flex mb-4 align-items-center">
+function profile_template_addCity(placeName, placeState) {
+    return `<li class="d-flex mb-4 align-items-center">
 
                                 <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
 
                                 <div class="media-support-info ml-3">
 
-                                    <h6>`+ placeName +`</h6>
+                                    <h6>` + placeName + `</h6>
 
-                                    <p class="mb-0">`+ placeState +`</p>
+                                    <p class="mb-0">` + placeState + `</p>
 
                                 </div>
 
@@ -434,8 +434,8 @@ function profile_template_addCity(placeName, placeState){
 
 
 
-function profile_template_place_extra(){
-    return                `</ul>
+function profile_template_place_extra() {
+    return `</ul>
 
                         <h4 class="mt-3 mb-3">Other Places Lived</h4>
 
@@ -459,21 +459,21 @@ function profile_template_place_extra(){
                     </div>`
 }
 
-function profile_template_about(about, otherName, favQuote){
-    return          `<div class="tab-pane fade" id="details" role="tabpanel">
+function profile_template_about(about, otherName, favQuote) {
+    return `<div class="tab-pane fade" id="details" role="tabpanel">
 
                         <h4 class="mb-3">About You</h4>
                         <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#editDetailsModal"><i class="ri-pencil-line"></i></a></li>
 
-                        <p>`+ about +`</p>
+                        <p>` + about + `</p>
 
                         <h4 class="mt-3 mb-3">Other Name</h4>
 
-                        <p>`+ otherName +`</p>
+                        <p>` + otherName + `</p>
 
                         <h4 class="mt-3 mb-3">Favorite Quotes</h4>
 
-                        <p>`+ favQuote +`</p>
+                        <p>` + favQuote + `</p>
 
                     </div>
 
