@@ -133,7 +133,7 @@ function fetchPost() {
         inhtml += post_template_userimage(data[i].userimage) +
             post_template_username(data[i].name) +
             post_template_time(data[i].time) +
-            post_template_description(data[i].description);
+            post_template_description(data[i].description, data[i].buzz_followed);
 
         if (data[i].images.length > 0) {
             if (data[i].images.length == 1) {
@@ -147,7 +147,7 @@ function fetchPost() {
             }
         }
 
-        inhtml += post_template_likes(data[i].likes) + post_template_comment_no(data[i].comments.length);
+        inhtml += post_template_likes(data[i].likes, data[i].buzz_upvoted) + post_template_comment_no(data[i].comments.length);
         if (data[i].comments.length > 0) {
             for (let j = 0; j < data[i].comments.length; j++) {
                 inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
@@ -156,10 +156,6 @@ function fetchPost() {
         inhtml += post_template_end()
     }
     document.getElementById("posting-box").innerHTML = inhtml;
-
-
-
-
 
     // var div = document.getElementById("posting-box");
     // let text = div.innerHTML;
@@ -192,42 +188,19 @@ function fetchPost() {
     // });
 }
 
-// function photoPost() {
-//     var buzzPhoto = document.getElementById('buzz-photo-input').files[0];
-//     $.ajax({
-//         type: 'POST',
-//         url: '',
-//         data: {
-//             feedId: 1234,
-//             img: buzzPhoto,
-//         },
+function upvoteBuzzByFeedId() {
+    // highlight icon as upvoted
 
-//         success: function(data) {
-//             console.log(data);
-//         },
+}
 
-//         error: function(data) {
-//             console.log(data);
-//         }
-//     });
-// }
+function downvoteBuzzByFeedId() {
+    // highlight icon as downvoted
+}
 
-// function videoPost() {
-//     var buzzVideo = document.getElementById('buzz-video-input').files[0];
-//     $.ajax({
-//         type: 'POST',
-//         url: '',
-//         data: {
-//             feedId: 1234,
-//             video: buzzVideo,
-//         },
+function followBuzzByFeedId() {
+    // highlight text as followed
+}
 
-//         success: function(data) {
-//             console.log(data);
-//         },
-
-//         error: function(data) {
-//             console.log(data);
-//         }
-//     });
-// }
+function unfollowBuzzByFeedId() {
+    // change text as unfollowed
+}

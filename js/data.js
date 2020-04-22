@@ -59,6 +59,7 @@
 
 
 var DATA = [{
+        feedid: "post1",
         name: "Anna Sthesia",
         userimage: 'images/user/01.jpg',
         images: [
@@ -77,9 +78,13 @@ var DATA = [{
             commentImg: "images/user/03.jpg",
             commentUser: "Paul Molive",
             commentText: "Lorem ipsum dolor sit amet"
-        }]
+        }],
+        buzz_upvoted: true,
+        buzz_followed: true,
+        buzz_shared: false
     },
     {
+        feedid: "post2",
         name: "Barb Ackue",
         userimage: 'images/user/03.jpg',
         images: [
@@ -96,9 +101,13 @@ var DATA = [{
             commentImg: "images/user/03.jpg",
             commentUser: "Paul Molive",
             commentText: "Lorem ipsum dolor sit amet"
-        }]
+        }],
+        buzz_upvoted: true,
+        buzz_followed: true,
+        buzz_shared: false
     },
     {
+        feedid: "post3",
         name: "Ira Membrit",
         userimage: 'images/user/04.jpg',
         images: [],
@@ -113,9 +122,13 @@ var DATA = [{
             commentImg: "images/user/03.jpg",
             commentUser: "Paul Molive",
             commentText: "Lorem ipsum dolor sit amet"
-        }]
+        }],
+        buzz_upvoted: true,
+        buzz_followed: false,
+        buzz_shared: false
     },
     {
+        feedid: "post4",
         name: "Bni Cyst",
         userimage: 'images/user/1.jpg',
         images: ["images/page-img/p5.jpg"],
@@ -130,9 +143,13 @@ var DATA = [{
             commentImg: "images/user/03.jpg",
             commentUser: "Paul Molive",
             commentText: "Lorem ipsum dolor sit amet"
-        }]
+        }],
+        buzz_upvoted: false,
+        buzz_followed: true,
+        buzz_shared: true
     },
     {
+        feedid: "post5",
         name: "Paige Turner",
         userimage: 'images/user/02.jpg',
         images: [],
@@ -147,6 +164,9 @@ var DATA = [{
             commentImg: "images/user/03.jpg",
             commentUser: "Paul Molive",
             commentText: "Lorem ipsum dolor sit amet"
-        }]
+        }],
+        buzz_upvoted: true,
+        buzz_followed: true,
+        buzz_shared: false
     }
 ]

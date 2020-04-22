@@ -26,8 +26,9 @@ function post_template_time(timeh) {
             '
 }
 
-function post_template_description(desc) {
-    return '</div>\
+function post_template_description(desc, is_followed) {
+    if (is_followed) {
+        return '</div>\
             <div class="iq-card-post-toolbar">\
             <div class="dropdown">\
             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
@@ -58,6 +59,59 @@ function post_template_description(desc) {
                         <div class="data ml-2">\
                             <h6>Unfollow User</h6>\
                             <p class="mb-0">Stop seeing posts but stay friends.</p>\
+                        </div>\
+                    </div>\
+                </a>\
+                <a class="dropdown-item p-3" href="#">\
+                    <div class="d-flex align-items-top">\
+                        <div class="icon font-size-20"><i class="ri-notification-line"></i></div>\
+                        <div class="data ml-2">\
+                            <h6>Notifications</h6>\
+                            <p class="mb-0">Turn on notifications for this post</p>\
+                        </div>\
+                    </div>\
+                </a>\
+            </div>\
+            </div>\
+            </div>\
+            </div>\
+            </div>\
+            <div class="mt-3">\
+            <p>' + desc + '</p>\
+            </div>\
+            '
+    }
+    return '</div>\
+            <div class="iq-card-post-toolbar">\
+            <div class="dropdown">\
+            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+            <i class="ri-more-fill"></i>\
+            </span>\
+            <div class="dropdown-menu m-0 p-0">\
+                <a class="dropdown-item p-3" href="#">\
+                    <div class="d-flex align-items-top">\
+                        <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
+                        <div class="data ml-2">\
+                            <h6>Save Post</h6>\
+                            <p class="mb-0">Add this to your saved items</p>\
+                        </div>\
+                    </div>\
+                </a>\
+                <a class="dropdown-item p-3" href="#">\
+                    <div class="d-flex align-items-top">\
+                        <div class="icon font-size-20"><i class="ri-close-circle-line"></i></div>\
+                        <div class="data ml-2">\
+                            <h6>Hide Post</h6>\
+                            <p class="mb-0">See fewer posts like this.</p>\
+                        </div>\
+                    </div>\
+                </a>\
+                <a class="dropdown-item p-3" href="#">\
+                    <div class="d-flex align-items-top">\
+                        <div class="icon font-size-20"><i class="ri-user-unfollow-line"></i></div>\
+                        <div class="data ml-2">\
+                            <h6>Follow User</h6>\
+                            <p class="mb-0">Follow user to start seeing posts.</p>\
                         </div>\
                     </div>\
                 </a>\
@@ -144,7 +198,33 @@ function post_template_image_more(image_path_1, image_path_2, image_path_3) {
     </div>`;
 }
 
-function post_template_likes(likes) {
+function post_template_likes(likes, is_liked) {
+    if (is_liked) {
+        return '<div class="comment-area mt-3">\
+            <div class="d-flex justify-content-between align-items-center">\
+            <div class="like-block position-relative d-flex align-items-center">\
+            <div class="d-flex align-items-center">\
+                <div class="like-data">\
+                    <div class="dropdown">\
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+            <img src="images/icon/01.png" class="img-fluid" alt="">\
+            </span>\
+                        <div class="dropdown-menu">\
+                            <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>\
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>\
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>\
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>\
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a>\
+                        </div>\
+                    </div>\
+                </div>\
+                <div class="total-like-block ml-2 mr-3">\
+                    <div class="dropdown">\
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + likes + ' likes | Liked by you.\
+                        ';
+    }
     return '<div class="comment-area mt-3">\
             <div class="d-flex justify-content-between align-items-center">\
             <div class="like-block position-relative d-flex align-items-center">\
@@ -167,8 +247,9 @@ function post_template_likes(likes) {
                 </div>\
                 <div class="total-like-block ml-2 mr-3">\
                     <div class="dropdown">\
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + likes + ' likes\
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + likes + ' likes \
                         ';
+
 }
 
 function post_template_comment_no(commentNo) {
