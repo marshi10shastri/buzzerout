@@ -147,7 +147,7 @@ function fetchPost() {
             }
         }
 
-        inhtml += post_template_likes(data[i].likes, data[i].buzz_upvoted) + post_template_comment_no(data[i].comments.length);
+        inhtml += post_template_likes(data[i].likes, data[i].buzz_upvoted) + post_template_comment_no(data[i].comments.length, data[i].buzz_shared);
         if (data[i].comments.length > 0) {
             for (let j = 0; j < data[i].comments.length; j++) {
                 inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);

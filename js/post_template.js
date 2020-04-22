@@ -252,7 +252,44 @@ function post_template_likes(likes, is_liked) {
 
 }
 
-function post_template_comment_no(commentNo) {
+function post_template_comment_no(commentNo, is_shared) {
+    if (is_shared) {
+        return '</span>\
+        <div class="dropdown-menu">\
+        <a class="dropdown-item" href="#">Max Emum</a>\
+        <a class="dropdown-item" href="#">Bill Yerds</a>\
+        <a class="dropdown-item" href="#">Hap E. Birthday</a>\
+        <a class="dropdown-item" href="#">Tara Misu</a>\
+        <a class="dropdown-item" href="#">Midge Itz</a>\
+        <a class="dropdown-item" href="#">Sal Vidge</a>\
+        <a class="dropdown-item" href="#">Other</a>\
+        </div>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="total-comment-block">\
+        <div class="dropdown">\
+        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + commentNo + ' comments</span>\
+        <div class="dropdown-menu">\
+            <a class="dropdown-item" href="#">Max Emum</a>\
+            <a class="dropdown-item" href="#">Bill Yerds</a>\
+            <a class="dropdown-item" href="#">Hap E. Birthday</a>\
+            <a class="dropdown-item" href="#">Tara Misu</a>\
+            <a class="dropdown-item" href="#">Midge Itz</a>\
+            <a class="dropdown-item" href="#">Sal Vidge</a>\
+            <a class="dropdown-item" href="#">Other</a>\
+        </div>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="share-block d-flex align-items-center feather-icon mr-3">\
+        <a href="javascript:void();"><i class="ri-share-line"></i>\
+        <span class="ml-1">99 Share | Shared by you</span></a>\
+        </div> \
+        </div>\
+        <hr>\
+        <ul class="post-comments p-0 m-0">';
+    }
     return '</span>\
         <div class="dropdown-menu">\
         <a class="dropdown-item" href="#">Max Emum</a>\
@@ -281,10 +318,10 @@ function post_template_comment_no(commentNo) {
         </div>\
         </div>\
         </div>\
-        <!-- <div class="share-block d-flex align-items-center feather-icon mr-3">\
+        <div class="share-block d-flex align-items-center feather-icon mr-3">\
         <a href="javascript:void();"><i class="ri-share-line"></i>\
         <span class="ml-1">99 Share</span></a>\
-        </div> -->\
+        </div> \
         </div>\
         <hr>\
         <ul class="post-comments p-0 m-0">';
