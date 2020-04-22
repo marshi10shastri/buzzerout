@@ -20,7 +20,8 @@ const DUMMY_USER = {
     about:'Hi, I’m Bni, I’m 26 and I work as a Web Designer for the iqonicdesign.',
     otherName:'Roman',
     favQuote:'I tried so hard and thats so far but in the end everything mattered.',
-    postsNo:5
+    postsNo:5,
+    socialMedia: {facebook: 'praty07', twitter: 'twitter.com/praty3528', google: 'pratyush1997', instagram: 'oyee_praty', youtube: 'second ghost'}
 }
 
 const USER_INFO = "user_info"

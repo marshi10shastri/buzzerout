@@ -1271,7 +1271,7 @@
 
                                             <label for="uname">User Name:</label>
 
-                                            <input type="text" class="form-control" id="uname" value="Bni@01">
+                                            <input type="text" class="form-control" id="uname" value="Bni@01" readonly="">
 
                                         </div>
 
@@ -1279,7 +1279,7 @@
 
                                             <label for="email">Email Id:</label>
 
-                                            <input type="email" class="form-control" id="email" value="Bnijohn@gmail.com">
+                                            <input type="email" class="form-control" id="email" value="Bnijohn@gmail.com" readonly="">
 
                                         </div>
                                         <!-- 
@@ -1289,7 +1289,7 @@
 
                                             <input type="email" class="form-control" id="altemail" value="designtheme@gmail.com">
 
-                                        </div> -->
+                                        </div> 
 
                                         <div class="form-group">
 
@@ -1343,11 +1343,11 @@
 
                                             </div>
 
-                                        </div>
+                                        </div>-->
 
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button class="btn btn-primary" disabled>Submit</button>
 
-                                        <button type="reset" class="btn iq-bg-danger">Cancle</button>
+                                        <button class="btn iq-bg-danger" disabled>Cancle</button>
 
                                     </form>
 
@@ -1419,7 +1419,7 @@
 
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button class="btn btn-primary" onclick="editSocialMedia()">Submit</button>
 
                                         <button type="reset" class="btn iq-bg-danger">Cancle</button>
 
@@ -1540,6 +1540,10 @@
     <!-- Custom JavaScript -->
 
     <script src="js/custom.js"></script>
+
+    <script src="js/constant.js"></script>
+    <script src="js/base.js"></script>
+    <script src="js/account-setting.js"></script>
 
 </body>
 

@@ -21,9 +21,7 @@ function showProfile(){
             userDetails += profile_template_addWork(currUser.work[i].workPlace, currUser.work[i].workProfile);
         }
         
-
-        userDetails += profile_template_professional_skill()+
-                    profile_template_college();
+        userDetails += profile_template_college();
         
         // adding college
         for(let k=0; k<currUser.college.length; k++){
@@ -46,6 +44,21 @@ function showProfile(){
     document.getElementById('about').innerHTML = userDetails;
 }
 
+// modals
+document.getElementById('mobileInput').value = getJSONLocalStorage(USER_INFO).mobile;
+document.getElementById('addressInput').value = getJSONLocalStorage(USER_INFO).address;
+document.getElementById('websiteInput').value = getJSONLocalStorage(USER_INFO).website;
+document.getElementById('socialInput').value = getJSONLocalStorage(USER_INFO).socialLink;
+document.getElementById('inputDob').value = getJSONLocalStorage(USER_INFO).dob;
+document.getElementById('yearInput').value = getJSONLocalStorage(USER_INFO).yob;
+document.getElementById('aboutInput').value = getJSONLocalStorage(USER_INFO).about;
+document.getElementById('otherNameInput').value = getJSONLocalStorage(USER_INFO).otherName;
+document.getElementById('quoteInput').value = getJSONLocalStorage(USER_INFO).favQuote;
+
+document.getElementById('fNameInput').value = getJSONLocalStorage(USER_INFO).first_name;
+document.getElementById('lNameInput').value = getJSONLocalStorage(USER_INFO).last_name;
+
+
 
 // edit profile
 function editContactInfo(){
@@ -54,6 +67,7 @@ function editContactInfo(){
     user.address = document.getElementById('addressInput').value;
     setJSONLocalStorage(USER_INFO, user);
     showProfile();
+
 }
 
 function editWebsite(){
@@ -87,10 +101,14 @@ function addWork(){
         workPlace: document.getElementById('workPlaceInput').value,
         workProfile: document.getElementById('workProfileInput').value
     };
+    if((workIn.workPlace != "") && (workIn.workProfile != "")){
     user.work.push(workIn);
     setJSONLocalStorage(USER_INFO, user);
+    }
     showProfile();
+    document.getElementById('workLink').click();
 }
+
 
 function addCollege(){
     let user = getJSONLocalStorage(USER_INFO);
@@ -98,13 +116,17 @@ function addCollege(){
         collegeName: document.getElementById('collegeNameInput').value,
         collegePlace: document.getElementById('collegePlaceInput').value
     };
+    if((collegeIn.collegeName != "") && (collegeIn.collegePlace != "")){
     let usercollege = user.college;
     console.log(usercollege);
     usercollege.push(collegeIn);
     user.college = usercollege;
     setJSONLocalStorage(USER_INFO, user);
+    }
     showProfile();
+    document.getElementById('workLink').click();
 }
+
 
 function addCity(){
     let user = getJSONLocalStorage(USER_INFO);
@@ -113,9 +135,12 @@ function addCity(){
         placeState:document.getElementById('cityStateInput').value
     };
 
+    if((placeIn.placeName != "") && (placeIn.placeState != "")){
     user.city.push(placeIn);
     setJSONLocalStorage(USER_INFO, user);
+    }
     showProfile();
+    document.getElementById('placeLink').click();
 }
 
 function editDetails(){
@@ -126,6 +151,7 @@ function editDetails(){
 
     setJSONLocalStorage(USER_INFO, user);
     showProfile();
+    document.getElementById('detailsLink').click();
 }
 
 function editName(){

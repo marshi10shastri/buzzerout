@@ -5,23 +5,6 @@ function focusLocation() {
 }
 
 
-// function createBuzz() {
-//     var buzzVideo = document.getElementById('buzz-video-input').files;
-//     var buzzPhoto = document.getElementById('buzz-photo-input').files;
-//     if (buzzPhoto.length == 0 && buzzVideo.length == 0) {
-//         console.log("no photo");
-//         noMediaPost();
-//     }
-//     if (buzzPhoto.length != 0) {
-//         console.log("photo wala");
-//         photoPost();
-//     }
-//     if (buzzVideo != 0) {
-//         videoPost();
-//     }
-
-// }
-
 function createPost() {
     var file = document.getElementById('buzz-photo-input').files[0];
     var resizedImage;
@@ -136,10 +119,6 @@ function createPost() {
 }
 
 function fetchPost() {
-    // var buzzText = document.getElementById('buzz-post-input');
-    // var buzzLocation = document.getElementById("buzz-location-input");
-    // var username = getLocalStorage(USER);
-
     // fetchDataFrom JSON();
     let user = getJSONLocalStorage(USER_INFO);
     var data = getJSONLocalStorage(POSTS);
