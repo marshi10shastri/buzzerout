@@ -1,43 +1,44 @@
-function initProfile(){
+function initProfile() {
     setProfileNameImage();
     showProfile();
 }
 
-function showProfile(){
+function showProfile() {
     var userDetails = document.getElementById('about').innerHTML;
     userDetails = '';
 
     var currUser = getJSONLocalStorage(USER_INFO);
+    console.log("hey")
+    console.log(currUser)
+        // adding dummy values
+    userDetails += profile_template_contactInfo(currUser.email, currUser.mobile, currUser.address) +
+        profile_template_websites(currUser.website, currUser.socialLink) +
+        profile_template_basicInfo(currUser.dob, currUser.yob, currUser.gender, currUser.interest, currUser.language) +
+        profile_family() +
+        profile_template_work();
 
-    // adding dummy values
-    userDetails += profile_template_contactInfo(currUser.email, currUser.mobile, currUser.address)+
-                profile_template_websites(currUser.website, currUser.socialLink)+
-                profile_template_basicInfo(currUser.dob, currUser.yob, currUser.gender, currUser.interest, currUser.language)+
-                profile_family()+
-                profile_template_work();
+    // adding multiple workplaces
+    for (let i = 0; i < currUser.work.length; i++) {
+        userDetails += profile_template_addWork(currUser.work[i].work_place, currUser.work[i].work_profile, currUser.work[i].id);
+    }
 
-        // adding multiple workplaces
-        for(let i=0; i<currUser.work.length; i++){
-            userDetails += profile_template_addWork(currUser.work[i].workPlace, currUser.work[i].workProfile, i);
-        }
-        
-        userDetails += profile_template_college();
-        
-        // adding college
-        for(let k=0; k<currUser.college.length; k++){
-                userDetails += profile_template_addCollege(currUser.college[k].collegeName, currUser.college[k].collegePlace, k);
-        }
-        
-        userDetails += profile_template_city();
-        
-        // adding multiple cities
-        for(let j=0; j<currUser.city.length; j++){
-            userDetails += profile_template_addCity(currUser.city[j].placeName, currUser.city[j].placeState, j)
-        }
-        
+    userDetails += profile_template_college();
 
-        userDetails += profile_template_place_extra()+
-                    profile_template_about(currUser.about, currUser.otherName, currUser.favQuote);
+    // adding college
+    for (let k = 0; k < currUser.college.length; k++) {
+        userDetails += profile_template_addCollege(currUser.college[k].college_name, currUser.college[k].college_place, currUser.college[k].id);
+    }
+
+    userDetails += profile_template_city();
+
+    // adding multiple cities
+    for (let j = 0; j < currUser.city.length; j++) {
+        userDetails += profile_template_addCity(currUser.city[j].place_name, currUser.city[j].place_state, currUser.city[j].id)
+    }
+
+
+    userDetails += profile_template_place_extra() +
+        profile_template_about(currUser.about, currUser.otherName, currUser.favQuote);
 
 
     // putting value back to the div
@@ -62,89 +63,195 @@ document.getElementById('lNameInput').value = getJSONLocalStorage(USER_INFO).las
 
 
 // edit profile
-function editContactInfo(){
+function editContactInfo() {
     let user = getJSONLocalStorage(USER_INFO);
-    user.mobile = document.getElementById('mobileInput').value;
-    user.address = document.getElementById('addressInput').value;
-    setJSONLocalStorage(USER_INFO, user);
-    showProfile();
+    mobile_inp = document.getElementById('mobileInput').value;
+    address_inp = document.getElementById('addressInput').value;
+
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + 'profile/updateMobileAddress',
+        data: {
+            username: user.username,
+            mobile: mobile_inp,
+            address: address_inp
+        },
+        success: function(data) {
+            console.log(data);
+            user.mobile = mobile_inp
+            user.address = address_inp
+            setJSONLocalStorage(USER_INFO, user);
+            // set the fields again
+            document.getElementById('mobileInput').value = mobile_inp
+            document.getElementById('addressInput').value = address_inp
+            showProfile();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
 
 }
 
-function editWebsite(){
+function editWebsite() {
     let user = getJSONLocalStorage(USER_INFO);
-    user.website = document.getElementById('websiteInput').value;
-    user.socialLink = document.getElementById('socialInput').value;
-    setJSONLocalStorage(USER_INFO, user);
+    website = document.getElementById('websiteInput').value;
+    social_link = document.getElementById('socialInput').value;
+
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + '/usersSocial/addSocialAccountDetails',
+        data: {
+            username: user.username,
+            website: website,
+            socialLink: social_link
+        },
+        success: function(data) {
+            console.log(data);
+            user.website = website
+            user.socialLink = social_link
+            setJSONLocalStorage(USER_INFO, user);
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
     showProfile();
 }
 
-function editBasic(){
+function editBasic() {
     let user = getJSONLocalStorage(USER_INFO);
-    if(document.getElementById('maleRadio').checked){
-        user.gender = 'Male';
+    let g;
+    if (document.getElementById('maleRadio').checked) {
+        g = 'Male';
+    } else {
+        g = 'Female';
     }
-    else{
-        user.gender = 'Female';
-    }
 
-    user.dob = document.getElementById('inputDob').value;
-    user.yob = document.getElementById('yearInput').value;
-    user.interest = document.getElementById('interestInput').value;
-    user.language = document.getElementById('languageInput').value;
-    setJSONLocalStorage(USER_INFO, user);
-    showProfile();
+    dob_inp = document.getElementById('inputDob').value;
+    yob_inp = document.getElementById('yearInput').value;
+    // interest_inp = document.getElementById('interestInput').value;
+    // lang_inp = document.getElementById('languageInput').value;
+
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + '/profile/updateDobGender',
+        data: {
+            username: user.username,
+            dob: user.dob,
+            uob: user.yob,
+            gender: g
+        },
+        success: function(data) {
+            console.log(data);
+            user.dob = dob_inp
+            user.yob = yob_inp
+            user.gender = g
+            setJSONLocalStorage(USER_INFO, user);
+            showProfile();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
 }
 
-function addWork(){
+function addWork() {
     let user = getJSONLocalStorage(USER_INFO);
-    let workIn={
+    let workIn = {
         workPlace: document.getElementById('workPlaceInput').value,
         workProfile: document.getElementById('workProfileInput').value
     };
-    if((workIn.workPlace != "") && (workIn.workProfile != "")){
-    user.work.push(workIn);
-    setJSONLocalStorage(USER_INFO, user);
+    if ((workIn.workPlace != "") && (workIn.workProfile != "")) {
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + 'usersWork/addWork',
+            data: {
+                username: user.username,
+                work_place: workIn.workPlace,
+                work_profile: workIn.workProfile
+            },
+            success: function(data) {
+                console.log(data);
+                user.work = data.works;
+                setJSONLocalStorage(USER_INFO, user);
+                showProfile();
+                document.getElementById('workLink').click();
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
     }
-    showProfile();
-    document.getElementById('workLink').click();
 }
 
 
-function addCollege(){
+function addCollege() {
     let user = getJSONLocalStorage(USER_INFO);
-    let collegeIn={
+    let collegeIn = {
         collegeName: document.getElementById('collegeNameInput').value,
         collegePlace: document.getElementById('collegePlaceInput').value
     };
-    if((collegeIn.collegeName != "") && (collegeIn.collegePlace != "")){
-    let usercollege = user.college;
-    console.log(usercollege);
-    usercollege.push(collegeIn);
-    user.college = usercollege;
-    setJSONLocalStorage(USER_INFO, user);
+    if ((collegeIn.collegeName != "") && (collegeIn.collegePlace != "")) {
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + '/usersCollege/addCollege',
+            data: {
+                username: user.username,
+                college_name: collegeIn.collegeName,
+                college_place: collegeIn.collegePlace
+            },
+            success: function(data) {
+                console.log(data.messsage);
+                user.college = data.colleges;
+                setJSONLocalStorage(USER_INFO, user);
+                showProfile();
+                document.getElementById('workLink').click();
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+
     }
-    showProfile();
-    document.getElementById('workLink').click();
 }
 
 
-function addCity(){
+function addCity() {
     let user = getJSONLocalStorage(USER_INFO);
     let placeIn = {
-        placeName:document.getElementById('cityNameInput').value,
-        placeState:document.getElementById('cityStateInput').value
+        placeName: document.getElementById('cityNameInput').value,
+        placeState: document.getElementById('cityStateInput').value
     };
 
-    if((placeIn.placeName != "") && (placeIn.placeState != "")){
-    user.city.push(placeIn);
-    setJSONLocalStorage(USER_INFO, user);
+    if ((placeIn.placeName != "") && (placeIn.placeState != "")) {
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + '/places/addPlace',
+            data: {
+                username: user.username,
+                place_name: placeIn.placeName,
+                place_state: placeIn.placeState
+            },
+            success: function(data) {
+                console.log("add city called")
+                console.log(data);
+
+                user.city = data.places;
+                setJSONLocalStorage(USER_INFO, user);
+                showProfile();
+                document.getElementById('placeLink').click();
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
     }
-    showProfile();
-    document.getElementById('placeLink').click();
 }
 
-function editDetails(){
+function editDetails() {
     let user = getJSONLocalStorage(USER_INFO);
     user.about = document.getElementById('aboutInput').value;
     user.otherName = document.getElementById('otherNameInput').value;
@@ -155,7 +262,7 @@ function editDetails(){
     document.getElementById('detailsLink').click();
 }
 
-function editName(){
+function editName() {
     let user = getJSONLocalStorage(USER_INFO);
     user.first_name = document.getElementById('fNameInput').value;
     user.last_name = document.getElementById('lNameInput').value;
@@ -164,29 +271,89 @@ function editName(){
     // update current values
 }
 
-function editCity(){
+function editCity() {
     let user = getJSONLocalStorage(USER_INFO);
     let cityId = getJSONLocalStorage(CURR_AP);
-    user.city[cityId].placeName = document.getElementById('cityNameEditInput').value;
-    user.city[cityId].placeState = document.getElementById('cityStateEditInput').value;
-    setJSONLocalStorage(USER_INFO, user);
-    showProfile();
-    document.getElementById('placeLink').click();
+    place_name_inp = document.getElementById('cityNameEditInput').value;
+    place_state_inp = document.getElementById('cityStateEditInput').value;
+
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + '/places/editPlace',
+        data: {
+            username: user.username,
+            place_name: place_name_inp,
+            place_state: place_state_inp,
+            place_id: cityId
+        },
+        success: function(data) {
+            console.log(data);
+            user.city = data.places
+            setJSONLocalStorage(USER_INFO, user);
+            showProfile();
+            document.getElementById('placeLink').click();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
 }
-function editCollege(){
+
+function editCollege() {
     let user = getJSONLocalStorage(USER_INFO);
-    let collegeId = getJSONLocalStorage(CURR_AC);
-    user.college[collegeId].collegeName = document.getElementById('collegeNameEditInput').value;
-    user.college[collegeId].collegePlace = document.getElementById('collegePlaceEditInput').value;
-    setJSONLocalStorage(USER_INFO, user);
-    showProfile();
-    document.getElementById('workLink').click();
+    let college_id = getJSONLocalStorage(CURR_AC);
+    cname_inp = document.getElementById('collegeNameEditInput').value;
+    cplace_inp = document.getElementById('collegePlaceEditInput').value;
+
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + '/usersCollege/editCollege',
+        data: {
+            username: user.username,
+            college_name: cname_inp,
+            college_place: cplace_inp,
+            college_id: college_id
+        },
+        success: function(data) {
+            console.log(data.messsage);
+            user.college = data.colleges;
+            setJSONLocalStorage(USER_INFO, user);
+            showProfile();
+            document.getElementById('workLink').click();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
 }
-function editWork(){
+
+function editWork() {
     let user = getJSONLocalStorage(USER_INFO);
     let workId = getJSONLocalStorage(CURR_AW);
-    user.work[workId].workPlace = document.getElementById('workPlaceEditInput').value;
-    user.work[workId].workProfile = document.getElementById('workProfileEditInput').value;
+    wplace = document.getElementById('workPlaceEditInput').value;
+    wprofile = document.getElementById('workProfileEditInput').value;
+
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + 'usersWork/editWork',
+        data: {
+            username: user.username,
+            work_place: wplace,
+            work_profile: wprofile,
+            work_id: workId
+        },
+        success: function(data) {
+            console.log(data);
+            user.work = data.works
+            setJSONLocalStorage(USER_INFO, user);
+            showProfile();
+            document.getElementById('workLink').click();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
     setJSONLocalStorage(USER_INFO, user);
     showProfile();
     document.getElementById('workLink').click();
@@ -194,40 +361,62 @@ function editWork(){
 
 
 
-function reply_click_city(id){
-    id = id.slice(id.length -1);
+function reply_click_city(id) {
     let user = getJSONLocalStorage(USER_INFO);
-    document.getElementById('cityNameEditInput').value = user.city[id].placeName;
-    document.getElementById('cityStateEditInput').value = user.city[id].placeState;
-    setJSONLocalStorage(CURR_AP, id);
+    let temp;
+    for (let i = 0; i < user.city.length; i++) {
+        if (user.city[i].id == id) {
+            temp = user.city[i]
+            break;
+        }
+    }
+    document.getElementById('cityNameEditInput').value = temp.place_name;
+    document.getElementById('cityStateEditInput').value = temp.place_state;
+    setLocalStorage(CURR_AP, id);
 }
 
-function reply_click_college(id){
-    id = id.slice(id.length -1);
+function reply_click_college(id) {
     let user = getJSONLocalStorage(USER_INFO);
-    document.getElementById('collegeNameEditInput').value = user.college[id].collegeName;
-    document.getElementById('collegePlaceEditInput').value = user.college[id].collegePlace;
-    setJSONLocalStorage(CURR_AC, id);
+    let temp;
+    for (let i = 0; i < user.college.length; i++) {
+        if (user.college[i].id == id) {
+            temp = user.college[i]
+            break;
+        }
+    }
+    document.getElementById('collegeNameEditInput').value = temp.college_name;
+    document.getElementById('collegePlaceEditInput').value = temp.college_place;
+    setLocalStorage(CURR_AC, id);
 }
-function reply_click_work(id){
-    id = id.slice(id.length -1);
+
+function reply_click_work(id) {
     let user = getJSONLocalStorage(USER_INFO);
-    document.getElementById('workPlaceEditInput').value = user.work[id].workPlace;
-    document.getElementById('workProfileEditInput').value = user.work[id].workProfile;
-    setJSONLocalStorage(CURR_AW, id);
+    let temp;
+    for (let i = 0; i < user.city.length; i++) {
+        if (user.work[i].id == id) {
+            console.log("found")
+            console.log(user.work[i])
+            temp = user.work[i]
+            break;
+        }
+    }
+    document.getElementById('workPlaceEditInput').value = temp.work_place;
+    document.getElementById('workProfileEditInput').value = temp.work_profile;
+    setLocalStorage(CURR_AW, id);
 }
 
 
 setJSONLocalStorage(T_POSTS, getJSONLocalStorage(POSTS));
-function fetchTimelinePosts(){
+
+function fetchTimelinePosts() {
     var timelinePostBox = document.getElementById('timeline-posts').innerHTML;
     timelinePostBox = "";
     var tpost = getJSONLocalStorage(T_POSTS);
-    for(let i=0; i<tpost.length; i++){
-        timelinePostBox += timeline_post_basics(T_POSTS[i].userimage, T_POSTS[i].name, T_POSTS[i].time)+
-        timeline_post_body(T_POSTS[i].description, T_POSTS[i].image)+
-        timeline_post_likeNo(T_POSTS[i].likes)+
-        timeline_post_commentNo(T_POSTS[i].comments.length);
+    for (let i = 0; i < tpost.length; i++) {
+        timelinePostBox += timeline_post_basics(T_POSTS[i].userimage, T_POSTS[i].name, T_POSTS[i].time) +
+            timeline_post_body(T_POSTS[i].description, T_POSTS[i].image) +
+            timeline_post_likeNo(T_POSTS[i].likes) +
+            timeline_post_commentNo(T_POSTS[i].comments.length);
 
         if (T_POSTS[i].comments.length > 0) {
             for (let j = 0; j < T_POSTS[i].comments.length; j++) {

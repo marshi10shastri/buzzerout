@@ -144,7 +144,7 @@ function profile_template_basicInfo(dob, yob, gender, interest, language) {
 
                             <div class="col-9">
 
-                                <p class="mb-0">` + dob + `</p>
+                                <p class="mb-0" id="birth-date">` + dob + `</p>
 
                             </div>
 
@@ -156,7 +156,7 @@ function profile_template_basicInfo(dob, yob, gender, interest, language) {
 
                             <div class="col-9">
 
-                                <p class="mb-0">` + yob + `</p>
+                                <p class="mb-0" id="birth-year">` + yob + `</p>
 
                             </div>
 
@@ -168,7 +168,7 @@ function profile_template_basicInfo(dob, yob, gender, interest, language) {
 
                             <div class="col-9">
 
-                                <p class="mb-0">` + gender + `</p>
+                                <p class="mb-0" id="user-gender">` + gender + `</p>
 
                             </div>
 
@@ -327,7 +327,7 @@ function profile_template_addWork(workPlace, workProfile, i) {
                                     <p class="mb-0">` + workProfile + `</p>
 
                                 </div>
-                                <div class="edit-relation" id="work`+ i + `" onClick="reply_click_work(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editWorkModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
+                                <div class="edit-relation" id="` + i + `" onClick="reply_click_work(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editWorkModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
 
                             </li>`
 }
@@ -390,7 +390,7 @@ function profile_template_addCollege(collegeName, collegePlace, i) {
 
                                 </div>
 
-                                <div class="edit-relation" id="college`+i+`" onClick="reply_click_college(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editCollegeModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
+                                <div class="edit-relation" id="` + i + `" onClick="reply_click_college(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editCollegeModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
 
                             </li>`
 }
@@ -422,7 +422,7 @@ function profile_template_addCity(placeName, placeState, i) {
 
                                 </div>
 
-                                <div class="edit-relation" id="city`+i+`" onClick="reply_click_city(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
+                                <div class="edit-relation" id="` + i + `" onClick="reply_click_city(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
 
                             </li>`
 }
