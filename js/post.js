@@ -97,6 +97,7 @@ function createPost() {
                         setJSONLocalStorage(POSTS, post.concat(local_posts));
                         document.getElementById('close-modal').click();
                         fetchPost();
+                        fetchTimelinePosts();
                     },
                     error: function(response) {
                         console.log(response)
@@ -144,13 +145,9 @@ function fetchPost() {
                 <div class="user-img">
 
                     <img id="post-write-userimage" src=` + user.userimage + ` alt="userimg" class="avatar-60 rounded-circle">
-
                 </div>
-
                 <form class="post-text ml-3 w-100" action="javascript:void();">
-
                     <input type="text" id="buzz-text-input" class="form-control rounded" placeholder="Write something here..." style="border:none;">
-
                 </form>
 
             </div>
@@ -224,9 +221,7 @@ function fetchPost() {
 
                             <div class="user-img">
 
-                                <img id="post-write-userimage-inside" src=` + user.userimage + ` alt="userimg" class="avatar-60 rounded-circle img-fluid">
-
-                            </div>
+                                <img id="post-write-userimage-inside" src=` + user.userimage + ` alt="userimg" class="avatar-60 rounded-circle img-fluid"></div>
 
                             <form class="post-text ml-3 w-100" action="javascript:void();">
 

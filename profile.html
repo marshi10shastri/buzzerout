@@ -1771,7 +1771,7 @@
 
                                                                 <h5 class="modal-title" id="post-modalLabel">Create Post</h5>
 
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ri-close-fill"></i></button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close-modal"><i class="ri-close-fill"></i></button>
 
                                                             </div>
 
@@ -1977,7 +1977,7 @@
 
                                                                 </div>
 
-                                                                <button onclick="createPost()" class="btn btn-primary d-block w-100 mt-3">Post</button>
+                                                                <button data-dismiss="modal" onclick="createPost()" class="btn btn-primary d-block w-100 mt-3">Post</button>
 
                                                             </div>
 
@@ -1991,7 +1991,7 @@
 
                                             <div class="iq-card">
 
-                                                <div class="iq-card-body">
+                                                <div class="iq-card-body" id="timeline-posts">
 
                                                     <div class="post-item">
 
@@ -9564,57 +9564,17 @@
 
                 <div class="modal-body">
 
-                    <div class="iq-example-row">
+                    <div class="form-row">
 
-                        <div class="container-fluid">
+                        <div class="col">
 
-                            <div class="row mb-3">
+                            <input type="text" class="form-control" placeholder="Work Place" id="workPlaceEditInput">
 
-                                <div class="col-md-4">.col-md-4</div>
+                        </div>
 
-                                <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
+                        <div class="col">
 
-                            </div>
-
-                            <div class="row mb-3">
-
-                                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
-
-                                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
-
-                            </div>
-
-                            <div class="row mb-3">
-
-                                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-sm-9">
-
-                                    Level 1: .col-sm-9
-
-                                    <div class="row">
-
-                                        <div class="col-8 col-sm-6">
-
-                                            Level 2: .col-8 .col-sm-6
-
-                                        </div>
-
-                                        <div class="col-4 col-sm-6">
-
-                                            Level 2: .col-4 .col-sm-6
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
+                            <input type="text" class="form-control" placeholder="Work Profile" id="workProfileEditInput">
 
                         </div>
 
@@ -9626,7 +9586,7 @@
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editWork()">Save changes</button>
 
                 </div>
 
@@ -9702,57 +9662,17 @@
 
                 <div class="modal-body">
 
-                    <div class="iq-example-row">
+                    <div class="form-row">
 
-                        <div class="container-fluid">
+                        <div class="col">
 
-                            <div class="row mb-3">
+                            <input type="text" class="form-control" placeholder="College Name" id="collegeNameEditInput">
 
-                                <div class="col-md-4">.col-md-4</div>
+                        </div>
 
-                                <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
+                        <div class="col">
 
-                            </div>
-
-                            <div class="row mb-3">
-
-                                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
-
-                                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
-
-                            </div>
-
-                            <div class="row mb-3">
-
-                                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-sm-9">
-
-                                    Level 1: .col-sm-9
-
-                                    <div class="row">
-
-                                        <div class="col-8 col-sm-6">
-
-                                            Level 2: .col-8 .col-sm-6
-
-                                        </div>
-
-                                        <div class="col-4 col-sm-6">
-
-                                            Level 2: .col-4 .col-sm-6
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
+                            <input type="text" class="form-control" placeholder="College Place" id="collegePlaceEditInput">
 
                         </div>
 
@@ -9764,7 +9684,7 @@
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editCollege()">Save changes</button>
 
                 </div>
 
@@ -9840,57 +9760,17 @@
 
                 <div class="modal-body">
 
-                    <div class="iq-example-row">
+                    <div class="form-row">
 
-                        <div class="container-fluid">
+                        <div class="col">
 
-                            <div class="row mb-3">
+                            <input type="text" class="form-control" placeholder="Place Name" id="cityNameEditInput">
 
-                                <div class="col-md-4">.col-md-4</div>
+                        </div>
 
-                                <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
+                        <div class="col">
 
-                            </div>
-
-                            <div class="row mb-3">
-
-                                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
-
-                                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
-
-                            </div>
-
-                            <div class="row mb-3">
-
-                                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-sm-9">
-
-                                    Level 1: .col-sm-9
-
-                                    <div class="row">
-
-                                        <div class="col-8 col-sm-6">
-
-                                            Level 2: .col-8 .col-sm-6
-
-                                        </div>
-
-                                        <div class="col-4 col-sm-6">
-
-                                            Level 2: .col-4 .col-sm-6
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
+                            <input type="text" class="form-control" placeholder="Place State" id="cityStateEditInput">
 
                         </div>
 
@@ -9902,7 +9782,7 @@
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editCity()">Save changes</button>
 
                 </div>
 
@@ -10072,6 +9952,7 @@
     <script src="js/base.js"></script>
     <script src="js/profile_template.js"></script>
     <script src="js/profile.js"></script>
+    <script src="js/timeline_post_template.js"></script>
     <script src="js/post.js"></script>
 
 

@@ -18,21 +18,21 @@ function showProfile(){
 
         // adding multiple workplaces
         for(let i=0; i<currUser.work.length; i++){
-            userDetails += profile_template_addWork(currUser.work[i].workPlace, currUser.work[i].workProfile);
+            userDetails += profile_template_addWork(currUser.work[i].workPlace, currUser.work[i].workProfile, i);
         }
         
         userDetails += profile_template_college();
         
         // adding college
         for(let k=0; k<currUser.college.length; k++){
-                userDetails += profile_template_addCollege(currUser.college[k].collegeName, currUser.college[k].collegePlace);
+                userDetails += profile_template_addCollege(currUser.college[k].collegeName, currUser.college[k].collegePlace, k);
         }
         
         userDetails += profile_template_city();
         
         // adding multiple cities
         for(let j=0; j<currUser.city.length; j++){
-            userDetails += profile_template_addCity(currUser.city[j].placeName, currUser.city[j].placeState)
+            userDetails += profile_template_addCity(currUser.city[j].placeName, currUser.city[j].placeState, j)
         }
         
 
@@ -57,6 +57,7 @@ document.getElementById('quoteInput').value = getJSONLocalStorage(USER_INFO).fav
 
 document.getElementById('fNameInput').value = getJSONLocalStorage(USER_INFO).first_name;
 document.getElementById('lNameInput').value = getJSONLocalStorage(USER_INFO).last_name;
+
 
 
 
@@ -161,4 +162,81 @@ function editName(){
 
     setJSONLocalStorage(USER_INFO, user);
     // update current values
+}
+
+function editCity(){
+    let user = getJSONLocalStorage(USER_INFO);
+    let cityId = getJSONLocalStorage(CURR_AP);
+    user.city[cityId].placeName = document.getElementById('cityNameEditInput').value;
+    user.city[cityId].placeState = document.getElementById('cityStateEditInput').value;
+    setJSONLocalStorage(USER_INFO, user);
+    showProfile();
+    document.getElementById('placeLink').click();
+}
+function editCollege(){
+    let user = getJSONLocalStorage(USER_INFO);
+    let collegeId = getJSONLocalStorage(CURR_AC);
+    user.college[collegeId].collegeName = document.getElementById('collegeNameEditInput').value;
+    user.college[collegeId].collegePlace = document.getElementById('collegePlaceEditInput').value;
+    setJSONLocalStorage(USER_INFO, user);
+    showProfile();
+    document.getElementById('workLink').click();
+}
+function editWork(){
+    let user = getJSONLocalStorage(USER_INFO);
+    let workId = getJSONLocalStorage(CURR_AW);
+    user.work[workId].workPlace = document.getElementById('workPlaceEditInput').value;
+    user.work[workId].workProfile = document.getElementById('workProfileEditInput').value;
+    setJSONLocalStorage(USER_INFO, user);
+    showProfile();
+    document.getElementById('workLink').click();
+}
+
+
+
+function reply_click_city(id){
+    id = id.slice(id.length -1);
+    let user = getJSONLocalStorage(USER_INFO);
+    document.getElementById('cityNameEditInput').value = user.city[id].placeName;
+    document.getElementById('cityStateEditInput').value = user.city[id].placeState;
+    setJSONLocalStorage(CURR_AP, id);
+}
+
+function reply_click_college(id){
+    id = id.slice(id.length -1);
+    let user = getJSONLocalStorage(USER_INFO);
+    document.getElementById('collegeNameEditInput').value = user.college[id].collegeName;
+    document.getElementById('collegePlaceEditInput').value = user.college[id].collegePlace;
+    setJSONLocalStorage(CURR_AC, id);
+}
+function reply_click_work(id){
+    id = id.slice(id.length -1);
+    let user = getJSONLocalStorage(USER_INFO);
+    document.getElementById('workPlaceEditInput').value = user.work[id].workPlace;
+    document.getElementById('workProfileEditInput').value = user.work[id].workProfile;
+    setJSONLocalStorage(CURR_AW, id);
+}
+
+
+setJSONLocalStorage(T_POSTS, getJSONLocalStorage(POSTS));
+function fetchTimelinePosts(){
+    var timelinePostBox = document.getElementById('timeline-posts').innerHTML;
+    timelinePostBox = "";
+    var tpost = getJSONLocalStorage(T_POSTS);
+    for(let i=0; i<tpost.length; i++){
+        timelinePostBox += timeline_post_basics(T_POSTS[i].userimage, T_POSTS[i].name, T_POSTS[i].time)+
+        timeline_post_body(T_POSTS[i].description, T_POSTS[i].image)+
+        timeline_post_likeNo(T_POSTS[i].likes)+
+        timeline_post_commentNo(T_POSTS[i].comments.length);
+
+        if (T_POSTS[i].comments.length > 0) {
+            for (let j = 0; j < T_POSTS[i].comments.length; j++) {
+                timelinePostBox += timeline_post_comment(T_POSTS[i].comments[j].commentImg, T_POSTS[i].comments[j].commentUser, T_POSTS[i].comments[j].commentText);
+            }
+        }
+
+        timelinePostBox += timeline_post_addComment();
+    }
+
+    document.getElementById('timeline-posts').innerHTML = timelinePostBox;
 }
