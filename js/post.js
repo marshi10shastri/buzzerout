@@ -118,12 +118,12 @@ function createPost() {
     }
 
 }
-
+var feedInputArray = [];
 function fetchPost() {
     // fetchDataFrom JSON();
     let user = getJSONLocalStorage(USER_INFO);
-    var data = getJSONLocalStorage(POSTS);
-    var inhtml = document.getElementById("posting-box").innerHTML;
+    let data = getJSONLocalStorage(POSTS);
+    let inhtml = document.getElementById("posting-box").innerHTML;
     inhtml = `<div class="col-sm-12">
 
     <div id="post-modal-data" class="iq-card iq-card-block iq-card-stretch iq-card-height">
@@ -457,31 +457,50 @@ function fetchPost() {
                 inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
             }
         }
+        console.log(data[i].feedid);
         inhtml += post_template_end(data[i].feedid)
-        console.log("doing")
-        let inputCommentField = document.getElementById("commentinput-" + data[i].feedid);
-        inputCommentField.addEventListener("keydown", function(e) {
-            if (e.keyCode === 13) {
-                console.log("hello")
-                    //checks whether the pressed key is "Enter"
-                addComment(data[i].feedid);
-            }
-        })
+        console.log("doing");
+        feedInputArray.push("commentinput-"+data[i].feedid);
+        // console.log(inhtml);
+        // let inputCommentField = document.getElementById("commentinput-" + data[i].feedid);
+        // inputCommentField.addEventListener("keydown", function(e) {
+        //     if (e.keyCode === 13) {
+        //         console.log("hello")
+        //             //checks whether the pressed key is "Enter"
+        //         addComment(data[i].feedid, inputCommentField.value);
+        //     }
+        // })
 
         // add event listener
     }
     document.getElementById("posting-box").innerHTML = inhtml;
+    for(let j=0;j<feedInputArray.length;j++){
+        let inputCommentField = document.getElementById(feedInputArray[j]);
+        inputCommentField.addEventListener("keydown", function(e) {
+                if (e.keyCode == 13) {
+                    console.log("hello")
+                        //checks whether the pressed key is "Enter"
+                    addComment(data[i].feedid, inputCommentField.value);
+                }
+            })
+    }
 }
 
-function addComment(feedid) {
+function addComment(feedid, commentData) {
     let user = getJSONLocalStorage(USER_INFO);
-    let comment = document.getElementById('commentinput-' + feedid);
-
+    // let comment = document.getElementById('commentinput-' + feedid);
+    let temp;
     for (let i = 0; i < data.length; i++) {
         if (data[i].feedid == feedid) {
-            temp = data[i];
-            temp.comments = data.comments
-            data[i] = temp
+            temp = data[i].comments;
+            let tempComment = {
+                commentImg: user.userimage,
+                commentUser: user.first_name + " " + user.last_name,
+                commentText: commentData,
+                timestamp: "Just Now"
+            }
+            temp.push(tempComment);
+            data[i].comments = temp;
         }
     }
     fetchPost();
