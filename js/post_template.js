@@ -348,6 +348,7 @@ function post_template_comment(commentImg, commentUser, commentText) {
 }
 
 function post_template_end(feedId) {
+    console.log('times');
     return `</ul>\
             <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">\
             <input type="text" id="commentinput-` + feedId + `" class="form-control rounded">\
