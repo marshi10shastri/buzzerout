@@ -477,8 +477,10 @@ function fetchPost() {
         let inputCommentField = document.getElementById(feedInputArray[j]);
         inputCommentField.addEventListener("keydown", function(e) {
             if (e.keyCode == 13) {
+                console.log('running');
                 let feedid = feedInputArray[j].split("-")[1];
                 addComment(feedid, inputCommentField.value);
+                inputCommentField.value = "";
             }
         })
     }
@@ -488,50 +490,43 @@ function addComment(feedid, commentData) {
     let user = getJSONLocalStorage(USER_INFO);
     let data = getJSONLocalStorage(POSTS);
     let temp;
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].feedid == feedid) {
-            temp = data[i].comments;
-            let tempComment = {
-                commentImg: user.userimage,
-                commentUser: user.first_name + " " + user.last_name,
-                commentText: commentData,
-                timestamp: "Just Now"
+    console.log("adding comment");
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + 'comment/addComment',
+        data: {
+            user_id: user.username,
+            text: commentData,
+            feed_id: feedid
+        },
+        success: function(response) {
+            console.log(response);
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].feedid == feedid) {
+                    temp = data[i].comments;
+                    let tempComment = {
+                        commentImg: user.userimage,
+                        commentUser: user.first_name + " " + user.last_name,
+                        commentText: commentData,
+                        timestamp: "Just Now"
+                    }
+                    temp.push(tempComment);
+                    data[i].comments = temp;
+                    setJSONLocalStorage(POSTS, data);
+                    break;
+                }
             }
-            temp.push(tempComment);
-            data[i].comments = temp;
-            setJSONLocalStorage(POSTS, data);
-            break;
+        },
+        error: function(response) {
+            console.log(response);
         }
-    }
+    });
     fetchPost();
 
-    // $.ajax({
-    //     type: 'POST',
-    //     url: SERVER_URL + 'comment/addComment',
-    //     data: {
-    //         user_id: user.username,
-    //         text: comment,
-    //         feed_id: feedid
-    //     },
-    //     success: function(data) {
-    //         console.log(data);
-
-    //         for (let i = 0; i < data.length; i++) {
-    //             if (data[i].feedid == feedid) {
-    //                 temp = data[i];
-    //                 temp.comments = data.comments
-    //                 data[i] = temp
-    //             }
-    //         }
-
-    //         setJSONLocalStorage(USER_INFO, user);
-    //         showProfile();
-    //         document.getElementById('workLink').click();
-    //     },
-    //     error: function(data) {
-    //         console.log(data);
-    //     }
-    // });
+// feed_id
+// user_id
+// text
+    
 }
 
 function upvoteBuzzByFeedId() {
