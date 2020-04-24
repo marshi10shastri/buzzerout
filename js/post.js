@@ -119,6 +119,7 @@ function createPost() {
 
 }
 var feedInputArray = [];
+
 function fetchPost() {
     // fetchDataFrom JSON();
     let user = getJSONLocalStorage(USER_INFO);
@@ -460,7 +461,7 @@ function fetchPost() {
         console.log(data[i].feedid);
         inhtml += post_template_end(data[i].feedid)
         console.log("doing");
-        feedInputArray.push("commentinput-"+data[i].feedid);
+        feedInputArray.push("commentinput-" + data[i].feedid);
         // console.log(inhtml);
         // let inputCommentField = document.getElementById("commentinput-" + data[i].feedid);
         // inputCommentField.addEventListener("keydown", function(e) {
@@ -474,21 +475,20 @@ function fetchPost() {
         // add event listener
     }
     document.getElementById("posting-box").innerHTML = inhtml;
-    for(let j=0;j<feedInputArray.length;j++){
+    for (let j = 0; j < feedInputArray.length; j++) {
         let inputCommentField = document.getElementById(feedInputArray[j]);
         inputCommentField.addEventListener("keydown", function(e) {
-                if (e.keyCode == 13) {
-                    console.log("hello")
-                        //checks whether the pressed key is "Enter"
-                    addComment(data[i].feedid, inputCommentField.value);
-                }
-            })
+            if (e.keyCode == 13) {
+                let feedid = feedInputArray[j].split("-")[1];
+                addComment(feedid, inputCommentField.value);
+            }
+        })
     }
 }
 
 function addComment(feedid, commentData) {
     let user = getJSONLocalStorage(USER_INFO);
-    // let comment = document.getElementById('commentinput-' + feedid);
+    let data = getJSONLocalStorage(POSTS);
     let temp;
     for (let i = 0; i < data.length; i++) {
         if (data[i].feedid == feedid) {
@@ -501,6 +501,8 @@ function addComment(feedid, commentData) {
             }
             temp.push(tempComment);
             data[i].comments = temp;
+            setJSONLocalStorage(POSTS, data);
+            break;
         }
     }
     fetchPost();
