@@ -12,7 +12,7 @@ function showProfile() {
     console.log(currUser)
         // adding dummy values
     userDetails += profile_template_contactInfo(currUser.email, currUser.mobile, currUser.address) +
-        profile_template_websites(currUser.website, currUser.socialLink) +
+        // profile_template_websites(currUser.website, currUser.socialLink) +
         profile_template_basicInfo(currUser.dob, currUser.yob, currUser.gender, currUser.interest, currUser.language) +
         profile_family() +
         profile_template_work();
@@ -253,22 +253,59 @@ function addCity() {
 
 function editDetails() {
     let user = getJSONLocalStorage(USER_INFO);
-    user.about = document.getElementById('aboutInput').value;
-    user.otherName = document.getElementById('otherNameInput').value;
-    user.favQuote = document.getElementById('quoteInput').value;
+    about_inp = document.getElementById('aboutInput').value;
+    other_name_inp = document.getElementById('otherNameInput').value;
+    fav_quote_inp = document.getElementById('quoteInput').value;
 
-    setJSONLocalStorage(USER_INFO, user);
-    showProfile();
-    document.getElementById('detailsLink').click();
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + 'detail/updateUserDetails',
+        data: {
+            username: user.username,
+            about_you: about_inp,
+            other_name: other_name_inp,
+            fav_quote: fav_quote_inp
+        },
+        success: function(data) {
+            console.log(data);
+            user.about = data.userdetails.about_you
+            user.otherName = data.userdetails.other_name
+            user.favQuote = data.userdetails.favorite_quote
+            setJSONLocalStorage(USER_INFO, user);
+            showProfile();
+            document.getElementById('detailsLink').click();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
 }
 
 function editName() {
     let user = getJSONLocalStorage(USER_INFO);
-    user.first_name = document.getElementById('fNameInput').value;
-    user.last_name = document.getElementById('lNameInput').value;
+    fname = document.getElementById('fNameInput').value;
+    lname = document.getElementById('lNameInput').value;
 
-    setJSONLocalStorage(USER_INFO, user);
-    // update current values
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + 'user/updateFirstLastName',
+        data: {
+            username: user.username,
+            first_name: fname,
+            last_name: lname
+        },
+        success: function(data) {
+            console.log(data);
+            user.first_name = data
+            user.last_name = data
+            setJSONLocalStorage(USER_INFO, user);
+            setProfileNameImage();
+            showProfile();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
 }
 
 function editCity() {

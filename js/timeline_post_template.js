@@ -1,5 +1,5 @@
-function timeline_post_basics(image, name, time){
-return `<div class="post-item">
+function timeline_post_basics(image, name, time) {
+    return `<div class="post-item">
 
     <div class="user-post-data p-3">
 
@@ -7,17 +7,17 @@ return `<div class="post-item">
 
             <div class="media-support-user-img mr-3">
 
-                <img class="rounded-circle img-fluid" src=`+ image +` alt="">
+                <img class="rounded-circle img-fluid" src=` + image + ` alt="">
 
                                                             </div>
 
                 <div class="media-support-info mt-2">
 
-                    <h5 class="mb-0 d-inline-block"><a href="#" class="">`+ name +`</a></h5>
+                    <h5 class="mb-0 d-inline-block"><a href="#" class="">` + name + `</a></h5>
 
                     <p class="ml-1 mb-0 d-inline-block">Addded New Post</p>
 
-                    <p class="mb-0">`+ time +` hour ago</p>
+                    <p class="mb-0">` + time + ` hour ago</p>
 
                 </div>
 
@@ -135,17 +135,17 @@ return `<div class="post-item">
 }
 
 
-function timeline_post_body(description, image){
-    return    `<div class="user-post">
+function timeline_post_body(description, image) {
+    return `<div class="user-post">
 
-            <a href="javascript:void();"><img src=`+image+` alt="post-image" class="img-fluid w-100" /></a>
-            <p>`+ description +`</p>
+            <a href="javascript:void();"><img src=` + image + ` alt="post-image" class="img-fluid w-100" /></a>
+            <p>` + description + `</p>
 
         </div>`
 }
 
-function timeline_post_likeNo(likes){
-    return    `<div class="comment-area mt-3">
+function timeline_post_likeNo(likes) {
+    return `<div class="comment-area mt-3">
 
             <div class="d-flex justify-content-between align-items-center">
 
@@ -191,13 +191,13 @@ function timeline_post_likeNo(likes){
 
                                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
 
-                                                                    `+likes+` Likes
+                                                                    ` + likes + ` Likes
 
                                                             </span>`
 }
 
 
-function timeline_post_commentNo(commentNo){
+function timeline_post_commentNo(commentNo) {
     return `<div class="dropdown-menu">
 
                                                                     <a class="dropdown-item" href="#">Max Emum</a>
@@ -228,7 +228,7 @@ function timeline_post_commentNo(commentNo){
 
                                                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
 
-                                                                `+commentNo+` Comment
+                                                                ` + commentNo + ` Comment
 
                                                         </span>
 
@@ -271,22 +271,22 @@ function timeline_post_commentNo(commentNo){
                                                 <ul class="post-comments p-0 m-0">`
 }
 
-function timeline_post_comment(commentImg, commentUser, commentText){
-    return                                                `<li class="mb-2">
+function timeline_post_comment(commentImg, commentUser, commentText) {
+    return `<li class="mb-2">
 
                                                         <div class="d-flex flex-wrap">
 
                                                             <div class="user-img">
 
-                                                                <img src=`+commentImg+` alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                                                                <img src=` + commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
 
                                                                     </div>
 
                                                                 <div class="comment-data-block ml-3">
 
-                                                                    <h6>`+commentUser+`</h6>
+                                                                    <h6>` + commentUser + `</h6>
 
-                                                                    <p class="mb-0">`+commentText+`</p>
+                                                                    <p class="mb-0">` + commentText + `</p>
 
                                                                     <div class="d-flex flex-wrap align-items-center comment-activity">
 
@@ -305,14 +305,14 @@ function timeline_post_comment(commentImg, commentUser, commentText){
                                                             </div>
 
                                                             </li>`
-                                                        }
+}
 
-function timeline_post_addComment(){
-    return                                    `</ul>
+function timeline_post_addComment(feedId) {
+    return `</ul>
 
                                                         <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
 
-                                                            <input type="text" class="form-control rounded">
+                                                            <input type="text" id="comment-` + feedId + `" class="form-control rounded">
 
                                                                 <div class="comment-attagement d-flex">
 

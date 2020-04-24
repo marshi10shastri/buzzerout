@@ -457,35 +457,58 @@ function fetchPost() {
                 inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
             }
         }
-        inhtml += post_template_end()
+        inhtml += post_template_end(data[i].feedid)
+        console.log("doing")
+        let inputCommentField = document.getElementById("commentinput-" + data[i].feedid);
+        inputCommentField.addEventListener("keydown", function(e) {
+            if (e.keyCode === 13) {
+                console.log("hello")
+                    //checks whether the pressed key is "Enter"
+                addComment(data[i].feedid);
+            }
+        })
+
+        // add event listener
     }
     document.getElementById("posting-box").innerHTML = inhtml;
+}
 
-    // var div = document.getElementById("posting-box");
-    // let text = div.innerHTML;
-    // div.innerHTML = "";
+function addComment(feedid) {
+    let user = getJSONLocalStorage(USER_INFO);
+    let comment = document.getElementById('commentinput-' + feedid);
 
-    // var arrr = ["raman", "aman", "naman"];
-    // for (let i = 0; i < 3; i++) {
-    //     div.innerHTML += post_template_x + arrr[i] + post_template_z;
-    // }
-
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].feedid == feedid) {
+            temp = data[i];
+            temp.comments = data.comments
+            data[i] = temp
+        }
+    }
+    fetchPost();
 
     // $.ajax({
     //     type: 'POST',
-    //     url: '',
+    //     url: SERVER_URL + 'comment/addComment',
     //     data: {
-    //         username: username,
-    //         title: "title of post",
-    //         description: buzzText,
-    //         location: buzzLocation,
+    //         user_id: user.username,
+    //         text: comment,
+    //         feed_id: feedid
     //     },
-
     //     success: function(data) {
-
     //         console.log(data);
-    //     },
 
+    //         for (let i = 0; i < data.length; i++) {
+    //             if (data[i].feedid == feedid) {
+    //                 temp = data[i];
+    //                 temp.comments = data.comments
+    //                 data[i] = temp
+    //             }
+    //         }
+
+    //         setJSONLocalStorage(USER_INFO, user);
+    //         showProfile();
+    //         document.getElementById('workLink').click();
+    //     },
     //     error: function(data) {
     //         console.log(data);
     //     }
