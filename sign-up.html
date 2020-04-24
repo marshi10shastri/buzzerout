@@ -136,8 +136,8 @@
 
                                 <label for="exampleInputEmail1">Choose Username</label>
 
-                                <input type="text" class="form-control mb-0" id="exampleInputEmail0" placeholder="Your Username">
-                                <span><i class="fa fa-check-circle" style="color:green"></i><i class="fa fa-times-circle" style="color:red"></i></span>
+                                <input type="text" class="form-control mb-0" id="exampleInputEmail0" placeholder="Your Username" onkeyup="checkUsername()">
+                                <span><i id="available-icon" class="fa fa-check-circle" style="color:green; display:none;"></i><i id="not-avilable-icon" class="fa fa-times-circle" style="color:red; display:none;"></i></span>
                             </div>
 
                             <div class="form-group">
@@ -273,7 +273,7 @@
     <script src="js/custom.js"></script>
 
     <!-- Register User Javascript -->
-
+    <script src="js/constant.js"></script>
     <script src="js/signUp.js"></script>
 
 </body>

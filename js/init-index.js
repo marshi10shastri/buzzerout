@@ -1,3 +1,4 @@
 function initIndexPage() {
     setPersonNameImage();
+    fetchPost();
 }

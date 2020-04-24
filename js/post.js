@@ -438,7 +438,7 @@ function fetchPost() {
         inhtml += post_template_userimage(data[i].userimage) +
             post_template_username(data[i].name) +
             post_template_time(data[i].time) +
-            post_template_description(data[i].description, data[i].buzz_followed);
+            post_template_description(data[i].description, data[i].buzz_followed, data[i].feedid);
 
         if (data[i].images.length > 0) {
             if (data[i].images.length == 1) {
@@ -452,7 +452,7 @@ function fetchPost() {
             }
         }
 
-        inhtml += post_template_likes(data[i].likes, data[i].buzz_upvoted) + post_template_comment_no(data[i].comments.length, data[i].buzz_shared);
+        inhtml += post_template_likes(data[i].likes, data[i].buzz_upvoted, data[i].feedid) + post_template_comment_no(data[i].comments.length, data[i].buzz_shared);
         if (data[i].comments.length > 0) {
             for (let j = 0; j < data[i].comments.length; j++) {
                 inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
@@ -544,4 +544,67 @@ function followBuzzByFeedId() {
 
 function unfollowBuzzByFeedId() {
     // change text as unfollowed
+}
+
+function upvotePost(id){
+    let postId = id.slice(5, id.length);
+    let posts = getJSONLocalStorage(POSTS);
+
+    for(let i=0; i<posts.length; i++){
+        if(posts[i].feedid == postId){
+            posts[i].buzz_upvoted = true;
+            setJSONLocalStorage(POSTS, posts);
+            break;
+        }
+    }
+
+    // fetch all posts again
+    fetchPost();
+}
+
+function downvotePost(id){
+    let postId = id.slice(6, id.length);
+    let posts = getJSONLocalStorage(POSTS);
+
+    for(let i=0; i<posts.length; i++){
+        if(posts[i].feedid == postId){
+            posts[i].buzz_upvoted = false;
+            setJSONLocalStorage(POSTS, posts);
+            break;
+        }
+    }
+
+    // fetch all posts again
+    fetchPost();
+}
+
+
+function unfollowUser(id){
+    console.log('unfollow');
+    let postId = id.slice(9, id.length);
+    let posts = getJSONLocalStorage(POSTS);
+
+    for(let i=0; i<posts.length; i++){
+        if(posts[i].feedid == postId){
+            posts[i].buzz_followed = false;
+            setJSONLocalStorage(POSTS, posts);
+            break;
+        }
+    }
+    fetchPost();
+}
+
+function followUser(id){
+    console.log('follow');
+    let postId = id.slice(7, id.length);
+    let posts = getJSONLocalStorage(POSTS);
+
+    for(let i=0; i<posts.length; i++){
+        if(posts[i].feedid == postId){
+            posts[i].buzz_followed = true;
+            setJSONLocalStorage(POSTS, posts);
+            break;
+        }
+    }
+    fetchPost();
 }
