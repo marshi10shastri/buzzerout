@@ -26,9 +26,9 @@ function post_template_time(timeh) {
             '
 }
 
-function post_template_description(desc, is_followed) {
+function post_template_description(desc, is_followed, feedid) {
     if (is_followed) {
-        return '</div>\
+        return `</div>\
             <div class="iq-card-post-toolbar">\
             <div class="dropdown">\
             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
@@ -53,7 +53,7 @@ function post_template_description(desc, is_followed) {
                         </div>\
                     </div>\
                 </a>\
-                <a class="dropdown-item p-3" href="#">\
+                <a id="unfollow-`+ feedid +`" class="dropdown-item p-3" onclick="unfollowUser(this.id)" href="#unfollow-`+feedid+`">\
                     <div class="d-flex align-items-top">\
                         <div class="icon font-size-20"><i class="ri-user-unfollow-line"></i></div>\
                         <div class="data ml-2">\
@@ -77,11 +77,11 @@ function post_template_description(desc, is_followed) {
             </div>\
             </div>\
             <div class="mt-3">\
-            <p>' + desc + '</p>\
+            <p>` + desc + `</p>\
             </div>\
-            '
+            `
     }
-    return '</div>\
+    return `</div>\
             <div class="iq-card-post-toolbar">\
             <div class="dropdown">\
             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
@@ -106,7 +106,7 @@ function post_template_description(desc, is_followed) {
                         </div>\
                     </div>\
                 </a>\
-                <a class="dropdown-item p-3" href="#">\
+                <a id="follow-`+ feedid +`" class="dropdown-item p-3" onclick="followUser(this.id)" href="#follow-`+ feedid +`">\
                     <div class="d-flex align-items-top">\
                         <div class="icon font-size-20"><i class="ri-user-unfollow-line"></i></div>\
                         <div class="data ml-2">\
@@ -130,9 +130,9 @@ function post_template_description(desc, is_followed) {
             </div>\
             </div>\
             <div class="mt-3">\
-            <p>' + desc + '</p>\
+            <p>` + desc + `</p>\
             </div>\
-            '
+            `
 }
 
 function post_template_image(image_path) {
@@ -198,34 +198,34 @@ function post_template_image_more(image_path_1, image_path_2, image_path_3) {
     </div>`;
 }
 
-function post_template_likes(likes, is_liked) {
+function post_template_likes(likes, is_liked, feedid) {
     if (is_liked) {
-        return '<div class="comment-area mt-3">\
-            <div class="d-flex justify-content-between align-items-center">\
-            <div class="like-block position-relative d-flex align-items-center">\
-            <div class="d-flex align-items-center">\
-                <div class="like-data">\
-                    <div class="dropdown">\
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
-            <img src="images/icon/01.png" class="img-fluid" alt="">\
-            </span>\
-                        <div class="dropdown-menu">\
-                            <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a>\
-                        </div>\
-                    </div>\
-                </div>\
-                <div class="total-like-block ml-2 mr-3">\
-                    <div class="dropdown">\
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + likes + ' likes | Liked by you.\
-                        ';
+        return `<div class="comment-area mt-3">
+            <div class="d-flex justify-content-between align-items-center">
+            <div class="like-block position-relative d-flex align-items-center">
+            <div class="d-flex align-items-center">
+                <div class="like-data">
+                    <div class="dropdown">
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+            <img src="images/icon/01.png" class="img-fluid" alt="">
+            </span>
+                        <div class="dropdown-menu">
+                            <a id="like-`+ feedid +`" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(this.id)" href="#like-`+feedid+`"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
+                            <a id="dlike-`+ feedid +`" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)" href="#dlike-`+feedid+`"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
+                        <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="total-like-block ml-2 mr-3">
+                    <div class="dropdown">
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + likes + ` likes | Liked by you.
+                        `;
     }
-    return '<div class="comment-area mt-3">\
+    return `<div class="comment-area mt-3">\
             <div class="d-flex justify-content-between align-items-center">\
             <div class="like-block position-relative d-flex align-items-center">\
             <div class="d-flex align-items-center">\
@@ -235,20 +235,20 @@ function post_template_likes(likes, is_liked) {
             <img src="images/icon/01.png" class="img-fluid" alt="">\
             </span>\
                         <div class="dropdown-menu">\
-                            <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>\
+                            <a id="like-`+ feedid +`" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" onclick="upvotePost(this.id)" href="#dlike-`+feedid+`"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
+                            <a id="dlike-`+ feedid +`" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love" onclick="downvotePost(this.id)" href="#dlike-`+feedid+`"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
+                        <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>\
                             <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>\
                             <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>\
                             <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a>\
+                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a> -->\
                         </div>\
                     </div>\
                 </div>\
                 <div class="total-like-block ml-2 mr-3">\
                     <div class="dropdown">\
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + likes + ' likes \
-                        ';
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + likes + ` likes \
+                        `;
 
 }
 

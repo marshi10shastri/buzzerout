@@ -1,7 +1,42 @@
 // var signUpBtn = document.getElementById('signUpBtn');
 // signUpBtn.addEventListener('click', signUp());
-var available = true
+var available = false;
 console.log("outside");
+
+
+var usernameInput = document.getElementById('exampleInputEmail0');
+// usernameInput.addEventListener('keyup', checkUsername());
+
+function checkUsername() {
+
+    let availIcon = document.getElementById('available-icon');
+    let navailIcon = document.getElementById('not-available-icon');
+
+    if (usernameInput.value != "") {
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + 'register/checkUsername',
+            data: {
+                username: usernameInput.value
+            },
+
+            success: function(data) {
+                console.log(data);
+                navailIcon.style.display = 'none';
+                availIcon.style.display = 'block';
+                available = true
+            },
+
+            error: function(data) {
+                console.log(data);
+                availIcon.style.display = 'none';
+                navailIcon.style.display = 'block';
+            }
+        });
+    }
+
+}
+
 
 function signUp() {
     console.log('hello');
@@ -47,29 +82,3 @@ function signUp() {
     console.log("function end");
 }
 console.log("end of file");
-
-var usernameInput = document.getElementById('exampleInputEmail0');
-usernameInput.addEventListener('keyup', checkUsername());
-
-function checkUsername() {
-    if (usernameInput.value != "") {
-        $.ajax({
-            type: 'POST',
-            url: '',
-            data: {
-                username: usernameInput.value
-            },
-
-            success: function(data) {
-                console.log(data);
-                // set localstorage
-                available = true
-            },
-
-            error: function(data) {
-                console.log(data);
-            }
-        });
-    }
-
-}
