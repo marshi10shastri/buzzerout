@@ -433,7 +433,7 @@ function fetchPost() {
     </div>
 
 </div>`
-    console.log(data);
+        // console.log(data);
     for (let i = 0; i < data.length; i++) {
         inhtml += post_template_userimage(data[i].userimage) +
             post_template_username(data[i].name) +
@@ -458,9 +458,7 @@ function fetchPost() {
                 inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
             }
         }
-        console.log(data[i].feedid);
         inhtml += post_template_end(data[i].feedid)
-        console.log("doing");
         feedInputArray.push("commentinput-" + data[i].feedid);
         // console.log(inhtml);
         // let inputCommentField = document.getElementById("commentinput-" + data[i].feedid);
