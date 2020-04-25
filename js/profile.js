@@ -1,6 +1,7 @@
 function initProfile() {
     setProfileNameImage();
     showProfile();
+    fetchTimelinePosts()
 }
 
 function showProfile() {
@@ -443,17 +444,18 @@ function reply_click_work(id) {
 }
 
 
-setJSONLocalStorage(T_POSTS, getJSONLocalStorage(POSTS));
 
+var TfeedInputArray = [];
 function fetchTimelinePosts() {
+    let T_POSTS = getJSONLocalStorage(POSTS);
+    let user = getJSONLocalStorage(USER_INFO);
     var timelinePostBox = document.getElementById('timeline-posts').innerHTML;
     timelinePostBox = "";
-    var tpost = getJSONLocalStorage(T_POSTS);
-    for (let i = 0; i < tpost.length; i++) {
+    for (let i = 0; i < T_POSTS.length; i++) {
         timelinePostBox += timeline_post_basics(T_POSTS[i].userimage, T_POSTS[i].name, T_POSTS[i].time) +
             timeline_post_body(T_POSTS[i].description, T_POSTS[i].image) +
-            timeline_post_likeNo(T_POSTS[i].likes) +
-            timeline_post_commentNo(T_POSTS[i].comments.length);
+            timeline_post_likeNo(T_POSTS[i].likes, T_POSTS[i].feedid, T_POSTS[i].buzz_upvoted) +
+            timeline_post_commentNo(T_POSTS[i].comments.length, T_POSTS[i].buzz_shared);
 
         if (T_POSTS[i].comments.length > 0) {
             for (let j = 0; j < T_POSTS[i].comments.length; j++) {
@@ -461,8 +463,20 @@ function fetchTimelinePosts() {
             }
         }
 
-        timelinePostBox += timeline_post_addComment();
+        timelinePostBox += timeline_post_addComment(T_POSTS[i].feedid);
+        TfeedInputArray.push("commentinput-" + T_POSTS[i].feedid);
     }
 
     document.getElementById('timeline-posts').innerHTML = timelinePostBox;
+    for (let j = 0; j < TfeedInputArray.length; j++) {
+        let inputCommentField = document.getElementById(TfeedInputArray[j]);
+        inputCommentField.addEventListener("keydown", function(e) {
+            if (e.keyCode == 13) {
+                console.log('running');
+                let feedid = TfeedInputArray[j].split("-")[1];
+                addComment(feedid, inputCommentField.value);
+                inputCommentField.value = "";
+            }
+        })
+    }
 }
