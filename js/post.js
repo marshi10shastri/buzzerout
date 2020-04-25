@@ -51,78 +51,106 @@ function createPost() {
             image.src = readerEvent.target.result;
         }
 
-
-        // ----------------------------------------
-        var link = [];
-
-        var formData = new FormData();
-        email = 'raman.10102@gmail.com'
-        formData.append('file', file);
-        formData.append('product', 'buzzerout');
-        formData.append('application', 'buzzerout');
-        formData.append('to', email);
-        formData.append('from', email);
-        formData.append('message', 'My Buzz');
-        $.ajax({
-            type: 'POST',
-            url: 'http://appnivi.com/server/v1/file/fileupload',
-            data: formData,
-            success: function(data) {
-                link.push(data.link);
-                console.log(data.link);
-
-                let user_name = getJSONLocalStorage(USER_INFO).username;
-                let desc = document.getElementById('buzz-post-input').value;
-                // on success
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed',
-                    data: {
-                        username: user_name,
-                        title: 'title',
-                        description: desc,
-                        location: 'abc'
-                    },
-                    success: function(data) {
-                        var post = [{
-                            name: getJSONLocalStorage(USER_INFO).first_name,
-                            userimage: getJSONLocalStorage(USER_INFO).userimage,
-                            images: link,
-                            description: desc,
-                            time: 'Just Now',
-                            likes: 0,
-                            comments: [],
-                        }];
-                        var local_posts = getJSONLocalStorage(POSTS);
-                        setJSONLocalStorage(POSTS, post.concat(local_posts));
-                        document.getElementById('close-modal').click();
-                        fetchPost();
-                        fetchTimelinePosts();
-                    },
-                    error: function(response) {
-                        console.log(response)
-                    }
-                });
-            },
-            error: function(error) {
-                console.log(error);
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-        });
-
-
-
-        // ------------------------------------------
     }
+    // ----------------------------------------
+    var link = [];
 
+    var formData = new FormData();
+    email = 'raman.10102@gmail.com'
+    formData.append('file', file);
+    formData.append('product', 'buzzerout');
+    formData.append('application', 'buzzerout');
+    formData.append('to', email);
+    formData.append('from', email);
+    formData.append('message', 'My Buzz');
+    $.ajax({
+        type: 'POST',
+        url: 'http://appnivi.com/server/v1/file/fileupload',
+        data: formData,
+        success: function(data) {
+            link.push(data.link);
+            console.log(data.link);
+
+            let user_name = getJSONLocalStorage(USER_INFO).username;
+            let desc = document.getElementById('buzz-post-input').value;
+            // on success
+            $.ajax({
+                type: 'POST',
+                url: 'http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed',
+                data: {
+                    username: user_name,
+                    title: 'title',
+                    description: desc,
+                    location: 'abc'
+                },
+                success: function(data) {
+                    var post = [{
+                        name: getJSONLocalStorage(USER_INFO).first_name,
+                        userimage: getJSONLocalStorage(USER_INFO).userimage,
+                        images: link,
+                        description: desc,
+                        time: 'Just Now',
+                        likes: 0,
+                        comments: [],
+                    }];
+                    var local_posts = getJSONLocalStorage(POSTS);
+                    setJSONLocalStorage(POSTS, post.concat(local_posts));
+                    document.getElementById('close-modal').click();
+                    fetchPost();
+                    fetchTimelinePosts();
+                },
+                error: function(response) {
+                    console.log(response)
+                }
+            });
+        },
+        error: function(error) {
+            console.log(error);
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+    // ------------------------------------------
 }
 var feedInputArray = [];
 
 function fetchPost() {
     // fetchDataFrom JSON();
     let user = getJSONLocalStorage(USER_INFO);
+
+    // api call
+    // $.ajax({
+    //     type: 'POST',
+    //     url: 'http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed',
+    //     data: {
+    //         username: user_name,
+    //         title: 'title',
+    //         description: desc,
+    //         location: 'abc'
+    //     },
+    //     success: function(data) {
+    //         var post = [{
+    //             name: getJSONLocalStorage(USER_INFO).first_name,
+    //             userimage: getJSONLocalStorage(USER_INFO).userimage,
+    //             images: link,
+    //             description: desc,
+    //             time: 'Just Now',
+    //             likes: 0,
+    //             comments: [],
+    //         }];
+    //         var local_posts = getJSONLocalStorage(POSTS);
+    //         setJSONLocalStorage(POSTS, post.concat(local_posts));
+    //         document.getElementById('close-modal').click();
+    //         fetchPost();
+    //         fetchTimelinePosts();
+    //     },
+    //     error: function(response) {
+    //         console.log(response)
+    //     }
+    // });
+    // ---------------------------------
+
     let data = getJSONLocalStorage(POSTS);
     let inhtml = document.getElementById("posting-box").innerHTML;
     inhtml = `<div class="col-sm-12">
@@ -503,15 +531,15 @@ function addComment(feedid, commentData) {
             console.log(response);
             for (let i = 0; i < data.length; i++) {
                 if (data[i].feedid == feedid) {
-                    temp = data[i].comments;
-                    let tempComment = {
-                        commentImg: user.userimage,
-                        commentUser: user.first_name + " " + user.last_name,
-                        commentText: commentData,
-                        timestamp: "Just Now"
-                    }
-                    temp.push(tempComment);
-                    data[i].comments = temp;
+                    // temp = data[i].comments;
+                    // let tempComment = {
+                    //     commentImg: user.userimage,
+                    //     commentUser: user.first_name + " " + user.last_name,
+                    //     commentText: commentData,
+                    //     timestamp: "Just Now"
+                    // }
+                    // temp.push(tempComment);
+                    data[i].comments = data.comments;
                     setJSONLocalStorage(POSTS, data);
                     break;
                 }
@@ -523,10 +551,10 @@ function addComment(feedid, commentData) {
     });
     fetchPost();
 
-// feed_id
-// user_id
-// text
-    
+    // feed_id
+    // user_id
+    // text
+
 }
 
 function upvoteBuzzByFeedId() {
@@ -546,12 +574,12 @@ function unfollowBuzzByFeedId() {
     // change text as unfollowed
 }
 
-function upvotePost(id){
+function upvotePost(id) {
     let postId = id.slice(5, id.length);
     let posts = getJSONLocalStorage(POSTS);
 
-    for(let i=0; i<posts.length; i++){
-        if(posts[i].feedid == postId){
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].feedid == postId) {
             posts[i].buzz_upvoted = true;
             setJSONLocalStorage(POSTS, posts);
             break;
@@ -562,12 +590,12 @@ function upvotePost(id){
     fetchPost();
 }
 
-function downvotePost(id){
+function downvotePost(id) {
     let postId = id.slice(6, id.length);
     let posts = getJSONLocalStorage(POSTS);
 
-    for(let i=0; i<posts.length; i++){
-        if(posts[i].feedid == postId){
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].feedid == postId) {
             posts[i].buzz_upvoted = false;
             setJSONLocalStorage(POSTS, posts);
             break;
@@ -579,13 +607,13 @@ function downvotePost(id){
 }
 
 
-function unfollowUser(id){
+function unfollowUser(id) {
     console.log('unfollow');
     let postId = id.slice(9, id.length);
     let posts = getJSONLocalStorage(POSTS);
 
-    for(let i=0; i<posts.length; i++){
-        if(posts[i].feedid == postId){
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].feedid == postId) {
             posts[i].buzz_followed = false;
             setJSONLocalStorage(POSTS, posts);
             break;
@@ -594,13 +622,13 @@ function unfollowUser(id){
     fetchPost();
 }
 
-function followUser(id){
+function followUser(id) {
     console.log('follow');
     let postId = id.slice(7, id.length);
     let posts = getJSONLocalStorage(POSTS);
 
-    for(let i=0; i<posts.length; i++){
-        if(posts[i].feedid == postId){
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].feedid == postId) {
             posts[i].buzz_followed = true;
             setJSONLocalStorage(POSTS, posts);
             break;

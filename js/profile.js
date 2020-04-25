@@ -8,9 +8,7 @@ function showProfile() {
     userDetails = '';
 
     var currUser = getJSONLocalStorage(USER_INFO);
-    console.log("hey")
-    console.log(currUser)
-        // adding dummy values
+    // adding dummy values
     userDetails += profile_template_contactInfo(currUser.email, currUser.mobile, currUser.address) +
         // profile_template_websites(currUser.website, currUser.socialLink) +
         profile_template_basicInfo(currUser.dob, currUser.yob, currUser.gender, currUser.interest, currUser.language) +
@@ -77,10 +75,12 @@ function editContactInfo() {
             address: address_inp
         },
         success: function(data) {
+            console.log("contact");
             console.log(data);
             user.mobile = mobile_inp
             user.address = address_inp
             setJSONLocalStorage(USER_INFO, user);
+            console.log(user);
             // set the fields again
             document.getElementById('mobileInput').value = mobile_inp
             document.getElementById('addressInput').value = address_inp
@@ -296,8 +296,8 @@ function editName() {
         },
         success: function(data) {
             console.log(data);
-            user.first_name = data
-            user.last_name = data
+            user.first_name = data.user.first_name
+            user.last_name = data.user.last_name
             setJSONLocalStorage(USER_INFO, user);
             setProfileNameImage();
             showProfile();

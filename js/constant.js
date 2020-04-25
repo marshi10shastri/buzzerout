@@ -7,13 +7,11 @@ const DUMMY_USER = {
     posts: '420',
     mobile: '7060937205',
     address: 'Uttarakhand, India',
-    website: 'www.tomato.com',
-    socialLink: 'www.linkedin.com/qwerty',
+    // website: 'www.tomato.com',
+    // socialLink: 'www.linkedin.com/qwerty',
     dob: '23 January',
     yob: '1996',
     gender: 'Male',
-    interest: 'Designing',
-    language: 'English',
     work: [{
             work_place: 'Appnivi',
             work_profile: 'Web Developer',
@@ -26,8 +24,8 @@ const DUMMY_USER = {
         }
     ],
     city: [{
-            place_name: 'Pauri',
-            place_state: 'Uttarakhand',
+            place_name: 'New York',
+            place_state: 'USA',
             id: 1
         },
         {
@@ -40,10 +38,9 @@ const DUMMY_USER = {
         college_name: 'GB Pant',
         college_place: 'Pauri'
     }],
-    about: 'Hi, I’m Bni, I’m 26 and I work as a Web Designer for the iqonicdesign.',
-    otherName: 'Roman',
+    about: 'Tell us something about yourself.',
+    otherName: 'Nickname',
     favQuote: 'I tried so hard and thats so far but in the end everything mattered.',
-    postsNo: 5,
     socialMedia: { facebook: 'praty07', twitter: 'twitter.com/praty3528', google: 'pratyush1997', instagram: 'oyee_praty', youtube: 'second ghost' }
 }
 

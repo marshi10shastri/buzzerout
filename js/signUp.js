@@ -1,14 +1,12 @@
-// var signUpBtn = document.getElementById('signUpBtn');
-// signUpBtn.addEventListener('click', signUp());
+var signUpBtn = document.getElementById('signUpBtn');
+signUpBtn.addEventListener('click', signUp);
 var available = false;
-console.log("outside");
 
 
 var usernameInput = document.getElementById('exampleInputEmail0');
 // usernameInput.addEventListener('keyup', checkUsername());
 
 function checkUsername() {
-
     let availIcon = document.getElementById('available-icon');
     let navailIcon = document.getElementById('not-available-icon');
 
@@ -21,10 +19,15 @@ function checkUsername() {
             },
 
             success: function(data) {
-                console.log(data);
-                navailIcon.style.display = 'none';
-                availIcon.style.display = 'block';
-                available = true
+                if (!data.error) {
+                    available = true;
+                    availIcon.style.display = 'block'
+                    navailIcon.style.display = 'none'
+                } else {
+                    available = false;
+                    availIcon.style.display = 'none'
+                    navailIcon.style.display = 'block'
+                }
             },
 
             error: function(data) {
@@ -39,7 +42,6 @@ function checkUsername() {
 
 
 function signUp() {
-    console.log('hello');
     var check = document.getElementById('customCheck1');
     if (!available) {
         alert("Username not available.")
@@ -52,10 +54,6 @@ function signUp() {
         var password = document.getElementById('exampleInputPassword1').value;
         var usern = document.getElementById('exampleInputEmail0').value;
 
-        alert(name[0]);
-        console.log(name);
-        console.log(email);
-        console.log(password);
         $.ajax({
             type: 'POST',
             url: 'http://buzzerout.com/buzzerout_server/v1/register/registerUser',
@@ -68,17 +66,12 @@ function signUp() {
             },
 
             success: function(data) {
-                // alert(data);
                 window.location = "pages-confirm-mail.html";
-                console.log(data);
             },
 
             error: function(data) {
-                alert("error");
                 console.log(data);
             },
         });
     }
-    console.log("function end");
 }
-console.log("end of file");

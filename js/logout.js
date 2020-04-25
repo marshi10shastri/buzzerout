@@ -1,6 +1,7 @@
 var logoutBtn = document.getElementById("logoutBtn");
 logoutBtn.addEventListener('click', logout);
 
-function logout(){
-    console.log('logout');
+function logout() {
+    setLocalStorage(USER, 'false')
+    setJSONLocalStorage(USER_INFO, "")
 }
