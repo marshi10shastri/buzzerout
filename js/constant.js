@@ -41,7 +41,13 @@ const DUMMY_USER = {
     about: 'Tell us something about yourself.',
     otherName: 'Nickname',
     favQuote: 'I tried so hard and thats so far but in the end everything mattered.',
-    socialMedia: { facebook: 'praty07', twitter: 'twitter.com/praty3528', google: 'pratyush1997', instagram: 'oyee_praty', youtube: 'second ghost' }
+    socialMedia: {
+        facebook: 'praty07',
+        twitter: 'twitter.com/praty3528',
+        google: 'pratyush1997',
+        instagram: 'oyee_praty',
+        youtube: 'second ghost'
+    }
 }
 
 const USER_INFO = "user_info"

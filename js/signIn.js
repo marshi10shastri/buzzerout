@@ -31,8 +31,19 @@ function signIn() {
                 if (undefined != temp.last_name) {
                     dummy.last_name = temp.last_name;
                 }
-                if (undefined != temp.userimage) {
-                    dummy.userimage = temp.userimage;
+                if (undefined != temp.profile) {
+                    if (undefined != temp.profile.user_profile_image) {
+                        dummy.userimage = temp.profile.user_profile_image;
+                    }
+                    if (undefined != temp.profile.user_mobile) {
+                        dummy.mobile = temp.profile.user_mobile;
+                    }
+                    if (undefined != temp.profile.user_address) {
+                        dummy.address = temp.profile.user_address;
+                    }
+                    if (undefined != temp.profile.user_dob) {
+                        dummy.dob = temp.profile.user_dob;
+                    }
                 }
                 if (undefined != temp.email) {
                     dummy.email = temp.email;
@@ -40,29 +51,26 @@ function signIn() {
                 if (undefined != temp.posts) {
                     dummy.posts = temp.posts;
                 }
-                if (undefined != temp.mobile) {
-                    dummy.mobile = temp.mobile;
-                }
-                if (undefined != temp.address) {
-                    dummy.address = temp.address;
-                }
-                if (undefined != temp.dob) {
-                    dummy.dob = temp.dob;
-                }
                 if (undefined != temp.yob) {
                     dummy.yob = temp.yob;
                 }
-                if (undefined != temp.about) {
-                    dummy.about = temp.about;
-                }
-                if (undefined != temp.otherName) {
-                    dummy.otherName = temp.otherName;
-                }
-                if (undefined != temp.favQuote) {
-                    dummy.favQuote = temp.favQuote;
+                if (undefined != temp.details) {
+                    if (undefined != temp.details.about_you) {
+                        dummy.about = temp.details.about_you;
+                    }
+                    if (undefined != temp.details.other_name) {
+                        dummy.otherName = temp.details.other_name;
+                    }
+                    if (undefined != temp.details.favorite_quote) {
+                        dummy.favQuote = temp.details.favorite_quote;
+                    }
                 }
                 if (undefined != temp.socialMedia) {
-                    dummy.socialMedia = temp.socialMedia;
+                    dummy.socialMedia.facebook = temp.socialMedia.user_facebook;
+                    dummy.socialMedia.twitter = temp.socialMedia.user_twitter;
+                    dummy.socialMedia.google = temp.socialMedia.user_google_plus;
+                    dummy.socialMedia.instagram = temp.socialMedia.user_instagram;
+                    dummy.socialMedia.youtube = temp.socialMedia.user_youtube;
                 }
                 if (undefined != temp.college) {
                     dummy.college = temp.college;
@@ -71,7 +79,7 @@ function signIn() {
                     dummy.city = temp.city;
                 }
                 if (undefined != temp.work) {
-                    dummy.work = temp.work;
+                    dummy.work = temp.works;
                 }
 
 
