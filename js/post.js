@@ -116,7 +116,8 @@ function createPost() {
 var feedInputArray = [];
 
 function fetchPost() {
-    // fetchDataFrom JSON();
+    feedInputArray = []
+        // fetchDataFrom JSON();
     let user = getJSONLocalStorage(USER_INFO);
 
     // api call
@@ -221,7 +222,7 @@ function addComment(feedid, commentData) {
                     break;
                 }
             }
-            inputCommentField.value = "";
+            document.getElementById("commentinput-" + feedid).value = "";
         },
         error: function(response) {
             console.log(response);
