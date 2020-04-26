@@ -85,6 +85,7 @@ function createPost() {
                 },
                 success: function(data) {
                     var post = [{
+                        feedid: data.feedid,
                         name: getJSONLocalStorage(USER_INFO).first_name,
                         userimage: getJSONLocalStorage(USER_INFO).userimage,
                         images: link,
