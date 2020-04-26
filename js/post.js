@@ -138,7 +138,7 @@ function fetchPost() {
     let inhtml = document.getElementById("posting-box").innerHTML;
     inhtml = "";
     inhtml += post_template_write_post(user.userimage);
-        // console.log(data);
+    // console.log(data);
     for (let i = 0; i < data.length; i++) {
         inhtml += post_template_userimage(data[i].userimage) +
             post_template_username(data[i].name) +
@@ -185,7 +185,7 @@ function fetchPost() {
                 console.log('running');
                 let feedid = feedInputArray[j].split("-")[1];
                 addComment(feedid, inputCommentField.value);
-                inputCommentField.value = "";
+
             }
         })
     }
@@ -221,6 +221,7 @@ function addComment(feedid, commentData) {
                     break;
                 }
             }
+            inputCommentField.value = "";
         },
         error: function(response) {
             console.log(response);
