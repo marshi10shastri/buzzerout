@@ -1,4 +1,4 @@
-function post_template_write_post(userimage){
+function post_template_write_post(userimage) {
     return `<div class="col-sm-12">
 
     <div id="post-modal-data" class="iq-card iq-card-block iq-card-stretch iq-card-height">
@@ -333,7 +333,7 @@ function post_template_time(timeh) {
     return '\
             </a></h5>\
             <p class="mb-0 d-inline-block">Update her Status</p>\
-            <p class="mb-0 text-primary">' + timeh + 'hour ago</p>\
+            <p class="mb-0 text-primary">' + timeh + '</p>\
             '
 }
 
@@ -364,7 +364,7 @@ function post_template_description(desc, is_followed, feedid) {
                         </div>\
                     </div>\
                 </a>\
-                <a id="unfollow-`+ feedid +`" class="dropdown-item p-3" onclick="unfollowUser(this.id)" href="#unfollow-`+feedid+`">\
+                <a id="unfollow-` + feedid + `" class="dropdown-item p-3" onclick="unfollowUser(this.id)" href="#unfollow-` + feedid + `">\
                     <div class="d-flex align-items-top">\
                         <div class="icon font-size-20"><i class="ri-user-unfollow-line"></i></div>\
                         <div class="data ml-2">\
@@ -417,7 +417,7 @@ function post_template_description(desc, is_followed, feedid) {
                         </div>\
                     </div>\
                 </a>\
-                <a id="follow-`+ feedid +`" class="dropdown-item p-3" onclick="followUser(this.id)" href="#follow-`+ feedid +`">\
+                <a id="follow-` + feedid + `" class="dropdown-item p-3" onclick="followUser(this.id)" href="#follow-` + feedid + `">\
                     <div class="d-flex align-items-top">\
                         <div class="icon font-size-20"><i class="ri-user-unfollow-line"></i></div>\
                         <div class="data ml-2">\
@@ -521,8 +521,8 @@ function post_template_likes(likes, is_liked, feedid) {
             <img src="images/icon/01.png" class="img-fluid" alt="">
             </span>
                         <div class="dropdown-menu">
-                            <a id="like-`+ feedid +`" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(this.id)" href="#like-`+feedid+`"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
-                            <a id="dlike-`+ feedid +`" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)" href="#dlike-`+feedid+`"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
+                            <a id="like-` + feedid + `" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(this.id)" href="#like-` + feedid + `"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
+                            <a id="dlike-` + feedid + `" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)" href="#dlike-` + feedid + `"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
                         <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>
                             <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>
                             <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>
@@ -546,8 +546,8 @@ function post_template_likes(likes, is_liked, feedid) {
             <img src="images/icon/01.png" class="img-fluid" alt="">\
             </span>\
                         <div class="dropdown-menu">\
-                            <a id="like-`+ feedid +`" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" onclick="upvotePost(this.id)" href="#dlike-`+feedid+`"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
-                            <a id="dlike-`+ feedid +`" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love" onclick="downvotePost(this.id)" href="#dlike-`+feedid+`"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
+                            <a id="like-` + feedid + `" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" onclick="upvotePost(this.id)" href="#dlike-` + feedid + `"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
+                            <a id="dlike-` + feedid + `" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love" onclick="downvotePost(this.id)" href="#dlike-` + feedid + `"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
                         <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>\
                             <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>\
                             <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>\
@@ -673,4 +673,46 @@ function post_template_end(feedId) {
             </div>\
             </div>\
             </div>`
+}
+
+
+function post_template_no_post() {
+    return `<div class="col-sm-12">
+
+    <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+
+        <div class="iq-card-body">
+
+            <div class="user-post-data">
+
+                <div class="d-flex flex-wrap">
+
+                    <div class="media-support-user-img mr-3">
+
+                        <img class="rounded-circle img-fluid" src="images/default/oops.png" alt="">
+
+                    </div>
+
+                    <div class="media-support-info mt-2">
+
+                        <h3 class="mb-0 d-inline-block"><a href="#" class="">No posts to show</a></h3>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="mt-3">
+
+                <h2>
+                    No posts to show
+                </h2>
+            </div>
+        </div>
+
+    </div>
+
+</div>`
 }

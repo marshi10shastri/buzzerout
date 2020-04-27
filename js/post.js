@@ -53,7 +53,7 @@ function createPost() {
 
     }
     // ----------------------------------------
-    var link = [];
+    var link;
 
     var formData = new FormData();
     email = 'raman.10102@gmail.com'
@@ -68,7 +68,7 @@ function createPost() {
         url: 'http://appnivi.com/server/v1/file/fileupload',
         data: formData,
         success: function(data) {
-            link.push(data.link);
+            link = (data.link);
             console.log(data.link);
 
             let user_name = getJSONLocalStorage(USER_INFO).username;
@@ -87,23 +87,39 @@ function createPost() {
                 },
                 success: function(data) {
                     console.log(data);
-                    // var post = [{
-                    //     feedid: data.feedid,
-                    //     name: getJSONLocalStorage(USER_INFO).first_name,
-                    //     userimage: getJSONLocalStorage(USER_INFO).userimage,
-                    //     images: link,
-                    //     description: desc,
-                    //     timestamp: 'Just Now',
-                    //     likes: 0,
-                    //     comments: [],
-                    // }];
-                    var local_posts = getJSONLocalStorage(POSTS);
-                    local_posts.push(data);
-                    setJSONLocalStorage(POSTS, local_posts);
-                    // setJSONLocalStorage(POSTS, post.concat(local_posts));
-                    document.getElementById('close-modal').click();
-                    fetchPost();
-                    // fetchTimelinePosts();
+
+
+
+                    // uploading the image of feed
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://buzzerout.com/buzzerout_server/v1/feed/uploadFeedImage',
+                        data: {
+                            feed_id: data.feedid,
+                            img: link
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            console.log("Image for feed uploaded")
+                            var local_posts = getJSONLocalStorage(POSTS);
+                            local_posts.push(data);
+                            setJSONLocalStorage(POSTS, local_posts);
+                            // setJSONLocalStorage(POSTS, post.concat(local_posts));
+                            document.getElementById('close-modal').click();
+                            fetchPost();
+                            // fetchTimelinePosts();
+
+                        },
+                        error: function(response) {
+                            console.log(response);
+                        }
+                    });
+
+
+
+
+
+
                 },
                 error: function(response) {
                     console.log(response)
@@ -122,6 +138,7 @@ function createPost() {
 var feedInputArray = [];
 
 function fetchPost() {
+    console.log("now fetching posts")
     feedInputArray = []
         // fetchDataFrom JSON();
     let user = getJSONLocalStorage(USER_INFO);
@@ -132,7 +149,99 @@ function fetchPost() {
         url: 'http://buzzerout.com/buzzerout_server/v1/feed/fetchAllFeed',
         data: {},
         success: function(data) {
-            setJSONLocalStorage(POSTS, data.Feed);
+            console.log(data)
+            if (data.error == false) {
+                setJSONLocalStorage(POSTS, data.Feed);
+                data = getJSONLocalStorage(POSTS);
+                let inhtml = document.getElementById("posting-box").innerHTML;
+                inhtml = "";
+                inhtml += post_template_write_post(user.userimage);
+                // console.log(data);
+
+                for (let i = 0; i < data.length; i++) {
+
+                    let timestamp = new Date(data[i].timestamp);
+                    let curr_timestamp = Date.now();
+                    let time = (curr_timestamp - timestamp);
+                    console.log(time);
+                    console.log("Minutes : " + (time / 3600).toFixed(0));
+                    console.log("Hours : " + (time / 216000).toFixed(0));
+                    let time_string = ""
+                    if (time / 3600 < 1) // less than a minute
+                    {
+                        time_string = "Less than a minute ago"
+                    } else {
+                        if (time / 3600 < 60) // less than an hour
+                        {
+                            time_string = time / 3600 + " minutes ago"
+                        } else {
+                            time_string = time / 216000 + " hours ago"
+                        }
+                    }
+
+
+                    // data[i].userimage
+                    inhtml += post_template_userimage("http://buzzerout.com/images/default/default-user.png") +
+                        post_template_username(data[i].username) +
+                        post_template_time(time_string) +
+                        post_template_description(data[i].description, data[i].buzz_followed, data[i].feedid);
+
+                    if (undefined != data[i].images) {
+                        if (data[i].images.length == 1) {
+                            inhtml += post_template_image(data[i].images[0]);
+                        } else if (data[i].images.length == 2) {
+                            inhtml += post_template_image_two(data[i].images[0], data[i].images[1]);
+                        } else if (data[i].images.length == 3) {
+                            inhtml += post_template_image_three(data[i].images[0], data[i].images[1], data[i].images[2]);
+                        } else if (data[i].images.length > 3) {
+                            inhtml += post_template_image_more(data[i].images[0], data[i].images[1], data[i].images[2]);
+                        }
+                    }
+
+                    if (undefined != data.comments) {
+                        inhtml += post_template_likes(data[i].likes, data[i].buzz_upvoted, data[i].feedid) + post_template_comment_no(data[i].comments.length, data[i].buzz_shared);
+                        if (data[i].comments.length > 0) {
+                            for (let j = 0; j < data[i].comments.length; j++) {
+                                inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
+                            }
+                        }
+                    }
+                    inhtml += post_template_end(data[i].feedid)
+                    feedInputArray.push("commentinput-" + data[i].feedid);
+                    // console.log(inhtml);
+                    // let inputCommentField = document.getElementById("commentinput-" + data[i].feedid);
+                    // inputCommentField.addEventListener("keydown", function(e) {
+                    //     if (e.keyCode === 13) {
+                    //         console.log("hello")
+                    //             //checks whether the pressed key is "Enter"
+                    //         addComment(data[i].feedid, inputCommentField.value);
+                    //     }
+                    // })
+
+                    // add event listener
+                }
+                document.getElementById("posting-box").innerHTML = inhtml;
+                for (let j = 0; j < feedInputArray.length; j++) {
+                    let inputCommentField = document.getElementById(feedInputArray[j]);
+                    inputCommentField.addEventListener("keydown", function(e) {
+                        if (e.keyCode == 13) {
+                            console.log('running');
+                            let feedid = feedInputArray[j].split("-")[1];
+                            addComment(feedid, inputCommentField.value);
+
+                        }
+                    })
+                }
+            } else {
+                // no posts to show
+                console.log("post no there")
+                    // let inhtml = document.getElementById("posting-box").innerHTML;
+                    // inhtml = "";
+                console.log("post noa again there")
+                document.getElementById("posting-box").innerHTML = post_template_write_post(user.userimage) + post_template_no_post();
+
+            }
+
         },
         error: function(response) {
             console.log(response);
@@ -141,61 +250,6 @@ function fetchPost() {
     });
     // ---------------------------------
 
-    let data = getJSONLocalStorage(POSTS);
-    let inhtml = document.getElementById("posting-box").innerHTML;
-    inhtml = "";
-    inhtml += post_template_write_post(user.userimage);
-    // console.log(data);
-    for (let i = 0; i < data.length; i++) {
-        inhtml += post_template_userimage(data[i].userimage) +
-            post_template_username(data[i].username) +
-            post_template_time(data[i].timestamp) +
-            post_template_description(data[i].description, data[i].buzz_followed, data[i].feedid);
-
-        if (data[i].images.length > 0) {
-            if (data[i].images.length == 1) {
-                inhtml += post_template_image(data[i].images[0]);
-            } else if (data[i].images.length == 2) {
-                inhtml += post_template_image_two(data[i].images[0], data[i].images[1]);
-            } else if (data[i].images.length == 3) {
-                inhtml += post_template_image_three(data[i].images[0], data[i].images[1], data[i].images[2]);
-            } else {
-                inhtml += post_template_image_more(data[i].images[0], data[i].images[1], data[i].images[2]);
-            }
-        }
-
-        inhtml += post_template_likes(data[i].likes, data[i].buzz_upvoted, data[i].feedid) + post_template_comment_no(data[i].comments.length, data[i].buzz_shared);
-        if (data[i].comments.length > 0) {
-            for (let j = 0; j < data[i].comments.length; j++) {
-                inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
-            }
-        }
-        inhtml += post_template_end(data[i].feedid)
-        feedInputArray.push("commentinput-" + data[i].feedid);
-        // console.log(inhtml);
-        // let inputCommentField = document.getElementById("commentinput-" + data[i].feedid);
-        // inputCommentField.addEventListener("keydown", function(e) {
-        //     if (e.keyCode === 13) {
-        //         console.log("hello")
-        //             //checks whether the pressed key is "Enter"
-        //         addComment(data[i].feedid, inputCommentField.value);
-        //     }
-        // })
-
-        // add event listener
-    }
-    document.getElementById("posting-box").innerHTML = inhtml;
-    for (let j = 0; j < feedInputArray.length; j++) {
-        let inputCommentField = document.getElementById(feedInputArray[j]);
-        inputCommentField.addEventListener("keydown", function(e) {
-            if (e.keyCode == 13) {
-                console.log('running');
-                let feedid = feedInputArray[j].split("-")[1];
-                addComment(feedid, inputCommentField.value);
-
-            }
-        })
-    }
 }
 
 function addComment(feedid, commentData) {
