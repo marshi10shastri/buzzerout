@@ -73,6 +73,8 @@ function createPost() {
 
             let user_name = getJSONLocalStorage(USER_INFO).username;
             let desc = document.getElementById('buzz-post-input').value;
+            console.log(user_name);
+            console.log(desc);
             // on success
             $.ajax({
                 type: 'POST',
@@ -84,21 +86,24 @@ function createPost() {
                     location: 'abc'
                 },
                 success: function(data) {
-                    var post = [{
-                        feedid: data.feedid,
-                        name: getJSONLocalStorage(USER_INFO).first_name,
-                        userimage: getJSONLocalStorage(USER_INFO).userimage,
-                        images: link,
-                        description: desc,
-                        time: 'Just Now',
-                        likes: 0,
-                        comments: [],
-                    }];
+                    console.log(data);
+                    // var post = [{
+                    //     feedid: data.feedid,
+                    //     name: getJSONLocalStorage(USER_INFO).first_name,
+                    //     userimage: getJSONLocalStorage(USER_INFO).userimage,
+                    //     images: link,
+                    //     description: desc,
+                    //     timestamp: 'Just Now',
+                    //     likes: 0,
+                    //     comments: [],
+                    // }];
                     var local_posts = getJSONLocalStorage(POSTS);
-                    setJSONLocalStorage(POSTS, post.concat(local_posts));
+                    local_posts.push(data);
+                    setJSONLocalStorage(POSTS, local_posts);
+                    // setJSONLocalStorage(POSTS, post.concat(local_posts));
                     document.getElementById('close-modal').click();
                     fetchPost();
-                    fetchTimelinePosts();
+                    // fetchTimelinePosts();
                 },
                 error: function(response) {
                     console.log(response)
@@ -143,8 +148,8 @@ function fetchPost() {
     // console.log(data);
     for (let i = 0; i < data.length; i++) {
         inhtml += post_template_userimage(data[i].userimage) +
-            post_template_username(data[i].name) +
-            post_template_time(data[i].time) +
+            post_template_username(data[i].username) +
+            post_template_time(data[i].timestamp) +
             post_template_description(data[i].description, data[i].buzz_followed, data[i].feedid);
 
         if (data[i].images.length > 0) {
