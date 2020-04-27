@@ -9,6 +9,42 @@ function createPost() {
     var file = document.getElementById('buzz-photo-input').files[0];
     var resizedImage;
 
+    if(document.getElementById('buzz-photo-input').files.length == 0){
+        let user_name = getJSONLocalStorage(USER_INFO).username;
+        let desc = document.getElementById('buzz-post-input').value;
+        $.ajax({
+            type: 'POST',
+            url: 'http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed',
+            data: {
+                username: user_name,
+                title: 'title',
+                description: desc,
+                location: 'abc'
+            },
+            success: function(data) {
+                console.log(data);
+                var post = [{
+                    feedid: data.feedid,
+                    username:getJSONLocalStorage(USER_INFO).username,
+                    name: getJSONLocalStorage(USER_INFO).first_name,
+                    userimage: getJSONLocalStorage(USER_INFO).userimage,
+                    images: [],
+                    description: desc,
+                    timestamp: 'Just Now',
+                    likes: 0,
+                    comments: [],
+                }];
+                var local_posts = getJSONLocalStorage(POSTS);
+                setJSONLocalStorage(POSTS, post.concat(local_posts));
+                document.getElementById('close-modal').click();
+                fetchPost();
+            },
+            error: function(response) {
+                console.log(response)
+            }
+        });
+    }
+    else{
     // ---------------------------------------
     if (file.type.match(/image.*/)) {
         console.log('An image has been loaded');
@@ -87,28 +123,39 @@ function createPost() {
                 },
                 success: function(data) {
                     console.log(data);
-                    // var post = [{
-                    //     feedid: data.feedid,
-                    //     name: getJSONLocalStorage(USER_INFO).first_name,
-                    //     userimage: getJSONLocalStorage(USER_INFO).userimage,
-                    //     images: link,
-                    //     description: desc,
-                    //     timestamp: 'Just Now',
-                    //     likes: 0,
-                    //     comments: [],
-                    // }];
+                    let feedId = data.feedid;
+                    var post = [{
+                        feedid: data.feedid,
+                        username:getJSONLocalStorage(USER_INFO).username,
+                        name: getJSONLocalStorage(USER_INFO).first_name,
+                        userimage: getJSONLocalStorage(USER_INFO).userimage,
+                        images: [link],
+                        description: desc,
+                        timestamp: 'Just Now',
+                        likes: 0,
+                        comments: [],
+                    }];
                     var local_posts = getJSONLocalStorage(POSTS);
-                    local_posts.push(data);
-                    setJSONLocalStorage(POSTS, local_posts);
-                    // setJSONLocalStorage(POSTS, post.concat(local_posts));
+                    setJSONLocalStorage(POSTS, post.concat(local_posts));
                     document.getElementById('close-modal').click();
                     fetchPost();
                     // fetchTimelinePosts();
+
+                    //upload image to feed
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://buzzerout.com/buzzerout_server/v1/feed/uploadFeedImage',
+                        data: {
+                            feed_id:feedId,
+                            img:link
+                        },
+                        success: function(data) {
+                            console.log(data);
                 },
                 error: function(response) {
-                    console.log(response)
+                    console.log(response);
                 }
-            });
+                });
         },
         error: function(error) {
             console.log(error);
@@ -117,6 +164,7 @@ function createPost() {
         contentType: false,
         processData: false
     });
+    }
     // ------------------------------------------
 }
 var feedInputArray = [];
@@ -145,7 +193,6 @@ function fetchPost() {
     let inhtml = document.getElementById("posting-box").innerHTML;
     inhtml = "";
     inhtml += post_template_write_post(user.userimage);
-    // console.log(data);
     for (let i = 0; i < data.length; i++) {
         inhtml += post_template_userimage(data[i].userimage) +
             post_template_username(data[i].username) +
