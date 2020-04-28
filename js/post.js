@@ -151,15 +151,20 @@ function createPost() {
                         },
                         success: function(data) {
                             console.log(data);
+                        },
+                        error: function(response) {
+                            console.log(response);
+                        }
+                        });
                 },
-                error: function(response) {
-                    console.log(response);
+                error: function(data){
+                    console.log(data);
                 }
-                });
+            });
         },
-        error: function(error) {
-            console.log(error);
-        },
+                error: function(error) {
+                    console.log(error);
+                },
         cache: false,
         contentType: false,
         processData: false
