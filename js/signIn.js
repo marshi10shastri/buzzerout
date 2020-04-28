@@ -86,7 +86,8 @@ function signIn() {
                 setJSONLocalStorage(USER_INFO, dummy);
                 window.location = "index.html";
             } else {
-                alert("Invalid Credentials")
+                document.getElementById('modal-trigger').click();
+                // alert("Invalid Credentials");
                 setLocalStorage(USER, "false");
             }
         },
