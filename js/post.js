@@ -167,6 +167,7 @@ function createPost() {
     }
     // ------------------------------------------
 }
+
 var feedInputArray = [];
 
 function fetchPost() {
@@ -211,7 +212,7 @@ function fetchPost() {
             }
         }
 
-        inhtml += post_template_likes(data[i].likes, data[i].buzz_upvoted, data[i].feedid) + post_template_comment_no(data[i].comments.length, data[i].buzz_shared);
+        inhtml += post_template_likes(data[i].likes, data[i].buzz_upvoted, data[i].feedid) + post_template_comment_no(data[i].comments.length, data[i].buzz_shared, data[i].feedid);
         if (data[i].comments.length > 0) {
             for (let j = 0; j < data[i].comments.length; j++) {
                 inhtml += post_template_comment(data[i].comments[j].commentImg, data[i].comments[j].commentUser, data[i].comments[j].commentText);
@@ -307,35 +308,73 @@ function unfollowBuzzByFeedId() {
 }
 
 function upvotePost(id) {
+    let user = getJSONLocalStorage(USER_INFO);
     let postId = id.slice(5, id.length);
     let posts = getJSONLocalStorage(POSTS);
 
-    for (let i = 0; i < posts.length; i++) {
-        if (posts[i].feedid == postId) {
-            posts[i].buzz_upvoted = true;
-            setJSONLocalStorage(POSTS, posts);
-            break;
-        }
-    }
 
-    // fetch all posts again
-    fetchPost();
+    //api call
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'feed/feedUpvote',
+        data: {
+            username: user.username,
+            feed_id: postId
+        },
+        success: function(data){
+            console.log(data);
+            for (let i = 0; i < posts.length; i++) {
+                if (posts[i].feedid == postId) {
+                    posts[i].buzz_upvoted = true;
+                    setJSONLocalStorage(POSTS, posts);
+                    break;
+                }
+            }
+
+            // fetch all posts again
+            fetchPost();
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
+
+
 }
 
 function downvotePost(id) {
+    let user = getJSONLocalStorage(USER_INFO);
     let postId = id.slice(6, id.length);
     let posts = getJSONLocalStorage(POSTS);
 
-    for (let i = 0; i < posts.length; i++) {
-        if (posts[i].feedid == postId) {
-            posts[i].buzz_upvoted = false;
-            setJSONLocalStorage(POSTS, posts);
-            break;
-        }
-    }
 
-    // fetch all posts again
-    fetchPost();
+    //api call
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'feed/feedDownvote',
+        data: {
+            username: user.username,
+            feed_id: postId
+        },
+        success: function(data){
+            console.log(data);
+            for (let i = 0; i < posts.length; i++) {
+                if (posts[i].feedid == postId) {
+                    posts[i].buzz_upvoted = false;
+                    setJSONLocalStorage(POSTS, posts);
+                    break;
+                }
+            }
+        
+            // fetch all posts again
+            fetchPost();
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
+
+
 }
 
 
@@ -361,10 +400,30 @@ function followUser(id) {
 
     for (let i = 0; i < posts.length; i++) {
         if (posts[i].feedid == postId) {
-            posts[i].buzz_followed = true;
-            setJSONLocalStorage(POSTS, posts);
             break;
         }
     }
-    fetchPost();
+
+    //api call
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'feed/feedUpvote',
+        data: {
+            followed_by: user.username,
+            followes_to: posts[i].username
+        },
+        success: function(data){
+            console.log(data);
+            posts[i].buzz_followed = true;
+            setJSONLocalStorage(POSTS, posts);
+
+            fetchPost();
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
+
+
+    
 }

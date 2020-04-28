@@ -563,7 +563,7 @@ function post_template_likes(likes, is_liked, feedid) {
 
 }
 
-function post_template_comment_no(commentNo, is_shared) {
+function post_template_comment_no(commentNo, is_shared, feedid) {
     if (is_shared) {
         return '</span>\
         <div class="dropdown-menu">\
@@ -601,7 +601,7 @@ function post_template_comment_no(commentNo, is_shared) {
         <hr>\
         <ul class="post-comments p-0 m-0">';
     }
-    return '</span>\
+    return `</span>\
         <div class="dropdown-menu">\
         <a class="dropdown-item" href="#">Max Emum</a>\
         <a class="dropdown-item" href="#">Bill Yerds</a>\
@@ -630,12 +630,12 @@ function post_template_comment_no(commentNo, is_shared) {
         </div>\
         </div>\
         <div class="share-block d-flex align-items-center feather-icon mr-3">\
-        <a href="javascript:void();"><i class="ri-share-line"></i>\
+        <a href="javascript:void();" id="share-`+ feedid +`"><i class="ri-share-line"></i>\
         <span class="ml-1">99 Share</span></a>\
         </div> \
         </div>\
         <hr>\
-        <ul class="post-comments p-0 m-0">';
+        <ul class="post-comments p-0 m-0">`;
 }
 
 function post_template_comment(commentImg, commentUser, commentText) {
