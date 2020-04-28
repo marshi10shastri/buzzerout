@@ -595,7 +595,7 @@ function post_template_comment_no(commentNo, is_shared, feedid) {
         </div>\
         <div class="share-block d-flex align-items-center feather-icon mr-3">\
         <a href="javascript:void();"><i class="ri-share-line"></i>\
-        <span class="ml-1">99 Share | Shared by you</span></a>\
+        <span class="ml-1">Share | Shared by you</span></a>\
         </div> \
         </div>\
         <hr>\
@@ -631,7 +631,7 @@ function post_template_comment_no(commentNo, is_shared, feedid) {
         </div>\
         <div class="share-block d-flex align-items-center feather-icon mr-3">\
         <a href="javascript:void();" id="share-`+ feedid +`"><i class="ri-share-line"></i>\
-        <span class="ml-1">99 Share</span></a>\
+        <span class="ml-1">Share</span></a>\
         </div> \
         </div>\
         <hr>\
