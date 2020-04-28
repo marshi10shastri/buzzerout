@@ -332,7 +332,7 @@ function post_template_username(name) {
 function post_template_time(timeh) {
     return '\
             </a></h5>\
-            <p class="mb-0 d-inline-block">Update her Status</p>\
+            <!--<p class="mb-0 d-inline-block">Update her Status</p>-->\
             <p class="mb-0 text-primary">' + timeh + 'hour ago</p>\
             '
 }
