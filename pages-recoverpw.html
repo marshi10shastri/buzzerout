@@ -121,15 +121,15 @@
 
                         <p>Enter your email address and we'll send you an email with instructions to reset your password.</p>
 
-                        <form class="mt-4">
-
+                        <!-- <form class="mt-4"> -->
+                        <div class="mt-4">
 
 
                             <div class="form-group">
 
-                                <label for="exampleInputEmail1">Email address</label>
+                                <label for="emailForReset">Email address</label>
 
-                                <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Enter email">
+                                <input type="email" class="form-control mb-0" id="emailForReset" placeholder="Enter email">
 
                             </div>
 
@@ -139,13 +139,13 @@
 
 
 
-                                <button type="submit" class="btn btn-primary float-right">Reset Password</button>
+                                <button class="btn btn-primary float-right" onclick="resetPassword()">Reset Password</button>
 
                             </div>
 
 
-
-                        </form>
+                        </div>
+                        <!-- </form> -->
 
                     </div>
 
@@ -222,6 +222,7 @@
     <!-- Custom JavaScript -->
 
     <script src="js/custom.js"></script>
+    <script src="js/resetpw.js"></script>
 
 </body>
 
