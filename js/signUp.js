@@ -19,7 +19,7 @@ function checkUsername() {
             },
 
             success: function(data) {
-                if (!data.error) {
+                if (data.error) {
                     available = true;
                     availIcon.style.display = 'block'
                     navailIcon.style.display = 'none'
