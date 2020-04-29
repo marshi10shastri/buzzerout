@@ -512,129 +512,129 @@ function post_template_image_more(image_path_1, image_path_2, image_path_3) {
 function post_template_likes(likes, is_liked, feedid) {
     if (is_liked) {
         return `<div class="comment-area mt-3">
-            <div class="d-flex justify-content-between align-items-center">
-            <div class="like-block position-relative d-flex align-items-center">
-            <div class="d-flex align-items-center">
-                <div class="like-data">
-                    <div class="dropdown">
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-            <img src="images/icon/01.png" class="img-fluid" alt="">
-            </span>
-                        <div class="dropdown-menu">
-                            <a id="like-` + feedid + `" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(this.id)" href="#like-` + feedid + `"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
-                            <a id="dlike-` + feedid + `" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)" href="#dlike-` + feedid + `"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
-                        <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="total-like-block ml-2 mr-3">
-                    <div class="dropdown">
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + likes + ` likes | Liked by you.
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="like-block position-relative d-flex align-items-center">
+                            <div class="d-flex align-items-center">
+                                 <div class="like-data">
+                                    <div class="dropdown">
+                                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                             <img src="images/icon/01.png" class="img-fluid" alt="">
+                                        </span>
+                                        <div class="dropdown-menu">
+                                        <a id="like-` + feedid + `" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(this.id)" href="#like-` + feedid + `"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
+                                        <a id="dlike-` + feedid + `" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)" href="#dlike-` + feedid + `"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
+                                         <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>
+                                        <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>
+                                        <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>
+                                        <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>
+                                        <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a>-->
+                                     </div>
+                                    </div>
+                                </div>
+                                <div class="total-like-block ml-2 mr-3">
+                                    <div class="dropdown">
+                                         <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + likes + ` likes | Liked by you.
                         `;
     }
-    return `<div class="comment-area mt-3">\
-            <div class="d-flex justify-content-between align-items-center">\
-            <div class="like-block position-relative d-flex align-items-center">\
-            <div class="d-flex align-items-center">\
-                <div class="like-data">\
-                    <div class="dropdown">\
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
-            <img src="images/icon/01.png" class="img-fluid" alt="">\
-            </span>\
-                        <div class="dropdown-menu">\
-                            <a id="like-` + feedid + `" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" onclick="upvotePost(this.id)" href="#dlike-` + feedid + `"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
-                            <a id="dlike-` + feedid + `" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love" onclick="downvotePost(this.id)" href="#dlike-` + feedid + `"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
-                        <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>\
-                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a> -->\
-                        </div>\
-                    </div>\
-                </div>\
-                <div class="total-like-block ml-2 mr-3">\
-                    <div class="dropdown">\
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + likes + ` likes \
+    return `<div class="comment-area mt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="like-block position-relative d-flex align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="like-data">
+                                <div class="dropdown">
+                                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                                        <img src="images/icon/01.png" class="img-fluid" alt="">
+                                     </span>
+                                    <div class="dropdown-menu">
+                                        <a id="like-` + feedid + `" class="ml-2 mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" onclick="upvotePost(this.id)" href="#dlike-` + feedid + `"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
+                                        <a id="dlike-` + feedid + `" class="mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love" onclick="downvotePost(this.id)" href="#dlike-` + feedid + `"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
+                                    <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>
+                                        <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>
+                                        <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>
+                                        <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>
+                                        <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a> -->
+                                    </div>
+                                 </div>
+                             </div>
+                            <div class="total-like-block ml-2 mr-3">
+                                 <div class="dropdown">
+                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + likes + ` likes 
                         `;
 
 }
 
 function post_template_comment_no(commentNo, is_shared, feedid) {
     if (is_shared) {
-        return '</span>\
-        <div class="dropdown-menu">\
-        <a class="dropdown-item" href="#">Max Emum</a>\
-        <a class="dropdown-item" href="#">Bill Yerds</a>\
-        <a class="dropdown-item" href="#">Hap E. Birthday</a>\
-        <a class="dropdown-item" href="#">Tara Misu</a>\
-        <a class="dropdown-item" href="#">Midge Itz</a>\
-        <a class="dropdown-item" href="#">Sal Vidge</a>\
-        <a class="dropdown-item" href="#">Other</a>\
-        </div>\
-        </div>\
-        </div>\
-        </div>\
-        <div class="total-comment-block">\
-        <div class="dropdown">\
-        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + commentNo + ' comments</span>\
-        <div class="dropdown-menu">\
-            <a class="dropdown-item" href="#">Max Emum</a>\
-            <a class="dropdown-item" href="#">Bill Yerds</a>\
-            <a class="dropdown-item" href="#">Hap E. Birthday</a>\
-            <a class="dropdown-item" href="#">Tara Misu</a>\
-            <a class="dropdown-item" href="#">Midge Itz</a>\
-            <a class="dropdown-item" href="#">Sal Vidge</a>\
-            <a class="dropdown-item" href="#">Other</a>\
-        </div>\
-        </div>\
-        </div>\
-        </div>\
-        <div class="share-block d-flex align-items-center feather-icon mr-3">\
-        <a href="javascript:void();"><i class="ri-share-line"></i>\
-        <span class="ml-1">Share | Shared by you</span></a>\
-        </div> \
-        </div>\
-        <hr>\
-        <ul class="post-comments p-0 m-0">';
+        return `</span>
+        <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Max Emum</a>
+        <a class="dropdown-item" href="#">Bill Yerds</a>
+        <a class="dropdown-item" href="#">Hap E. Birthday</a>
+        <a class="dropdown-item" href="#">Tara Misu</a>
+        <a class="dropdown-item" href="#">Midge Itz</a>
+        <a class="dropdown-item" href="#">Sal Vidge</a>
+        <a class="dropdown-item" href="#">Other</a>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="total-comment-block">
+        <div class="dropdown">
+        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + commentNo + ` comments</span>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Max Emum</a>
+            <a class="dropdown-item" href="#">Bill Yerds</a>
+            <a class="dropdown-item" href="#">Hap E. Birthday</a>
+            <a class="dropdown-item" href="#">Tara Misu</a>
+            <a class="dropdown-item" href="#">Midge Itz</a>
+            <a class="dropdown-item" href="#">Sal Vidge</a>
+            <a class="dropdown-item" href="#">Other</a>
+        </div>
+        </div>
+        </div>
+        </div
+        <div class="share-block d-flex align-items-center feather-icon mr-3">
+        <a href="javascript:void();"><i class="ri-share-line"></i>
+        <span class="ml-1">Share | Shared by you</span></a>
+        </div> 
+        </div>
+        <hr>
+        <ul class="post-comments p-0 m-0">`;
     }
-    return `</span>\
-        <div class="dropdown-menu">\
-        <a class="dropdown-item" href="#">Max Emum</a>\
-        <a class="dropdown-item" href="#">Bill Yerds</a>\
-        <a class="dropdown-item" href="#">Hap E. Birthday</a>\
-        <a class="dropdown-item" href="#">Tara Misu</a>\
-        <a class="dropdown-item" href="#">Midge Itz</a>\
-        <a class="dropdown-item" href="#">Sal Vidge</a>\
-        <a class="dropdown-item" href="#">Other</a>\
-        </div>\
-        </div>\
-        </div>\
-        </div>\
-        <div class="total-comment-block">\
-        <div class="dropdown">\
-        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">' + commentNo + ' comments</span>\
-        <div class="dropdown-menu">\
-            <a class="dropdown-item" href="#">Max Emum</a>\
-            <a class="dropdown-item" href="#">Bill Yerds</a>\
-            <a class="dropdown-item" href="#">Hap E. Birthday</a>\
-            <a class="dropdown-item" href="#">Tara Misu</a>\
-            <a class="dropdown-item" href="#">Midge Itz</a>\
-            <a class="dropdown-item" href="#">Sal Vidge</a>\
-            <a class="dropdown-item" href="#">Other</a>\
-        </div>\
-        </div>\
-        </div>\
-        </div>\
-        <div class="share-block d-flex align-items-center feather-icon mr-3">\
-        <a href="javascript:void();" id="share-` + feedid + `"><i class="ri-share-line"></i>\
-        <span class="ml-1">Share</span></a>\
-        </div> \
-        </div>\
-        <hr>\
+    return `</span>
+        <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Max Emum</a>
+        <a class="dropdown-item" href="#">Bill Yerds</a>
+        <a class="dropdown-item" href="#">Hap E. Birthday</a>
+        <a class="dropdown-item" href="#">Tara Misu</a>
+        <a class="dropdown-item" href="#">Midge Itz</a>
+        <a class="dropdown-item" href="#">Sal Vidge</a>
+        <a class="dropdown-item" href="#">Other</a>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="total-comment-block">
+        <div class="dropdown">
+        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + commentNo + ` comments</span>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Max Emum</a>
+            <a class="dropdown-item" href="#">Bill Yerds</a>
+            <a class="dropdown-item" href="#">Hap E. Birthday</a>
+            <a class="dropdown-item" href="#">Tara Misu</a>
+            <a class="dropdown-item" href="#">Midge Itz</a>
+            <a class="dropdown-item" href="#">Sal Vidge</a>
+            <a class="dropdown-item" href="#">Other</a>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="share-block d-flex align-items-center feather-icon mr-3">
+        <a href="javascript:void();" id="share-` + feedid + `"><i class="ri-share-line"></i>
+        <span class="ml-1">Share</span></a>
+        </div> 
+        </div>
+        <hr>
         <ul class="post-comments p-0 m-0">`;
 }
 
