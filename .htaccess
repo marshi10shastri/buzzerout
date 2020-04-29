@@ -1,7 +1,0 @@
-RewriteEngine On 
-RewriteCond %{REQUEST_FILENAME} !-f 
-RewriteRule ^(.*)$ %{ENV:BASE}index.php [QSA,L]
-<IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin http://www.vknyvz.com  
-    Header set Access-Control-Allow-Credentials true
-</IfModule>
