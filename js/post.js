@@ -193,7 +193,9 @@ function fetchPost() {
 
                 for (let i = 0; i < data.length; i++) {
 
-                    inhtml.innerHTML += postTemplateStart;
+
+                    inhtml.innerHTML += postTemplateStart()
+
 
 
 
