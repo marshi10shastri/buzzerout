@@ -20,8 +20,8 @@ function setPersonNameImage() {
     document.getElementById('topnav-user-image').src = getJSONLocalStorage(USER_INFO).userimage;
     document.getElementById('post-write-userimage').src = getJSONLocalStorage(USER_INFO).userimage;
     document.getElementById('post-write-userimage-inside').src = getJSONLocalStorage(USER_INFO).userimage;
-    document.getElementById('post-userimage-story').src = getJSONLocalStorage(USER_INFO).userimage;
-    
+    // document.getElementById('post-userimage-story').src = getJSONLocalStorage(USER_INFO).userimage;
+
 }
 
 function setProfileNameImage() {

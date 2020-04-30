@@ -8,8 +8,6 @@ function signIn() {
     if (username == "" || password == "") {
         document.getElementById('modal-trigger').click();
     } else {
-        // alert(username);
-        // alert(password);
         $.ajax({
             type: 'POST',
             url: 'http://buzzerout.com/buzzerout_server/v1/user/login',
@@ -90,7 +88,7 @@ function signIn() {
                     window.location = "index.html";
                 } else {
                     document.getElementById('modal-trigger').click();
-                    // alert("Invalid Credentials");
+                    alert("Invalid Credentials");
                     setLocalStorage(USER, "false");
                 }
             },
