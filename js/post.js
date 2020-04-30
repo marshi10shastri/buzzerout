@@ -23,21 +23,27 @@ function createPost() {
             },
             success: function(data) {
                 console.log(data);
-                var post = [{
-                    feedid: data.feedid,
-                    username: getJSONLocalStorage(USER_INFO).username,
-                    name: getJSONLocalStorage(USER_INFO).first_name,
-                    userimage: getJSONLocalStorage(USER_INFO).userimage,
-                    images: [],
-                    description: desc,
-                    timestamp: 'Just Now',
-                    likes: 0,
-                    comments: [],
-                }];
-                var local_posts = getJSONLocalStorage(POSTS);
-                setJSONLocalStorage(POSTS, post.concat(local_posts));
-                document.getElementById('close-modal').click();
-                fetchPost();
+                if (data["error"] == false) {
+                    var post = [{
+                        feedid: data.feedid,
+                        username: getJSONLocalStorage(USER_INFO).username,
+                        name: getJSONLocalStorage(USER_INFO).first_name,
+                        userimage: getJSONLocalStorage(USER_INFO).userimage,
+                        images: [],
+                        description: desc,
+                        timestamp: 'Just Now',
+                        likes: 0,
+                        comments: [],
+                    }];
+                    var local_posts = getJSONLocalStorage(POSTS);
+                    setJSONLocalStorage(POSTS, post.concat(local_posts));
+                    document.getElementById('close-modal').click();
+                    fetchPost();
+                } else {
+                    alert(data["message"]);
+                }
+
+
             },
             error: function(response) {
                 console.log(response)
@@ -186,6 +192,7 @@ function fetchPost() {
         url: 'http://buzzerout.com/buzzerout_server/v1/feed/fetchAllFeed',
         data: {},
         success: function(resp) {
+            console.log(resp);
             if (0 != resp.Feed.length) {
                 feedInputArray = []
                 setJSONLocalStorage(POSTS, resp.Feed);
@@ -193,12 +200,7 @@ function fetchPost() {
 
                 for (let i = 0; i < data.length; i++) {
 
-
-                    inhtml.innerHTML += postTemplateStart()
-
-
-
-
+                    inhtml.innerHTML += postTemplateStart(data[i])
 
                     // let timestring = "";
                     // let ts = new Date(data[i].timestamp).getTime();
@@ -249,7 +251,7 @@ function fetchPost() {
 
                     // console.log("hie")
                     // inhtml.innerHTML += post_template_end(data[i].feedid)
-                    // feedInputArray.push("commentinput-" + data[i].feedid);
+                    feedInputArray.push("commentinput-" + data[i].feedid);
                     // console.log(inhtml);
                     // let inputCommentField = document.getElementById("commentinput-" + data[i].feedid);
                     // inputCommentField.addEventListener("keydown", function(e) {
@@ -263,17 +265,17 @@ function fetchPost() {
                     // add event listener
                 }
                 // document.getElementById("posting-box").innerHTML = inhtml;
-                // for (let j = 0; j < feedInputArray.length; j++) {
-                //     let inputCommentField = document.getElementById(feedInputArray[j]);
-                //     inputCommentField.addEventListener("keydown", function(e) {
-                //         if (e.keyCode == 13) {
-                //             console.log('running');
-                //             let feedid = feedInputArray[j].split("-")[1];
-                //             addComment(feedid, inputCommentField.value);
-
-                //         }
-                //     })
-                // }
+                for (let j = 0; j < feedInputArray.length; j++) {
+                    let inputCommentField = document.getElementById(feedInputArray[j]);
+                    inputCommentField.addEventListener("keydown", function(e) {
+                        if (e.keyCode == 13) {
+                            console.log('running');
+                            let feedid = feedInputArray[j].split("-")[1];
+                            addComment(feedid, inputCommentField.value);
+                            inputCommentField.value = "";
+                        }
+                    })
+                }
 
             } else {
                 let inhtml = document.getElementById("posting-box");
@@ -319,7 +321,8 @@ function addComment(feedid, commentData) {
                     break;
                 }
             }
-            document.getElementById("commentinput-" + feedid).value = "";
+            console.log("commentinput-" + feedid);
+
         },
         error: function(response) {
             console.log(response);
