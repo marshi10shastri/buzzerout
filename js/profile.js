@@ -282,32 +282,7 @@ function editDetails() {
     });
 }
 
-function editName() {
-    let user = getJSONLocalStorage(USER_INFO);
-    fname = document.getElementById('fName').value;
-    lname = document.getElementById('lName').value;
 
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'user/updateFirstLastName',
-        data: {
-            username: user.username,
-            first_name: fname,
-            last_name: lname
-        },
-        success: function(data) {
-            console.log(data);
-            user.first_name = data.user.first_name
-            user.last_name = data.user.last_name
-            setJSONLocalStorage(USER_INFO, user);
-            setProfileNameImage();
-            showProfile();
-        },
-        error: function(data) {
-            console.log(data);
-        }
-    });
-}
 
 function editCity() {
     let user = getJSONLocalStorage(USER_INFO);
@@ -446,7 +421,6 @@ function reply_click_work(id) {
 
 
 var TfeedInputArray = [];
-
 function fetchTimelinePosts() {
     let T_POSTS = getJSONLocalStorage(POSTS);
     let user = getJSONLocalStorage(USER_INFO);
@@ -483,11 +457,11 @@ function fetchTimelinePosts() {
 }
 
 
-function uploadProfileImage() {
+function profileImageUpload(){
     let user = getJSONLocalStorage(USER_INFO);
     let file = document.getElementById('profile-image-upload').files[0];
 
-    if (file) {
+    if(file){
         var formData = new FormData();
         formData.append('file', file);
         formData.append('product', 'appnivi');
@@ -497,49 +471,54 @@ function uploadProfileImage() {
         formData.append('message', 'Transfer File');
 
         $.ajax({
-            type: 'POST',
-            url: 'http://appnivi.com/server/v1/file/fileupload',
-            data: formData,
-            success: function(data) {
+            type:'POST',
+            url:'http://appnivi.com/server/v1/file/fileupload',
+            data:formData,
+            success: function (data){
                 var link = data.link;
                 console.log(data.link);
 
                 //change profile picture
                 $.ajax({
                     type: 'POST',
-                    url: SERVER_URL + '',
+                    url: SERVER_URL + 'profile/updateUserProfileImage',
                     data: {
                         username: user.username,
-                        image_link: link,
+                        img: link,
                     },
-                    success: function(response) {
+                    success: function(response){
                         console.log(response);
-                        //set profile image as 
+                        //set profile image as
+                        user.userimage = response.profile_detail.user_profile_image;
+                        setJSONLocalStorage(USER_INFO, user);
+                        setProfileNameImage();
+                        
                     },
-                    error: function(response) {
+                    error: function(response){
                         console.log(response)
                     }
                 });
 
             },
-            error: function(error) {
+            error: function(error){
                 console.log(error);
             },
-            cache: false,
+            cache:false,
             contentType: false,
             processData: false
         });
 
-    } else {
+    }
+    else{
         alert('Select file');
     }
 }
 
-function coverImageUpload() {
+function coverImageUpload(){
     let user = getJSONLocalStorage(USER_INFO);
     let file = document.getElementById('upload-cover-pic').files[0];
 
-    if (file) {
+    if(file){
         var formData = new FormData();
         formData.append('file', file);
         formData.append('product', 'appnivi');
@@ -549,10 +528,10 @@ function coverImageUpload() {
         formData.append('message', 'Transfer File');
 
         $.ajax({
-            type: 'POST',
-            url: 'http://appnivi.com/server/v1/file/fileupload',
-            data: formData,
-            success: function(data) {
+            type:'POST',
+            url:'http://appnivi.com/server/v1/file/fileupload',
+            data:formData,
+            success: function (data){
                 var link = data.link;
                 console.log(data.link);
 
@@ -564,34 +543,35 @@ function coverImageUpload() {
                         username: user.username,
                         image_link: link,
                     },
-                    success: function(response) {
+                    success: function(response){
                         console.log(response);
                         //set cover image as 
                         document.getElementById('cover-pic').src = link;
                         //set cover-pic in user 
                     },
-                    error: function(response) {
+                    error: function(response){
                         console.log(response)
                     }
                 });
 
             },
-            error: function(error) {
+            error: function(error){
                 console.log(error);
             },
-            cache: false,
+            cache:false,
             contentType: false,
             processData: false
         });
 
-    } else {
+    }
+    else{
         alert('Select file');
     }
 }
 
 
 //from edit profile page
-function editPersonalInfo() {
-    uploadProfileImage();
+function editPersonalInfo(){
+    profileImageUpload();
     editName();
 }
