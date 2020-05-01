@@ -55,36 +55,42 @@ function checkUsername() {
 
 function signUp() {
     var check = document.getElementById('customCheck1');
-    if (!available) {
-        alert("Username not available.")
-    } else if (!valid) {
-        alert("Username not valid.")
-    } else if (!check.checked) {
-        alert("Accept terms and conditions.")
+
+    var name = document.getElementById('exampleInputEmail1').value.split(" ");
+    var email = document.getElementById('exampleInputEmail2').value;
+    var password = document.getElementById('exampleInputPassword1').value;
+    var usern = document.getElementById('exampleInputEmail0').value;
+    // chceking all inputs to be non-empty
+    if (name != "" && email != "" && password != "" && usern != "") {
+
+        if (!available) {
+            alert("Username not available.")
+        } else if (!valid) {
+            alert("Username not valid.")
+        } else if (!check.checked) {
+            alert("Accept terms and conditions.")
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: 'http://buzzerout.com/buzzerout_server/v1/register/registerUser',
+                data: {
+                    firstname: name[0],
+                    lastname: name[1],
+                    username: usern,
+                    email: email,
+                    password: password
+                },
+
+                success: function(data) {
+                    window.location = "pages-confirm-mail.html";
+                },
+
+                error: function(data) {
+                    console.log(data);
+                },
+            });
+        }
     } else {
-        var name = document.getElementById('exampleInputEmail1').value.split(" ");
-        var email = document.getElementById('exampleInputEmail2').value;
-        var password = document.getElementById('exampleInputPassword1').value;
-        var usern = document.getElementById('exampleInputEmail0').value;
-
-        $.ajax({
-            type: 'POST',
-            url: 'http://buzzerout.com/buzzerout_server/v1/register/registerUser',
-            data: {
-                firstname: name[0],
-                lastname: name[1],
-                username: usern,
-                email: email,
-                password: password
-            },
-
-            success: function(data) {
-                window.location = "pages-confirm-mail.html";
-            },
-
-            error: function(data) {
-                console.log(data);
-            },
-        });
+        alert("Please fill all details for signup");
     }
 }

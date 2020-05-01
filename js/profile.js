@@ -446,6 +446,7 @@ function reply_click_work(id) {
 
 
 var TfeedInputArray = [];
+
 function fetchTimelinePosts() {
     let T_POSTS = getJSONLocalStorage(POSTS);
     let user = getJSONLocalStorage(USER_INFO);
@@ -482,11 +483,11 @@ function fetchTimelinePosts() {
 }
 
 
-function profileImageUpload(){
+function uploadProfileImage() {
     let user = getJSONLocalStorage(USER_INFO);
     let file = document.getElementById('profile-image-upload').files[0];
 
-    if(file){
+    if (file) {
         var formData = new FormData();
         formData.append('file', file);
         formData.append('product', 'appnivi');
@@ -496,10 +497,10 @@ function profileImageUpload(){
         formData.append('message', 'Transfer File');
 
         $.ajax({
-            type:'POST',
-            url:'http://appnivi.com/server/v1/file/fileupload',
-            data:formData,
-            success: function (data){
+            type: 'POST',
+            url: 'http://appnivi.com/server/v1/file/fileupload',
+            data: formData,
+            success: function(data) {
                 var link = data.link;
                 console.log(data.link);
 
@@ -511,35 +512,34 @@ function profileImageUpload(){
                         username: user.username,
                         image_link: link,
                     },
-                    success: function(response){
+                    success: function(response) {
                         console.log(response);
                         //set profile image as 
                     },
-                    error: function(response){
+                    error: function(response) {
                         console.log(response)
                     }
                 });
 
             },
-            error: function(error){
+            error: function(error) {
                 console.log(error);
             },
-            cache:false,
+            cache: false,
             contentType: false,
             processData: false
         });
 
-    }
-    else{
+    } else {
         alert('Select file');
     }
 }
 
-function coverImageUpload(){
+function coverImageUpload() {
     let user = getJSONLocalStorage(USER_INFO);
     let file = document.getElementById('upload-cover-pic').files[0];
 
-    if(file){
+    if (file) {
         var formData = new FormData();
         formData.append('file', file);
         formData.append('product', 'appnivi');
@@ -549,10 +549,10 @@ function coverImageUpload(){
         formData.append('message', 'Transfer File');
 
         $.ajax({
-            type:'POST',
-            url:'http://appnivi.com/server/v1/file/fileupload',
-            data:formData,
-            success: function (data){
+            type: 'POST',
+            url: 'http://appnivi.com/server/v1/file/fileupload',
+            data: formData,
+            success: function(data) {
                 var link = data.link;
                 console.log(data.link);
 
@@ -564,35 +564,34 @@ function coverImageUpload(){
                         username: user.username,
                         image_link: link,
                     },
-                    success: function(response){
+                    success: function(response) {
                         console.log(response);
                         //set cover image as 
                         document.getElementById('cover-pic').src = link;
                         //set cover-pic in user 
                     },
-                    error: function(response){
+                    error: function(response) {
                         console.log(response)
                     }
                 });
 
             },
-            error: function(error){
+            error: function(error) {
                 console.log(error);
             },
-            cache:false,
+            cache: false,
             contentType: false,
             processData: false
         });
 
-    }
-    else{
+    } else {
         alert('Select file');
     }
 }
 
 
 //from edit profile page
-function editPersonalInfo(){
-    profileImageUpload();
+function editPersonalInfo() {
+    uploadProfileImage();
     editName();
 }
