@@ -94,7 +94,7 @@ function postTemplateStart(feed) {
                     <div class="d-flex align-items-center">\
                         <div class="like-data">\
                             <div class="dropdown">\
-                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" onclick="upvoteBuzz(\'' + feed.feedid + '\')"  >\
                     <img src="images/icon/01.png" class="img-fluid" alt="">\
                     </span>\
                                 <div class="dropdown-menu">\
@@ -231,4 +231,103 @@ function setBuzzNotification(buzzid) {
 
 function unsetBuzzNotification(buzzid) {
     console.log("Unset notification For : " + buzzid);
+}
+
+function upvoteBuzz(id) {
+    let user = getJSONLocalStorage(USER_INFO);
+    let buzz_id = id;
+    //api call
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + 'feed/feedUpvote',
+        data: {
+            username: user.username,
+            feed_id: buzz_id
+        },
+        success: function(data) {
+            // fetch all posts again
+            console.log(data);
+            fetchPost();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
+
+}
+
+function downvotePost(id) {
+    let user = getJSONLocalStorage(USER_INFO);
+    let postId = id.slice(6, id.length);
+    let posts = getJSONLocalStorage(POSTS);
+    //api call
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + 'feed/feedDownvote',
+        data: {
+            username: user.username,
+            feed_id: postId
+        },
+        success: function(data) {
+            console.log(data);
+            // fetch all posts again
+            fetchPost();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
+}
+
+
+function unfollowUser(id) {
+    console.log('unfollow');
+    let postId = id.slice(9, id.length);
+    let posts = getJSONLocalStorage(POSTS);
+
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].feedid == postId) {
+            posts[i].buzz_followed = false;
+            setJSONLocalStorage(POSTS, posts);
+            break;
+        }
+    }
+    fetchPost();
+}
+
+function followUser(id) {
+    console.log('follow');
+    let postId = id.slice(7, id.length);
+    let posts = getJSONLocalStorage(POSTS);
+
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].feedid == postId) {
+            break;
+        }
+    }
+
+    //api call
+    $.ajax({
+        type: 'POST',
+        url: SERVER_URL + 'feed/feedUpvote',
+        data: {
+            followed_by: user.username,
+            followes_to: posts[i].username
+        },
+        success: function(data) {
+            console.log(data);
+            posts[i].buzz_followed = true;
+            setJSONLocalStorage(POSTS, posts);
+
+            fetchPost();
+        },
+        error: function(data) {
+            console.log(data);
+        }
+    });
+
+
+
 }
