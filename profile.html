@@ -434,11 +434,11 @@
 
                                 <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
 
-                                    <img id="topnav-profile-user-image" src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
+                                    <img id="topnav-profile-user-image" src="images/user/1.jpg" class="img-fluid rounded-circle mr-3 curr-user-img" alt="user">
 
                                     <div class="caption">
 
-                                        <h6 id="person-name" class="mb-0 line-height">Bni Cyst</h6>
+                                        <h6 id="person-name" class="mb-0 line-height user-name">Bni Cyst</h6>
 
                                     </div>
 
@@ -908,7 +908,7 @@
 
                                             <div class="bg-primary p-3 line-height">
 
-                                                <h5 class="mb-0 text-white line-height" id="profile-greet-user">Hello Bni Cyst</h5>
+                                                <h5 class="mb-0 text-white line-height user-name" id="profile-greet-user">Hello Bni Cyst</h5>
 
                                                 <span class="text-white font-size-12">Available</span>
 
@@ -1258,11 +1258,18 @@
 
                                     <div class="cover-container">
 
-                                        <img src="images/page-img/profile-bg1.jpg" alt="profile-bg" class="rounded img-fluid">
+                                        <img id="cover-pic" src="images/page-img/profile-bg1.jpg" alt="profile-bg" class="rounded img-fluid">
 
                                         <ul class="header-nav d-flex flex-wrap justify-end p-0 m-0">
 
-                                            <li class="clickable-icons"><a href="javascript:void();" data-toggle="modal" data-target="#gridSystemModal"><i class="ri-pencil-line"></i></a></li>
+                                            <li class="clickable-icons">
+                                                <a href="javascript:void();">
+                                                    
+                                                <i class="ri-pencil-line" onclick="document.getElementById('upload-cover-pic').click()">
+                                                    <input id="upload-cover-pic" class="file-upload" type="file" accept="image/*">
+                                                </i>
+                                             </a>
+                                            </li>
 
                                             <li class="clickable-icons"><a href="javascript:void();"><i class="ri-settings-4-line"></i></a></li>
 
@@ -1274,13 +1281,13 @@
 
                                         <div class="profile-img">
 
-                                            <img id="profile-user-image" src="images/user/11.png" alt="profile-img" class="avatar-130 img-fluid" />
+                                            <img id="profile-user-image" src="images/user/11.png" alt="profile-img" class="avatar-130 img-fluid curr-user-img" />
 
                                         </div>
 
                                         <div class="profile-detail">
 
-                                            <h3 id="profile-user-name" class="">Bni Cyst</h3>
+                                            <h3 id="profile-user-name" class="user-name">Bni Cyst</h3>
 
                                         </div>
 
@@ -1700,7 +1707,7 @@
 
                                                         <div class="user-img">
 
-                                                            <img id="profile-write-post-user-image" src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                                                            <img id="profile-write-post-user-image" src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid curr-user-img">
 
                                                         </div>
 
@@ -1781,7 +1788,7 @@
 
                                                                     <div class="user-img">
 
-                                                                        <img id="profile-write-post-user-image-inside" src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                                                                        <img id="profile-write-post-user-image-inside" src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid curr-user-img">
 
                                                                     </div>
 
@@ -1875,7 +1882,7 @@
 
                                                                             <div class="user-img mr-3">
 
-                                                                                <img id="profile-story-image-inside" src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                                                                                <img id="profile-story-image-inside" src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid curr-user-img">
 
                                                                             </div>
 
