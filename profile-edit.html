@@ -32,9 +32,12 @@
 
     <link rel="stylesheet" href="css/responsive.css">
 
+    <script src="js/constant.js"></script>
+    <script src="js/base.js"></script>
+
 </head>
 
-<body class="sidebar-main-active right-column-fixed" onload="setProfileNameImage()">
+<body class="sidebar-main-active right-column-fixed" onload="initProfileEdit()">
 
     <!-- loader Start -->
 
@@ -433,7 +436,7 @@
 
                                 <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
 
-                                    <img src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
+                                    <img class="img-fluid rounded-circle mr-3 curr-user-img" src="images/user/1.jpg" alt="user">
 
                                     <div class="caption">
 
@@ -1359,7 +1362,7 @@
 
                                                         <label for="fname">First Name:</label>
 
-                                                        <input type="text" class="form-control" id="fname" value="Bni">
+                                                        <input type="text" class="form-control" id="fnameIn" value="Bni">
 
                                                     </div>
 
@@ -1367,7 +1370,7 @@
 
                                                         <label for="lname">Last Name:</label>
 
-                                                        <input type="text" class="form-control" id="lname" value="Jhon">
+                                                        <input type="text" class="form-control" id="lnameIn" value="Jhon">
 
                                                     </div>
 
@@ -1413,7 +1416,7 @@
 
                                                         <label for="dob">Date Of Birth:</label>
 
-                                                        <input class="form-control" id="dob" value="1984-01-24">
+                                                        <input type="date" class="form-control" id="dob" value="1984-01-24">
 
                                                     </div>
 
@@ -1441,8 +1444,8 @@
 
                                                         <label>Age:</label>
 
-                                                        <select class="form-control" id="exampleFormControlSelect2">
-
+                                                        <input class="form-control" id="exampleFormControlSelect2" readonly="true" value="18">
+<!-- 
                                                 <option>12-18</option>
 
                                                 <option>19-32</option>
@@ -1451,9 +1454,9 @@
 
                                                 <option>46-62</option>
 
-                                                <option>63 > </option>
-
-                                             </select>
+                                                <option>63 > </option> -->
+<!-- 
+                                             </select> -->
 
                                                     </div>
 
@@ -1497,7 +1500,7 @@
 
                                                     </div>
 
-                                                    <div class="form-group col-sm-12">
+                                                    <!-- <div class="form-group col-sm-12">
 
                                                         <label>Address:</label>
 
@@ -1513,7 +1516,7 @@
 
                                              </textarea>
 
-                                                    </div>
+                                                    </div> -->
 
                                                 </div>
 
@@ -1878,8 +1881,7 @@
     <!-- Custom JavaScript -->
 
     <script src="js/custom.js"></script>
-    <script src="base.js"></script>
-    <script src="js/profile.js"></script>
+    <script src="js/edit-profile.js"></script>
 
 </body>
 
