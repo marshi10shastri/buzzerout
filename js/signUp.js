@@ -1,41 +1,53 @@
 var signUpBtn = document.getElementById('signUpBtn');
 signUpBtn.addEventListener('click', signUp);
 var available = false;
+var valid = true;
 
 
 var usernameInput = document.getElementById('exampleInputEmail0');
 // usernameInput.addEventListener('keyup', checkUsername());
 
+
 function checkUsername() {
     let availIcon = document.getElementById('available-icon');
     let navailIcon = document.getElementById('not-available-icon');
+    let invalidIcon = document.getElementById('not-valid-icon');
 
     if (usernameInput.value != "") {
-        $.ajax({
-            type: 'POST',
-            url: SERVER_URL + 'register/checkUsername',
-            data: {
-                username: usernameInput.value
-            },
+        valid = checkUsernameValidity(usernameInput.value);
+        if (!valid) {
+            invalidIcon.style.display = 'block';
+            availIcon.style.display = 'none';
+            navailIcon.style.display = 'none';
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + 'register/checkUsername',
+                data: {
+                    username: usernameInput.value
+                },
 
-            success: function(data) {
-                if (data.error) {
-                    available = true;
-                    availIcon.style.display = 'block'
-                    navailIcon.style.display = 'none'
-                } else {
-                    available = false;
-                    availIcon.style.display = 'none'
-                    navailIcon.style.display = 'block'
+                success: function(data) {
+                    if (data.error) {
+                        available = true;
+                        availIcon.style.display = 'block'
+                        navailIcon.style.display = 'none'
+                        invalidIcon.style.display = 'none';
+                    } else {
+                        available = false;
+                        availIcon.style.display = 'none'
+                        navailIcon.style.display = 'block'
+                        invalidIcon.style.display = 'none';
+                    }
+                },
+
+                error: function(data) {
+                    console.log(data);
+                    availIcon.style.display = 'none';
+                    navailIcon.style.display = 'block';
                 }
-            },
-
-            error: function(data) {
-                console.log(data);
-                availIcon.style.display = 'none';
-                navailIcon.style.display = 'block';
-            }
-        });
+            });
+        }
     }
 
 }
@@ -45,8 +57,9 @@ function signUp() {
     var check = document.getElementById('customCheck1');
     if (!available) {
         alert("Username not available.")
-    }
-    if (!check.checked) {
+    } else if (!valid) {
+        alert("Username not valid.")
+    } else if (!check.checked) {
         alert("Accept terms and conditions.")
     } else {
         var name = document.getElementById('exampleInputEmail1').value.split(" ");

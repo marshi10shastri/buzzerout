@@ -1,6 +1,8 @@
 var signInBtn = document.getElementById('signInBtn');
 signInBtn.addEventListener('click', signIn);
 
+var valid_sigin = false;
+
 function signIn() {
     var username = document.getElementById('exampleInputEmail1').value;
     var password = document.getElementById('exampleInputPassword1').value;
@@ -8,6 +10,14 @@ function signIn() {
     if (username == "" || password == "") {
         document.getElementById('modal-trigger').click();
     } else {
+        let validIcon = document.getElementById('valid-icon');
+        valid_sigin = checkUsernameValidity(username);
+        if (!valid_sigin) {
+            validIcon.style.display = 'block'
+        } else {
+            validIcon.style.display = 'none'
+
+        }
         $.ajax({
             type: 'POST',
             url: 'http://buzzerout.com/buzzerout_server/v1/user/login',
@@ -88,7 +98,7 @@ function signIn() {
                     window.location = "index.html";
                 } else {
                     document.getElementById('modal-trigger').click();
-                    alert("Invalid Credentials");
+
                     setLocalStorage(USER, "false");
                 }
             },

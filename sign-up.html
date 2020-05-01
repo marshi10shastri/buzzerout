@@ -144,6 +144,9 @@
                                 <span id="not-available-icon" style="color:red; display:none;">
                                         <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Username already exist
                                     </span>
+                                <span id="not-valid-icon" style="color:red; display:none;">
+                                        <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Username can contain only lowecase alphabets and digits
+                                    </span>
                                 </span>
                             </div>
 
@@ -167,8 +170,13 @@
 
                                 <label for="exampleInputPassword1">Password</label>
 
-                                <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
+                                <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password" onkeyup="checkPasswordValidity(this)">
 
+                                <span>
+                                <span id="invalid-password" style="color:red; display:none;">
+                                        <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Password must be atleast 8 characters long
+                                    </span>
+                                </span>
                             </div>
 
                             <div class="d-inline-block w-100">
@@ -281,6 +289,7 @@
 
     <!-- Register User Javascript -->
     <script src="js/constant.js"></script>
+    <script src="js/helper.js"></script>
     <script src="js/signUp.js"></script>
 
 </body>

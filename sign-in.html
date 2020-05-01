@@ -135,6 +135,11 @@
                                 <label for="exampleInputEmail1">Username</label>
 
                                 <input type="text" class="form-control mb-0" id="exampleInputEmail1" placeholder="Enter username">
+                                <span>                                    
+                                <span id="valid-icon" style="color:red; display:none;">
+                                        <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Username can contain only lowecase alphabets and digits
+                                    </span>
+                                </span>
 
                             </div>
 
@@ -145,7 +150,11 @@
                                 <a href="pages-recoverpw.html" class="float-right">Forgot password?</a>
 
                                 <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
-
+                                <span>                                    
+                                    <span id="valid-icon" style="color:red; display:none;">
+                                            <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Password must be atleast 8 characters.
+                                        </span>
+                                </span>
                             </div>
 
                             <div class="d-inline-block w-100">
@@ -299,6 +308,7 @@
 
     <!-- Sign In Javascript -->
     <script src="js/base.js"></script>
+    <script src="js/helper.js"></script>
     <script src="js/signIn.js"></script>
 
 </body>
