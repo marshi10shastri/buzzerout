@@ -1,0 +1,4 @@
+1) Check For Profile Components To Be Uploaded
+2) Connect To Backend For API
+3) Profile Image Uploading
+4) Timeline Image Uplaading
