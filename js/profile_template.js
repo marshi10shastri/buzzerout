@@ -50,7 +50,9 @@ function profile_template_contactInfo(email, mobileno, address) {
 
                     <div class="tab-pane fade active show" id="basicinfo" role="tabpanel">
 
-                        <h4>Contact Information <a href="javascript:void();" data-toggle="modal" data-target="#contactInfoModal"><i class="ri-pencil-line clickable-icons"></i></a></h4> 
+                        <h4>Contact Information 
+                    <!--    <a href="javascript:void();" data-toggle="modal" data-target="#contactInfoModal"><i class="ri-pencil-line clickable-icons"></i></a> -->
+                        </h4> 
 
                         <hr>
 
@@ -94,7 +96,9 @@ function profile_template_contactInfo(email, mobileno, address) {
 
 function profile_template_websites(website, social) {
     return `
-                        <h4 class="mt-3">Websites and Social Links <a href="javascript:void();" data-toggle="modal" data-target="#websiteModal"><i class="ri-pencil-line clickable-icons"></i></a></h4>
+                        <h4 class="mt-3">Websites and Social Links 
+                     <!--   <a href="javascript:void();" data-toggle="modal" data-target="#websiteModal"><i class="ri-pencil-line clickable-icons"></i></a> -->
+                        </h4>
 
                         <hr>
 
@@ -129,7 +133,11 @@ function profile_template_websites(website, social) {
 
 
 function profile_template_basicInfo(dob, yob, gender, interest, language) {
-    return `<h4 class="mt-3">Basic Information <a href="javascript:void();" data-toggle="modal" data-target="#basicModal"><i class="ri-pencil-line clickable-icons"></i></a></h4>
+    return `<h4 class="mt-3">Basic Information 
+    <!-- <a href="javascript:void();" data-toggle="modal" data-target="#basicModal">
+    <i class="ri-pencil-line clickable-icons"></i></a> -->
+    
+    </h4>
                         
 
                         <hr>
@@ -380,19 +388,19 @@ function profile_template_college() {
 function profile_template_addCollege(collegeName, collegePlace, i) {
     return `<li class="d-flex mb-4 align-items-center">
 
-                                <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
+            <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
 
-                                <div class="media-support-info ml-3">
+            <div class="media-support-info ml-3">
 
-                                    <h6>` + collegeName + `</h6>
+                <h6>` + collegeName + `</h6>
 
-                                    <p class="mb-0">` + collegePlace + `</p>
+                <p class="mb-0">` + collegePlace + `</p>
 
-                                </div>
+            </div>
 
-                                <div class="edit-relation" id="` + i + `" onClick="reply_click_college(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editCollegeModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
+            <div class="edit-relation" id="` + i + `" onClick="reply_click_college(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editCollegeModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
 
-                            </li>`
+        </li>`
 }
 
 
@@ -403,7 +411,7 @@ function profile_template_city() {
 
                     <div class="tab-pane fade" id="lived" role="tabpanel">
 
-                        <h4 class="mb-3">Current City and Hometown</h4>
+                        <h4 class="mb-3">Cities You've Lived</h4>
 
                         <ul class="suggestions-lists m-0 p-0">`
 }
@@ -412,19 +420,19 @@ function profile_template_city() {
 function profile_template_addCity(placeName, placeState, i) {
     return `<li class="d-flex mb-4 align-items-center">
 
-                                <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
+        <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
 
-                                <div class="media-support-info ml-3">
+        <div class="media-support-info ml-3">
 
-                                    <h6>` + placeName + `</h6>
+            <h6>` + placeName + `</h6>
 
-                                    <p class="mb-0">` + placeState + `</p>
+            <p class="mb-0">` + placeState + `</p>
 
-                                </div>
+        </div>
 
-                                <div class="edit-relation" id="` + i + `" onClick="reply_click_city(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
+        <div class="edit-relation" id="` + i + `" onClick="reply_click_city(this.id)"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>
 
-                            </li>`
+    </li>`
 }
 
 
@@ -432,7 +440,7 @@ function profile_template_addCity(placeName, placeState, i) {
 function profile_template_place_extra() {
     return `</ul>
 
-                        <h4 class="mt-3 mb-3">Other Places Lived</h4>
+                       <!-- <h4 class="mt-3 mb-3">Other Places Lived</h4> -->
 
                         <ul class="suggestions-lists m-0 p-0">
                         <a href="javascript:void();" data-toggle="modal" data-target="#addPlaceModal">
