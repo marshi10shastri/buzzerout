@@ -52,4 +52,7 @@ function setProfileNameImage() {
     for(let i=0; i<userImgList.length; i++){
         userImgList[i].src = getJSONLocalStorage(USER_INFO).userimage;
     }
+
+    //set cover pic
+    document.getElementById('cover-pic').src = getJSONLocalStorage(USER_INFO).user_timeline_image;
 }

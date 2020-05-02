@@ -11,8 +11,8 @@ function uploadProfileImage(){
         formData.append('file', file);
         formData.append('product', 'appnivi');
         formData.append('application', 'nivishare');
-        formData.append('to', email);
-        formData.append('from', email);
+        formData.append('to', 'raman.10101@gmail.com');
+        formData.append('from', 'raman.10101@gmail.com');
         formData.append('message', 'Transfer File');
 
         $.ajax({
@@ -72,8 +72,8 @@ function uploadCoverImage(){
         formData.append('file', file);
         formData.append('product', 'appnivi');
         formData.append('application', 'nivishare');
-        formData.append('to', email);
-        formData.append('from', email);
+        formData.append('to', 'raman.10101@gmail.com');
+        formData.append('from', 'raman.10101@gmail.com');
         formData.append('message', 'Transfer File');
 
         $.ajax({
@@ -97,7 +97,8 @@ function uploadCoverImage(){
                         //set cover image as
                         if(response.error == false){ 
                         document.getElementById('cover-pic').src = link;
-                        //set cover-pic in user 
+                        user.user_timeline_image = response.profile_detail.user_timeline_image;
+                        setJSONLocalStorage(USER_INFO, user);
                         }
                         else{
                             console.log('error occurred');
