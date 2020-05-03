@@ -114,15 +114,6 @@ function postTemplateStart(feed) {
     string += feed.upvotes.length
     string += ' Likes\
                     </span>\
-                                <div class="dropdown-menu">\
-                                    <a class="dropdown-item" href="#">Max Emum</a>\
-                                    <a class="dropdown-item" href="#">Bill Yerds</a>\
-                                    <a class="dropdown-item" href="#">Hap E. Birthday</a>\
-                                    <a class="dropdown-item" href="#">Tara Misu</a>\
-                                    <a class="dropdown-item" href="#">Midge Itz</a>\
-                                    <a class="dropdown-item" href="#">Sal Vidge</a>\
-                                    <a class="dropdown-item" href="#">Other</a>\
-                                </div>\
                             </div>\
                         </div>\
                     </div>\
@@ -132,15 +123,6 @@ function postTemplateStart(feed) {
     string += feed.comments.length
     string += ' Comment\
                  </span>\
-                            <div class="dropdown-menu">\
-                                <a class="dropdown-item" href="#">Max Emum</a>\
-                                <a class="dropdown-item" href="#">Bill Yerds</a>\
-                                <a class="dropdown-item" href="#">Hap E. Birthday</a>\
-                                <a class="dropdown-item" href="#">Tara Misu</a>\
-                                <a class="dropdown-item" href="#">Midge Itz</a>\
-                                <a class="dropdown-item" href="#">Sal Vidge</a>\
-                                <a class="dropdown-item" href="#">Other</a>\
-                            </div>\
                         </div>\
                     </div>\
                 </div>\

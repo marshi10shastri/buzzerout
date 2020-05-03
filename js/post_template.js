@@ -564,32 +564,15 @@ function post_template_likes(likes, is_liked, feedid) {
 }
 
 function post_template_comment_no(commentNo, is_shared, feedid) {
+    console.log("hi")
     if (is_shared) {
         return `</span>
-        <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Max Emum</a>
-        <a class="dropdown-item" href="#">Bill Yerds</a>
-        <a class="dropdown-item" href="#">Hap E. Birthday</a>
-        <a class="dropdown-item" href="#">Tara Misu</a>
-        <a class="dropdown-item" href="#">Midge Itz</a>
-        <a class="dropdown-item" href="#">Sal Vidge</a>
-        <a class="dropdown-item" href="#">Other</a>
-        </div>
         </div>
         </div>
         </div>
         <div class="total-comment-block">
         <div class="dropdown">
-        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + commentNo + ` comments</span>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Max Emum</a>
-            <a class="dropdown-item" href="#">Bill Yerds</a>
-            <a class="dropdown-item" href="#">Hap E. Birthday</a>
-            <a class="dropdown-item" href="#">Tara Misu</a>
-            <a class="dropdown-item" href="#">Midge Itz</a>
-            <a class="dropdown-item" href="#">Sal Vidge</a>
-            <a class="dropdown-item" href="#">Other</a>
-        </div>
+        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + commentNo + ` comments</span>    
         </div>
         </div>
         </div
@@ -602,30 +585,12 @@ function post_template_comment_no(commentNo, is_shared, feedid) {
         <ul class="post-comments p-0 m-0">`;
     }
     return `</span>
-        <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Max Emum</a>
-        <a class="dropdown-item" href="#">Bill Yerds</a>
-        <a class="dropdown-item" href="#">Hap E. Birthday</a>
-        <a class="dropdown-item" href="#">Tara Misu</a>
-        <a class="dropdown-item" href="#">Midge Itz</a>
-        <a class="dropdown-item" href="#">Sal Vidge</a>
-        <a class="dropdown-item" href="#">Other</a>
-        </div>
         </div>
         </div>
         </div>
         <div class="total-comment-block">
         <div class="dropdown">
-        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + commentNo + ` comments</span>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Max Emum</a>
-            <a class="dropdown-item" href="#">Bill Yerds</a>
-            <a class="dropdown-item" href="#">Hap E. Birthday</a>
-            <a class="dropdown-item" href="#">Tara Misu</a>
-            <a class="dropdown-item" href="#">Midge Itz</a>
-            <a class="dropdown-item" href="#">Sal Vidge</a>
-            <a class="dropdown-item" href="#">Other</a>
-        </div>
+        <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">` + commentNo + ` comments</span>       
         </div>
         </div>
         </div>

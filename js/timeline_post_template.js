@@ -1,4 +1,4 @@
-function timeline_write_post(userimage){
+function timeline_write_post(userimage) {
     return `
     <div class="iq-card-header d-flex justify-content-between">
 
@@ -16,7 +16,7 @@ function timeline_write_post(userimage){
 
             <div class="user-img">
 
-                <img id="profile-write-post-user-image" src=`+userimage+` alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                <img id="profile-write-post-user-image" src=` + userimage + ` alt="userimg" class="avatar-60 rounded-circle img-fluid">
 
             </div>
 
@@ -97,7 +97,7 @@ function timeline_write_post(userimage){
 
                         <div class="user-img">
 
-                            <img id="profile-write-post-user-image-inside" src=`+userimage+` alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                            <img id="profile-write-post-user-image-inside" src=` + userimage + ` alt="userimg" class="avatar-60 rounded-circle img-fluid">
 
                         </div>
 
@@ -191,7 +191,7 @@ function timeline_write_post(userimage){
 
                                 <div class="user-img mr-3">
 
-                                    <img id="profile-story-image-inside" src=`+userimage+` alt="userimg" class="avatar-60 rounded-circle img-fluid">
+                                    <img id="profile-story-image-inside" src=` + userimage + ` alt="userimg" class="avatar-60 rounded-circle img-fluid">
 
                                 </div>
 
@@ -444,16 +444,26 @@ function timeline_post_basics(image, name, time) {
 
 
 function timeline_post_body(description, image) {
+    if (image.length > 0) {
+        return `<div class="user-post">
+
+        <a href="javascript:void();"><img src=` + image[0] + ` alt="post-image" class="img-fluid w-100" /></a>
+        <p>` + description + `</p>
+
+    </div>`
+    }
     return `<div class="user-post">
 
-            <a href="javascript:void();"><img src=` + image + ` alt="post-image" class="img-fluid w-100" /></a>
+            <a href="javascript:void();"></a>
             <p>` + description + `</p>
 
         </div>`
+
 }
 
-function timeline_post_likeNo(likes, feedid, is_liked) {
-    if(is_liked){
+function timeline_post_likeNo(like, feedid, is_liked) {
+    let likes = like.length;
+    if (is_liked) {
         return `<div class="comment-area mt-3">
 
             <div class="d-flex justify-content-between align-items-center">
@@ -474,9 +484,9 @@ function timeline_post_likeNo(likes, feedid, is_liked) {
 
                                     <div class="dropdown-menu">
 
-                                        <a id="like-`+feedid+`" class="ml-2 mr-2" href="#like-`+feedid+`" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(thid.id)"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
+                                        <a id="like-` + feedid + `" class="ml-2 mr-2" href="#like-` + feedid + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(thid.id)"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
 
-                                            <a id="dlike-`+feedid+`" class="mr-2" href="#dlike-`+feedid+`" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
+                                            <a id="dlike-` + feedid + `" class="mr-2" href="#dlike-` + feedid + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
 
                                         <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>
 
@@ -524,9 +534,9 @@ function timeline_post_likeNo(likes, feedid, is_liked) {
 
                             <div class="dropdown-menu">
 
-                                <a id="like-`+feedid+`" class="ml-2 mr-2" href="#like-`+feedid+`" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(thid.id)"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
+                                <a id="like-` + feedid + `" class="ml-2 mr-2" href="#like-` + feedid + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(thid.id)"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
 
-                                    <a id="dlike-`+feedid+`" class="mr-2" href="#dlike-`+feedid+`" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
+                                    <a id="dlike-` + feedid + `" class="mr-2" href="#dlike-` + feedid + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
 
                                 <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>
 
@@ -553,31 +563,13 @@ function timeline_post_likeNo(likes, feedid, is_liked) {
                                                             ` + likes + ` Likes
 
                                                     </span>`
-    
+
 }
 
 
 function timeline_post_commentNo(commentNo, is_shared) {
-    if(is_shared){
-        return `<div class="dropdown-menu">
-
-                            <a class="dropdown-item" href="#">Max Emum</a>
-
-                            <a class="dropdown-item" href="#">Bill Yerds</a>
-
-                            <a class="dropdown-item" href="#">Hap E. Birthday</a>
-
-                            <a class="dropdown-item" href="#">Tara Misu</a>
-
-                            <a class="dropdown-item" href="#">Midge Itz</a>
-
-                            <a class="dropdown-item" href="#">Sal Vidge</a>
-
-                            <a class="dropdown-item" href="#">Other</a>
-
-                        </div>
-
-                    </div>
+    if (is_shared) {
+        return `   </div>
 
                 </div>
 
@@ -592,24 +584,6 @@ function timeline_post_commentNo(commentNo, is_shared) {
                         ` + commentNo + ` Comment
 
                 </span>
-
-                    <div class="dropdown-menu">
-
-                        <a class="dropdown-item" href="#">Max Emum</a>
-
-                        <a class="dropdown-item" href="#">Bill Yerds</a>
-
-                        <a class="dropdown-item" href="#">Hap E. Birthday</a>
-
-                        <a class="dropdown-item" href="#">Tara Misu</a>
-
-                        <a class="dropdown-item" href="#">Midge Itz</a>
-
-                        <a class="dropdown-item" href="#">Sal Vidge</a>
-
-                        <a class="dropdown-item" href="#">Other</a>
-
-                    </div>
 
                 </div>
 
@@ -631,25 +605,7 @@ function timeline_post_commentNo(commentNo, is_shared) {
 
         <ul class="post-comments p-0 m-0">`
     }
-    return `<div class="dropdown-menu">
-
-                            <a class="dropdown-item" href="#">Max Emum</a>
-
-                            <a class="dropdown-item" href="#">Bill Yerds</a>
-
-                            <a class="dropdown-item" href="#">Hap E. Birthday</a>
-
-                            <a class="dropdown-item" href="#">Tara Misu</a>
-
-                            <a class="dropdown-item" href="#">Midge Itz</a>
-
-                            <a class="dropdown-item" href="#">Sal Vidge</a>
-
-                            <a class="dropdown-item" href="#">Other</a>
-
-                        </div>
-
-                    </div>
+    return `   </div>
 
                 </div>
 
@@ -664,25 +620,6 @@ function timeline_post_commentNo(commentNo, is_shared) {
                         ` + commentNo + ` Comment
 
                 </span>
-
-                    <div class="dropdown-menu">
-
-                        <a class="dropdown-item" href="#">Max Emum</a>
-
-                        <a class="dropdown-item" href="#">Bill Yerds</a>
-
-                        <a class="dropdown-item" href="#">Hap E. Birthday</a>
-
-                        <a class="dropdown-item" href="#">Tara Misu</a>
-
-                        <a class="dropdown-item" href="#">Midge Itz</a>
-
-                        <a class="dropdown-item" href="#">Sal Vidge</a>
-
-                        <a class="dropdown-item" href="#">Other</a>
-
-                    </div>
-
                 </div>
 
             </div>
@@ -704,7 +641,7 @@ function timeline_post_commentNo(commentNo, is_shared) {
         <ul class="post-comments p-0 m-0">`
 }
 
-function timeline_post_comment(commentImg, commentUser, commentText) {
+function timeline_post_comment(commentImg, commentUser, commentText, timestamp) {
     return `<li class="mb-2">
 
     <div class="d-flex flex-wrap">
@@ -723,13 +660,7 @@ function timeline_post_comment(commentImg, commentUser, commentText) {
 
                 <div class="d-flex flex-wrap align-items-center comment-activity">
 
-                    <a href="javascript:void();">like</a>
-
-                    <a href="javascript:void();">reply</a>
-
-                    <a href="javascript:void();">translate</a>
-
-                    <span> 5 min </span>
+                    <span> ` + timestamp + `  </span>
 
                 </div>
 

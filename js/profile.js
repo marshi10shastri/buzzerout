@@ -1,7 +1,10 @@
 function initProfile() {
+    console.log("1")
     setProfileNameImage();
+    console.log("2")
     showProfile();
     fetchTimelinePosts()
+    console.log("3")
 }
 
 function showProfile() {
@@ -45,54 +48,54 @@ function showProfile() {
 }
 
 // modals
-document.getElementById('mobileInput').value = getJSONLocalStorage(USER_INFO).mobile;
-document.getElementById('addressInput').value = getJSONLocalStorage(USER_INFO).address;
+// document.getElementById('mobileInput').value = getJSONLocalStorage(USER_INFO).mobile;
+// document.getElementById('addressInput').value = getJSONLocalStorage(USER_INFO).address;
 document.getElementById('websiteInput').value = getJSONLocalStorage(USER_INFO).website;
 document.getElementById('socialInput').value = getJSONLocalStorage(USER_INFO).socialLink;
-document.getElementById('inputDob').value = getJSONLocalStorage(USER_INFO).dob;
-document.getElementById('yearInput').value = getJSONLocalStorage(USER_INFO).yob;
+// document.getElementById('inputDob').value = getJSONLocalStorage(USER_INFO).dob;
+// document.getElementById('yearInput').value = getJSONLocalStorage(USER_INFO).yob;
 document.getElementById('aboutInput').value = getJSONLocalStorage(USER_INFO).about;
 document.getElementById('otherNameInput').value = getJSONLocalStorage(USER_INFO).otherName;
 document.getElementById('quoteInput').value = getJSONLocalStorage(USER_INFO).favQuote;
 
-document.getElementById('fNameInput').value = getJSONLocalStorage(USER_INFO).first_name;
-document.getElementById('lNameInput').value = getJSONLocalStorage(USER_INFO).last_name;
+// document.getElementById('fNameInput').value = getJSONLocalStorage(USER_INFO).first_name;
+// document.getElementById('lNameInput').value = getJSONLocalStorage(USER_INFO).last_name;
 
 
 
 
 // edit profile
-function editContactInfo() {
-    let user = getJSONLocalStorage(USER_INFO);
-    mobile_inp = document.getElementById('mobileInput').value;
-    address_inp = document.getElementById('addressInput').value;
+// function editContactInfo() {
+//     let user = getJSONLocalStorage(USER_INFO);
+//     mobile_inp = document.getElementById('mobileInput').value;
+//     address_inp = document.getElementById('addressInput').value;
 
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'profile/updateMobileAddress',
-        data: {
-            username: user.username,
-            mobile: mobile_inp,
-            address: address_inp
-        },
-        success: function(data) {
-            console.log("contact");
-            console.log(data);
-            user.mobile = mobile_inp
-            user.address = address_inp
-            setJSONLocalStorage(USER_INFO, user);
-            console.log(user);
-            // set the fields again
-            document.getElementById('mobileInput').value = mobile_inp
-            document.getElementById('addressInput').value = address_inp
-            showProfile();
-        },
-        error: function(data) {
-            console.log(data);
-        }
-    });
+//     $.ajax({
+//         type: 'POST',
+//         url: SERVER_URL + 'profile/updateMobileAddress',
+//         data: {
+//             username: user.username,
+//             mobile: mobile_inp,
+//             address: address_inp
+//         },
+//         success: function(data) {
+//             console.log("contact");
+//             console.log(data);
+//             user.mobile = mobile_inp
+//             user.address = address_inp
+//             setJSONLocalStorage(USER_INFO, user);
+//             console.log(user);
+//             // set the fields again
+//             document.getElementById('mobileInput').value = mobile_inp
+//             document.getElementById('addressInput').value = address_inp
+//             showProfile();
+//         },
+//         error: function(data) {
+//             console.log(data);
+//         }
+//     });
 
-}
+// }
 
 function editWebsite() {
     let user = getJSONLocalStorage(USER_INFO);
@@ -121,43 +124,43 @@ function editWebsite() {
     showProfile();
 }
 
-function editBasic() {
-    let user = getJSONLocalStorage(USER_INFO);
-    let g;
-    if (document.getElementById('maleRadio').checked) {
-        g = 'Male';
-    } else {
-        g = 'Female';
-    }
+// function editBasic() {
+//     let user = getJSONLocalStorage(USER_INFO);
+//     let g;
+//     if (document.getElementById('maleRadio').checked) {
+//         g = 'Male';
+//     } else {
+//         g = 'Female';
+//     }
 
-    dob_inp = document.getElementById('inputDob').value;
-    yob_inp = document.getElementById('yearInput').value;
-    // interest_inp = document.getElementById('interestInput').value;
-    // lang_inp = document.getElementById('languageInput').value;
+//     dob_inp = document.getElementById('inputDob').value;
+//     yob_inp = document.getElementById('yearInput').value;
+//     // interest_inp = document.getElementById('interestInput').value;
+//     // lang_inp = document.getElementById('languageInput').value;
 
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + '/profile/updateDobGender',
-        data: {
-            username: user.username,
-            dob: user.dob,
-            uob: user.yob,
-            gender: g
-        },
-        success: function(data) {
-            console.log(data);
-            user.dob = dob_inp
-            user.yob = yob_inp
-            user.gender = g
-            setJSONLocalStorage(USER_INFO, user);
-            showProfile();
-        },
-        error: function(data) {
-            console.log(data);
-        }
-    });
+//     $.ajax({
+//         type: 'POST',
+//         url: SERVER_URL + '/profile/updateDobGender',
+//         data: {
+//             username: user.username,
+//             dob: user.dob,
+//             uob: user.yob,
+//             gender: g
+//         },
+//         success: function(data) {
+//             console.log(data);
+//             user.dob = dob_inp
+//             user.yob = yob_inp
+//             user.gender = g
+//             setJSONLocalStorage(USER_INFO, user);
+//             showProfile();
+//         },
+//         error: function(data) {
+//             console.log(data);
+//         }
+//     });
 
-}
+// }
 
 function addWork() {
     let user = getJSONLocalStorage(USER_INFO);
@@ -421,20 +424,22 @@ function reply_click_work(id) {
 
 
 var TfeedInputArray = [];
+
 function fetchTimelinePosts() {
     let T_POSTS = getJSONLocalStorage(POSTS);
+    console.log(T_POSTS);
     let user = getJSONLocalStorage(USER_INFO);
     var timelinePostBox = document.getElementById('timeline-posts').innerHTML;
     timelinePostBox = "";
     for (let i = 0; i < T_POSTS.length; i++) {
         timelinePostBox += timeline_post_basics(T_POSTS[i].userimage, T_POSTS[i].name, T_POSTS[i].time) +
-            timeline_post_body(T_POSTS[i].description, T_POSTS[i].image) +
-            timeline_post_likeNo(T_POSTS[i].likes, T_POSTS[i].feedid, T_POSTS[i].buzz_upvoted) +
+            timeline_post_body(T_POSTS[i].description, T_POSTS[i].images) +
+            timeline_post_likeNo(T_POSTS[i].upvotes, T_POSTS[i].feedid, T_POSTS[i].buzz_upvoted) +
             timeline_post_commentNo(T_POSTS[i].comments.length, T_POSTS[i].buzz_shared);
 
         if (T_POSTS[i].comments.length > 0) {
             for (let j = 0; j < T_POSTS[i].comments.length; j++) {
-                timelinePostBox += timeline_post_comment(T_POSTS[i].comments[j].commentImg, T_POSTS[i].comments[j].commentUser, T_POSTS[i].comments[j].commentText);
+                timelinePostBox += timeline_post_comment(T_POSTS[i].comments[j].commentImg, T_POSTS[i].comments[j].commentUser, T_POSTS[i].comments[j].text, T_POSTS[i].comments[j].timestamp);
             }
         }
 
@@ -457,11 +462,11 @@ function fetchTimelinePosts() {
 }
 
 
-function profileImageUpload(){
+function profileImageUpload() {
     let user = getJSONLocalStorage(USER_INFO);
     let file = document.getElementById('profile-image-upload').files[0];
 
-    if(file){
+    if (file) {
         var formData = new FormData();
         formData.append('file', file);
         formData.append('product', 'appnivi');
@@ -471,10 +476,10 @@ function profileImageUpload(){
         formData.append('message', 'Transfer File');
 
         $.ajax({
-            type:'POST',
-            url:'http://appnivi.com/server/v1/file/fileupload',
-            data:formData,
-            success: function (data){
+            type: 'POST',
+            url: 'http://appnivi.com/server/v1/file/fileupload',
+            data: formData,
+            success: function(data) {
                 var link = data.link;
                 console.log(data.link);
 
@@ -486,39 +491,38 @@ function profileImageUpload(){
                         username: user.username,
                         img: link,
                     },
-                    success: function(response){
+                    success: function(response) {
                         console.log(response);
                         //set profile image as
                         user.userimage = response.profile_detail.user_profile_image;
                         setJSONLocalStorage(USER_INFO, user);
                         setProfileNameImage();
-                        
+
                     },
-                    error: function(response){
+                    error: function(response) {
                         console.log(response)
                     }
                 });
 
             },
-            error: function(error){
+            error: function(error) {
                 console.log(error);
             },
-            cache:false,
+            cache: false,
             contentType: false,
             processData: false
         });
 
-    }
-    else{
+    } else {
         alert('Select file');
     }
 }
 
-function coverImageUpload(){
+function coverImageUpload() {
     let user = getJSONLocalStorage(USER_INFO);
     let file = document.getElementById('upload-cover-pic').files[0];
 
-    if(file){
+    if (file) {
         var formData = new FormData();
         formData.append('file', file);
         formData.append('product', 'appnivi');
@@ -528,10 +532,10 @@ function coverImageUpload(){
         formData.append('message', 'Transfer File');
 
         $.ajax({
-            type:'POST',
-            url:'http://appnivi.com/server/v1/file/fileupload',
-            data:formData,
-            success: function (data){
+            type: 'POST',
+            url: 'http://appnivi.com/server/v1/file/fileupload',
+            data: formData,
+            success: function(data) {
                 var link = data.link;
                 console.log(data.link);
 
@@ -543,35 +547,34 @@ function coverImageUpload(){
                         username: user.username,
                         image_link: link,
                     },
-                    success: function(response){
+                    success: function(response) {
                         console.log(response);
                         //set cover image as 
                         document.getElementById('cover-pic').src = link;
                         //set cover-pic in user 
                     },
-                    error: function(response){
+                    error: function(response) {
                         console.log(response)
                     }
                 });
 
             },
-            error: function(error){
+            error: function(error) {
                 console.log(error);
             },
-            cache:false,
+            cache: false,
             contentType: false,
             processData: false
         });
 
-    }
-    else{
+    } else {
         alert('Select file');
     }
 }
 
 
 //from edit profile page
-function editPersonalInfo(){
+function editPersonalInfo() {
     profileImageUpload();
     editName();
 }
