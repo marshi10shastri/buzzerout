@@ -80,7 +80,7 @@
 
                     <div class="sign-in-detail text-white">
 
-                        <a class="sign-in-logo mb-5" href="#"><img src="images/logo-full.png" class="img-fluid" alt="logo"></a>
+                        <a class="sign-in-logo mb-5" href="#"><img src="images/logo/logo1.png" class="img-fluid" alt="logo"></a>
 
                         <div class="owl-carousel" data-autoplay="true" data-loop="true" data-nav="false" data-dots="true" data-items="1" data-items-laptop="1" data-items-tab="1" data-items-mobile="1" data-items-mobile-sm="1" data-margin="0">
 
@@ -184,8 +184,8 @@
                                     <li><a href="#"><i class="ri-instagram-line"></i></a></li>
 
                                 </ul> -->
-                                <button type="button" class="btn btn-primary" id="modal-trigger" data-toggle="modal" data-target=".bd-example-modal-lg" style="display: none;">Large modal</button>
-
+                                <!-- <button type="button" class="btn btn-primary" id="modal-trigger" data-toggle="modal" data-target=".bd-example-modal-lg" style="display: none;">Large modal</button> -->
+                                <button type="button" class="btn btn-primary" id="modal-trigger" data-toggle="modal" data-target="#infoModal" style="display: none;">Large modal</button>
                             </div>
 
                         </div>
@@ -202,7 +202,7 @@
 
     <!-- modal -->
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
 
         <div class="modal-dialog modal-lg">
 
@@ -230,7 +230,45 @@
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+
+            </div>
+
+        </div>
+
+    </div> -->
+
+    <!-- Modal -->
+
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalTitle" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="infoModalTitle">Modal title</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                 <span aria-hidden="true">&times;</span>
+
+                 </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    ...
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <button type="button" class="btn btn-primary">Save changes</button>
 
                 </div>
 
@@ -239,7 +277,6 @@
         </div>
 
     </div>
-
     <!-- Sign in END -->
 
     <!-- Optional JavaScript -->

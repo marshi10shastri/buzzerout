@@ -969,7 +969,7 @@ function post_template_no_post(feedId) {
 
                     <div class="media-support-user-img mr-3">
 
-                        <img class="rounded-circle img-fluid" src="images/user/01.jpg" alt="">
+                        <img class="rounded-circle img-fluid" src="images/logo/logo-small1.png" alt="">
 
                     </div>
 
