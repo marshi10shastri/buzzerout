@@ -84,7 +84,7 @@ function checkEmail() {
                     navailIcon.style.display = 'block'
                     invalidIcon.style.display = 'none';
 
-                    if (data.register && data.user) {
+                    if (data.user) {
                         document.getElementById('log-in-dialouge').style.display = 'block';
                         document.getElementById('activate-dialouge').style.display = 'none';
                     } else {
