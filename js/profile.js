@@ -13,9 +13,9 @@ function showProfile() {
 
     var currUser = getJSONLocalStorage(USER_INFO);
     // adding dummy values
-    userDetails += profile_template_contactInfo(currUser.email, currUser.mobile, currUser.address) +
+    userDetails += profile_template_contactInfo(getUserDetails().email, getUserProfileDetails().mob, getUserProfileDetails().address) +
         // profile_template_websites(currUser.website, currUser.socialLink) +
-        profile_template_basicInfo(currUser.dob, currUser.yob, currUser.gender, currUser.interest, currUser.language) +
+        profile_template_basicInfo(getUserProfileDetails().dob, currUser.yob, getUserProfileDetails().gender) +
         profile_family() +
         profile_template_work();
 

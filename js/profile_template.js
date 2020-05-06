@@ -1,4 +1,4 @@
-function profile_template_contactInfo(email, mobileno, address) {
+function profile_template_contactInfo(email, mob, address) {
     return `
 <div class="iq-card">
 
@@ -77,7 +77,7 @@ function profile_template_contactInfo(email, mobileno, address) {
 
                             <div class="col-9">
 
-                                <p class="mb-0">` + mobileno + `</p>
+                                <p class="mb-0">` + mob + `</p>
 
                             </div>` +
         `<div class="col-3">
@@ -132,7 +132,7 @@ function profile_template_websites(website, social) {
 }
 
 
-function profile_template_basicInfo(dob, yob, gender, interest, language) {
+function profile_template_basicInfo(dob, yob, gender) {
     return `<h4 class="mt-3">Basic Information 
     <!-- <a href="javascript:void();" data-toggle="modal" data-target="#basicModal">
     <i class="ri-pencil-line clickable-icons"></i></a> -->
@@ -188,7 +188,7 @@ function profile_template_basicInfo(dob, yob, gender, interest, language) {
 
                             <div class="col-9">
 
-                                <p class="mb-0">` + interest + `</p>
+                                <p class="mb-0"></p>
 
                             </div>
 
@@ -200,7 +200,7 @@ function profile_template_basicInfo(dob, yob, gender, interest, language) {
 
                             <div class="col-9">
 
-                                <p class="mb-0">` + language + `</p>
+                                <p class="mb-0"></p>
 
                             </div>-->
 
