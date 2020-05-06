@@ -110,6 +110,7 @@ const DUMMY_USER = {
     ]
 }
 
+
 const USER_INFO = "user_info"
 const USER = "user"
 const POSTS = "posts"
@@ -117,7 +118,21 @@ const CURR_AP = "current_active_place"
 const CURR_AC = "current_active_college"
 const CURR_AW = "current_active_work"
 const T_POSTS = "timeline_posts"
-
-
+const P_UNAME = "personal_user_name"
+const E_MAIL = "email"
+const MOBILE = "mobile";
+const DOB = "dob";
+const GENDER = "gender";
+const MARITAL = "marital_status";
+const ADDRESS = "address";
+const U_CITY = "user_city";
+const U_STATE = "user_state";
+const U_COUNTRY = "user_country";
+const F_NAME = "user_first_name";
+const L_NAME = "user_last_name";
+const P_IMAGE = "user_profile_image";
+const T_IMAGE = "user_timeline_image";
+const WEBSITE = "website";
+const U_SOCIAL_LINK = "user_social_link";
 // URLs
 const SERVER_URL = 'http://buzzerout.com/buzzerout_server/v1/'
