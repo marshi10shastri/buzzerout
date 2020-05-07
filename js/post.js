@@ -196,30 +196,9 @@ function fetchPost() {
         data: {},
         success: function(resp) {
             console.log(resp);
-            // postMapper();
+
             if (0 != resp.Feed.length) {
-                feedInputArray = []
-                setJSONLocalStorage(POSTS, resp.Feed);
-                let data = getJSONLocalStorage(POSTS);
-
-                for (let i = 0; i < data.length; i++) {
-
-                    inhtml.innerHTML += postTemplateStart(data[i])
-                    feedInputArray.push("commentinput-" + data[i].feedid);
-                    // add event listener
-                }
-                // document.getElementById("posting-box").innerHTML = inhtml;
-                for (let j = 0; j < feedInputArray.length; j++) {
-                    let inputCommentField = document.getElementById(feedInputArray[j]);
-                    inputCommentField.addEventListener("keydown", function(e) {
-                        if (e.keyCode == 13) {
-                            console.log('running');
-                            let feedid = feedInputArray[j].split("-")[1];
-                            addComment(feedid, inputCommentField.value);
-                            inputCommentField.value = "";
-                        }
-                    })
-                }
+                postMapper(resp.Feed);
 
             } else {
                 let inhtml = document.getElementById("posting-area");
@@ -231,7 +210,6 @@ function fetchPost() {
             alert('sorry, low internet');
         }
     });
-    // ---------------------------------
 
 
 }
@@ -244,35 +222,22 @@ function addComment(feedid, commentData) {
         type: 'POST',
         url: SERVER_URL + 'comment/addComment',
         data: {
-            user_id: user.username,
+            user_id: getUserDetails().uname,
             text: commentData,
             feed_id: feedid
         },
         success: function(response) {
             console.log(response);
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].feedid == feedid) {
-                    // temp = data[i].comments;
-                    // let tempComment = {
-                    //     commentImg: user.userimage,
-                    //     commentUser: user.first_name + " " + user.last_name,
-                    //     commentText: commentData,
-                    //     timestamp: "Just Now"
-                    // }
-                    // temp.push(tempComment);
-                    data[i].comments = data.comments;
-                    setJSONLocalStorage(POSTS, data);
-                    break;
-                }
-            }
-            console.log("commentinput-" + feedid);
-
+           let resp = {
+               buzz_id : feedid,
+               buzz_comments:response.comments
+           }
+           addCommentToSinglePost(resp);
         },
         error: function(response) {
             console.log(response);
         }
     });
-    fetchPost();
 }
 
 function upvoteBuzzByFeedId() {
@@ -290,4 +255,27 @@ function followBuzzByFeedId() {
 
 function unfollowBuzzByFeedId() {
     // change text as unfollowed
+}
+
+function editPost(){
+    let text = "thisis new Text";
+    let image = [];
+    // Nivishared upload
+    // text
+    // image file upload ke baad ki link hai
+    // Ajax Call Karega
+    //  Success - editSinglePost(editFeed)
+    /**
+     * editFeed = {
+     * buzz_id : id,
+     * buzz_text : text,
+     * buzz_image: image,
+     * buzz_timestamp : timstamp
+     * }
+     */
+    let editFeed = {
+        buzz_id : '',
+        buzz_text:text
+    }
+     editSinglePost(editFeed);
 }
