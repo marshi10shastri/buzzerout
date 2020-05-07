@@ -111,15 +111,15 @@ const DUMMY_USER = {
 }
 
 
-const USER_INFO = "user_info"
-const USER = "user"
-const POSTS = "posts"
-const CURR_AP = "current_active_place"
-const CURR_AC = "current_active_college"
-const CURR_AW = "current_active_work"
-const T_POSTS = "timeline_posts"
-const P_UNAME = "personal_user_name"
-const E_MAIL = "email"
+const USER_INFO = "user_info";
+const USER = "user";
+const POSTS = "posts";
+const CURR_AP = "current_active_place";
+const CURR_AC = "current_active_college";
+const CURR_AW = "current_active_work";
+const T_POSTS = "timeline_posts";
+const P_UNAME = "personal_user_name";
+const E_MAIL = "email";
 const MOBILE = "mobile";
 const DOB = "dob";
 const GENDER = "gender";
@@ -134,5 +134,8 @@ const P_IMAGE = "user_profile_image";
 const T_IMAGE = "user_timeline_image";
 const WEBSITE = "website";
 const U_SOCIAL_LINK = "user_social_link";
+const ABOUT = "about_you";
+const NICKNAME = "nickname";
+const QUOTE = "favourite_quote";
 // URLs
-const SERVER_URL = 'http://buzzerout.com/buzzerout_server/v1/'
+const SERVER_URL = 'http://buzzerout.com/buzzerout_server/v1/';
