@@ -221,7 +221,7 @@ function fetchPost() {
                 }
 
             } else {
-                let inhtml = document.getElementById("posting-box");
+                let inhtml = document.getElementById("posting-area");
                 inhtml.innerHTML = post_template_no_post();
             }
         },

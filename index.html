@@ -1282,13 +1282,13 @@
 
                                 </div>
 
-                                <div class="iq-card-body" data-toggle="modal" data-target="#post-modal">
+                                <div id="create-buzz-toggle" class="iq-card-body">
 
                                     <div class="d-flex align-items-center">
 
-                                        <div class="user-img">
+                                        <div>
 
-                                            <img id="post-write-userimage" src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle curr-user-img">
+                                            <img id="post-write-userimage" alt="userimg" class="avatar-60 rounded-circle">
 
                                         </div>
 
@@ -1307,13 +1307,13 @@
                                         <li class="iq-bg-primary rounded p-2 pointer mr-3">
                                             <a href="#"></a><img src="images/small/07.png" alt="icon" class="img-fluid"> Add Photo/Video</li>
 
-                                        <!-- <li class="iq-bg-primary rounded p-2 pointer mr-3">
+                                        <li class="iq-bg-primary rounded p-2 pointer mr-3" id="create-buzz-tag">
                                             <a href="#"></a><img src="images/small/08.png" alt="icon" class="img-fluid"> Tag Friend</li>
 
-                                        <li class="iq-bg-primary rounded p-2 pointer mr-3">
+                                        <li class="iq-bg-primary rounded p-2 pointer mr-3" id="create-buzz-feeling">
                                             <a href="#"></a><img src="images/small/09.png" alt="icon" class="img-fluid"> Feeling/Activity</li>
 
-                                        <li class="iq-bg-primary rounded p-2 pointer">
+                                        <li class="iq-bg-primary rounded p-2 pointer" id="create-buzz-extra">
 
                                             <div class="iq-card-header-toolbar d-flex align-items-center">
 
@@ -1325,7 +1325,7 @@
 
                                           </span>
 
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="post-option" style="">
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="post-option">
 
                                                         <a class="dropdown-item" href="#">Check in</a>
 
@@ -1343,7 +1343,7 @@
 
                                             </div>
 
-                                        </li> -->
+                                        </li>
 
                                     </ul>
 
@@ -1367,7 +1367,7 @@
 
                                                 <div class="d-flex align-items-center">
 
-                                                    <div class="user-img">
+                                                    <div>
 
                                                         <img id="post-write-userimage-inside" src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid curr-user-img">
 
@@ -1406,60 +1406,60 @@
 
                                                     </li>
 
-                                                    <!-- <li class="col-md-6 mb-3">
+                                                    <li class="col-md-6 mb-3" id="create-buzz-modal-tag">
 
                                                         <div class="iq-bg-primary rounded p-2 pointer mr-3">
                                                             <a href="#"></a><img src="images/small/08.png" alt="icon" class="img-fluid"> Tag Friend</div>
 
                                                     </li>
 
-                                                    <li class="col-md-6 mb-3">
+                                                    <li class="col-md-6 mb-3" id="create-buzz-modal-feeling">
 
                                                         <div class="iq-bg-primary rounded p-2 pointer mr-3">
                                                             <a href="#"></a><img src="images/small/09.png" alt="icon" class="img-fluid"> Feeling/Activity</div>
 
                                                     </li>
 
-                                                    <li class="col-md-6 mb-3">
+                                                    <li class="col-md-6 mb-3" id="create-buzz-modal-location">
 
                                                         <div class="iq-bg-primary rounded p-2 pointer mr-3" onclick="focusLocation()">
                                                             <a href="#"></a><img src="images/small/10.png" alt="icon" class="img-fluid"> Check in</div>
 
                                                     </li>
 
-                                                    <li class="col-md-6 mb-3">
+                                                    <li class="col-md-6 mb-3" id="create-buzz-modal-video">
 
                                                         <div class="iq-bg-primary rounded p-2 pointer mr-3">
                                                             <a href="#"></a><img src="images/small/11.png" alt="icon" class="img-fluid"> Live Video</div>
 
                                                     </li>
 
-                                                    <li class="col-md-6 mb-3">
+                                                    <li class="col-md-6 mb-3" id="create-buzz-modal-gif">
 
                                                         <div class="iq-bg-primary rounded p-2 pointer mr-3">
                                                             <a href="#"></a><img src="images/small/12.png" alt="icon" class="img-fluid"> Gif</div>
 
                                                     </li>
 
-                                                    <li class="col-md-6 mb-3">
+                                                    <li class="col-md-6 mb-3" id="create-buzz-modal-watch">
 
                                                         <div class="iq-bg-primary rounded p-2 pointer mr-3">
                                                             <a href="#"></a><img src="images/small/13.png" alt="icon" class="img-fluid"> Watch Party</div>
 
-                                                    </li> -->
+                                                    </li>
 
-                                                    <!-- <li class="col-md-6 mb-3">
+                                                     <li class="col-md-6 mb-3" id="create-buzz-modal-play">
 
                                                         <div class="iq-bg-primary rounded p-2 pointer mr-3">
                                                             <a href="#"></a><img src="images/small/14.png" alt="icon" class="img-fluid"> Play with Friends</div>
 
-                                                    </li> -->
+                                                    </li>
 
                                                 </ul>
 
                                                 <hr>
 
-                                                <!-- <div class="other-option">
+                                                <div class="other-option" id="create-buzz-modal-other">
 
                                                     <div class="d-flex align-items-center justify-content-between">
 
@@ -1567,7 +1567,7 @@
 
                                                     </div>
 
-                                                </div> -->
+                                                </div>
 
                                                 <button onclick="createPost()" class="btn btn-primary d-block w-100 mt-3">Post</button>
 
@@ -3796,6 +3796,7 @@
     <script src="js/logout.js"></script>
     <script src="js/header/topright.js"></script>
     <script src="js/sidebar/leftbar.js"></script>
+    <script src="js/post/createBuzz.js"></script>
 </body>
 
 </html>
