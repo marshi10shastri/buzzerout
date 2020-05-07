@@ -196,6 +196,7 @@ function fetchPost() {
         data: {},
         success: function(resp) {
             console.log(resp);
+            // postMapper();
             if (0 != resp.Feed.length) {
                 feedInputArray = []
                 setJSONLocalStorage(POSTS, resp.Feed);
