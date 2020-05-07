@@ -2,7 +2,7 @@ function userMapper(data){
     updateUserDetails(data.user);
     updateUserProfileDetails(data.details.profile);
     // updateUserSocialDetails(data.details.socialMedia);
-    updateUseerAboutDetails(data.details.details);
+    // updateUseerAboutDetails(data.details.details);
 }
 function getUserDetails(){
     let user={};
@@ -76,26 +76,26 @@ function updateUserSocialDetails(){
 
 }
 
-function getUserAboutDetails(){
-    let aboutDetails={};
-    let about = getLocalStorage(ABOUT);
-    let nickname = getLocalStorage(NICKNAME);
-    let quote = getLocalStorage(QUOTE);
+// function getUserAboutDetails(){
+//     let aboutDetails={};
+//     let about = getLocalStorage(ABOUT);
+//     let nickname = getLocalStorage(NICKNAME);
+//     let quote = getLocalStorage(QUOTE);
 
-    aboutDetails = {
-        aboutYou : about,
-        nickname : nickname,
-        favQuote : quote
-    }
+//     aboutDetails = {
+//         aboutYou : about,
+//         nickname : nickname,
+//         favQuote : quote
+//     }
 
-    return aboutDetails;
-}
+//     return aboutDetails;
+// }
 
-function updateUserAboutDetails(data){
-    setLocalStorage(ABOUT, data.about);
-    setLocalStorage(NICKNAME, data.nickname);
-    setLocalStorage(QUOTE, data.favQuote);
-}
+// function updateUserAboutDetails(data){
+//     setLocalStorage(ABOUT, data.about);
+//     setLocalStorage(NICKNAME, data.nickname);
+//     setLocalStorage(QUOTE, data.favQuote);
+// }
 
 function updateUserPlacesDetails(){
 
