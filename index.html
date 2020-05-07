@@ -89,11 +89,12 @@
 
                         <li>
 
-                            <a href="profile.html" class="iq-waves-effect"><i class="las la-user"></i><span>Profile</span></a>
+                            <a class="iq-waves-effect" id="leftbar-profile">
+                                <i class="las la-user"></i><span>Profile</span></a>
 
                         </li>
 
-                        <!-- <li>
+                        <li>
 
                         <a href="friend-list.html" class="iq-waves-effect"><i class="las la-user-friends"></i><span>Friend Lists</span></a>
 
@@ -121,7 +122,7 @@
 
                         <a href="profile-event.html" class="iq-waves-effect"><i class="las la-film"></i><span>Profile Events</span></a>
 
-                     </li> -->
+                     </li>
 
                         <li>
 
@@ -129,7 +130,7 @@
 
                         </li>
 
-                        <!-- <li>
+                        <li>
 
                         <a href="file.html" class="iq-waves-effect"><i class="las la-file"></i><span>Files</span></a>
 
@@ -321,9 +322,9 @@
 
                         </ul>
 
-                     </li> -->
+                     </li>
 
-                        <!-- <li>
+                         <li>
 
                             <a href="#pages" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-pages-line"></i><span>Pages</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
 
@@ -381,7 +382,7 @@
 
                             </ul>
 
-                        </li> -->
+                        </li>
 
 
 
@@ -425,7 +426,7 @@
 
                     </div>
 
-                    <!-- <div class="iq-search-bar">
+                    <div class="iq-search-bar">
 
                         <form action="#" class="searchbox">
 
@@ -435,7 +436,7 @@
 
                         </form>
 
-                    </div> -->
+                    </div>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
 
@@ -463,7 +464,7 @@
 
                             </li>
 
-                            <!-- <li>
+                            <li id="topnav-home">
 
                                 <a href="index.html" class="iq-waves-effect d-flex align-items-center">
 
@@ -471,9 +472,9 @@
 
                                 </a>
 
-                            </li> -->
+                            </li>
 
-                            <!-- <li class="nav-item">
+                            <li class="nav-item" id="topnav-friend-icon">
 
                                 <a class="search-toggle iq-waves-effect" href="#"><i class="ri-group-line"></i></a>
 
@@ -637,9 +638,9 @@
 
                                 </div>
 
-                            </li> -->
+                            </li>
 
-                            <li class="nav-item">
+                            <li class="nav-item" id="topnav-notification">
 
                                 <a href="#" class="search-toggle iq-waves-effect">
 
@@ -765,7 +766,7 @@
 
                             </li>
 
-                            <!-- <li class="nav-item dropdown">
+                            <li class="nav-item dropdown" id="topnav-messages-dropdown">
 
                                 <a href="#" class="search-toggle iq-waves-effect">
 
@@ -903,11 +904,11 @@
 
                                 </div>
 
-                            </li> -->
+                            </li>
 
                         </ul>
 
-                        <ul class="navbar-list">
+                        <ul class="navbar-list" id="topnav-down-arrow">
 
                             <li>
 
@@ -925,13 +926,13 @@
 
                                             <div class="bg-primary p-3 line-height">
 
-                                                <h5 class="mb-0 text-white line-height user-name">Hello Bni Cyst</h5>
+                                                <h5 class="mb-0 text-white line-height" id="topnav-drop-username">Hello Bni Cyst</h5>
 
-                                                <span class="text-white font-size-12">Available</span>
+                                                <span class="text-white font-size-12" id="topnav-drop-status">Available</span>
 
                                             </div>
 
-                                            <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
+                                            <a href="profile.html" class="iq-sub-card iq-bg-primary-hover" id="topnav-drop-profile">
 
                                                 <div class="media align-items-center">
 
@@ -953,7 +954,7 @@
 
                                             </a>
 
-                                            <a href="profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+                                            <a href="profile-edit.html" class="iq-sub-card iq-bg-warning-hover" id="topnav-drop-edit">
 
                                                 <div class="media align-items-center">
 
@@ -975,7 +976,7 @@
 
                                             </a>
 
-                                            <a href="account-setting.html" class="iq-sub-card iq-bg-info-hover">
+                                            <a href="account-setting.html" class="iq-sub-card iq-bg-info-hover" id="topnav-drop-account">
 
                                                 <div class="media align-items-center">
 
@@ -997,7 +998,7 @@
 
                                             </a>
 
-                                            <a href="privacy-setting.html" class="iq-sub-card iq-bg-danger-hover">
+                                            <a href="privacy-setting.html" class="iq-sub-card iq-bg-danger-hover" id="topnav-drop-privacy">
 
                                                 <div class="media align-items-center">
 
@@ -3793,6 +3794,7 @@
     <script src="js/post_template.js"></script>
     <script src="js/user.js"></script>
     <script src="js/logout.js"></script>
+    <script src="js/header/topright.js"></script>
 </body>
 
 </html>

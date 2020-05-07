@@ -36,7 +36,7 @@ function setPersonNameImage() {
 }
 
 function setProfileNameImage() {
-    // document.getElementById('person-name').textContent = getJSONLocalStorage(USER_INFO).first_name;
+    
     // document.getElementById('topnav-profile-user-image').src = getJSONLocalStorage(USER_INFO).userimage;
     // document.getElementById('profile-user-image').src = getJSONLocalStorage(USER_INFO).userimage;
     // document.getElementById('profile-write-post-user-image').src = getJSONLocalStorage(USER_INFO).userimage;
@@ -45,11 +45,10 @@ function setProfileNameImage() {
     // document.getElementById('profile-greet-user').textContent = "Hello " + getJSONLocalStorage(USER_INFO).first_name;
     // document.getElementById('profile-user-name').textContent = getJSONLocalStorage(USER_INFO).first_name;
 
-    let userNameList = document.querySelectorAll('.user-name');
-    for(let i=0; i<userNameList.length; i++){
-        // userNameList[i].textContent = getJSONLocalStorage(USER_INFO).username;
-        userNameList[i].textContent = getUserDetails().uname;
-    }
+    // let userNameList = document.querySelectorAll('.user-name');
+    // for(let i=0; i<userNameList.length; i++){
+    //     userNameList[i].textContent = getUserDetails().uname;
+    // }
 
     let userImgList = document.querySelectorAll('.curr-user-img');
     for(let i=0; i<userImgList.length; i++){
