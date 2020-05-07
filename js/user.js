@@ -1,6 +1,8 @@
 function userMapper(data){
     updateUserDetails(data.user);
     updateUserProfileDetails(data.details.profile);
+    // updateUserSocialDetails(data.details.socialMedia);
+    // updateUseerAboutDetails(data.details.details);
 }
 function getUserDetails(){
     let user={};
@@ -52,8 +54,7 @@ function getUserProfileDetails(){
     return profile;
 }
 function updateUserProfileDetails(data){
-    console.log(data)
-;    setLocalStorage(MOBILE, data.user_mobile);
+    setLocalStorage(MOBILE, data.user_mobile);
     setLocalStorage(DOB, data.user_dob);
     setLocalStorage(GENDER, data.user_gender);
     setLocalStorage(MARITAL, data.user_marital);
@@ -67,7 +68,6 @@ function updateUserProfileDetails(data){
     setLocalStorage(T_IMAGE, data.user_timeline_image);
     setLocalStorage(WEBSITE, data.website);
     setLocalStorage(U_SOCIAL_LINK, data.user_social_link);
-    console.log("hello");
 }
 function getUserSocialDetails(){
 
@@ -75,9 +75,37 @@ function getUserSocialDetails(){
 function updateUserSocialDetails(){
 
 }
-function getUserAboutDetails(){
+
+// function getUserAboutDetails(){
+//     let aboutDetails={};
+//     let about = getLocalStorage(ABOUT);
+//     let nickname = getLocalStorage(NICKNAME);
+//     let quote = getLocalStorage(QUOTE);
+
+//     aboutDetails = {
+//         aboutYou : about,
+//         nickname : nickname,
+//         favQuote : quote
+//     }
+
+//     return aboutDetails;
+// }
+
+// function updateUserAboutDetails(data){
+//     setLocalStorage(ABOUT, data.about);
+//     setLocalStorage(NICKNAME, data.nickname);
+//     setLocalStorage(QUOTE, data.favQuote);
+// }
+
+function updateUserPlacesDetails(){
 
 }
-function updateUserAboutDetails(){
+function getUserPlacesDetails(){
 
 }
+
+function updateUserWorksDetails(){}
+function getUserWorksDetails(){}
+
+function updateUserCollegeDetails(){}
+function getUserCollegeDetails(){}

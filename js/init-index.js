@@ -1,4 +1,7 @@
 function initIndexPage() {
-    setPersonNameImage();
+    renderTopMiddle();
+    renderTopRight();
+    renderLeftBar();
+    renderCreateBuzz();
     fetchPost();
 }

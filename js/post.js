@@ -196,6 +196,7 @@ function fetchPost() {
         data: {},
         success: function(resp) {
             console.log(resp);
+            // postMapper();
             if (0 != resp.Feed.length) {
                 feedInputArray = []
                 setJSONLocalStorage(POSTS, resp.Feed);
@@ -221,7 +222,7 @@ function fetchPost() {
                 }
 
             } else {
-                let inhtml = document.getElementById("posting-box");
+                let inhtml = document.getElementById("posting-area");
                 inhtml.innerHTML = post_template_no_post();
             }
         },
