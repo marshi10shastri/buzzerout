@@ -1,52 +1,49 @@
 function postMapper(data){
-    // Number Of Posts
-    // Get the template where you want to store
-    // Make function to render single post
-    // Call that function n times
-
-
-    // Call SIngle Post To Directly Add Post In UI
-    // Only save data to local storage
-
-}
-function singlePostMapper(data){
-
-    // For single post, title , description, time
-    let title ="Title";
+   /**
+    * 1. Localstorage
+    * 2. Render Single Post
+    */
+   for(let i=0;)
+   let title ="Title";
     let description = "Description";
     let firstName = "FirstName";
     let username = "Username";
     let image = "";
+    let comments = [{userImage:'', userName:'', commentText:''}]
+    let buzzz = {
+        buzz_id:id,
+
+    }
+
+}
+function singlePostMapper(data){
+
+    
+    buzz.buzz_id
+
+    // Template Call 
 
 }
 function updateSinglePost(data){
     let id = data.id;
-    // Traverse localstorage, and check for feed id, (edit)
-    // Comment added
-    // Get Comments Length
-    // Call singleComment n times
-    // Ui
-    // All Ost Div , usme id match, jiski uskedobara render->SinglePOstMapper
-}
-function addCommentToSinglePost(id,comemnt){
-/**
-*  data ={
-    id : feedid,
-    comment :{
+    let title = data.title;
+    let description = data.description;
+    let timestamp = data.timestamp;
+    let img = data.img;
+    let firstName = data.firsnamt;
+
+    let buzz = {
+        buzz_id = id,
+        buzz_title = title,
 
     }
-} 
- * 
+    singlePostMapper(buzz);
+  
+}
+function addCommentToSinglePost(id,comemnt){
 
- */
 }
 function notifyVotesSinglePost(votes){
-    // Post like added
-    // Votes : 
-    // {
-    //     downvote : "90",
-    //     upvote : "80"
-    // }
-    // Is it changed-> Localstorage
+  
 }
 // Template
