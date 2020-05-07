@@ -137,5 +137,7 @@ const U_SOCIAL_LINK = "user_social_link";
 const ABOUT = "about_you";
 const NICKNAME = "nickname";
 const QUOTE = "favourite_quote";
+
+const ALL_BUZZ = "all_buzz";
 // URLs
 const SERVER_URL = 'http://buzzerout.com/buzzerout_server/v1/';

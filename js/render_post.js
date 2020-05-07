@@ -4,16 +4,16 @@ function postTemplateStart(feed) {
     // feedTime = feedTime.getTime();
     // let currentTime = new Date().now();
     string = '\
-<div class="col-sm-12">\
+<div class="col-sm-12" id="'+ feed.buzz_id+'">\
     <div class="iq-card iq-card-block iq-card-stretch iq-card-height">\
         <div class="iq-card-body">\
             <div class="user-post-data">\
                 <div class="d-flex flex-wrap">\
                     <div class="media-support-user-img mr-3">\
-                        <img class="rounded-circle img-fluid" src=" ' + feed.userimage + '" alt="">\
+                        <img class="rounded-circle img-fluid" src=" ' + feed.buzz_user_image + '" alt="">\
                     </div>\
                     <div class="media-support-info mt-2">\
-                        <h5 class="mb-0 d-inline-block"><a href="#" class="">' + feed.username + ' </a></h5>\
+                        <h5 class="mb-0 d-inline-block"><a href="#" class="">' + feed.buzz_username + ' </a></h5>\
                         <p class="mb-0 d-inline-block">Add New Post</p>\
                         <p class="mb-0 text-primary">Just Now</p>\
                     </div>\
@@ -23,7 +23,7 @@ function postTemplateStart(feed) {
                                 <i class="ri-more-fill"></i>\
                             </span>\
                         <div class="dropdown-menu m-0 p-0">\
-                            <a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.feedid + '\')" >\
+                            <a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')" >\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
                                     <div class="data ml-2"  >\
@@ -32,7 +32,7 @@ function postTemplateStart(feed) {
                                     </div>\
                                 </div>\
                             </a>\
-                            <a class="dropdown-item p-3" onclick="hideBuzz(\'' + feed.feedid + '\')">\
+                            <a class="dropdown-item p-3" onclick="hideBuzz(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-close-circle-line"></i></div>\
                                     <div class="data ml-2">\
@@ -41,7 +41,7 @@ function postTemplateStart(feed) {
                                     </div>\
                                 </div>\
                             </a>\
-                            <a class="dropdown-item p-3" onclick="unfollowUser(\'' + feed.username + '\')">\
+                            <a class="dropdown-item p-3" onclick="unfollowUser(\'' + feed.buzz_username + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-user-unfollow-line"></i></div>\
                                     <div class="data ml-2">\
@@ -50,7 +50,7 @@ function postTemplateStart(feed) {
                                     </div>\
                                 </div>\
                             </a>\
-                            <a class="dropdown-item p-3" onclick="setBuzzNotification(\'' + feed.feedid + '\')">\
+                            <a class="dropdown-item p-3" onclick="setBuzzNotification(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-notification-line"></i></div>\
                                     <div class="data ml-2">\
@@ -65,13 +65,13 @@ function postTemplateStart(feed) {
             </div>\
         </div>\
         <div class="mt-3">\
-            <p>' + feed.description + '</p>\
+            <p id="buzz_description_'+feed.buzz_id+'">' + feed.buzz_description + '</p>\
         </div>\
         <div class="user-post">\
             <div class="d-flex">';
-    if (feed.images.length > 0) {
+    if (feed.buzz_images.length > 0) {
         string += ' <div class="col-md-12">\
-                    <a href="javascript:void();"><img src="' + feed.images[0] + '" alt="post-image" class="img-fluid rounded w-100"></a>\
+                    <a href="javascript:void();"><img src="' + feed.buzz_images[0] + '" alt="post-image" class="img-fluid rounded w-100"></a>\
                 </div>';
     }
     // <div class="col-md-6">\
@@ -82,7 +82,7 @@ function postTemplateStart(feed) {
     //         <a href="javascript:void();"><img src="images/page-img/p1.jpg" alt="post-image" class="img-fluid rounded w-100"></a>\
     //     </div>\
     //     <div class="col-sm-12 mt-3">\
-    //         <a href="javascript:void();"><img src="images/page-img/p3.jpg" alt="post-image" class="img-fluid rounded w-100"></a>\
+    //         <a href="javascript:void();"><img src="images/page-img/p3.buzz_jpg" alt="post-image" class="img-fluid rounded w-100"></a>\
     //     </div>\
     // </div>\
 
@@ -94,7 +94,7 @@ function postTemplateStart(feed) {
                     <div class="d-flex align-items-center">\
                         <div class="like-data">\
                             <div class="dropdown">\
-                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" onclick="upvoteBuzz(\'' + feed.feedid + '\')"  >\
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" onclick="upvoteBuzz(\'' + feed.buzz_id + '\')"  >\
                     <img src="images/icon/01.png" class="img-fluid" alt="">\
                     </span>\
                                 <div class="dropdown-menu">\
@@ -111,7 +111,7 @@ function postTemplateStart(feed) {
                         <div class="total-like-block ml-2 mr-3">\
                             <div class="dropdown">\
                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
-    string += feed.upvotes.length
+    string += feed.buzz_upvotes.length
     string += ' Likes\
                     </span>\
                             </div>\
@@ -120,7 +120,7 @@ function postTemplateStart(feed) {
                     <div class="total-comment-block">\
                         <div class="dropdown">\
                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
-    string += feed.comments.length
+    string += feed.buzz_comments.length
     string += ' Comment\
                  </span>\
                         </div>\
@@ -132,17 +132,17 @@ function postTemplateStart(feed) {
                 </div>\
             </div>\
             <hr>\
-            <ul class="post-comments p-0 m-0"  id="commentslist-' + feed.feedid + '" >\
+            <ul class="post-comments p-0 m-0"  id="commentslist-' + feed.buzz_id + '" >\
             ';
-    for (var i = 0; i < feed.comments.length; i++) {
+    for (var i = 0; i < feed.buzz_comments.length; i++) {
         string += '<li class="mb-2">\
                         <div class="d-flex flex-wrap">\
                             <div class="user-img">\
                                 <img src="images/user/02.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
                             </div>\
                             <div class="comment-data-block ml-3">\
-                                <h6>' + feed.comments[i].user_id + '</h6>\
-                                <p class="mb-0">' + feed.comments[i].text + '</p>\
+                                <h6>' + feed.buzz_comments[i].user_id + '</h6>\
+                                <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
                                 <div class="d-flex flex-wrap align-items-center comment-activity">\
                                 <a href="javascript:void();">like</a>';
         // <a href="javascript:void();">reply</a>\
@@ -174,7 +174,7 @@ function postTemplateStart(feed) {
                 </li> -->\
             </ul>\
             <div class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">\
-                <input type="text" class="form-control rounded" id="commentinput-' + feed.feedid + '" >\
+                <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" >\
                 <div class="comment-attagement d-flex">\
                     <a href="javascript:void();"><i class="ri-link mr-3"></i></a>\
                     <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>\
