@@ -1,7 +1,7 @@
 function initIndexPage() {
+    renderCreateBuzz();
     renderTopMiddle();
     renderTopRight();
     renderLeftBar();
-    renderCreateBuzz();
     fetchPost();
 }

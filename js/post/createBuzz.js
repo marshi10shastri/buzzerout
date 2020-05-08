@@ -19,6 +19,7 @@ function renderCreateBuzz(){
 
     if (getLocalStorage(USER) == 'true') {
         buzzToggle.addEventListener('click', function(){
+            console.log('modal pop');
             $('#post-modal').modal();
         });
     } else {
@@ -43,4 +44,18 @@ function renderCreateBuzz(){
     modalwatch.style.display = "none";
     modalplay.style.display = "none";
     modalother.style.display = "none";
+}
+
+function showCreatedBuzz(data){
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    buzz.unshift(data);
+    setJSONLocalStorage(ALL_BUZZ, buzz);
+
+    let box = document.getElementById('posting-area');
+    let boxContent = box.innerHTML;
+
+    box.innerHTML = "";
+    box.innerHTML += postTemplateStart(data);
+    box.innerHTML += boxContent;
+
 }

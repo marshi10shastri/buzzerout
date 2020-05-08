@@ -54,7 +54,7 @@ function postMapper(data){
 
 function singlePostMapper(data){
     // Ui 
-    let postingBox = document.getElementById("posting-box");
+    let postingBox = document.getElementById("posting-area");
     postingBox.innerHTML+= postTemplateStart(data);
     
     // Template Call 
@@ -122,9 +122,49 @@ function updateCommentToPost(id){
     }
 }
 
-function notifyVotesSinglePost(votes){
-  
+function notifyUpvotesSinglePost(votes, feedid){
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            buzz[i].buzz_upvotes = votes.length;
+        }
+    }
+    setJSONLocalStorage(ALL_BUZZ, buzz);
+    updateUpvotesSinglePost(feedid);
 }
+
+function updateUpvotesSinglePost(feedid){
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    let upvoteSpan = document.getElementById('upvote-count-'+ feedid);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            upvoteSpan.innerText = buzz[i].buzz_upvotes;
+        }
+    }
+}
+
+
+function notifyDownvotesSinglePost(votes, feedid){
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            buzz[i].buzz_downvotes = votes.length;
+        }
+    }
+    setJSONLocalStorage(ALL_BUZZ, buzz);
+    updateDownvotesSinglePost(feedid);
+}
+
+function updateDownvotesSinglePost(feedid){
+    // let downvoteSpan = document.getElementById('downvote-count-'+ feedid);
+    // for(let i=0; i<buzz.length; i++){
+    //     if(buzz[i].buzz_id == feedid){
+    //         downvoteSpan.innerText = buzz[i].buzz_downvotes;
+    //     }
+    // }
+}
+
+
 function editSinglePost(editFeed){
     // Localstorage Save
     // text

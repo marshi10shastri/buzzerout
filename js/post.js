@@ -10,7 +10,7 @@ function createPost() {
     var resizedImage;
 
     if (document.getElementById('buzz-photo-input').files.length == 0) {
-        let user_name = getJSONLocalStorage(USER_INFO).username;
+        let user_name = getUserDetails().uname;
         let desc = document.getElementById('buzz-post-input').value;
         $.ajax({
             type: 'POST',
@@ -24,21 +24,25 @@ function createPost() {
             success: function(data) {
                 console.log(data);
                 if (data["error"] == false) {
-                    var post = [{
-                        feedid: data.feedid,
-                        username: getJSONLocalStorage(USER_INFO).username,
-                        name: getJSONLocalStorage(USER_INFO).first_name,
-                        userimage: getJSONLocalStorage(USER_INFO).userimage,
-                        images: [],
-                        description: desc,
-                        timestamp: 'Just Now',
-                        likes: 0,
-                        comments: [],
-                    }];
-                    var local_posts = getJSONLocalStorage(POSTS);
-                    setJSONLocalStorage(POSTS, post.concat(local_posts));
+                    
+                    
+                    var post = {
+                        buzz_id: data.feedid,
+                        buzz_username: getUserDetails().uname,
+                        name: getUserProfileDetails.fname,
+                        userimage: getUserProfileDetails.pImage,
+                        buzz_images: [],
+                        buzz_description: desc,
+                        buzz_timestamp: 'Just Now',
+                        buzz_upvotes: [],
+                        buzz_downvotes:[],
+                        buzz_comments: [],
+                    };
+                    showCreatedBuzz(post);
+                    // var local_posts = getJSONLocalStorage(POSTS);
+                    // setJSONLocalStorage(POSTS, post.concat(local_posts));
                     document.getElementById('close-modal').click();
-                    fetchPost();
+                    // fetchPost();
                 } else {
                     alert(data["message"]);
                 }
@@ -240,14 +244,9 @@ function addComment(feedid, commentData) {
     });
 }
 
-function upvoteBuzzByFeedId() {
-    // highlight icon as upvoted
 
-}
 
-function downvoteBuzzByFeedId() {
-    // highlight icon as downvoted
-}
+
 
 function followBuzzByFeedId() {
     // highlight text as followed
@@ -260,6 +259,8 @@ function unfollowBuzzByFeedId() {
 function editPost(){
     let text = "thisis new Text";
     let image = [];
+
+
     // Nivishared upload
     // text
     // image file upload ke baad ki link hai
