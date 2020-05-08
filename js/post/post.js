@@ -126,7 +126,7 @@ function notifyUpvotesSinglePost(votes, feedid){
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){
         if(buzz[i].buzz_id == feedid){
-            buzz[i].buzz_upvotes = votes;
+            buzz[i].buzz_upvotes = votes.length;
         }
     }
     setJSONLocalStorage(ALL_BUZZ, buzz);
@@ -134,6 +134,7 @@ function notifyUpvotesSinglePost(votes, feedid){
 }
 
 function updateUpvotesSinglePost(feedid){
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
     let upvoteSpan = document.getElementById('upvote-count-'+ feedid);
     for(let i=0; i<buzz.length; i++){
         if(buzz[i].buzz_id == feedid){
@@ -147,7 +148,7 @@ function notifyDownvotesSinglePost(votes, feedid){
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){
         if(buzz[i].buzz_id == feedid){
-            buzz[i].buzz_downvotes = votes;
+            buzz[i].buzz_downvotes = votes.length;
         }
     }
     setJSONLocalStorage(ALL_BUZZ, buzz);

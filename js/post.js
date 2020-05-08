@@ -244,45 +244,9 @@ function addComment(feedid, commentData) {
     });
 }
 
-function upvoteBuzzByFeedId(feedid) {
-    //ajax
-    $.ajax({
-        type:'POST',
-        url: SERVER_URL +"buzz/upvoteBuzz",
-        data:{
-            username: getUserDetails().uname,
-            feed_id: feedid
-        },
-        success: function(data){
-            //data.votes will be array of upvotes
-            notifyUpvotesSinglePost(data.upvotes, feedid)
-        },
-        error: function(data){
-            console.log('cannot like');
-        }
-    });
-    // highlight icon as upvoted
-}
 
-function downvoteBuzzByFeedId() {
-    // highlight icon as downvoted
-    //ajax
-    $.ajax({
-        type:'POST',
-        url: SERVER_URL +"buzz/downvoteBuzz",
-        data:{
-            username: getUserDetails().uname,
-            feed_id: feedid
-        },
-        success: function(data){
-            //data.votes will be array of upvotes
-            notifyDownvotesSinglePost(data.downvotes, feedid)
-        },
-        error: function(data){
-            console.log('cannot like');
-        }
-    });
-}
+
+
 
 function followBuzzByFeedId() {
     // highlight text as followed

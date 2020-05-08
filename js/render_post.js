@@ -94,24 +94,49 @@ function postTemplateStart(feed) {
                     <div class="d-flex align-items-center">\
                         <div class="like-data">\
                             <div class="dropdown">\
-                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+                                <span onclick="upvoteBuzzByFeedId(\'' + feed.buzz_id + '\')" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
                     <img src="images/icon/01.png" class="img-fluid" alt="">\
                     </span>\
-                                <div class="dropdown-menu">\
-                                    <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" onclick="upvoteBuzzByFeedId(\'' + feed.buzz_id + '\')"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
-                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love" onclick="downvoteBuzzByFeedId(\'' + feed.buzz_id + '\')"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
+                            <!--    <div class="dropdown-menu">\
+                                    <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" ><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
+                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love" ><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
                                     <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>\
                                     <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>\
                                     <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>\
                                     <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>\
                                     <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a>\
-                                </div>\
+                                </div>\ -->\
                             </div>\
                         </div>\
                         <div class="total-like-block ml-2 mr-3">\
                             <div class="dropdown">\
-                                <span id="upvote-count-'+feedid+'" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+                                <span id="upvote-count-'+feed.buzz_id+'" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
     string += feed.buzz_upvotes.length
+    string += ' Likes\
+                    </span>\
+                            </div>\
+                        </div>\
+                    </div>\
+                    <div class="like-data">\
+                            <div class="dropdown">\
+                                <span onclick="downvoteBuzzByFeedId(\'' + feed.buzz_id + '\')" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+                    <img src="images/icon/01.png" class="img-fluid" alt="">\
+                    </span>\
+                            <!--    <div class="dropdown-menu">\
+                                    <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" ><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
+                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love" ><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
+                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>\
+                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>\
+                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>\
+                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>\
+                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a>\
+                                </div>\ -->\
+                            </div>\
+                        </div>\
+                        <div class="total-like-block ml-2 mr-3">\
+                            <div class="dropdown">\
+                                <span id="upvote-count-'+feed.buzz_id+'" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+    string += feed.buzz_downvotes.length
     string += ' Likes\
                     </span>\
                             </div>\
@@ -119,7 +144,7 @@ function postTemplateStart(feed) {
                     </div>\
                     <div class="total-comment-block">\
                         <div class="dropdown">\
-                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" role="button">';
     string += feed.buzz_comments.length
     string += ' Comment\
                  </span>\
@@ -215,52 +240,45 @@ function unsetBuzzNotification(buzzid) {
     console.log("Unset notification For : " + buzzid);
 }
 
-function upvoteBuzz(id) {
-    let user = getJSONLocalStorage(USER_INFO);
-    let buzz_id = id;
-    //api call
+function upvoteBuzzByFeedId(feedid) {
+    //ajax
     $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'feed/feedUpvote',
-        data: {
-            username: user.username,
-            feed_id: buzz_id
+        type:'POST',
+        url: SERVER_URL +"buzz/upvoteBuzz",
+        data:{
+            username: getUserDetails().uname,
+            feed_id: feedid
         },
-        success: function(data) {
-            // fetch all posts again
-            console.log(data);
-            fetchPost();
+        success: function(data){
+            //data.votes will be array of upvotes
+            notifyUpvotesSinglePost(data.upvotes, feedid)
         },
-        error: function(data) {
-            console.log(data);
+        error: function(data){
+            console.log('cannot like');
         }
     });
-
-
+    // highlight icon as upvoted
 }
 
-function downvotePost(id) {
-    let user = getJSONLocalStorage(USER_INFO);
-    let postId = id.slice(6, id.length);
-    let posts = getJSONLocalStorage(POSTS);
-    //api call
+
+function downvoteBuzzByFeedId(feedid) {
+    // highlight icon as downvoted
+    //ajax
     $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'feed/feedDownvote',
-        data: {
-            username: user.username,
-            feed_id: postId
+        type:'POST',
+        url: SERVER_URL +"buzz/downvoteBuzz",
+        data:{
+            username: getUserDetails().uname,
+            feed_id: feedid
         },
-        success: function(data) {
-            console.log(data);
-            // fetch all posts again
-            fetchPost();
+        success: function(data){
+            //data.votes will be array of upvotes
+            notifyDownvotesSinglePost(data.downvotes, feedid)
         },
-        error: function(data) {
-            console.log(data);
+        error: function(data){
+            console.log('cannot like');
         }
     });
-
 }
 
 
