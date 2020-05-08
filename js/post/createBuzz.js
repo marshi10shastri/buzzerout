@@ -15,6 +15,9 @@ function renderCreateBuzz(){
     let modalplay = document.getElementById('create-buzz-modal-play');
     let modalother = document.getElementById('create-buzz-modal-other');
 
+    let editModalImage = document.getElementById('post-edit-userimage-inside');
+
+
 
 
     if (getLocalStorage(USER) == 'true') {
@@ -44,6 +47,8 @@ function renderCreateBuzz(){
     modalwatch.style.display = "none";
     modalplay.style.display = "none";
     modalother.style.display = "none";
+
+    editModalImage.src = getUserProfileDetails().pImage;
 }
 
 function showCreatedBuzz(data){

@@ -40,17 +40,21 @@ function postTemplateStart(feed) {
                                         <p class="mb-0">See fewer posts like this.</p>\
                                     </div>\
                                 </div>\
-                            </a>\
-                            <a class="dropdown-item p-3" onclick="unfollowUser(\'' + feed.buzz_username + '\')">\
+                            </a>';
+
+                            if(feed.buzz_username == getUserDetails().uname){
+                                string += '<a class="dropdown-item p-3" onclick="editPostModal(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-user-unfollow-line"></i></div>\
                                     <div class="data ml-2">\
-                                        <h6>Unfollow User</h6>\
+                                        <h6>Edit Post</h6>\
                                         <p class="mb-0">Stop seeing posts but stay friends.</p>\
                                     </div>\
                                 </div>\
-                            </a>\
-                            <a class="dropdown-item p-3" onclick="setBuzzNotification(\'' + feed.buzz_id + '\')">\
+                            </a>'
+                            }
+
+                        string += '<a class="dropdown-item p-3" onclick="setBuzzNotification(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-notification-line"></i></div>\
                                     <div class="data ml-2">\
