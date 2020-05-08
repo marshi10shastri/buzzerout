@@ -7,7 +7,8 @@ function postMapper(data){
     let buzzArray = []
 
    for(let i=0;i< data.length; i++){
-        let feedid = data[i].feedid;
+        let feedid = data[i].feed_id;
+        console.log('setting feed_id: ' + feedid);
         let title =data[i].title;
         let description = data[i].description;
         let username = data[i].username;
@@ -35,8 +36,9 @@ function postMapper(data){
         buzzArray.push(buzz);
         singlePostMapper(buzz);
 
-        feedInputArray.push("commentinput-" + data[i].feedid);
+        feedInputArray.push("commentinput-" + data[i].feed_id);
    }
+   setJSONLocalStorage(ALL_BUZZ, buzzArray);
 
    for (let j = 0; j < feedInputArray.length; j++) {
             let inputCommentField = document.getElementById(feedInputArray[j]);
@@ -49,7 +51,7 @@ function postMapper(data){
                 }
             })
         }
-   setJSONLocalStorage(ALL_BUZZ, buzzArray);
+  
 }
 
 function singlePostMapper(data){
@@ -66,6 +68,7 @@ function singlePostMapper(data){
  */
 function updateSinglePost(data){
     //REplace Text,and Image
+    console.log('inside updateSinglePost');
   let descP = document.getElementById('buzz_description_' + data);
   let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){
@@ -169,14 +172,15 @@ function updateDownvotesSinglePost(feedid){
 function editSinglePost(editFeed){
     // Localstorage Save
     // text
+    console.log('inside editSinglePost');
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){
         if(buzz[i].buzz_id == editFeed.buzz_id){
-            console.log("Changed")
-;            buzz[i].buzz_description = editFeed.buzz_text
+            console.log("Changed");
+            buzz[i].buzz_description = editFeed.buzz_text
         }
     }
     setJSONLocalStorage(ALL_BUZZ,buzz);
-     updateSinglePost(editFeed.buzz_id);
+    updateSinglePost(editFeed.buzz_id);
 }
 // Template
