@@ -19,6 +19,7 @@ function renderCreateBuzz(){
 
     if (getLocalStorage(USER) == 'true') {
         buzzToggle.addEventListener('click', function(){
+            console.log('modal pop');
             $('#post-modal').modal();
         });
     } else {
@@ -50,5 +51,11 @@ function showCreatedBuzz(data){
     buzz.unshift(data);
     setJSONLocalStorage(ALL_BUZZ, buzz);
 
-    
+    let box = document.getElementById('posting-area');
+    let boxContent = box.innerHTML;
+
+    box.innerHTML = "";
+    box.innerHTML += postTemplateStart(data);
+    box.innerHTML += boxContent;
+
 }

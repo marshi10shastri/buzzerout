@@ -25,21 +25,23 @@ function createPost() {
                 console.log(data);
                 if (data["error"] == false) {
                     
-                    showCreatedBuzz(data.feed);
-                    // var post = [{
-                    //     feedid: data.feedid,
-                    //     username: getJSONLocalStorage(USER_INFO).username,
-                    //     name: getJSONLocalStorage(USER_INFO).first_name,
-                    //     userimage: getJSONLocalStorage(USER_INFO).userimage,
-                    //     images: [],
-                    //     description: desc,
-                    //     timestamp: 'Just Now',
-                    //     likes: 0,
-                    //     comments: [],
-                    // }];
+                    
+                    var post = {
+                        buzz_id: data.feedid,
+                        buzz_username: getUserDetails().uname,
+                        name: getUserProfileDetails.fname,
+                        userimage: getUserProfileDetails.pImage,
+                        buzz_images: [],
+                        buzz_description: desc,
+                        buzz_timestamp: 'Just Now',
+                        buzz_upvotes: [],
+                        buzz_downvotes:[],
+                        buzz_comments: [],
+                    };
+                    showCreatedBuzz(post);
                     // var local_posts = getJSONLocalStorage(POSTS);
                     // setJSONLocalStorage(POSTS, post.concat(local_posts));
-                    // document.getElementById('close-modal').click();
+                    document.getElementById('close-modal').click();
                     // fetchPost();
                 } else {
                     alert(data["message"]);
@@ -242,13 +244,44 @@ function addComment(feedid, commentData) {
     });
 }
 
-function upvoteBuzzByFeedId() {
+function upvoteBuzzByFeedId(feedid) {
+    //ajax
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL +"buzz/upvoteBuzz",
+        data:{
+            username: getUserDetails().uname,
+            feed_id: feedid
+        },
+        success: function(data){
+            //data.votes will be array of upvotes
+            notifyUpvotesSinglePost(data.upvotes, feedid)
+        },
+        error: function(data){
+            console.log('cannot like');
+        }
+    });
     // highlight icon as upvoted
-
 }
 
 function downvoteBuzzByFeedId() {
     // highlight icon as downvoted
+    //ajax
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL +"buzz/downvoteBuzz",
+        data:{
+            username: getUserDetails().uname,
+            feed_id: feedid
+        },
+        success: function(data){
+            //data.votes will be array of upvotes
+            notifyDownvotesSinglePost(data.downvotes, feedid)
+        },
+        error: function(data){
+            console.log('cannot like');
+        }
+    });
 }
 
 function followBuzzByFeedId() {

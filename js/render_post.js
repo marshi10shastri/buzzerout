@@ -94,12 +94,12 @@ function postTemplateStart(feed) {
                     <div class="d-flex align-items-center">\
                         <div class="like-data">\
                             <div class="dropdown">\
-                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" onclick="upvoteBuzz(\'' + feed.buzz_id + '\')"  >\
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
                     <img src="images/icon/01.png" class="img-fluid" alt="">\
                     </span>\
                                 <div class="dropdown-menu">\
-                                    <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
-                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
+                                    <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" onclick="upvoteBuzzByFeedId(\'' + feed.buzz_id + '\')"><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
+                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Love" onclick="downvoteBuzzByFeedId(\'' + feed.buzz_id + '\')"><img src="images/icon/02.png" class="img-fluid" alt=""></a>\
                                     <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>\
                                     <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>\
                                     <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>\
@@ -110,7 +110,7 @@ function postTemplateStart(feed) {
                         </div>\
                         <div class="total-like-block ml-2 mr-3">\
                             <div class="dropdown">\
-                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+                                <span id="upvote-count-'+feedid+'" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
     string += feed.buzz_upvotes.length
     string += ' Likes\
                     </span>\
