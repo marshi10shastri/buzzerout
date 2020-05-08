@@ -156,12 +156,13 @@ function notifyDownvotesSinglePost(votes, feedid){
 }
 
 function updateDownvotesSinglePost(feedid){
-    // let downvoteSpan = document.getElementById('downvote-count-'+ feedid);
-    // for(let i=0; i<buzz.length; i++){
-    //     if(buzz[i].buzz_id == feedid){
-    //         downvoteSpan.innerText = buzz[i].buzz_downvotes;
-    //     }
-    // }
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    let downvoteSpan = document.getElementById('downvote-count-'+ feedid);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            downvoteSpan.innerText = buzz[i].buzz_downvotes;
+        }
+    }
 }
 
 

@@ -95,7 +95,7 @@ function postTemplateStart(feed) {
                         <div class="like-data">\
                             <div class="dropdown">\
                                 <span onclick="upvoteBuzzByFeedId(\'' + feed.buzz_id + '\')" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
-                    <img src="images/icon/01.png" class="img-fluid" alt="">\
+                    <img src="images/icon/like.jpg" class="img-fluid" alt="">\
                     </span>\
                             <!--    <div class="dropdown-menu">\
                                     <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" ><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
@@ -120,7 +120,7 @@ function postTemplateStart(feed) {
                     <div class="like-data">\
                             <div class="dropdown">\
                                 <span onclick="downvoteBuzzByFeedId(\'' + feed.buzz_id + '\')" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
-                    <img src="images/icon/01.png" class="img-fluid" alt="">\
+                    <img src="images/icon/dislike.jpg" class="img-fluid" alt="">\
                     </span>\
                             <!--    <div class="dropdown-menu">\
                                     <a class="ml-2 mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like" ><img src="images/icon/01.png" class="img-fluid" alt=""></a>\
@@ -135,7 +135,7 @@ function postTemplateStart(feed) {
                         </div>\
                         <div class="total-like-block ml-2 mr-3">\
                             <div class="dropdown">\
-                                <span id="upvote-count-'+feed.buzz_id+'" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+                                <span id="downvote-count-'+feed.buzz_id+'" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
     string += feed.buzz_downvotes.length
     string += ' Likes\
                     </span>\
