@@ -44,3 +44,11 @@ function renderCreateBuzz(){
     modalplay.style.display = "none";
     modalother.style.display = "none";
 }
+
+function showCreatedBuzz(data){
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    buzz.unshift(data);
+    setJSONLocalStorage(ALL_BUZZ, buzz);
+
+    
+}
