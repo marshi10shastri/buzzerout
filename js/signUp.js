@@ -66,48 +66,51 @@ function checkEmail() {
     let invalidIcon = document.getElementById('e-not-valid-icon');
 
     let emailinp = document.getElementById('exampleInputEmail2').value;
-    valid_email = checkEmailValidity(emailinp);
+    if (emailinp != "") {
 
-    if (valid_email) {
-        invalidIcon.style.display = 'none';
-        $.ajax({
-            type: 'POST',
-            url: SERVER_URL + 'auth/authenticateNewEmail',
-            data: {
-                email: emailinp
-            },
+        valid_email = checkEmailValidity(emailinp);
 
-            success: function(data) {
-                console.log(data)
-                if (data.error) {
-                    available_email = true;
-                    navailIcon.style.display = 'block'
-                    invalidIcon.style.display = 'none';
+        if (valid_email) {
+            invalidIcon.style.display = 'none';
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + 'auth/authenticateNewEmail',
+                data: {
+                    email: emailinp
+                },
 
-                    if (data.user) {
-                        document.getElementById('log-in-dialouge').style.display = 'block';
-                        document.getElementById('activate-dialouge').style.display = 'none';
+                success: function(data) {
+                    if (!data.error) {
+                        available_email = true;
+                        navailIcon.style.display = 'none';
+                        invalidIcon.style.display = 'none';
+
                     } else {
-                        document.getElementById('log-in-dialouge').style.display = 'none';
-                        document.getElementById('activate-dialouge').style.display = 'block';
+                        available_email = false;
+                        navailIcon.style.display = 'block'
+                        invalidIcon.style.display = 'none';
+
+                        if (data.user) {
+                            document.getElementById('log-in-dialouge').style.display = 'block';
+                            document.getElementById('activate-dialouge').style.display = 'none';
+                        } else {
+                            document.getElementById('log-in-dialouge').style.display = 'none';
+                            document.getElementById('activate-dialouge').style.display = 'block';
+                        }
                     }
-                } else {
-                    available_email = false;
-                    navailIcon.style.display = 'none'
-                    invalidIcon.style.display = 'none';
+                },
+
+                error: function(data) {
+                    console.log(data);
+                    navailIcon.style.display = 'block';
                 }
-            },
+            });
+        } else {
+            console.log("invalid")
+            navailIcon.style.display = 'none'
+            invalidIcon.style.display = 'block';
 
-            error: function(data) {
-                console.log(data);
-                navailIcon.style.display = 'block';
-            }
-        });
-    } else {
-        console.log("invalid")
-        navailIcon.style.display = 'none'
-        invalidIcon.style.display = 'block';
-
+        }
     }
 
 }
