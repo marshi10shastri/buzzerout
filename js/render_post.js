@@ -130,7 +130,6 @@ function postTemplateStart(feed) {
                     </span>\
                             </div>\
                         </div>\
-                    </div>\
                     <div class="like-data">\
                             <div class="dropdown">\
                                 <span onclick="downvoteBuzzByFeedId(\'' + feed.buzz_id + '\')" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
