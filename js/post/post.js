@@ -149,7 +149,7 @@ function updateUpvotesSinglePost(feedid) {
     let upvoteSpan = document.getElementById('upvote-count-' + feedid);
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == feedid) {
-            upvoteSpan.innerText = buzz[i].buzz_upvotes.length;
+            upvoteSpan.innerText = buzz[i].buzz_upvotes.length + " Upvotes";
         }
     }
 }
@@ -171,7 +171,7 @@ function updateDownvotesSinglePost(feedid) {
     let downvoteSpan = document.getElementById('downvote-count-' + feedid);
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == feedid) {
-            downvoteSpan.innerText = buzz[i].buzz_downvotes.length;
+            downvoteSpan.innerText = buzz[i].buzz_downvotes.length + " Downnvotes";
         }
     }
 }

@@ -179,7 +179,7 @@ function postTemplateStart(feed) {
                                 <img src="images/user/02.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
                             </div>\
                             <div class="comment-data-block ml-3">\
-                                <h6>' + feed.buzz_comments[i].user_id + '</h6>\
+                                <h6>' + feed.buzz_comments[i].first_name + " " + feed.buzz_comments[i].last_name + '</h6>\
                                 <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
                                 <div class="d-flex flex-wrap align-items-center comment-activity">\
                                 <a href="javascript:void();">like</a>';
