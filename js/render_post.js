@@ -245,44 +245,120 @@ function unsetBuzzNotification(buzzid) {
 }
 
 function upvoteBuzzByFeedId(feedid) {
-    //ajax
-    $.ajax({
-        type:'POST',
-        url: SERVER_URL +"buzz/upvoteBuzz",
-        data:{
-            username: getUserDetails().uname,
-            feed_id: feedid
-        },
-        success: function(data){
-            //data.votes will be array of upvotes
-            notifyUpvotesSinglePost(data.upvotes, feedid)
-        },
-        error: function(data){
-            console.log('cannot like');
+    //check if already upvoted
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    let buzz_upvotes = [];
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            buzz_upvotes = buzz[i].buzz_upvotes;
         }
-    });
+    }
+    
+    let uName = getUserDetails().uname;
+    console.log(buzz_upvotes);
+
+    let flag = 0;
+    for(let j=0; j<buzz_upvotes.length; j++){
+        if(buzz_upvotes[j].username == uName){
+            flag = 1;
+        }
+    }
+    if(flag == 1){
+        //call unlike api
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL +"buzz/removeUpvoteBuzz",
+            data:{
+                username: uName,
+                feed_id: feedid
+            },
+            success: function(data){
+                //data.votes will be array of upvotes
+                notifyUpvotesSinglePost(data.upvotes, feedid);
+            },
+            error: function(data){
+                console.log('cannot like');
+            }
+        });
+    }
+    else{
+        //call like api
+        //ajax
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL +"buzz/upvoteBuzz",
+            data:{
+                username: uName,
+                feed_id: feedid
+            },
+            success: function(data){
+                notifyUpvotesSinglePost(data.upvotes, feedid);
+                notifyDownvotesSinglePost(data.downvotes, feedid);
+            },
+            error: function(data){
+                console.log('cannot like');
+            }
+        });
+    }
+    
     // highlight icon as upvoted
 }
 
 
 function downvoteBuzzByFeedId(feedid) {
-    // highlight icon as downvoted
-    //ajax
-    $.ajax({
-        type:'POST',
-        url: SERVER_URL +"buzz/downvoteBuzz",
-        data:{
-            username: getUserDetails().uname,
-            feed_id: feedid
-        },
-        success: function(data){
-            //data.votes will be array of upvotes
-            notifyDownvotesSinglePost(data.downvotes, feedid)
-        },
-        error: function(data){
-            console.log('cannot like');
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    let buzz_downvotes = [];
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            buzz_downvotes = buzz[i].buzz_downvotes;
         }
-    });
+    }
+    let uName = getUserDetails().uname;
+
+    let flag = 0;
+    for(let j=0; j<buzz_downvotes.length; j++){
+        if(buzz_downvotes[j].username == uName){
+            flag = 1;
+        }
+    }
+    if(flag == 1){
+        //call removeDownvote
+        //ajax
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL +"buzz/removeDownvoteBuzz",
+            data:{
+                username: uName,
+                feed_id: feedid
+            },
+            success: function(data){
+                notifyDownvotesSinglePost(data.downvotes, feedid);
+            },
+            error: function(data){
+                console.log('cannot like');
+            }
+        });
+    }
+    else{
+        // highlight icon as downvoted
+        //ajax
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL +"buzz/downvoteBuzz",
+            data:{
+                username: uName,
+                feed_id: feedid
+            },
+            success: function(data){
+                notifyDownvotesSinglePost(data.downvotes, feedid);
+                notifyUpvotesSinglePost(data.upvotes, feedid);
+            },
+            error: function(data){
+                console.log('cannot like');
+            }
+        });
+    }
+    
 }
 
 

@@ -129,7 +129,7 @@ function notifyUpvotesSinglePost(votes, feedid){
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){
         if(buzz[i].buzz_id == feedid){
-            buzz[i].buzz_upvotes = votes.length;
+            buzz[i].buzz_upvotes = votes;
         }
     }
     setJSONLocalStorage(ALL_BUZZ, buzz);
@@ -141,7 +141,7 @@ function updateUpvotesSinglePost(feedid){
     let upvoteSpan = document.getElementById('upvote-count-'+ feedid);
     for(let i=0; i<buzz.length; i++){
         if(buzz[i].buzz_id == feedid){
-            upvoteSpan.innerText = buzz[i].buzz_upvotes;
+            upvoteSpan.innerText = buzz[i].buzz_upvotes.length;
         }
     }
 }
@@ -151,7 +151,7 @@ function notifyDownvotesSinglePost(votes, feedid){
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){
         if(buzz[i].buzz_id == feedid){
-            buzz[i].buzz_downvotes = votes.length;
+            buzz[i].buzz_downvotes = votes;
         }
     }
     setJSONLocalStorage(ALL_BUZZ, buzz);
@@ -163,7 +163,7 @@ function updateDownvotesSinglePost(feedid){
     let downvoteSpan = document.getElementById('downvote-count-'+ feedid);
     for(let i=0; i<buzz.length; i++){
         if(buzz[i].buzz_id == feedid){
-            downvoteSpan.innerText = buzz[i].buzz_downvotes;
+            downvoteSpan.innerText = buzz[i].buzz_downvotes.length;
         }
     }
 }
