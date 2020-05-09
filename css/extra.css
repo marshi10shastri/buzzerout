@@ -22,3 +22,7 @@
 .clickable-icons {
     z-index: 20;
 }
+
+.text-position-relative {
+    position: relative !important;
+}

@@ -64,7 +64,7 @@ function postTemplateStart(feed) {
                             </a>'
     }
 
-    string += '<a class="dropdown-item p-3" onclick="setBuzzNotification(\'' + feed.buzz_id + '\')">\
+    string += '<a class="dropdown-item p-3" onclick="setUnsetBuzzNotification(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-notification-line"></i></div>\
                                     <div class="data ml-2">\
@@ -179,7 +179,7 @@ function postTemplateStart(feed) {
                                 <img src="images/user/02.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
                             </div>\
                             <div class="comment-data-block ml-3">\
-                                <h6>' + feed.buzz_comments[i].first_name + " " + feed.buzz_comments[i].last_name + '</h6>\
+                                <h6>' + feed.buzz_comments[i].username + '</h6>\
                                 <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
                                 <div class="d-flex flex-wrap align-items-center comment-activity">\
                                 <a href="javascript:void();">like</a>';
@@ -211,7 +211,7 @@ function postTemplateStart(feed) {
                     </div>\
                 </li> -->\
             </ul>\
-            <div class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">\
+            <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
                 <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" >\
                 <div class="comment-attagement d-flex">\
                     <a href="javascript:void();"><i class="ri-link mr-3"></i></a>\
@@ -231,24 +231,42 @@ function postTemplateStart(feed) {
 
 function saveBuzz(buzzid) {
     console.log("Saving Post : " + buzzid);
+    // if user is not signed in 
+    if (getLocalStorage(USER) == "true") {
+        // ajax call
+    } else {
+        alert("Please sign in.");
+    }
 }
 
 function hideBuzz(buzzid) {
     console.log("Hide Post : " + buzzid);
+    // if user is not signed in 
+    if (getLocalStorage(USER) == "true") {
+        // ajax call
+    } else {
+        alert("Please sign in.");
+    }
 }
 
 var follow = 0
 
 function followUnfollowClick(feedid) {
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-    //check if buzz username is in follow list of user
-    if (follow == 0) {
-        followUser(feedid);
+    // if user is not signed in 
+    if (getLocalStorage(USER) == "true") {
+        // ajax call
+        let buzz = getJSONLocalStorage(ALL_BUZZ);
+        //check if buzz username is in follow list of user
+        if (follow == 0) {
+            followUser(feedid);
+        } else {
+            unfollowUser(feedid);
+        }
     } else {
-        unfollowUser(feedid);
+        alert("Please sign in.");
     }
-
 }
+
 
 function followUser(feedid) {
     console.log("Follow User : " + userid);
@@ -262,6 +280,23 @@ function unfollowUser(feedid) {
     //ajax call
     //on success
     updateFollowStatus(username, feedid, 0);
+}
+
+var buzzFollowed = 0
+
+function setUnsetBuzzNotification(buzzid) {
+    // if user is not signed in 
+    if (getLocalStorage(USER) == "true") {
+        // ajax call
+        //check if buzz is already followed
+        if (buzzFollowed == 0) {
+            setBuzzNotification(buzzid);
+        } else {
+            unsetBuzzNotification(buzzid);
+        }
+    } else {
+        alert("Please sign in.");
+    }
 }
 
 function setBuzzNotification(buzzid) {

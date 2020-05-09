@@ -58,7 +58,7 @@
 // data[DUMMY_USER.user.id]
 
 
-const DUMMY_USER = {
+let DUMMY_USER = {
     user: {
         id: "user.userid",
         username: "praty",
@@ -87,7 +87,7 @@ const DUMMY_USER = {
             user_social_link: null,
             timestamp: "2020-05-04 10:53:47"
         },
-        details:{about:"qwer", nickname:'asfds', quote: "dasc"}
+        details: { about: "qwer", nickname: 'asfds', quote: "dasc" }
     },
     feed: [{
             feed_id: "naman5eaff72ee3a50",
@@ -137,6 +137,15 @@ const U_SOCIAL_LINK = "user_social_link";
 const ABOUT = "about_you";
 const NICKNAME = "nickname";
 const QUOTE = "favourite_quote";
+const FACEBOOK = "facebook";
+const TWITTER = "twitter";
+const G_PLUS = "google_plus";
+const INSTAGRAM = "instagram";
+const YOUTUBE = "youtube";
+
+const COLLEGES = "colleges";
+const WORKS = "works";
+const PLACES = "places";
 
 const ALL_BUZZ = "all_buzz";
 // URLs

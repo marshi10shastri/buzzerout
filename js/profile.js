@@ -1,46 +1,58 @@
 function initProfile() {
-    console.log("1")
-    setProfileNameImage();
-    console.log("2")
-    showProfile();
-    fetchTimelinePosts()
-    console.log("3")
+    // if user is not signed in 
+    if (getLocalStorage(USER) == "true") {
+        // ajax call
+        document.getElementById("topnav-profile-user-image").src = getLocalStorage(P_IMAGE);
+        document.getElementById("profile-user-image").src = getLocalStorage(P_IMAGE);
+        document.getElementById("profile-write-post-user-image").src = getLocalStorage(P_IMAGE);
+        document.getElementById("profile-write-post-user-image-inside").src = getLocalStorage(P_IMAGE);
+        document.getElementById("cover-pic").src = getLocalStorage(T_IMAGE);
+        document.getElementById("person-name").innerHTML = getLocalStorage(P_UNAME);
+        document.getElementById("profile-user-name").innerHTML = getLocalStorage(F_NAME) + " " + getLocalStorage(L_NAME);
+        showProfile();
+        // fetchTimelinePosts()
+    } else {
+        alert("Please sign in.");
+    }
 }
 
 function showProfile() {
+
     var userDetails = document.getElementById('about').innerHTML;
     userDetails = '';
 
-    var currUser = getJSONLocalStorage(USER_INFO);
     // adding dummy values
-    userDetails += profile_template_contactInfo(getUserDetails().email, getUserProfileDetails().mob, getUserProfileDetails().address) +
+    userDetails += profile_template_contactInfo(getUserDetails().email, getUserProfileDetails().mobile, getUserProfileDetails().address) +
         // profile_template_websites(currUser.website, currUser.socialLink) +
-        profile_template_basicInfo(getUserProfileDetails().dob, currUser.yob, getUserProfileDetails().gender) +
+        profile_template_basicInfo(getUserProfileDetails().dob, getUserProfileDetails().dob, getUserProfileDetails().gender) +
         profile_family() +
         profile_template_work();
 
     // adding multiple workplaces
-    for (let i = 0; i < currUser.work.length; i++) {
-        userDetails += profile_template_addWork(currUser.work[i].work_place, currUser.work[i].work_profile, currUser.work[i].id);
+    let works = getUserWorksDetails();
+    for (let i = 0; i < works.length; i++) {
+        userDetails += profile_template_addWork(works[i].work_place, works[i].work_profile, works[i].id);
     }
 
     userDetails += profile_template_college();
 
     // adding college
-    for (let k = 0; k < currUser.college.length; k++) {
-        userDetails += profile_template_addCollege(currUser.college[k].college_name, currUser.college[k].college_place, currUser.college[k].id);
+    let college = getUserCollegeDetails();
+    for (let k = 0; k < college.length; k++) {
+        userDetails += profile_template_addCollege(college[k].college_name, ollege[k].college_place, college[k].id);
     }
 
     userDetails += profile_template_city();
 
     // adding multiple cities
-    for (let j = 0; j < currUser.city.length; j++) {
-        userDetails += profile_template_addCity(currUser.city[j].place_name, currUser.city[j].place_state, currUser.city[j].id)
+    let city = getUserPlacesDetails();
+    for (let j = 0; j < city.length; j++) {
+        userDetails += profile_template_addCity(city[j].place_name, city[j].place_state, city[j].id)
     }
 
 
     userDetails += profile_template_place_extra() +
-        profile_template_about(currUser.about, currUser.otherName, currUser.favQuote);
+        profile_template_about(getUserAboutDetails().about, getUserAboutDetails().nickname, getUserAboutDetails().quote);
 
 
     // putting value back to the div
@@ -50,13 +62,13 @@ function showProfile() {
 // modals
 // document.getElementById('mobileInput').value = getJSONLocalStorage(USER_INFO).mobile;
 // document.getElementById('addressInput').value = getJSONLocalStorage(USER_INFO).address;
-document.getElementById('websiteInput').value = getJSONLocalStorage(USER_INFO).website;
-document.getElementById('socialInput').value = getJSONLocalStorage(USER_INFO).socialLink;
+document.getElementById('websiteInput').value = getUserProfileDetails().website;
+document.getElementById('socialInput').value = getUserProfileDetails().social;
 // document.getElementById('inputDob').value = getJSONLocalStorage(USER_INFO).dob;
 // document.getElementById('yearInput').value = getJSONLocalStorage(USER_INFO).yob;
-document.getElementById('aboutInput').value = getJSONLocalStorage(USER_INFO).about;
-document.getElementById('otherNameInput').value = getJSONLocalStorage(USER_INFO).otherName;
-document.getElementById('quoteInput').value = getJSONLocalStorage(USER_INFO).favQuote;
+document.getElementById('aboutInput').value = getUserAboutDetails().about;
+document.getElementById('otherNameInput').value = getUserAboutDetails().nickname;
+document.getElementById('quoteInput').value = getUserAboutDetails().quote;
 
 // document.getElementById('fNameInput').value = getJSONLocalStorage(USER_INFO).first_name;
 // document.getElementById('lNameInput').value = getJSONLocalStorage(USER_INFO).last_name;

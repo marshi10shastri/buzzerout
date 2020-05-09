@@ -32,7 +32,20 @@
 
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/extra.css">
-
+    <script src="js/base.js"></script>
+    <script src="js/constant.js"></script>
+    <script>
+        console.log("hello")
+        if (getLocalStorage(USER) != undefined) {
+            if (getLocalStorage(USER) == 'true') {
+                // do nothing
+            } else {
+                window.location = "index.html";
+            }
+        } else {
+            window.location = "index.html";
+        }
+    </script>
 </head>
 
 <body class="sidebar-main-active right-column-fixed" onload="initProfile()">
@@ -1874,7 +1887,7 @@
 
                                                                 <hr>
 
-                                                                <div class="other-option">
+                                                                <!-- <div class="other-option">
 
                                                                     <div class="d-flex align-items-center justify-content-between">
 
@@ -1982,7 +1995,7 @@
 
                                                                     </div>
 
-                                                                </div>
+                                                                </div> -->
 
                                                                 <button data-dismiss="modal" onclick="createPost()" class="btn btn-primary d-block w-100 mt-3">Post</button>
 
@@ -9936,7 +9949,6 @@
 
     <script src="js/custom.js"></script>
     <script src="js/constant.js"></script>
-    <script src="js/base.js"></script>
     <script src="js/profile_template.js"></script>
     <script src="js/profile.js"></script>
     <script src="js/timeline_post_template.js"></script>
