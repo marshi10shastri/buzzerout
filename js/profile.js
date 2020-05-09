@@ -452,10 +452,14 @@ function fetchTimelinePosts() {
         let inputCommentField = document.getElementById(TfeedInputArray[j]);
         inputCommentField.addEventListener("keydown", function(e) {
             if (e.keyCode == 13) {
-                console.log('running');
-                let feedid = TfeedInputArray[j].split("-")[1];
-                addComment(feedid, inputCommentField.value);
-                inputCommentField.value = "";
+                // if user is not signed in 
+                if (getLocalStorage(USER) == "true") {
+                    let feedid = TfeedInputArray[j].split("-")[1];
+                    addComment(feedid, inputCommentField.value);
+                    inputCommentField.value = "";
+                } else {
+                    alert("Please sign in.")
+                }
             }
         })
     }

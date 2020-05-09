@@ -1,4 +1,4 @@
-function renderCreateBuzz(){
+function renderCreateBuzz() {
     let buzzToggle = document.getElementById('create-buzz-toggle');
     let writeUImage = document.getElementById('post-write-userimage');
     let tag = document.getElementById('create-buzz-tag');
@@ -21,24 +21,28 @@ function renderCreateBuzz(){
 
 
     if (getLocalStorage(USER) == 'true') {
-        buzzToggle.addEventListener('click', function(){
+        writeUImage.src = getUserProfileDetails().pImage;
+        modalUImage.src = getUserProfileDetails().pImage;
+        editModalImage.src = getUserProfileDetails().pImage;
+        buzzToggle.addEventListener('click', function() {
             console.log('modal pop');
             $('#post-modal').modal();
         });
     } else {
-        buzzToggle.addEventListener('click', function(){
+        writeUImage.src = "images/default/default-user.png";
+        modalUImage.src = "images/default/default-user.png";
+        editModalImage.src = "images/default/default-user.png";
+        buzzToggle.addEventListener('click', function() {
             alert('please login');
         });
     }
 
     //outside modal
-    writeUImage.src = getUserProfileDetails().pImage;
     tag.style.display = "none";
     feeling.style.display = "none";
     extra.style.display = "none";
 
     //inside modal
-    modalUImage.src = getUserProfileDetails().pImage;
     modaltag.style.display = "none";
     modalfeeling.style.display = "none";
     modallocation.style.display = "none";
@@ -48,10 +52,9 @@ function renderCreateBuzz(){
     modalplay.style.display = "none";
     modalother.style.display = "none";
 
-    editModalImage.src = getUserProfileDetails().pImage;
 }
 
-function showCreatedBuzz(data){
+function showCreatedBuzz(data) {
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     buzz.unshift(data);
     setJSONLocalStorage(ALL_BUZZ, buzz);

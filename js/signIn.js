@@ -94,10 +94,9 @@ function signIn() {
                     // if (undefined != temp.work) {
                     //     dummy.work = temp.works;
                     // }
-
-
                     // setJSONLocalStorage(USER_INFO, dummy);
-                    // window.location = "index.html";
+
+                    window.location = "index.html";
                 } else {
                     document.getElementById('modal-trigger').click();
 

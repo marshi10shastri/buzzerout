@@ -4,7 +4,7 @@ function postTemplateStart(feed) {
     // feedTime = feedTime.getTime();
     // let currentTime = new Date().now();
     string = '\
-<div class="col-sm-12" id="'+ feed.buzz_id+'">\
+<div class="col-sm-12" id="' + feed.buzz_id + '">\
     <div class="iq-card iq-card-block iq-card-stretch iq-card-height">\
         <div class="iq-card-body">\
             <div class="user-post-data">\
@@ -42,8 +42,8 @@ function postTemplateStart(feed) {
                                 </div>\
                             </a>';
 
-                            if(feed.buzz_username == getUserDetails().uname){
-                                string += '<a class="dropdown-item p-3" onclick="editPostModal(\'' + feed.buzz_id + '\')">\
+    if (feed.buzz_username == getUserDetails().uname) {
+        string += '<a class="dropdown-item p-3" onclick="editPostModal(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-pencil-line"></i></div>\
                                     <div class="data ml-2">\
@@ -52,10 +52,9 @@ function postTemplateStart(feed) {
                                     </div>\
                                 </div>\
                             </a>'
-                            }
-                            else{
-                                string += '<a class="dropdown-item p-3" onclick="followUnfollowClick(\'' + feed.buzz_id + '\')">\
-                                <div class="d-flex align-items-top" id="follow-option-'+feed.buzz_id+'">\
+    } else {
+        string += '<a class="dropdown-item p-3" onclick="followUnfollowClick(\'' + feed.buzz_id + '\')">\
+                                <div class="d-flex align-items-top" id="follow-option-' + feed.buzz_id + '">\
                                     <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
                                     <div class="data ml-2">\
                                         <h6>Follow User</h6>\
@@ -63,9 +62,9 @@ function postTemplateStart(feed) {
                                     </div>\
                                 </div>\
                             </a>'
-                            }
+    }
 
-                        string += '<a class="dropdown-item p-3" onclick="setBuzzNotification(\'' + feed.buzz_id + '\')">\
+    string += '<a class="dropdown-item p-3" onclick="setBuzzNotification(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-notification-line"></i></div>\
                                     <div class="data ml-2">\
@@ -80,7 +79,7 @@ function postTemplateStart(feed) {
             </div>\
         </div>\
         <div class="mt-3">\
-            <p id="buzz_description_'+feed.buzz_id+'">' + feed.buzz_description + '</p>\
+            <p id="buzz_description_' + feed.buzz_id + '">' + feed.buzz_description + '</p>\
         </div>\
         <div class="user-post">\
             <div class="d-flex">';
@@ -125,7 +124,7 @@ function postTemplateStart(feed) {
                         </div>\
                         <div class="total-like-block ml-2 mr-3">\
                             <div class="dropdown">\
-                                <span id="upvote-count-'+feed.buzz_id+'" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+                                <span id="upvote-count-' + feed.buzz_id + '" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
     string += feed.buzz_upvotes.length
     string += ' Likes\
                     </span>\
@@ -150,7 +149,7 @@ function postTemplateStart(feed) {
                         </div>\
                         <div class="total-like-block ml-2 mr-3">\
                             <div class="dropdown">\
-                                <span id="downvote-count-'+feed.buzz_id+'" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+                                <span id="downvote-count-' + feed.buzz_id + '" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
     string += feed.buzz_downvotes.length
     string += ' Likes\
                     </span>\
@@ -239,18 +238,19 @@ function hideBuzz(buzzid) {
     console.log("Hide Post : " + buzzid);
 }
 
-var follow= 0
-function followUnfollowClick(feedid){
+var follow = 0
+
+function followUnfollowClick(feedid) {
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     //check if buzz username is in follow list of user
-    if(follow == 0){
+    if (follow == 0) {
         followUser(feedid);
-    }
-    else{
+    } else {
         unfollowUser(feedid);
     }
 
 }
+
 function followUser(feedid) {
     console.log("Follow User : " + userid);
     //ajax call
@@ -260,7 +260,7 @@ function followUser(feedid) {
 
 function unfollowUser(feedid) {
     console.log("Unfollow User : " + userid);
-     //ajax call
+    //ajax call
     //on success
     updateFollowStatus(username, feedid, 0);
 }
@@ -274,120 +274,129 @@ function unsetBuzzNotification(buzzid) {
 }
 
 function upvoteBuzzByFeedId(feedid) {
-    //check if already upvoted
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-    let buzz_upvotes = [];
-    for(let i=0; i<buzz.length; i++){
-        if(buzz[i].buzz_id == feedid){
-            buzz_upvotes = buzz[i].buzz_upvotes;
-        }
-    }
-    
-    let uName = getUserDetails().uname;
-    console.log(buzz_upvotes);
+    // if user is not signed in 
+    if (getLocalStorage(USER) == "true") {
 
-    let flag = 0;
-    for(let j=0; j<buzz_upvotes.length; j++){
-        if(buzz_upvotes[j].username == uName){
-            flag = 1;
+        //check if already upvoted
+        let buzz = getJSONLocalStorage(ALL_BUZZ);
+        let buzz_upvotes = [];
+        for (let i = 0; i < buzz.length; i++) {
+            if (buzz[i].buzz_id == feedid) {
+                buzz_upvotes = buzz[i].buzz_upvotes;
+            }
         }
-    }
-    if(flag == 1){
-        //call unlike api
-        $.ajax({
-            type:'POST',
-            url: SERVER_URL +"buzz/removeUpvoteBuzz",
-            data:{
-                username: uName,
-                feed_id: feedid
-            },
-            success: function(data){
-                //data.votes will be array of upvotes
-                notifyUpvotesSinglePost(data.upvotes, feedid);
-            },
-            error: function(data){
-                console.log('cannot like');
+
+        let uName = getUserDetails().uname;
+        console.log(buzz_upvotes);
+
+        let flag = 0;
+        for (let j = 0; j < buzz_upvotes.length; j++) {
+            if (buzz_upvotes[j].username == uName) {
+                flag = 1;
             }
-        });
+        }
+        if (flag == 1) {
+            //call unlike api
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + "buzz/removeUpvoteBuzz",
+                data: {
+                    username: uName,
+                    feed_id: feedid
+                },
+                success: function(data) {
+                    //data.votes will be array of upvotes
+                    notifyUpvotesSinglePost(data.upvotes, feedid);
+                },
+                error: function(data) {
+                    console.log('cannot like');
+                }
+            });
+        } else {
+            //call like api
+            //ajax
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + "buzz/upvoteBuzz",
+                data: {
+                    username: uName,
+                    feed_id: feedid
+                },
+                success: function(data) {
+                    notifyUpvotesSinglePost(data.upvotes, feedid);
+                    notifyDownvotesSinglePost(data.downvotes, feedid);
+                },
+                error: function(data) {
+                    console.log('cannot like');
+                }
+            });
+        }
+
+        // highlight icon as upvoted   
+    } else {
+        alert("Please sign in.")
     }
-    else{
-        //call like api
-        //ajax
-        $.ajax({
-            type:'POST',
-            url: SERVER_URL +"buzz/upvoteBuzz",
-            data:{
-                username: uName,
-                feed_id: feedid
-            },
-            success: function(data){
-                notifyUpvotesSinglePost(data.upvotes, feedid);
-                notifyDownvotesSinglePost(data.downvotes, feedid);
-            },
-            error: function(data){
-                console.log('cannot like');
-            }
-        });
-    }
-    
-    // highlight icon as upvoted
 }
 
 
 function downvoteBuzzByFeedId(feedid) {
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-    let buzz_downvotes = [];
-    for(let i=0; i<buzz.length; i++){
-        if(buzz[i].buzz_id == feedid){
-            buzz_downvotes = buzz[i].buzz_downvotes;
-        }
-    }
-    let uName = getUserDetails().uname;
+    // if user is not signed in 
+    if (getLocalStorage(USER) == "true") {
 
-    let flag = 0;
-    for(let j=0; j<buzz_downvotes.length; j++){
-        if(buzz_downvotes[j].username == uName){
-            flag = 1;
+        let buzz = getJSONLocalStorage(ALL_BUZZ);
+        let buzz_downvotes = [];
+        for (let i = 0; i < buzz.length; i++) {
+            if (buzz[i].buzz_id == feedid) {
+                buzz_downvotes = buzz[i].buzz_downvotes;
+            }
         }
-    }
-    if(flag == 1){
-        //call removeDownvote
-        //ajax
-        $.ajax({
-            type:'POST',
-            url: SERVER_URL +"buzz/removeDownvoteBuzz",
-            data:{
-                username: uName,
-                feed_id: feedid
-            },
-            success: function(data){
-                notifyDownvotesSinglePost(data.downvotes, feedid);
-            },
-            error: function(data){
-                console.log('cannot like');
+        let uName = getUserDetails().uname;
+
+        let flag = 0;
+        for (let j = 0; j < buzz_downvotes.length; j++) {
+            if (buzz_downvotes[j].username == uName) {
+                flag = 1;
             }
-        });
+        }
+        if (flag == 1) {
+            //call removeDownvote
+            //ajax
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + "buzz/removeDownvoteBuzz",
+                data: {
+                    username: uName,
+                    feed_id: feedid
+                },
+                success: function(data) {
+                    notifyDownvotesSinglePost(data.downvotes, feedid);
+                },
+                error: function(data) {
+                    console.log('cannot like');
+                }
+            });
+        } else {
+            // highlight icon as downvoted
+            //ajax
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + "buzz/downvoteBuzz",
+                data: {
+                    username: uName,
+                    feed_id: feedid
+                },
+                success: function(data) {
+                    notifyDownvotesSinglePost(data.downvotes, feedid);
+                    notifyUpvotesSinglePost(data.upvotes, feedid);
+                },
+                error: function(data) {
+                    console.log('cannot like');
+                }
+            });
+        }
+    } else {
+        alert("Please sign in.")
     }
-    else{
-        // highlight icon as downvoted
-        //ajax
-        $.ajax({
-            type:'POST',
-            url: SERVER_URL +"buzz/downvoteBuzz",
-            data:{
-                username: uName,
-                feed_id: feedid
-            },
-            success: function(data){
-                notifyDownvotesSinglePost(data.downvotes, feedid);
-                notifyUpvotesSinglePost(data.upvotes, feedid);
-            },
-            error: function(data){
-                console.log('cannot like');
-            }
-        });
-    }
-    
 }
 
 
