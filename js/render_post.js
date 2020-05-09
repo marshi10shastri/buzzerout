@@ -45,9 +45,20 @@ function postTemplateStart(feed) {
                             if(feed.buzz_username == getUserDetails().uname){
                                 string += '<a class="dropdown-item p-3" onclick="editPostModal(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
-                                    <div class="icon font-size-20"><i class="ri-user-unfollow-line"></i></div>\
+                                    <div class="icon font-size-20"><i class="ri-pencil-line"></i></div>\
                                     <div class="data ml-2">\
                                         <h6>Edit Post</h6>\
+                                        <p class="mb-0">Stop seeing posts but stay friends.</p>\
+                                    </div>\
+                                </div>\
+                            </a>'
+                            }
+                            else{
+                                string += '<a class="dropdown-item p-3" onclick="followUnfollowClick(\'' + feed.buzz_id + '\')">\
+                                <div class="d-flex align-items-top" id="follow-option-'+feed.buzz_id+'">\
+                                    <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+                                    <div class="data ml-2">\
+                                        <h6>Follow User</h6>\
                                         <p class="mb-0">Stop seeing posts but stay friends.</p>\
                                     </div>\
                                 </div>\
@@ -228,12 +239,30 @@ function hideBuzz(buzzid) {
     console.log("Hide Post : " + buzzid);
 }
 
-function followUser(userid) {
+var follow= 0
+function followUnfollowClick(feedid){
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    //check if buzz username is in follow list of user
+    if(follow == 0){
+        followUser(feedid);
+    }
+    else{
+        unfollowUser(feedid);
+    }
+
+}
+function followUser(feedid) {
     console.log("Follow User : " + userid);
+    //ajax call
+    //on success
+    updateFollowStatus(username, feedid, 1);
 }
 
-function unfollowUser(userid) {
+function unfollowUser(feedid) {
     console.log("Unfollow User : " + userid);
+     //ajax call
+    //on success
+    updateFollowStatus(username, feedid, 0);
 }
 
 function setBuzzNotification(buzzid) {
