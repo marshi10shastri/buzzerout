@@ -32,6 +32,7 @@ function postMapper(data){
             buzz_upvotes: upvotes,
             buzz_downvotes: downvotes
         }
+        console.log(data[i]);
 
         buzzArray.push(buzz);
         singlePostMapper(buzz);
@@ -184,3 +185,31 @@ function editSinglePost(editFeed){
     updateSinglePost(editFeed.buzz_id);
 }
 // Template
+
+
+function updateFollowStatus(userList , feedid, followStatus){
+    //take follow list of current user from local storage,
+    //update list from userList input
+    // update local storage
+
+    showFollowUpdate(feedid, followStatus);
+}
+
+function showFollowUpdate(feedid, followStatus){
+    let div = document.getElementById('follow-option-' + feedid);
+    if(followStatus == 1){
+        div.innerHTML = '<div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+        <div class="data ml-2">\
+            <h6>Unfollow User</h6>\
+            <p class="mb-0">You wont get any posts from this user.</p>\
+        </div>';
+    }
+    else{
+        div.innerHTML = '<div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+        <div class="data ml-2">\
+            <h6>Follow User</h6>\
+            <p class="mb-0">See more posts from this user.</p>\
+        </div>';
+    }
+    
+}
