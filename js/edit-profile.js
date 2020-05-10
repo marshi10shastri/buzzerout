@@ -1,5 +1,8 @@
 function initProfileEdit() {
     // setProfileNameImage();
+    setInputValues();
+    disablePersonalInputs();
+    hideSubmitBtn();
 }
 
 function uploadProfileImage() {
@@ -186,16 +189,117 @@ function editDobGender() {
 }
 
 function editPersonalInfo() {
-    uploadProfileImage();
-    // editName();
-    editDobGender();
+    // uploadProfileImage();
+    // // editName();
+    // editDobGender();
+
+    let fname = document.getElementById('fnameIn').value;
+    let lname = document.getElementById('lnameIn').value;
+    let g;
+    if (document.getElementById('customRadio6').checked) {
+        g = 'Male';
+    } else {
+        g = 'Female';
+    }
+    let unameIn = document.getElementById("uname");
+    let cityIn = document.getElementById("cname");
+    let dobIn = document.getElementById("dob");
+    let age = document.getElementById("age-input");
+    let maritalIn = document.getElementById("marital-status-dropdown");
+    let countryIn = document.getElementById("country-edit-dropdown");
+    let stateIn = document.getElementById("state-edit-dropdown");
+
+    //ajax call to edit profile.
+    //update function calls.
+    let userDetails = {
+        username: unameIn,
+        email: getUserDetails().email
+    }
+    updateUserDetails(userDetails);
+
+    let profile = {
+            user_mobile: getUserProfileDetails().mob,
+            user_dob: dobIn,
+            user_gender: g,
+            user_marital: maritalIn,
+            user_address: getUserProfileDetails().address,
+            user_city: cityIn,
+            user_state: stateIn,
+            user_country: countryIn,
+            first_name: fname,
+            last_name: lname,
+            user_profile_image: getUserProfileDetails().pImage,
+            user_timeline_image: getUserProfileDetails().tImage,
+            user_social_link: getUserProfileDetails().social,
+            website: getUserProfileDetails().website
+    }
+    updateUserProfileDetails(profile);
+
 }
 
 function disablePersonalInputs() {
     document.getElementById("fnameIn").disabled = true;
-
+    document.getElementById("lnameIn").disabled = true;
+    document.getElementById("uname").disabled = true;
+    document.getElementById("cname").disabled = true;
+    document.getElementById("customRadio6").disabled = true;
+    document.getElementById("customRadio7").disabled = true;
+    document.getElementById("dob").disabled = true;
+    document.getElementById("age-input").disabled = true;
+    document.getElementById("marital-status-dropdown").disabled = true;
+    document.getElementById("country-edit-dropdown").disabled = true;
+    document.getElementById("state-edit-dropdown").disabled = true;
 }
 
 function enablePersonalInputs() {
     document.getElementById("fnameIn").disabled = false;
+    document.getElementById("lnameIn").disabled = false;
+    document.getElementById("uname").disabled = false;
+    document.getElementById("cname").disabled = false;
+    document.getElementById("customRadio6").disabled = false;
+    document.getElementById("customRadio7").disabled = false;
+    document.getElementById("dob").disabled = false;
+    document.getElementById("age-input").disabled = false;
+    document.getElementById("marital-status-dropdown").disabled = false;
+    document.getElementById("country-edit-dropdown").disabled = false;
+    document.getElementById("state-edit-dropdown").disabled = false;
+}
+
+function setInputValues(){
+    document.getElementById("fnameIn").value = getUserProfileDetails().first_name;
+    document.getElementById("lnameIn").value = getUserProfileDetails().last_name;
+    document.getElementById("uname").value = getUserDetails().uname;
+    document.getElementById("cname").value = getUserProfileDetails().user_city
+    document.getElementById("dob").value = getUserProfileDetails().user_gender;
+    document.getElementById("age-input").value = "22";
+    document.getElementById("marital-status-dropdown").value = getUserProfileDetails().user_marital;
+    document.getElementById("country-edit-dropdown").value = getUserProfileDetails().user_country;
+    document.getElementById("state-edit-dropdown").value = getUserProfileDetails().user_state;
+
+    let g = getUserProfileDetails().user_gender;
+    if(g == 'male'){
+        document.getElementById("customRadio6").checked = true;
+        document.getElementById("customRadio7").checked = false;
+    }
+    else{
+        document.getElementById("customRadio6").checked = false;
+        document.getElementById("customRadio7").checked = true;
+    }
+}
+
+function hideSubmitBtn(){
+    document.getElementById('edit-submit-btn').style.display = "none";
+    document.getElementById('edit-reset-btn').style.display = "none";
+    document.getElementById('edit-profile-btn').style.display = "inline-block";
+}
+
+function showSubmitBtn(){
+    document.getElementById('edit-profile-btn').style.display = "none";
+    document.getElementById('edit-submit-btn').style.display = "inline-block";
+    document.getElementById('edit-reset-btn').style.display = "inline-block";
+}
+
+function cancelEdit(){
+    //call setter func
+    //call edit btn func
 }
