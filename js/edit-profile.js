@@ -1,12 +1,11 @@
-function initProfileEdit(){
-    setProfileNameImage();
+function initProfileEdit() {
+    // setProfileNameImage();
 }
 
-function uploadProfileImage(){
-    let user = getJSONLocalStorage(USER_INFO);
+function uploadProfileImage() {
     let file = document.getElementById('profile-image-upload').files[0];
 
-    if(file){
+    if (file) {
         var formData = new FormData();
         formData.append('file', file);
         formData.append('product', 'appnivi');
@@ -16,10 +15,10 @@ function uploadProfileImage(){
         formData.append('message', 'Transfer File');
 
         $.ajax({
-            type:'POST',
-            url:'http://appnivi.com/server/v1/file/fileupload',
-            data:formData,
-            success: function (data){
+            type: 'POST',
+            url: 'http://appnivi.com/server/v1/file/fileupload',
+            data: formData,
+            success: function(data) {
                 var link = data.link;
                 console.log(data.link);
 
@@ -28,46 +27,44 @@ function uploadProfileImage(){
                     type: 'POST',
                     url: SERVER_URL + 'profile/updateUserProfileImage',
                     data: {
-                        username: user.username,
+                        username: getUserDetails().uname,
                         img: link,
                     },
-                    success: function(response){
+                    success: function(response) {
                         console.log(response);
                         //set profile image as
-                        if(response.error == false){
-                        user.userimage = response.profile_detail.user_profile_image;
-                        setJSONLocalStorage(USER_INFO, user);
-                        setProfileNameImage();
-                        }
-                        else{
+                        if (response.error == false) {
+                            user.userimage = response.profile_detail.user_profile_image;
+                            setJSONLocalStorage(USER_INFO, user);
+                            setProfileNameImage();
+                        } else {
                             console.log('error occured');
                         }
                     },
-                    error: function(response){
+                    error: function(response) {
                         console.log(response)
                     }
                 });
 
             },
-            error: function(error){
+            error: function(error) {
                 console.log(error);
             },
-            cache:false,
+            cache: false,
             contentType: false,
             processData: false
         });
 
-    }
-    else{
+    } else {
         alert('Select file');
     }
 }
 
-function uploadCoverImage(){
+function uploadCoverImage() {
     let user = getJSONLocalStorage(USER_INFO);
     let file = document.getElementById('upload-cover-pic').files[0];
 
-    if(file){
+    if (file) {
         var formData = new FormData();
         formData.append('file', file);
         formData.append('product', 'appnivi');
@@ -77,10 +74,10 @@ function uploadCoverImage(){
         formData.append('message', 'Transfer File');
 
         $.ajax({
-            type:'POST',
-            url:'http://appnivi.com/server/v1/file/fileupload',
-            data:formData,
-            success: function (data){
+            type: 'POST',
+            url: 'http://appnivi.com/server/v1/file/fileupload',
+            data: formData,
+            success: function(data) {
                 var link = data.link;
                 console.log(data.link);
 
@@ -92,34 +89,32 @@ function uploadCoverImage(){
                         username: user.username,
                         img: link,
                     },
-                    success: function(response){
+                    success: function(response) {
                         console.log(response);
                         //set cover image as
-                        if(response.error == false){ 
-                        document.getElementById('cover-pic').src = link;
-                        user.user_timeline_image = response.profile_detail.user_timeline_image;
-                        setJSONLocalStorage(USER_INFO, user);
-                        }
-                        else{
+                        if (response.error == false) {
+                            document.getElementById('cover-pic').src = link;
+                            user.user_timeline_image = response.profile_detail.user_timeline_image;
+                            setJSONLocalStorage(USER_INFO, user);
+                        } else {
                             console.log('error occurred');
                         }
                     },
-                    error: function(response){
+                    error: function(response) {
                         console.log(response)
                     }
                 });
 
             },
-            error: function(error){
+            error: function(error) {
                 console.log(error);
             },
-            cache:false,
+            cache: false,
             contentType: false,
             processData: false
         });
 
-    }
-    else{
+    } else {
         alert('Select file');
     }
 }
@@ -164,7 +159,7 @@ function editDobGender() {
     let dob_inp = document.getElementById('dob').value;
     let dobList = dob_inp.slice(5, dob_inp.length);
     dobList = dobList.replace('-', '/');
-    let yob_inp = dob_inp.slice(0,4);
+    let yob_inp = dob_inp.slice(0, 4);
     console.log(yob_inp);
     console.log(dob_inp);
 
@@ -190,40 +185,17 @@ function editDobGender() {
 
 }
 
-// function editContactInfo() {
-//     let user = getJSONLocalStorage(USER_INFO);
-//     mobile_inp = document.getElementById('mobileInput').value;
-//     address_inp = document.getElementById('addressInput').value;
-
-//     $.ajax({
-//         type: 'POST',
-//         url: SERVER_URL + 'profile/updateMobileAddress',
-//         data: {
-//             username: user.username,
-//             mobile: mobile_inp,
-//             address: address_inp
-//         },
-//         success: function(data) {
-//             console.log("contact");
-//             console.log(data);
-//             user.mobile = mobile_inp
-//             user.address = address_inp
-//             setJSONLocalStorage(USER_INFO, user);
-//             console.log(user);
-//             // set the fields again
-//             document.getElementById('mobileInput').value = mobile_inp
-//             document.getElementById('addressInput').value = address_inp
-//             showProfile();
-//         },
-//         error: function(data) {
-//             console.log(data);
-//         }
-//     });
-
-// }
-
-function editPersonalInfo(){
+function editPersonalInfo() {
     uploadProfileImage();
     // editName();
     editDobGender();
+}
+
+function disablePersonalInputs() {
+    document.getElementById("fnameIn").disabled = true;
+
+}
+
+function enablePersonalInputs() {
+    document.getElementById("fnameIn").disabled = false;
 }

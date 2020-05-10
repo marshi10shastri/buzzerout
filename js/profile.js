@@ -22,7 +22,7 @@ function showProfile() {
     userDetails = '';
 
     // adding dummy values
-    userDetails += profile_template_contactInfo(getUserDetails().email, getUserProfileDetails().mobile, getUserProfileDetails().address) +
+    userDetails += profile_template_contactInfo(getUserDetails().email, getUserProfileDetails().mob, getUserProfileDetails().address) +
         // profile_template_websites(currUser.website, currUser.socialLink) +
         profile_template_basicInfo(getUserProfileDetails().dob, getUserProfileDetails().dob, getUserProfileDetails().gender) +
         profile_family() +
@@ -39,7 +39,7 @@ function showProfile() {
     // adding college
     let college = getUserCollegeDetails();
     for (let k = 0; k < college.length; k++) {
-        userDetails += profile_template_addCollege(college[k].college_name, ollege[k].college_place, college[k].id);
+        userDetails += profile_template_addCollege(college[k].college_name, college[k].college_place, college[k].id);
     }
 
     userDetails += profile_template_city();
@@ -73,44 +73,8 @@ document.getElementById('quoteInput').value = getUserAboutDetails().quote;
 // document.getElementById('fNameInput').value = getJSONLocalStorage(USER_INFO).first_name;
 // document.getElementById('lNameInput').value = getJSONLocalStorage(USER_INFO).last_name;
 
-
-
-
-// edit profile
-// function editContactInfo() {
-//     let user = getJSONLocalStorage(USER_INFO);
-//     mobile_inp = document.getElementById('mobileInput').value;
-//     address_inp = document.getElementById('addressInput').value;
-
-//     $.ajax({
-//         type: 'POST',
-//         url: SERVER_URL + 'profile/updateMobileAddress',
-//         data: {
-//             username: user.username,
-//             mobile: mobile_inp,
-//             address: address_inp
-//         },
-//         success: function(data) {
-//             console.log("contact");
-//             console.log(data);
-//             user.mobile = mobile_inp
-//             user.address = address_inp
-//             setJSONLocalStorage(USER_INFO, user);
-//             console.log(user);
-//             // set the fields again
-//             document.getElementById('mobileInput').value = mobile_inp
-//             document.getElementById('addressInput').value = address_inp
-//             showProfile();
-//         },
-//         error: function(data) {
-//             console.log(data);
-//         }
-//     });
-
-// }
-
 function editWebsite() {
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserDetails().uname;
     website = document.getElementById('websiteInput').value;
     social_link = document.getElementById('socialInput').value;
 
@@ -118,7 +82,7 @@ function editWebsite() {
         type: 'POST',
         url: SERVER_URL + '/usersSocial/addSocialAccountDetails',
         data: {
-            username: user.username,
+            username: user,
             website: website,
             socialLink: social_link
         },
@@ -136,46 +100,8 @@ function editWebsite() {
     showProfile();
 }
 
-// function editBasic() {
-//     let user = getJSONLocalStorage(USER_INFO);
-//     let g;
-//     if (document.getElementById('maleRadio').checked) {
-//         g = 'Male';
-//     } else {
-//         g = 'Female';
-//     }
-
-//     dob_inp = document.getElementById('inputDob').value;
-//     yob_inp = document.getElementById('yearInput').value;
-//     // interest_inp = document.getElementById('interestInput').value;
-//     // lang_inp = document.getElementById('languageInput').value;
-
-//     $.ajax({
-//         type: 'POST',
-//         url: SERVER_URL + '/profile/updateDobGender',
-//         data: {
-//             username: user.username,
-//             dob: user.dob,
-//             uob: user.yob,
-//             gender: g
-//         },
-//         success: function(data) {
-//             console.log(data);
-//             user.dob = dob_inp
-//             user.yob = yob_inp
-//             user.gender = g
-//             setJSONLocalStorage(USER_INFO, user);
-//             showProfile();
-//         },
-//         error: function(data) {
-//             console.log(data);
-//         }
-//     });
-
-// }
-
 function addWork() {
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserDetails().uname;
     let workIn = {
         workPlace: document.getElementById('workPlaceInput').value,
         workProfile: document.getElementById('workProfileInput').value
@@ -185,7 +111,7 @@ function addWork() {
             type: 'POST',
             url: SERVER_URL + 'usersWork/addWork',
             data: {
-                username: user.username,
+                username: user,
                 work_place: workIn.workPlace,
                 work_profile: workIn.workProfile
             },
@@ -236,7 +162,7 @@ function addCollege() {
 
 
 function addCity() {
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserDetails().uname;
     let placeIn = {
         placeName: document.getElementById('cityNameInput').value,
         placeState: document.getElementById('cityStateInput').value
@@ -247,7 +173,7 @@ function addCity() {
             type: 'POST',
             url: SERVER_URL + '/places/addPlace',
             data: {
-                username: user.username,
+                username: user,
                 place_name: placeIn.placeName,
                 place_state: placeIn.placeState
             },
@@ -268,7 +194,7 @@ function addCity() {
 }
 
 function editDetails() {
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserDetails().uname;
     about_inp = document.getElementById('aboutInput').value;
     other_name_inp = document.getElementById('otherNameInput').value;
     fav_quote_inp = document.getElementById('quoteInput').value;
@@ -277,17 +203,14 @@ function editDetails() {
         type: 'POST',
         url: SERVER_URL + 'detail/updateUserDetails',
         data: {
-            username: user.username,
+            username: user,
             about_you: about_inp,
             other_name: other_name_inp,
             fav_quote: fav_quote_inp
         },
         success: function(data) {
             console.log(data);
-            user.about = data.userdetails.about_you
-            user.otherName = data.userdetails.other_name
-            user.favQuote = data.userdetails.favorite_quote
-            setJSONLocalStorage(USER_INFO, user);
+            updateUserAboutDetails(data.userdetails);
             showProfile();
             document.getElementById('detailsLink').click();
         },
@@ -300,7 +223,7 @@ function editDetails() {
 
 
 function editCity() {
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserDetails().uname;
     let cityId = getJSONLocalStorage(CURR_AP);
     place_name_inp = document.getElementById('cityNameEditInput').value;
     place_state_inp = document.getElementById('cityStateEditInput').value;
@@ -309,7 +232,7 @@ function editCity() {
         type: 'POST',
         url: SERVER_URL + '/places/editPlace',
         data: {
-            username: user.username,
+            username: user,
             place_name: place_name_inp,
             place_state: place_state_inp,
             place_id: cityId
@@ -328,7 +251,7 @@ function editCity() {
 }
 
 function editCollege() {
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserDetails().uname;
     let college_id = getJSONLocalStorage(CURR_AC);
     cname_inp = document.getElementById('collegeNameEditInput').value;
     cplace_inp = document.getElementById('collegePlaceEditInput').value;
@@ -337,7 +260,7 @@ function editCollege() {
         type: 'POST',
         url: SERVER_URL + '/usersCollege/editCollege',
         data: {
-            username: user.username,
+            username: user,
             college_name: cname_inp,
             college_place: cplace_inp,
             college_id: college_id
@@ -356,7 +279,7 @@ function editCollege() {
 }
 
 function editWork() {
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserDetails().uname;
     let workId = getJSONLocalStorage(CURR_AW);
     wplace = document.getElementById('workPlaceEditInput').value;
     wprofile = document.getElementById('workProfileEditInput').value;
@@ -365,7 +288,7 @@ function editWork() {
         type: 'POST',
         url: SERVER_URL + 'usersWork/editWork',
         data: {
-            username: user.username,
+            username: user,
             work_place: wplace,
             work_profile: wprofile,
             work_id: workId

@@ -105,11 +105,11 @@ function getUserSocialDetails() {
 }
 
 function updateUserSocialDetails(data) {
-    setLocalStorage(FACEBOOK, data.facebook);
-    setLocalStorage(TWITTER, data.twitter);
-    setLocalStorage(G_PLUS, data.google_plus);
-    setLocalStorage(INSTAGRAM, data.instagram);
-    setLocalStorage(YOUTUBE, data.youtube);
+    setLocalStorage(FACEBOOK, data.user_facebook);
+    setLocalStorage(TWITTER, data.user_twitter);
+    setLocalStorage(G_PLUS, data.user_google_plus);
+    setLocalStorage(INSTAGRAM, data.user_instagram);
+    setLocalStorage(YOUTUBE, data.user_youtube);
 }
 
 function getUserAboutDetails() {
@@ -128,9 +128,9 @@ function getUserAboutDetails() {
 }
 
 function updateUserAboutDetails(data) {
-    setLocalStorage(ABOUT, data.about);
-    setLocalStorage(NICKNAME, data.nickname);
-    setLocalStorage(QUOTE, data.quote);
+    setLocalStorage(ABOUT, data.about_you);
+    setLocalStorage(NICKNAME, data.other_name);
+    setLocalStorage(QUOTE, data.favorite_quote);
 }
 
 function updateUserPlacesDetails(data) {
@@ -143,6 +143,8 @@ function getUserPlacesDetails() {
 }
 
 function updateUserWorksDetails(data) {
+    console.log("Work Details");
+    console.log(data);
     setJSONLocalStorage(WORKS, data);
 }
 
