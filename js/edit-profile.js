@@ -1,7 +1,6 @@
 function initProfileEdit() {
     // setProfileNameImage();
     setInputValues();
-    disablePersonalInputs();
     hideSubmitBtn();
 }
 
@@ -201,13 +200,13 @@ function editPersonalInfo() {
     } else {
         g = 'Female';
     }
-    let unameIn = document.getElementById("uname");
-    let cityIn = document.getElementById("cname");
-    let dobIn = document.getElementById("dob");
-    let age = document.getElementById("age-input");
-    let maritalIn = document.getElementById("marital-status-dropdown");
-    let countryIn = document.getElementById("country-edit-dropdown");
-    let stateIn = document.getElementById("state-edit-dropdown");
+    let unameIn = document.getElementById("uname").value;
+    let cityIn = document.getElementById("cname").value;
+    let dobIn = document.getElementById("dob").value;
+    let age = document.getElementById("age-input").value;
+    let maritalIn = document.getElementById("marital-status-dropdown").value;
+    let countryIn = document.getElementById("country-edit-dropdown").value;
+    let stateIn = document.getElementById("state-edit-dropdown").value;
 
     //ajax call to edit profile.
     //update function calls.
@@ -215,6 +214,8 @@ function editPersonalInfo() {
         username: unameIn,
         email: getUserDetails().email
     }
+    //console userdetails
+    console.log(userDetails);
     updateUserDetails(userDetails);
 
     let profile = {
@@ -233,8 +234,12 @@ function editPersonalInfo() {
             user_social_link: getUserProfileDetails().social,
             website: getUserProfileDetails().website
     }
+    //console profile
+    console.log(profile);
     updateUserProfileDetails(profile);
 
+    // lock the inputs and hide submit btn
+    hideSubmitBtn();
 }
 
 function disablePersonalInputs() {
@@ -266,17 +271,17 @@ function enablePersonalInputs() {
 }
 
 function setInputValues(){
-    document.getElementById("fnameIn").value = getUserProfileDetails().first_name;
-    document.getElementById("lnameIn").value = getUserProfileDetails().last_name;
+    document.getElementById("fnameIn").value = getUserProfileDetails().fNname;
+    document.getElementById("lnameIn").value = getUserProfileDetails().lName;
     document.getElementById("uname").value = getUserDetails().uname;
-    document.getElementById("cname").value = getUserProfileDetails().user_city
-    document.getElementById("dob").value = getUserProfileDetails().user_gender;
+    document.getElementById("cname").value = getUserProfileDetails().city
+    document.getElementById("dob").value = getUserProfileDetails().dob;
     document.getElementById("age-input").value = "22";
-    document.getElementById("marital-status-dropdown").value = getUserProfileDetails().user_marital;
-    document.getElementById("country-edit-dropdown").value = getUserProfileDetails().user_country;
-    document.getElementById("state-edit-dropdown").value = getUserProfileDetails().user_state;
+    document.getElementById("marital-status-dropdown").value = getUserProfileDetails().marital;
+    document.getElementById("country-edit-dropdown").value = getUserProfileDetails().country;
+    document.getElementById("state-edit-dropdown").value = getUserProfileDetails().state;
 
-    let g = getUserProfileDetails().user_gender;
+    let g = getUserProfileDetails().gender;
     if(g == 'male'){
         document.getElementById("customRadio6").checked = true;
         document.getElementById("customRadio7").checked = false;
@@ -291,15 +296,23 @@ function hideSubmitBtn(){
     document.getElementById('edit-submit-btn').style.display = "none";
     document.getElementById('edit-reset-btn').style.display = "none";
     document.getElementById('edit-profile-btn').style.display = "inline-block";
+
+    //disable inputs
+    disablePersonalInputs();
 }
 
 function showSubmitBtn(){
     document.getElementById('edit-profile-btn').style.display = "none";
     document.getElementById('edit-submit-btn').style.display = "inline-block";
     document.getElementById('edit-reset-btn').style.display = "inline-block";
+
+    //enable inputs
+    enablePersonalInputs();
 }
 
 function cancelEdit(){
     //call setter func
+    setInputValues();
     //call edit btn func
+    hideSubmitBtn();
 }
