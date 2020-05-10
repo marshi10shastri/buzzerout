@@ -1340,7 +1340,7 @@
 
                                                         <div class="profile-img-edit">
 
-                                                            <img class="profile-pic curr-user-img" src="images/user/11.png" alt="profile-pic">
+                                                            <img id="pedit-profile-image" class="profile-pic" src="images/user/11.png" alt="profile-pic">
 
                                                             <div class="p-image">
 
@@ -1353,11 +1353,11 @@
                                                         </div>
 
                                                     </div>
-                                                   
-
                                                 </div>
 
-                                                <div class=" row align-items-center">
+                                                <hr size="5">
+
+                                                <div class="form-group row align-items-center">
 
                                                     <div class="form-group col-sm-6">
 
@@ -1425,7 +1425,7 @@
 
                                                         <label>Marital Status:</label>
 
-                                                        <select class="form-control" id="exampleFormControlSelect1">
+                                                        <select class="form-control" id="marital-status-dropdown">
 
                                                 <option selected="">Single</option>
 
@@ -1445,19 +1445,7 @@
 
                                                         <label>Age:</label>
 
-                                                        <input class="form-control" id="exampleFormControlSelect2" readonly="true" value="18">
-<!-- 
-                                                <option>12-18</option>
-
-                                                <option>19-32</option>
-
-                                                <option selected="">33-45</option>
-
-                                                <option>46-62</option>
-
-                                                <option>63 > </option> -->
-<!-- 
-                                             </select> -->
+                                                        <input class="form-control" id="age-input" readonly="true" value="18">
 
                                                     </div>
 
@@ -1465,7 +1453,7 @@
 
                                                         <label>Country:</label>
 
-                                                        <select class="form-control" id="exampleFormControlSelect3">
+                                                        <select class="form-control" id="country-edit-dropdown">
 
                                                 <option>Caneda</option>
 
@@ -1485,7 +1473,7 @@
 
                                                         <label>State:</label>
 
-                                                        <select class="form-control" id="exampleFormControlSelect4">
+                                                        <select class="form-control" id="state-edit-dropdown">
 
                                                 <option>California</option>
 
@@ -1521,9 +1509,12 @@
 
                                                 </div>
 
-                                                <button class="btn btn-primary mr-2" onclick="editPersonalInfo()">Submit</button>
+                                                <button id="edit-submit-btn" class="btn btn-primary mr-2" onclick="editPersonalInfo()">Submit</button>
 
-                                                <button type="reset" class="btn iq-bg-danger">Cancle</button>
+                                                <button id="edit-reset-btn" onclick="cancelEdit()" class="btn iq-bg-danger">Cancel</button>
+
+                                                <button id="edit-profile-btn" class="btn btn-primary mr-2" onclick="showSubmitBtn()">Edit Profile</button>
+
 
                                             </div>
 
