@@ -63,7 +63,7 @@ function uploadProfileImage() {
 }
 
 function uploadCoverImage() {
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserProfileDetails();
     let file = document.getElementById('upload-cover-pic').files[0];
 
     if (file) {
@@ -88,7 +88,7 @@ function uploadCoverImage() {
                     type: 'POST',
                     url: SERVER_URL + 'profile/updateUserTimelineImage',
                     data: {
-                        username: user.username,
+                        username: getUserDetails().uname,
                         img: link,
                     },
                     success: function(response) {
@@ -96,8 +96,8 @@ function uploadCoverImage() {
                         //set cover image as
                         if (response.error == false) {
                             document.getElementById('cover-pic').src = link;
-                            user.user_timeline_image = response.profile_detail.user_timeline_image;
-                            setJSONLocalStorage(USER_INFO, user);
+                            user.tImage = response.profile_detail.user_timeline_image;
+                            updateUserProfileDetails(user);
                         } else {
                             console.log('error occurred');
                         }
