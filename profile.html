@@ -76,103 +76,104 @@
 
                     <ul id="iq-sidebar-toggle" class="iq-menu">
 
-                        <li>
+                        <li class="active" id="leftbar-newsfeed">
 
                             <a href="index.html" class="iq-waves-effect"><i class="las la-newspaper"></i><span>Buzz</span></a>
 
                         </li>
 
-                        <li class="active">
+                        <li id="leftbar-profile">
 
-                            <a href="profile.html" class="iq-waves-effect"><i class="las la-user"></i><span>Profile</span></a>
+                            <a class="iq-waves-effect">
+                                <i class="las la-user"></i><span>Profile</span></a>
 
                         </li>
 
-                        <!-- <li>
+                        <li id="leftbar-friend">
 
                         <a href="friend-list.html" class="iq-waves-effect"><i class="las la-user-friends"></i><span>Friend Lists</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-group">
 
                         <a href="group.html" class="iq-waves-effect"><i class="las la-users"></i><span>Group</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-profile-image">
 
                         <a href="profile-images.html" class="iq-waves-effect"><i class="las la-image"></i><span>Profile Image</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-profile-video">
 
                         <a href="profile-video.html" class="iq-waves-effect"><i class="las la-video"></i><span>Profile Video</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-profile-events">
 
                         <a href="profile-event.html" class="iq-waves-effect"><i class="las la-film"></i><span>Profile Events</span></a>
 
-                     </li> -->
+                     </li>
 
-                        <li>
+                        <li id="leftbar-notification">
 
-                            <a href="notification.html" class="iq-waves-effect"><i class="las la-bell"></i><span>Notification</span></a>
+                            <a class="iq-waves-effect"><i class="las la-bell"></i><span>Notification</span></a>
 
                         </li>
 
-                        <!-- <li>
+                        <li id="leftbar-files">
 
                         <a href="file.html" class="iq-waves-effect"><i class="las la-file"></i><span>Files</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-friend-request">
 
                         <a href="friend-request.html" class="iq-waves-effect"><i class="las la-anchor"></i><span>Friend Request</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-chat">
 
                         <a href="chat.html" class="iq-waves-effect"><i class="lab la-rocketchat"></i><span>Chat</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-todo">
 
                         <a href="todo.html" class="iq-waves-effect"><i class="las la-check-circle"></i><span>Todo</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-calendar">
 
                         <a href="calendar.html" class="iq-waves-effect"><i class="las la-calendar"></i><span>Calendar</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-birthday">
 
                         <a href="birthday.html" class="iq-waves-effect"><i class="las la-birthday-cake"></i><span>Birthday</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-weather">
 
                         <a href="weather.html" class="iq-waves-effect"><i class="ri-snowy-line"></i><span>Weather</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-music">
 
                         <a href="music.html" class="iq-waves-effect"><i class="ri-play-circle-line"></i><span>Music</span></a>
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-email">
 
                         <a href="#mailbox" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><i class="ri-mail-line"></i><span>Email</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
 
@@ -186,7 +187,7 @@
 
                      </li>
 
-                     <li>
+                     <li id="leftbar-elements">
 
                         <a href="#ui-elements" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><i class="ri-focus-2-line"></i><span>Ui-Elements</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
 
@@ -316,9 +317,9 @@
 
                         </ul>
 
-                     </li> -->
+                     </li>
 
-                        <!-- <li>
+                         <li id="leftbar-pages">
 
                             <a href="#pages" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-pages-line"></i><span>Pages</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
 
@@ -376,7 +377,7 @@
 
                             </ul>
 
-                        </li> -->
+                        </li>
 
 
 
@@ -420,18 +421,17 @@
 
                     </div>
 
-                    <!-- search bar -->
-                    <!-- <div class="iq-search-bar">
+                    <div class="iq-search-bar" id="topnav-search">
 
-                     <form action="#" class="searchbox">
+                        <form action="#" class="searchbox">
 
-                        <input type="text" class="text search-input" placeholder="Type here to search...">
+                            <input type="text" class="text search-input" placeholder="Type here to search...">
 
-                        <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                            <a class="search-link" href="#"><i class="ri-search-line"></i></a>
 
-                     </form>
+                        </form>
 
-                  </div> -->
+                    </div>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
 
@@ -451,7 +451,7 @@
 
                                     <div class="caption">
 
-                                        <h6 id="person-name" class="mb-0 line-height user-name">Bni Cyst</h6>
+                                        <h6 id="person-name" class="mb-0 line-height user-name">Anonymous</h6>
 
                                     </div>
 
@@ -459,7 +459,7 @@
 
                             </li>
 
-                            <li>
+                            <li id="topnav-home">
 
                                 <a href="index.html" class="iq-waves-effect d-flex align-items-center">
 
@@ -469,173 +469,173 @@
 
                             </li>
 
-                            <!-- <li class="nav-item">
+                            <li class="nav-item" id="topnav-friend-icon">
 
-                           <a class="search-toggle iq-waves-effect" href="#"><i class="ri-group-line"></i></a>
+                                <a class="search-toggle iq-waves-effect" href="#"><i class="ri-group-line"></i></a>
 
-                           <div class="iq-sub-dropdown iq-sub-dropdown-large">
+                                <div class="iq-sub-dropdown iq-sub-dropdown-large">
 
-                              <div class="iq-card shadow-none m-0">
+                                    <div class="iq-card shadow-none m-0">
 
-                                 <div class="iq-card-body p-0 ">
+                                        <div class="iq-card-body p-0 ">
 
-                                    <div class="bg-primary p-3">
+                                            <div class="bg-primary p-3">
 
-                                       <h5 class="mb-0 text-white">Friend Request<small class="badge  badge-light float-right pt-1">4</small></h5>
+                                                <h5 class="mb-0 text-white">Friend Request<small class="badge  badge-light float-right pt-1">4</small></h5>
+
+                                            </div>
+
+                                            <div class="iq-friend-request">
+
+                                                <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <div class="">
+
+                                                            <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
+
+                                                        </div>
+
+                                                        <div class="media-body ml-3">
+
+                                                            <h6 class="mb-0 ">Jaques Amole</h6>
+
+                                                            <p class="mb-0">40 friends</p>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
+
+                                                        <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="iq-friend-request">
+
+                                                <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <div class="">
+
+                                                            <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
+
+                                                        </div>
+
+                                                        <div class="media-body ml-3">
+
+                                                            <h6 class="mb-0 ">Lucy Tania</h6>
+
+                                                            <p class="mb-0">12 friends</p>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
+
+                                                        <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="iq-friend-request">
+
+                                                <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <div class="">
+
+                                                            <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
+
+                                                        </div>
+
+                                                        <div class="media-body ml-3">
+
+                                                            <h6 class="mb-0 ">Manny Petty</h6>
+
+                                                            <p class="mb-0">3 friends</p>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
+
+                                                        <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="iq-friend-request">
+
+                                                <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between">
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <div class="">
+
+                                                            <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
+
+                                                        </div>
+
+                                                        <div class="media-body ml-3">
+
+                                                            <h6 class="mb-0 ">Marsha Mello</h6>
+
+                                                            <p class="mb-0">15 friends</p>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
+
+                                                        <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="text-center">
+
+                                                <a href="#" class="mr-3 btn text-primary">View More Request</a>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
 
-                                    <div class="iq-friend-request">
+                                </div>
 
-                                       <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between" >
+                            </li>
 
-                                          <div class="d-flex align-items-center">
-
-                                             <div class="">
-
-                                                <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
-
-                                             </div>
-
-                                             <div class="media-body ml-3">
-
-                                                <h6 class="mb-0 ">Jaques Amole</h6>
-
-                                                <p class="mb-0">40  friends</p>
-
-                                             </div>
-
-                                          </div>
-
-                                          <div class="d-flex align-items-center">
-
-                                             <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
-
-                                             <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>                                    
-
-                                          </div>
-
-                                       </div>
-
-                                    </div>
-
-                                    <div class="iq-friend-request">
-
-                                       <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between" >
-
-                                          <div class="d-flex align-items-center">
-
-                                             <div class="">
-
-                                                <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
-
-                                             </div>
-
-                                             <div class="media-body ml-3">
-
-                                                <h6 class="mb-0 ">Lucy Tania</h6>
-
-                                                <p class="mb-0">12  friends</p>
-
-                                             </div>
-
-                                          </div>
-
-                                          <div class="d-flex align-items-center">
-
-                                             <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
-
-                                             <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>                                    
-
-                                          </div>
-
-                                       </div>
-
-                                    </div>
-
-                                    <div class="iq-friend-request">
-
-                                       <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between" >
-
-                                          <div class="d-flex align-items-center">
-
-                                             <div class="">
-
-                                                <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
-
-                                             </div>
-
-                                             <div class="media-body ml-3">
-
-                                                <h6 class="mb-0 ">Manny Petty</h6>
-
-                                                <p class="mb-0">3  friends</p>
-
-                                             </div>
-
-                                          </div>
-
-                                          <div class="d-flex align-items-center">
-
-                                             <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
-
-                                             <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>                                    
-
-                                          </div>
-
-                                       </div>
-
-                                    </div>
-
-                                    <div class="iq-friend-request">
-
-                                       <div class="iq-sub-card iq-sub-card-big d-flex align-items-center justify-content-between" >
-
-                                          <div class="d-flex align-items-center">
-
-                                             <div class="">
-
-                                                <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
-
-                                             </div>
-
-                                             <div class="media-body ml-3">
-
-                                                <h6 class="mb-0 ">Marsha Mello</h6>
-
-                                                <p class="mb-0">15  friends</p>
-
-                                             </div>
-
-                                          </div>
-
-                                          <div class="d-flex align-items-center">
-
-                                             <a href="javascript:void();" class="mr-3 btn btn-primary rounded">Confirm</a>
-
-                                             <a href="javascript:void();" class="mr-3 btn btn-secondary rounded">Delete Request</a>                                    
-
-                                          </div>
-
-                                       </div>
-
-                                    </div>
-
-                                    <div class="text-center">
-
-                                       <a href="#" class="mr-3 btn text-primary">View More Request</a>
-
-                                    </div>
-
-                                 </div>
-
-                              </div>
-
-                           </div>
-
-                        </li> -->
-
-                            <li class="nav-item">
+                            <li class="nav-item" id="topnav-notification">
 
                                 <a href="#" class="search-toggle iq-waves-effect">
 
@@ -761,149 +761,149 @@
 
                             </li>
 
-                            <!-- <li class="nav-item dropdown">
+                            <li class="nav-item dropdown" id="topnav-messages-dropdown">
 
-                           <a href="#" class="search-toggle iq-waves-effect">
+                                <a href="#" class="search-toggle iq-waves-effect">
 
-                              <div id="lottie-mail"></div>
+                                    <div id="lottie-mail"></div>
 
-                              <span class="bg-primary count-mail"></span>
+                                    <span class="bg-primary count-mail"></span>
 
-                           </a>
+                                </a>
 
-                           <div class="iq-sub-dropdown">
+                                <div class="iq-sub-dropdown">
 
-                              <div class="iq-card shadow-none m-0">
+                                    <div class="iq-card shadow-none m-0">
 
-                                 <div class="iq-card-body p-0 ">
+                                        <div class="iq-card-body p-0 ">
 
-                                    <div class="bg-primary p-3">
+                                            <div class="bg-primary p-3">
 
-                                       <h5 class="mb-0 text-white">All Messages<small class="badge  badge-light float-right pt-1">5</small></h5>
+                                                <h5 class="mb-0 text-white">All Messages<small class="badge  badge-light float-right pt-1">5</small></h5>
+
+                                            </div>
+
+                                            <a href="#" class="iq-sub-card">
+
+                                                <div class="media align-items-center">
+
+                                                    <div class="">
+
+                                                        <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
+
+                                                    </div>
+
+                                                    <div class="media-body ml-3">
+
+                                                        <h6 class="mb-0 ">Bni Emma Watson</h6>
+
+                                                        <small class="float-left font-size-12">13 Jun</small>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </a>
+
+                                            <a href="#" class="iq-sub-card">
+
+                                                <div class="media align-items-center">
+
+                                                    <div class="">
+
+                                                        <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
+
+                                                    </div>
+
+                                                    <div class="media-body ml-3">
+
+                                                        <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
+
+                                                        <small class="float-left font-size-12">20 Apr</small>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </a>
+
+                                            <a href="#" class="iq-sub-card">
+
+                                                <div class="media align-items-center">
+
+                                                    <div class="">
+
+                                                        <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
+
+                                                    </div>
+
+                                                    <div class="media-body ml-3">
+
+                                                        <h6 class="mb-0 ">Why do we use it?</h6>
+
+                                                        <small class="float-left font-size-12">30 Jun</small>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </a>
+
+                                            <a href="#" class="iq-sub-card">
+
+                                                <div class="media align-items-center">
+
+                                                    <div class="">
+
+                                                        <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
+
+                                                    </div>
+
+                                                    <div class="media-body ml-3">
+
+                                                        <h6 class="mb-0 ">Variations Passages</h6>
+
+                                                        <small class="float-left font-size-12">12 Sep</small>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </a>
+
+                                            <a href="#" class="iq-sub-card">
+
+                                                <div class="media align-items-center">
+
+                                                    <div class="">
+
+                                                        <img class="avatar-40 rounded" src="images/user/05.jpg" alt="">
+
+                                                    </div>
+
+                                                    <div class="media-body ml-3">
+
+                                                        <h6 class="mb-0 ">Lorem Ipsum generators</h6>
+
+                                                        <small class="float-left font-size-12">5 Dec</small>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </a>
+
+                                        </div>
 
                                     </div>
 
-                                    <a href="#" class="iq-sub-card" >
+                                </div>
 
-                                       <div class="media align-items-center">
-
-                                          <div class="">
-
-                                             <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
-
-                                          </div>
-
-                                          <div class="media-body ml-3">
-
-                                             <h6 class="mb-0 ">Bni Emma Watson</h6>
-
-                                             <small class="float-left font-size-12">13 Jun</small>
-
-                                          </div>
-
-                                       </div>
-
-                                    </a>
-
-                                    <a href="#" class="iq-sub-card" >
-
-                                       <div class="media align-items-center">
-
-                                          <div class="">
-
-                                             <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
-
-                                          </div>
-
-                                          <div class="media-body ml-3">
-
-                                             <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
-
-                                             <small class="float-left font-size-12">20 Apr</small>
-
-                                          </div>
-
-                                       </div>
-
-                                    </a>
-
-                                    <a href="#" class="iq-sub-card" >
-
-                                       <div class="media align-items-center">
-
-                                          <div class="">
-
-                                             <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
-
-                                          </div>
-
-                                          <div class="media-body ml-3">
-
-                                             <h6 class="mb-0 ">Why do we use it?</h6>
-
-                                             <small class="float-left font-size-12">30 Jun</small>
-
-                                          </div>
-
-                                       </div>
-
-                                    </a>
-
-                                    <a href="#" class="iq-sub-card" >
-
-                                       <div class="media align-items-center">
-
-                                          <div class="">
-
-                                             <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
-
-                                          </div>
-
-                                          <div class="media-body ml-3">
-
-                                             <h6 class="mb-0 ">Variations Passages</h6>
-
-                                             <small class="float-left font-size-12">12 Sep</small>
-
-                                          </div>
-
-                                       </div>
-
-                                    </a>
-
-                                    <a href="#" class="iq-sub-card" >
-
-                                       <div class="media align-items-center">
-
-                                          <div class="">
-
-                                             <img class="avatar-40 rounded" src="images/user/05.jpg" alt="">
-
-                                          </div>
-
-                                          <div class="media-body ml-3">
-
-                                             <h6 class="mb-0 ">Lorem Ipsum generators</h6>
-
-                                             <small class="float-left font-size-12">5 Dec</small>
-
-                                          </div>
-
-                                       </div>
-
-                                    </a>
-
-                                 </div>
-
-                              </div>
-
-                           </div>
-
-                        </li> -->
+                            </li>
 
                         </ul>
 
-                        <ul class="navbar-list">
+                        <ul class="navbar-list" id="topnav-down-arrow">
 
                             <li>
 
@@ -921,13 +921,13 @@
 
                                             <div class="bg-primary p-3 line-height">
 
-                                                <h5 class="mb-0 text-white line-height user-name" id="profile-greet-user">Hello Bni Cyst</h5>
+                                                <h5 class="mb-0 text-white line-height" id="topnav-drop-username">Hello Bni Cyst</h5>
 
-                                                <span class="text-white font-size-12">Available</span>
+                                                <span class="text-white font-size-12" id="topnav-drop-status">Available</span>
 
                                             </div>
 
-                                            <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
+                                            <a href="profile.html" class="iq-sub-card iq-bg-primary-hover" id="topnav-drop-profile">
 
                                                 <div class="media align-items-center">
 
@@ -949,7 +949,7 @@
 
                                             </a>
 
-                                            <a href="profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+                                            <a href="profile-edit.html" class="iq-sub-card iq-bg-warning-hover" id="topnav-drop-edit">
 
                                                 <div class="media align-items-center">
 
@@ -971,7 +971,7 @@
 
                                             </a>
 
-                                            <a href="account-setting.html" class="iq-sub-card iq-bg-info-hover">
+                                            <a href="account-setting.html" class="iq-sub-card iq-bg-info-hover" id="topnav-drop-account">
 
                                                 <div class="media align-items-center">
 
@@ -993,7 +993,7 @@
 
                                             </a>
 
-                                            <a href="privacy-setting.html" class="iq-sub-card iq-bg-danger-hover">
+                                            <a href="privacy-setting.html" class="iq-sub-card iq-bg-danger-hover" id="topnav-drop-privacy">
 
                                                 <div class="media align-items-center">
 
@@ -1284,7 +1284,7 @@
                                                 </a>
                                             </li>
 
-                                            <li class="clickable-icons"><a href="javascript:void();"><i class="ri-settings-4-line"></i></a></li>
+                                            <li class="clickable-icons"><a href="account-setting.html"><i class="ri-settings-4-line"></i></a></li>
 
                                         </ul>
 
@@ -1300,7 +1300,7 @@
 
                                         <div class="profile-detail">
 
-                                            <h3 id="profile-user-name" class="user-name">Bni Cyst</h3>
+                                            <h3 id="profile-user-name">Bni Cyst</h3>
 
                                         </div>
 
@@ -1314,7 +1314,7 @@
 
                                                 <li class="text-center pr-3">
 
-                                                    <a href="#"><img src="images/icon/08.png" class="img-fluid rounded" alt="facebook"></a>
+                                                    <a href="#" id="facebook_a"><img src="images/icon/08.png" class="img-fluid rounded" alt="facebook"></a>
 
                                                 </li>
 
@@ -1330,7 +1330,7 @@
 
                                                 </li>
 
-                                                <li class="text-center pr-3">
+                                                <li class="text-center pr-3" id="google_plus_link">
 
                                                     <a href="#"><img src="images/icon/11.png" class="img-fluid rounded" alt="Google plus"></a>
 
@@ -1360,7 +1360,7 @@
 
                                                     <h6>Posts</h6>
 
-                                                    <p class="mb-0">690</p>
+                                                    <p class="mb-0" id="no-of-posts">690</p>
 
                                                 </li>
 
@@ -1368,7 +1368,7 @@
 
                                                     <h6>Followers</h6>
 
-                                                    <p class="mb-0">206</p>
+                                                    <p class="mb-0" id="num-followers">206</p>
 
                                                 </li>
 
@@ -1376,7 +1376,7 @@
 
                                                     <h6>Following</h6>
 
-                                                    <p class="mb-0">100</p>
+                                                    <p class="mb-0" id='num-following'>100</p>
 
                                                 </li>
 
@@ -9956,6 +9956,10 @@
     <script src="js/edit-profile.js"></script>
     <script src="js/logout.js"></script>
     <script src="js/user.js"></script>
+    <script src="js/header/profileTopRight.js"></script>
+    <script src="js/header/profileTopMiddle.js"></script>
+    <script src="js/sidebar/profileLeftBar.js"></script>
+    <script src="js/profile/profileHeader.js"></script>
 </body>
 
 </html>

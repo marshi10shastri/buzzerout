@@ -1,19 +1,10 @@
 function initProfile() {
+    renderProfileTopRight();
+    renderProfileTopMiddle();
+    renderProfileLeftBar();
+    renderProfileHeader();
     // if user is not signed in 
-    if (getLocalStorage(USER) == "true") {
-        // ajax call
-        document.getElementById("topnav-profile-user-image").src = getLocalStorage(P_IMAGE);
-        document.getElementById("profile-user-image").src = getLocalStorage(P_IMAGE);
-        document.getElementById("profile-write-post-user-image").src = getLocalStorage(P_IMAGE);
-        document.getElementById("profile-write-post-user-image-inside").src = getLocalStorage(P_IMAGE);
-        document.getElementById("cover-pic").src = getLocalStorage(T_IMAGE);
-        document.getElementById("person-name").innerHTML = getLocalStorage(P_UNAME);
-        document.getElementById("profile-user-name").innerHTML = getLocalStorage(F_NAME) + " " + getLocalStorage(L_NAME);
-        showProfile();
-        // fetchTimelinePosts()
-    } else {
-        alert("Please sign in.");
-    }
+    showProfile();
 }
 
 function showProfile() {
