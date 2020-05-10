@@ -209,34 +209,57 @@ function editPersonalInfo() {
     let stateIn = document.getElementById("state-edit-dropdown").value;
 
     //ajax call to edit profile.
-    //update function calls.
-    let userDetails = {
-        username: unameIn,
-        email: getUserDetails().email
-    }
-    //console userdetails
-    console.log(userDetails);
-    updateUserDetails(userDetails);
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'profile/updateProfile',
+        data: {
+            username: unameIn,
+            firstname: fname,
+            lastname: lname,
+            city: cityIn,
+            state: stateIn,
+            country: countryIn,
+            gender: g,
+            dob: dobIn,
+            marital: maritalIn
+        },
+        success: function(response){
+            if(response.error == false){
+                console.log(response);
+                 //update function calls.
+                let userDetails = {
+                    username: unameIn,
+                    email: getUserDetails().email
+                }
+                //console userdetails
+                console.log(userDetails);
+                updateUserDetails(userDetails);
 
-    let profile = {
-            user_mobile: getUserProfileDetails().mob,
-            user_dob: dobIn,
-            user_gender: g,
-            user_marital: maritalIn,
-            user_address: getUserProfileDetails().address,
-            user_city: cityIn,
-            user_state: stateIn,
-            user_country: countryIn,
-            first_name: fname,
-            last_name: lname,
-            user_profile_image: getUserProfileDetails().pImage,
-            user_timeline_image: getUserProfileDetails().tImage,
-            user_social_link: getUserProfileDetails().social,
-            website: getUserProfileDetails().website
-    }
-    //console profile
-    console.log(profile);
-    updateUserProfileDetails(profile);
+                let profile = {
+                        user_mobile: getUserProfileDetails().mob,
+                        user_dob: dobIn,
+                        user_gender: g,
+                        user_marital: maritalIn,
+                        user_address: getUserProfileDetails().address,
+                        user_city: cityIn,
+                        user_state: stateIn,
+                        user_country: countryIn,
+                        first_name: fname,
+                        last_name: lname,
+                        user_profile_image: getUserProfileDetails().pImage,
+                        user_timeline_image: getUserProfileDetails().tImage,
+                        user_social_link: getUserProfileDetails().social,
+                        website: getUserProfileDetails().website
+                }
+                //console profile
+                console.log(profile);
+                updateUserProfileDetails(profile);
+            }
+        },
+        error: function(response){
+            console.log(response);
+        }
+    });
 
     // lock the inputs and hide submit btn
     hideSubmitBtn();
@@ -271,7 +294,7 @@ function enablePersonalInputs() {
 }
 
 function setInputValues(){
-    document.getElementById("fnameIn").value = getUserProfileDetails().fNname;
+    document.getElementById("fnameIn").value = getUserProfileDetails().fName;
     document.getElementById("lnameIn").value = getUserProfileDetails().lName;
     document.getElementById("uname").value = getUserDetails().uname;
     document.getElementById("cname").value = getUserProfileDetails().city
