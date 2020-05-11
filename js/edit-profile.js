@@ -1,5 +1,7 @@
 function initProfileEdit() {
     // setProfileNameImage();
+    renderProfileEditTopRight();
+    renderProfileEditTopMiddle();
     setInputValues();
     hideSubmitBtn();
 }
@@ -294,6 +296,7 @@ function enablePersonalInputs() {
 }
 
 function setInputValues(){
+    document.getElementById('pedit-profile-image').src = getUserProfileDetails().pImage;
     document.getElementById("fnameIn").value = getUserProfileDetails().fName;
     document.getElementById("lnameIn").value = getUserProfileDetails().lName;
     document.getElementById("uname").value = getUserDetails().uname;
@@ -305,7 +308,7 @@ function setInputValues(){
     document.getElementById("state-edit-dropdown").value = getUserProfileDetails().state;
 
     let g = getUserProfileDetails().gender;
-    if(g == 'male'){
+    if(g == 'Male'){
         document.getElementById("customRadio6").checked = true;
         document.getElementById("customRadio7").checked = false;
     }
