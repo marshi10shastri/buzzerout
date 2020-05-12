@@ -5,6 +5,9 @@ function initProfile() {
     renderProfileHeader();
     showBasicDetails();
     showWorksDetails();
+    showCollegesDetails();
+    showPlacesDetails();
+    showDetailsAboutDetails();
     // if user is not signed in 
     // showProfile();
 }
@@ -125,7 +128,8 @@ function addWork() {
 
 
 function addCollege() {
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserDetails().uname;
+    let userColleges = getUserCollegeDetails();
     let collegeIn = {
         collegeName: document.getElementById('collegeNameInput').value,
         collegePlace: document.getElementById('collegePlaceInput').value
@@ -135,16 +139,16 @@ function addCollege() {
             type: 'POST',
             url: SERVER_URL + '/usersCollege/addCollege',
             data: {
-                username: user.username,
+                username: user,
                 college_name: collegeIn.collegeName,
                 college_place: collegeIn.collegePlace
             },
             success: function(data) {
                 console.log(data.messsage);
-                user.college = data.colleges;
-                setJSONLocalStorage(USER_INFO, user);
-                showProfile();
-                document.getElementById('workLink').click();
+                userColleges = data.colleges;
+                updateUserCollegeDetails(userColleges);
+                showCollegesDetails();
+                // document.getElementById('workLink').click();
             },
             error: function(data) {
                 console.log(data);
@@ -157,6 +161,7 @@ function addCollege() {
 
 function addCity() {
     let user = getUserDetails().uname;
+    let userCities = getUserPlacesDetails();
     let placeIn = {
         placeName: document.getElementById('cityNameInput').value,
         placeState: document.getElementById('cityStateInput').value
@@ -175,10 +180,10 @@ function addCity() {
                 console.log("add city called")
                 console.log(data);
 
-                user.city = data.places;
-                setJSONLocalStorage(USER_INFO, user);
-                showProfile();
-                document.getElementById('placeLink').click();
+                userCities = data.places;
+                updateUserPlacesDetails(userCities);
+                showPlacesDetails();
+                // document.getElementById('placeLink').click();
             },
             error: function(data) {
                 console.log(data);
@@ -193,6 +198,9 @@ function editDetails() {
     other_name_inp = document.getElementById('otherNameInput').value;
     fav_quote_inp = document.getElementById('quoteInput').value;
 
+    // console.log(about_inp);
+    // console.log(other_name_inp);
+    // console.log(fav_quote_inp);
     $.ajax({
         type: 'POST',
         url: SERVER_URL + 'detail/updateUserDetails',
@@ -205,8 +213,8 @@ function editDetails() {
         success: function(data) {
             console.log(data);
             updateUserAboutDetails(data.userdetails);
-            showProfile();
-            document.getElementById('detailsLink').click();
+            showDetailsAboutDetails();
+            // document.getElementById('detailsLink').click();
         },
         error: function(data) {
             console.log(data);
@@ -218,6 +226,7 @@ function editDetails() {
 
 function editCity() {
     let user = getUserDetails().uname;
+    let userCities = getUserPlacesDetails();
     let cityId = getJSONLocalStorage(CURR_AP);
     place_name_inp = document.getElementById('cityNameEditInput').value;
     place_state_inp = document.getElementById('cityStateEditInput').value;
@@ -233,10 +242,10 @@ function editCity() {
         },
         success: function(data) {
             console.log(data);
-            user.city = data.places
-            setJSONLocalStorage(USER_INFO, user);
-            showProfile();
-            document.getElementById('placeLink').click();
+            userCities = data.places
+            updateUserPlacesDetails(userCities);
+            showPlacesDetails();
+            // document.getElementById('placeLink').click();
         },
         error: function(data) {
             console.log(data);
@@ -246,6 +255,7 @@ function editCity() {
 
 function editCollege() {
     let user = getUserDetails().uname;
+    let userColleges = getUserCollegeDetails();
     let college_id = getJSONLocalStorage(CURR_AC);
     cname_inp = document.getElementById('collegeNameEditInput').value;
     cplace_inp = document.getElementById('collegePlaceEditInput').value;
@@ -261,10 +271,10 @@ function editCollege() {
         },
         success: function(data) {
             console.log(data.messsage);
-            user.college = data.colleges;
-            setJSONLocalStorage(USER_INFO, user);
-            showProfile();
-            document.getElementById('workLink').click();
+            userColleges = data.colleges;
+            updateUserCollegeDetails(userColleges);
+            showCollegesDetails();
+            // document.getElementById('workLink').click();
         },
         error: function(data) {
             console.log(data);
@@ -303,11 +313,11 @@ function editWork() {
 
 
 function reply_click_city(id) {
-    let user = getJSONLocalStorage(USER_INFO);
+    let cities = getUserPlacesDetails();
     let temp;
-    for (let i = 0; i < user.city.length; i++) {
-        if (user.city[i].id == id) {
-            temp = user.city[i]
+    for (let i = 0; i < cities.length; i++) {
+        if (cities[i].id == id) {
+            temp = cities[i]
             break;
         }
     }
@@ -317,11 +327,11 @@ function reply_click_city(id) {
 }
 
 function reply_click_college(id) {
-    let user = getJSONLocalStorage(USER_INFO);
+    let colleges = getUserCollegeDetails();
     let temp;
-    for (let i = 0; i < user.college.length; i++) {
-        if (user.college[i].id == id) {
-            temp = user.college[i]
+    for (let i = 0; i < colleges.length; i++) {
+        if (colleges[i].id == id) {
+            temp = colleges[i]
             break;
         }
     }
@@ -544,16 +554,39 @@ function showWorksDetails(){
 function showCollegesDetails(){
     let collegesList = document.getElementById('about-colleges');
     collegesList.innerHTML = "";
-    //getWorks
-    let localColleges = getUserWorksDetails();
+    //getcolleges
+    let localColleges = getUserCollegeDetails();
     for(let i=0; i<localColleges.length; i++){
         collegesList.innerHTML += '  <li class="d-flex mb-4 align-items-center">\
         <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
         <div class="media-support-info ml-3">\
-            <h6>'+ localColleges[i].college_place +'</h6>\
-            <p class="mb-0">'+ localColleges[i].work_profile +'</p>\
+            <h6>'+ localColleges[i].college_name +'</h6>\
+            <p class="mb-0">'+ localColleges[i].college_place +'</p>\
         </div>\
-        <div class="edit-relation" onclick="reply_click_work(\'' + localColleges[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editWorkModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
-        </li>'
+        <div class="edit-relation" id="` + i + `" onClick="reply_click_college(\'' + localColleges[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editCollegeModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
+    </li>'
     }
+}
+
+function showPlacesDetails(){
+    let placesList = document.getElementById('about-places');
+    placesList.innerHTML = '';
+
+    let localPlaces = getUserPlacesDetails();
+    for(let i=0; i<localPlaces.length; i++){
+        placesList.innerHTML += '<li class="d-flex mb-4 align-items-center">\
+        <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
+        <div class="media-support-info ml-3">\
+            <h6>'+ localPlaces[i].place_name +'</h6>\
+            <p class="mb-0">'+ localPlaces[i].place_state +'</p>\
+        </div>\
+        <div class="edit-relation" id="` + i + `" onClick="reply_click_city(\'' + localPlaces[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
+    </li>'
+    }
+}
+
+function showDetailsAboutDetails(){
+    document.getElementById('about-favourite-quote').innerText = getUserAboutDetails().quote;
+    document.getElementById('about-other-name').innerText = getUserAboutDetails().nickname;
+    document.getElementById('about-about-details').innerText = getUserAboutDetails().about;
 }

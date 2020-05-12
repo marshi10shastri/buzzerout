@@ -26,7 +26,7 @@ function signIn() {
                 password: password
             },
             success: function(data) {
-                console.log(data)
+                console.log(data);
                 if (data.error == false) {
                     setLocalStorage(USER, "true");
                     // liveUserMapper()
