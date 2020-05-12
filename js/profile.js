@@ -4,7 +4,7 @@ function initProfile() {
     renderProfileLeftBar();
     renderProfileHeader();
     // if user is not signed in 
-    showProfile();
+    // showProfile();
 }
 
 function showProfile() {
@@ -507,4 +507,36 @@ function coverImageUpload() {
 function editPersonalInfo() {
     profileImageUpload();
     editName();
+}
+
+
+
+//about section
+function showBasicDetails(){
+    document.getElementById('about-email').innerText = getUserDetails().email;
+    document.getElementById('about-mobile').innerText = getUserProfileDetails().mob;
+    document.getElementById('about-address').innerText = getUserProfileDetails().address;
+    document.getElementById('about-website').innerText = getUserProfileDetails().website;
+    document.getElementById('about-social').innerText = getUserProfileDetails().social;
+    document.getElementById('about-dob').innerText = getUserProfileDetails().dob;
+    document.getElementById('about-yob').innerText = getUserProfileDetails().dob;
+    document.getElementById('about-gender').innerText = getUserProfileDetails().gender;
+
+}
+
+function showWorksDetails(){
+    let worksList = document.getElementById('about-work-places');
+
+    //getWorks
+    let localWork = getUserWorksDetails();
+    for(let i=0; i<localWork.length; i++){
+        worksList.innerHTML += '  <li class="d-flex mb-4 align-items-center">\
+        <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
+        <div class="media-support-info ml-3">\
+            <h6>Themeforest</h6>\
+            <p class="mb-0">Web Designer</p>\
+        </div>\
+        <div class="edit-relation" onclick="reply_click_work(\'' + feed.buzz_id + '\')"><a href="javascript:void();"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
+        </li>'
+    }
 }

@@ -46,6 +46,13 @@
             window.location = "index.html";
         }
     </script>
+    <style>
+        .extra{
+            display:none;
+        }
+
+
+    </style>
 </head>
 
 <body class="sidebar-main-active right-column-fixed" onload="initProfile()">
@@ -3452,7 +3459,7 @@
 
                                                     </li>
 
-                                                    <li>
+                                                    <li class="extra">
 
                                                         <a class="nav-link" data-toggle="pill" href="#family">Family and Relationship</a>
 
@@ -3460,7 +3467,7 @@
 
                                                     <li>
 
-                                                        <a class="nav-link" data-toggle="pill" href="#work">Work and Education</a>
+                                                        <a class="nav-link" data-toggle="pill" href="#about-work">Work and Education</a>
 
                                                     </li>
 
@@ -3500,7 +3507,7 @@
 
                                                             <div class="col-9">
 
-                                                                <p class="mb-0">Bnijohn@gmail.com</p>
+                                                                <p class="mb-0" id="about-email">Bnijohn@gmail.com</p>
 
                                                             </div>
 
@@ -3512,7 +3519,7 @@
 
                                                             <div class="col-9">
 
-                                                                <p class="mb-0">(001) 4544 565 456</p>
+                                                                <p class="mb-0" id="about-mobile">(001) 4544 565 456</p>
 
                                                             </div>
 
@@ -3524,13 +3531,13 @@
 
                                                             <div class="col-9">
 
-                                                                <p class="mb-0">United States of America</p>
+                                                                <p class="mb-0" id="about-address">United States of America</p>
 
                                                             </div>
 
                                                         </div>
 
-                                                        <!-- <h4 class="mt-3">Websites and Social Links</h4>
+                                                        <h4 class="mt-3">Websites and Social Links</h4>
 
                                                         <hr>
 
@@ -3544,7 +3551,7 @@
 
                                                             <div class="col-9">
 
-                                                                <p class="mb-0">www.bootstrap.com</p>
+                                                                <p class="mb-0" id="about-website">www.bootstrap.com</p>
 
                                                             </div>
 
@@ -3556,11 +3563,11 @@
 
                                                             <div class="col-9">
 
-                                                                <p class="mb-0">www.bootstrap.com</p>
+                                                                <p class="mb-0" id="about-social">www.bootstrap.com</p>
 
                                                             </div>
 
-                                                        </div> -->
+                                                        </div>
 
                                                         <h4 class="mt-3">Basic Information</h4>
 
@@ -3576,7 +3583,7 @@
 
                                                             <div class="col-9">
 
-                                                                <p class="mb-0">24 January</p>
+                                                                <p class="mb-0" id="about-dob">24 January</p>
 
                                                             </div>
 
@@ -3588,7 +3595,7 @@
 
                                                             <div class="col-9">
 
-                                                                <p class="mb-0">1994</p>
+                                                                <p class="mb-0" id="about-yob">1994</p>
 
                                                             </div>
 
@@ -3600,39 +3607,39 @@
 
                                                             <div class="col-9">
 
-                                                                <p class="mb-0">Female</p>
+                                                                <p class="mb-0" id="about-gender">Female</p>
 
                                                             </div>
 
-                                                            <!-- <div class="col-3">
+                                                            <div class="col-3 extra">
 
                                                                 <h6>interested in</h6>
 
                                                             </div>
 
-                                                            <div class="col-9">
+                                                            <div class="col-9 extra">
 
                                                                 <p class="mb-0">Designing</p>
 
                                                             </div>
 
-                                                            <div class="col-3">
+                                                            <div class="col-3 extra">
 
                                                                 <h6>language</h6>
 
                                                             </div>
 
-                                                            <div class="col-9">
+                                                            <div class="col-9 extra">
 
                                                                 <p class="mb-0">English, French</p>
 
-                                                            </div> -->
+                                                            </div>
 
                                                         </div>
 
                                                     </div>
 
-                                                    <div class="tab-pane fade" id="family" role="tabpanel">
+                                                    <div class="tab-pane fade extra" id="family" role="tabpanel">
 
                                                         <h4 class="mb-3">Relationship</h4>
 
@@ -3720,7 +3727,7 @@
 
                                                     </div>
 
-                                                    <div class="tab-pane fade" id="work" role="tabpanel">
+                                                    <div class="tab-pane fade" id="about-work" role="tabpanel">
 
                                                         <h4 class="mb-3">Work</h4>
 
@@ -3737,7 +3744,8 @@
                                                                 </div>
 
                                                             </li>
-
+                                                        </ul>
+                                                        <ul class="suggestions-lists m-0 p-0" id="about-work-places">
                                                             <li class="d-flex mb-4 align-items-center">
 
                                                                 <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>
@@ -3788,7 +3796,7 @@
 
                                                         </ul>
 
-                                                        <h4 class="mb-3">Professional Skills</h4>
+                                                        <h4 class="mb-3 extra">Professional Skills</h4>
 
                                                         <ul class="suggestions-lists m-0 p-0">
 
