@@ -3,6 +3,8 @@ function initProfile() {
     renderProfileTopMiddle();
     renderProfileLeftBar();
     renderProfileHeader();
+    showBasicDetails();
+    showWorksDetails();
     // if user is not signed in 
     // showProfile();
 }
@@ -93,6 +95,7 @@ function editWebsite() {
 
 function addWork() {
     let user = getUserDetails().uname;
+    let userWorks = getUserWorksDetails();
     let workIn = {
         workPlace: document.getElementById('workPlaceInput').value,
         workProfile: document.getElementById('workProfileInput').value
@@ -108,10 +111,10 @@ function addWork() {
             },
             success: function(data) {
                 console.log(data);
-                user.work = data.works;
-                setJSONLocalStorage(USER_INFO, user);
-                showProfile();
-                document.getElementById('workLink').click();
+                userWorks = data.works;
+                updateUserWorksDetails(userWorks);
+                showWorksDetails();
+                // document.getElementById('workLink').click();
             },
             error: function(data) {
                 console.log(data);
@@ -271,6 +274,7 @@ function editCollege() {
 
 function editWork() {
     let user = getUserDetails().uname;
+    let userWork = getUserWorksDetails();
     let workId = getJSONLocalStorage(CURR_AW);
     wplace = document.getElementById('workPlaceEditInput').value;
     wprofile = document.getElementById('workProfileEditInput').value;
@@ -286,19 +290,14 @@ function editWork() {
         },
         success: function(data) {
             console.log(data);
-            user.work = data.works
-            setJSONLocalStorage(USER_INFO, user);
-            showProfile();
-            document.getElementById('workLink').click();
+            userWork = data.works;
+            updateUserWorksDetails(userWork);
+            showWorksDetails();
         },
         error: function(data) {
             console.log(data);
         }
     });
-
-    setJSONLocalStorage(USER_INFO, user);
-    showProfile();
-    document.getElementById('workLink').click();
 }
 
 
@@ -332,13 +331,12 @@ function reply_click_college(id) {
 }
 
 function reply_click_work(id) {
-    let user = getJSONLocalStorage(USER_INFO);
+    let works = getUserWorksDetails();
     let temp;
-    for (let i = 0; i < user.city.length; i++) {
-        if (user.work[i].id == id) {
+    for (let i = 0; i < works.length; i++) {
+        if (works[i].id == id) {
             console.log("found")
-            console.log(user.work[i])
-            temp = user.work[i]
+            temp = works[i]
             break;
         }
     }
@@ -524,19 +522,38 @@ function showBasicDetails(){
 
 }
 
+//work details in about section
 function showWorksDetails(){
     let worksList = document.getElementById('about-work-places');
-
+    worksList.innerHTML = "";
     //getWorks
     let localWork = getUserWorksDetails();
     for(let i=0; i<localWork.length; i++){
         worksList.innerHTML += '  <li class="d-flex mb-4 align-items-center">\
         <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
         <div class="media-support-info ml-3">\
-            <h6>Themeforest</h6>\
-            <p class="mb-0">Web Designer</p>\
+            <h6>'+ localWork[i].work_place +'</h6>\
+            <p class="mb-0">'+ localWork[i].work_profile +'</p>\
         </div>\
-        <div class="edit-relation" onclick="reply_click_work(\'' + feed.buzz_id + '\')"><a href="javascript:void();"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
+        <div class="edit-relation" onclick="reply_click_work(\'' + localWork[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editWorkModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
+        </li>'
+    }
+}
+
+//college details in about
+function showCollegesDetails(){
+    let collegesList = document.getElementById('about-colleges');
+    collegesList.innerHTML = "";
+    //getWorks
+    let localColleges = getUserWorksDetails();
+    for(let i=0; i<localColleges.length; i++){
+        collegesList.innerHTML += '  <li class="d-flex mb-4 align-items-center">\
+        <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
+        <div class="media-support-info ml-3">\
+            <h6>'+ localColleges[i].college_place +'</h6>\
+            <p class="mb-0">'+ localColleges[i].work_profile +'</p>\
+        </div>\
+        <div class="edit-relation" onclick="reply_click_work(\'' + localColleges[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editWorkModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
         </li>'
     }
 }
