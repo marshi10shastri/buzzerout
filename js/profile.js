@@ -10,6 +10,7 @@ function initProfile() {
     showDetailsAboutDetails();
     // if user is not signed in 
     // showProfile();
+    showProfilePosts();
 }
 
 function showProfile() {
@@ -359,26 +360,36 @@ function reply_click_work(id) {
 
 var TfeedInputArray = [];
 
-function fetchTimelinePosts() {
-    let T_POSTS = getJSONLocalStorage(POSTS);
-    console.log(T_POSTS);
-    let user = getJSONLocalStorage(USER_INFO);
+function showProfilePosts() {
+    console.log("Hi")
+    let allposts = getJSONLocalStorage(ALL_BUZZ);
+    let tposts = []
+    for (let i = 0; i < allposts.length; i++) {
+        console.log(allposts[i])
+        if (allposts[i].buzz_username == getUserDetails().uname) {
+            console.log("yse")
+            tposts.push(allposts[i]);
+        }
+    }
+    setJSONLocalStorage(T_POSTS, tposts);
+    console.log(getJSONLocalStorage(T_POSTS));
+    // let user = getJSONLocalStorage(USER_INFO);
     var timelinePostBox = document.getElementById('timeline-posts').innerHTML;
     timelinePostBox = "";
-    for (let i = 0; i < T_POSTS.length; i++) {
-        timelinePostBox += timeline_post_basics(T_POSTS[i].userimage, T_POSTS[i].name, T_POSTS[i].time) +
-            timeline_post_body(T_POSTS[i].description, T_POSTS[i].images) +
-            timeline_post_likeNo(T_POSTS[i].upvotes, T_POSTS[i].feedid, T_POSTS[i].buzz_upvoted) +
-            timeline_post_commentNo(T_POSTS[i].comments.length, T_POSTS[i].buzz_shared);
+    for (let i = 0; i < tposts.length; i++) {
+        timelinePostBox += timeline_post_basics(getUserProfileDetails().tImage, getUserDetails().uname, tposts[i].buzz_timestamp) +
+            timeline_post_body(tposts[i].buzz_description, tposts[i].buzz_images) +
+            timeline_post_likeNo(tposts[i].buzz_upvotes, tposts[i].buzz_id) +
+            timeline_post_commentNo(tposts[i].buzz_comments.length);
 
-        if (T_POSTS[i].comments.length > 0) {
-            for (let j = 0; j < T_POSTS[i].comments.length; j++) {
-                timelinePostBox += timeline_post_comment(T_POSTS[i].comments[j].commentImg, T_POSTS[i].comments[j].commentUser, T_POSTS[i].comments[j].text, T_POSTS[i].comments[j].timestamp);
+        if (tposts[i].buzz_comments.length > 0) {
+            for (let j = 0; j < tposts[i].buzz_comments.length; j++) {
+                timelinePostBox += timeline_post_comment(tposts[i].buzz_comments[j].commentImg, tposts[i].buzz_comments[j].username, tposts[i].buzz_comments[j].text, tposts[i].buzz_comments[j].timestamp);
             }
         }
 
-        timelinePostBox += timeline_post_addComment(T_POSTS[i].feedid);
-        TfeedInputArray.push("commentinput-" + T_POSTS[i].feedid);
+        timelinePostBox += timeline_post_addComment(tposts[i].buzz_id);
+        TfeedInputArray.push("commentinput-" + tposts[i].buzz_id);
     }
 
     document.getElementById('timeline-posts').innerHTML = timelinePostBox;
@@ -398,7 +409,6 @@ function fetchTimelinePosts() {
         })
     }
 }
-
 
 function profileImageUpload() {
     let user = getJSONLocalStorage(USER_INFO);
@@ -520,7 +530,7 @@ function editPersonalInfo() {
 
 
 //about section
-function showBasicDetails(){
+function showBasicDetails() {
     document.getElementById('about-email').innerText = getUserDetails().email;
     document.getElementById('about-mobile').innerText = getUserProfileDetails().mob;
     document.getElementById('about-address').innerText = getUserProfileDetails().address;
@@ -533,17 +543,17 @@ function showBasicDetails(){
 }
 
 //work details in about section
-function showWorksDetails(){
+function showWorksDetails() {
     let worksList = document.getElementById('about-work-places');
     worksList.innerHTML = "";
     //getWorks
     let localWork = getUserWorksDetails();
-    for(let i=0; i<localWork.length; i++){
+    for (let i = 0; i < localWork.length; i++) {
         worksList.innerHTML += '  <li class="d-flex mb-4 align-items-center">\
         <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
         <div class="media-support-info ml-3">\
-            <h6>'+ localWork[i].work_place +'</h6>\
-            <p class="mb-0">'+ localWork[i].work_profile +'</p>\
+            <h6>' + localWork[i].work_place + '</h6>\
+            <p class="mb-0">' + localWork[i].work_profile + '</p>\
         </div>\
         <div class="edit-relation" onclick="reply_click_work(\'' + localWork[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editWorkModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
         </li>'
@@ -551,41 +561,41 @@ function showWorksDetails(){
 }
 
 //college details in about
-function showCollegesDetails(){
+function showCollegesDetails() {
     let collegesList = document.getElementById('about-colleges');
     collegesList.innerHTML = "";
     //getcolleges
     let localColleges = getUserCollegeDetails();
-    for(let i=0; i<localColleges.length; i++){
+    for (let i = 0; i < localColleges.length; i++) {
         collegesList.innerHTML += '  <li class="d-flex mb-4 align-items-center">\
         <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
         <div class="media-support-info ml-3">\
-            <h6>'+ localColleges[i].college_name +'</h6>\
-            <p class="mb-0">'+ localColleges[i].college_place +'</p>\
+            <h6>' + localColleges[i].college_name + '</h6>\
+            <p class="mb-0">' + localColleges[i].college_place + '</p>\
         </div>\
         <div class="edit-relation" id="` + i + `" onClick="reply_click_college(\'' + localColleges[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editCollegeModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
     </li>'
     }
 }
 
-function showPlacesDetails(){
+function showPlacesDetails() {
     let placesList = document.getElementById('about-places');
     placesList.innerHTML = '';
 
     let localPlaces = getUserPlacesDetails();
-    for(let i=0; i<localPlaces.length; i++){
+    for (let i = 0; i < localPlaces.length; i++) {
         placesList.innerHTML += '<li class="d-flex mb-4 align-items-center">\
         <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
         <div class="media-support-info ml-3">\
-            <h6>'+ localPlaces[i].place_name +'</h6>\
-            <p class="mb-0">'+ localPlaces[i].place_state +'</p>\
+            <h6>' + localPlaces[i].place_name + '</h6>\
+            <p class="mb-0">' + localPlaces[i].place_state + '</p>\
         </div>\
         <div class="edit-relation" id="` + i + `" onClick="reply_click_city(\'' + localPlaces[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
     </li>'
     }
 }
 
-function showDetailsAboutDetails(){
+function showDetailsAboutDetails() {
     document.getElementById('about-favourite-quote').innerText = getUserAboutDetails().quote;
     document.getElementById('about-other-name').innerText = getUserAboutDetails().nickname;
     document.getElementById('about-about-details').innerText = getUserAboutDetails().about;

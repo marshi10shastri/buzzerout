@@ -209,8 +209,6 @@ function fetchPost() {
 }
 
 function addComment(feedid, commentData) {
-    let user = getJSONLocalStorage(USER_INFO);
-    let data = getJSONLocalStorage(POSTS);
     console.log("adding comment");
     $.ajax({
         type: "POST",
