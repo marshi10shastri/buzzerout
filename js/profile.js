@@ -377,7 +377,7 @@ function showProfilePosts() {
     var timelinePostBox = document.getElementById('timeline-posts').innerHTML;
     timelinePostBox = "";
     for (let i = 0; i < tposts.length; i++) {
-        timelinePostBox += timeline_post_basics(getUserProfileDetails().tImage, getUserDetails().uname, tposts[i].buzz_timestamp) +
+        timelinePostBox += timeline_post_basics(tposts[i].buzz_user_image, tposts[i].buzz_username, tposts[i].buzz_timestamp) +
             timeline_post_body(tposts[i].buzz_description, tposts[i].buzz_images) +
             timeline_post_likeNo(tposts[i].buzz_upvotes, tposts[i].buzz_id) +
             timeline_post_commentNo(tposts[i].buzz_comments.length);

@@ -109,7 +109,7 @@ function createPost() {
                 link.push(data.link);
                 console.log(data.link);
 
-                let user_name = getUserDetails.uname;
+                let user_name = getUserDetails().uname;
                 let desc = document.getElementById("buzz-post-input").value;
                 console.log(user_name);
                 console.log(desc);
