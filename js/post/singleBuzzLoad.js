@@ -170,6 +170,8 @@ function singleBuzzLoad(feed) {
                 </div>\
             </div>\
             <hr>\
+            <divclass="align-items-center"> <a href="#commentinput-' + feed.buzz_id + '">Add Your Comment</a></div>\
+            <hr>\
             <ul class="post-comments p-0 m-0"  id="commentslist-' + feed.buzz_id + '" >\
             ';
 
@@ -213,9 +215,8 @@ function singleBuzzLoad(feed) {
                     </div>\
                 </li> -->\
             </ul>\
-            <divclass="align-items-center"> <a href="single-post.html">View All Comments</a></div>\
             <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
-                <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" >\
+                <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
                 <div class="comment-attagement d-flex">\
                     <a href="javascript:void();"><i class="ri-link mr-3"></i></a>\
                     <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>\
@@ -253,7 +254,7 @@ function initSingleBuzzPage() {
             if (getLocalStorage(USER) == "true") {
                 console.log('running');
                 let feedid = getLocalStorage(CURR_BUZZ);
-                addComment(feedid, inputCommentField.value);
+                addComment(feedid, inputCommentField.value, true);
                 inputCommentField.value = "";
             } else {
                 alert("Please sign in.")

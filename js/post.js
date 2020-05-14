@@ -206,7 +206,7 @@ function fetchPost() {
     });
 }
 
-function addComment(feedid, commentData) {
+function addComment(feedid, commentData, ifSinglePost) {
     console.log("adding comment");
     $.ajax({
         type: "POST",
@@ -222,7 +222,7 @@ function addComment(feedid, commentData) {
                 buzz_id: feedid,
                 buzz_comments: response.comments,
             };
-            addCommentToSinglePost(resp);
+            addCommentToSinglePost(resp, ifSinglePost);
         },
         error: function(response) {
             console.log(response);

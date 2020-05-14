@@ -554,7 +554,7 @@ function showWorksDetails() {
             <h6>' + localWork[i].work_place + '</h6>\
             <p class="mb-0">' + localWork[i].work_profile + '</p>\
         </div>\
-        <div class="edit-relation" onclick="reply_click_work(\'' + localWork[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editWorkModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
+        <div class="edit-relation editButton" onclick="reply_click_work(\'' + localWork[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editWorkModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
         </li>'
     }
 }
@@ -572,7 +572,7 @@ function showCollegesDetails() {
             <h6>' + localColleges[i].college_name + '</h6>\
             <p class="mb-0">' + localColleges[i].college_place + '</p>\
         </div>\
-        <div class="edit-relation" id="` + i + `" onClick="reply_click_college(\'' + localColleges[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editCollegeModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
+        <div class="edit-relation editButton" id="` + i + `" onClick="reply_click_college(\'' + localColleges[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editCollegeModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
     </li>'
     }
 }
@@ -589,7 +589,7 @@ function showPlacesDetails() {
             <h6>' + localPlaces[i].place_name + '</h6>\
             <p class="mb-0">' + localPlaces[i].place_state + '</p>\
         </div>\
-        <div class="edit-relation" id="` + i + `" onClick="reply_click_city(\'' + localPlaces[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
+        <div class="edit-relation editButton" id="` + i + `" onClick="reply_click_city(\'' + localPlaces[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
     </li>'
     }
 }

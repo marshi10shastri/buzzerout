@@ -98,7 +98,7 @@ function updateSinglePost(data) {
     }
 }
 
-function addCommentToSinglePost(data) {
+function addCommentToSinglePost(data, ifSinglePost) {
     console.log(data);
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for (let i = 0; i < buzz.length; i++) {
@@ -108,10 +108,10 @@ function addCommentToSinglePost(data) {
         }
     }
     setJSONLocalStorage(ALL_BUZZ, buzz);
-    updateCommentToPost(data.buzz_id);
+    updateCommentToPost(data.buzz_id, ifSinglePost);
 }
 
-function updateCommentToPost(id) {
+function updateCommentToPost(id, ifSinglePost) {
     let commentsDiv = document.getElementById('commentslist-' + id);
 
     let buzz = getJSONLocalStorage(ALL_BUZZ);
@@ -122,13 +122,13 @@ function updateCommentToPost(id) {
             commentsDiv.innerHTML = "";
             let comments = buzz[i].buzz_comments;
             let len = comments.length;
-            if (len > 5) {
+            if (len > 5 && !ifSinglePost) {
                 for (let j = len - 5; j < len; j++) {
                     let string = `
                 <li>
                     <div class="d-flex flex-wrap">
                         <div class="user-img">
-                            <img src="images/user/03.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                            <img src="`+ comments[j].commentImg +`" alt="userimg" class="avatar-35 rounded-circle img-fluid">
                         </div>
                         <div class="comment-data-block ml-3">
                             <h6>` + comments[j].username + `</h6>
@@ -149,10 +149,10 @@ function updateCommentToPost(id) {
                 <li>
                     <div class="d-flex flex-wrap">
                         <div class="user-img">
-                            <img src="images/user/03.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                            <img src="`+ comments[j].commentImg +`" class="avatar-35 rounded-circle img-fluid">
                         </div>
                         <div class="comment-data-block ml-3">
-                            <h6>` + comments[j].user_id + `</h6>
+                            <h6>` + comments[j].username + `</h6>
                             <p class="mb-0">` + comments[j].text + `</p>
                             <div class="d-flex flex-wrap align-items-center comment-activity">
                                 <a href="javascript:void();">like</a>
