@@ -87,6 +87,9 @@ const COLLEGES = "colleges";
 const WORKS = "works";
 const PLACES = "places";
 
+const FOLLOWERS = 'followers';
+const FOLLOWING = 'following';
+
 const ALL_BUZZ = "all_buzz";
 const CURR_BUZZ = "curr_buzz";
 // URLs
