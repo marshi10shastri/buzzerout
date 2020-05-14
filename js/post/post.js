@@ -131,7 +131,7 @@ function updateCommentToPost(id) {
                             <img src="images/user/03.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">
                         </div>
                         <div class="comment-data-block ml-3">
-                            <h6>` + comments[j].user_id + `</h6>
+                            <h6>` + comments[j].username + `</h6>
                             <p class="mb-0">` + comments[j].text + `</p>
                             <div class="d-flex flex-wrap align-items-center comment-activity">
                                 <a href="javascript:void();">like</a>
