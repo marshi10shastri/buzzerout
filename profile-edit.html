@@ -71,13 +71,13 @@
 
                     <ul id="iq-sidebar-toggle" class="iq-menu">
 
-                        <li class="active">
+                        <li>
 
                             <a href="index.html" class="iq-waves-effect"><i class="las la-newspaper"></i><span>Newsfeed</span></a>
 
                         </li>
 
-                        <li>
+                        <li class="active">
 
                             <a href="profile.html" class="iq-waves-effect"><i class="las la-user"></i><span>Profile</span></a>
 
@@ -1351,11 +1351,13 @@
 
                                                                 <i class="ri-pencil-line upload-button"></i>
 
-                                                                <input id="profile-image-upload" class="file-upload" type="file" accept="image/*" onchange="uploadProfileImage()"/>
+                                                                <input id="profile-image-upload" class="file-upload" type="file" accept="image/*" onchange="showUploadPimageBtn()"/>
 
                                                             </div>
 
                                                         </div>
+
+                                                        <button class="btn-primary" id="upload-pImage-button" onclick="uploadProfileImage()"> Upload </button>
 
                                                     </div>
                                                 </div>

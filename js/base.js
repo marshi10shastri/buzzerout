@@ -161,3 +161,21 @@ function getUserCollegeDetails() {
     let colleges = getJSONLocalStorage(COLLEGES);
     return colleges;
 }
+
+function updateUserFollowers(data){
+    setJSONLocalStorage(FOLLOWERS, data);
+}
+
+function getUserFollowers(){
+    let followers = getJSONLocalStorage(FOLLOWERS);
+    return followers;
+}
+
+function updateUserFollowing(data){
+    setJSONLocalStorage(FOLLOWING, data);
+}
+
+function getUserFollowers(){
+    let following = getJSONLocalStorage(FOLLOWING);
+    return following;
+}
