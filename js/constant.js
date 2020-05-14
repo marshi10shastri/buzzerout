@@ -88,5 +88,6 @@ const WORKS = "works";
 const PLACES = "places";
 
 const ALL_BUZZ = "all_buzz";
+const CURR_BUZZ = "curr_buzz";
 // URLs
 const SERVER_URL = 'http://buzzerout.com/buzzerout_server/v1/';

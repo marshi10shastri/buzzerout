@@ -4,6 +4,7 @@ function postMapper(data) {
      * 2. Render Single Post
      */
     let feedInputArray = []
+    let feedIdArray = [];
     let buzzArray = []
 
     for (let i = 0; i < data.length; i++) {
@@ -32,12 +33,13 @@ function postMapper(data) {
             buzz_upvotes: upvotes,
             buzz_downvotes: downvotes
         }
-        console.log(data[i]);
+        console.log(buzz);
 
         buzzArray.push(buzz);
         singlePostMapper(buzz);
 
         feedInputArray.push("commentinput-" + data[i].feed_id);
+        feedIdArray.push("feed-" + data[i].feed_id);
     }
     setJSONLocalStorage(ALL_BUZZ, buzzArray);
 
@@ -56,6 +58,16 @@ function postMapper(data) {
                     alert("Please sign in.")
                 }
             }
+        })
+    }
+
+    for (let j = 0; j < feedIdArray.length; j++) {
+        let elem = document.getElementById(feedIdArray[j]);
+        elem.addEventListener("click", function(e) {
+            let feedid = feedIdArray[j].split("-")[1];
+            console.log("Setting feed id to " + feedid);
+            setLocalStorage(CURR_BUZZ, feedid);
+            window.location = 'single-post.html';
         })
     }
 
@@ -103,13 +115,16 @@ function updateCommentToPost(id) {
     let commentsDiv = document.getElementById('commentslist-' + id);
 
     let buzz = getJSONLocalStorage(ALL_BUZZ);
+
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == id) {
             console.log(buzz[i])
             commentsDiv.innerHTML = "";
             let comments = buzz[i].buzz_comments;
-            for (let j = 0; j < comments.length; j++) {
-                let string = `
+            let len = comments.length;
+            if (len > 5) {
+                for (let j = len - 5; j < len; j++) {
+                    let string = `
                 <li>
                     <div class="d-flex flex-wrap">
                         <div class="user-img">
@@ -120,15 +135,35 @@ function updateCommentToPost(id) {
                             <p class="mb-0">` + comments[j].text + `</p>
                             <div class="d-flex flex-wrap align-items-center comment-activity">
                                 <a href="javascript:void();">like</a>
-                                <a href="javascript:void();">reply</a>
-                                <a href="javascript:void();">translate</a>
-                                <span> 5 min </span>
+                                <span> ` + comments[j].timestamp + ` </span>
                             </div>
                         </div>
                     </div>
                 </li>
                 `;
-                commentsDiv.innerHTML += string;
+                    commentsDiv.innerHTML += string;
+                }
+            } else {
+                for (let j = 0; j < len; j++) {
+                    let string = `
+                <li>
+                    <div class="d-flex flex-wrap">
+                        <div class="user-img">
+                            <img src="images/user/03.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                        </div>
+                        <div class="comment-data-block ml-3">
+                            <h6>` + comments[j].user_id + `</h6>
+                            <p class="mb-0">` + comments[j].text + `</p>
+                            <div class="d-flex flex-wrap align-items-center comment-activity">
+                                <a href="javascript:void();">like</a>
+                                <span> ` + comments[j].timestamp + ` </span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                `;
+                    commentsDiv.innerHTML += string;
+                }
             }
         }
     }

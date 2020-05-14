@@ -361,13 +361,12 @@ function reply_click_work(id) {
 var TfeedInputArray = [];
 
 function showProfilePosts() {
-    console.log("Hi")
     let allposts = getJSONLocalStorage(ALL_BUZZ);
     let tposts = []
     for (let i = 0; i < allposts.length; i++) {
         console.log(allposts[i])
         if (allposts[i].buzz_username == getUserDetails().uname) {
-            console.log("yse")
+
             tposts.push(allposts[i]);
         }
     }

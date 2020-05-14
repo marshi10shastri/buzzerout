@@ -1,4 +1,4 @@
-function postTemplateStart(feed) {
+function singleBuzzLoad(feed) {
 
     // let feedTime = new Date(feed.timestamp);
     // feedTime = feedTime.getTime();
@@ -107,8 +107,8 @@ function postTemplateStart(feed) {
                 <div class="like-block position-relative d-flex align-items-center">\
                     <div class="d-flex align-items-center">\
                         <div class="like-data">\
-                            <div class="dropdown">\
-                                <span onclick="upvoteBuzzByFeedId(\'' + feed.buzz_id + '\')" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+                            <div>\
+                                <span onclick="upvoteBuzzByFeedId(\'' + feed.buzz_id + '\')" aria-expanded="false" role="button">\
                     <img src="images/icon/like.jpg" class="img-fluid" alt="">\
                     </span>\
                             <!--    <div class="dropdown-menu">\
@@ -131,8 +131,8 @@ function postTemplateStart(feed) {
                             </div>\
                         </div>\
                     <div class="like-data">\
-                            <div class="dropdown">\
-                                <span onclick="downvoteBuzzByFeedId(\'' + feed.buzz_id + '\')" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+                            <div>\
+                                <span onclick="downvoteBuzzByFeedId(\'' + feed.buzz_id + '\')"  aria-expanded="false" role="button">\
                     <img src="images/icon/dislike.jpg" class="img-fluid" alt="">\
                     </span>\
                             <!--    <div class="dropdown-menu">\
@@ -172,32 +172,9 @@ function postTemplateStart(feed) {
             <hr>\
             <ul class="post-comments p-0 m-0"  id="commentslist-' + feed.buzz_id + '" >\
             ';
-    let len = feed.buzz_comments.length;
-    if (len > 5) {
-        for (var i = feed.buzz_comments.length - 5; i < feed.buzz_comments.length; i++) {
-            string += '<li class="mb-2">\
-                                    <div class="d-flex flex-wrap">\
-                                        <div class="user-img">\
-                                            <img src="' + feed.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
-                                        </div>\
-                                        <div class="comment-data-block ml-3">\
-                                            <h6>' + feed.buzz_comments[i].username + '</h6>\
-                                            <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
-                                            <div class="d-flex flex-wrap align-items-center comment-activity">\
-                                            <a href="javascript:void();">like</a>';
-            // <a href="javascript:void();">reply</a>\
-            // <a href="javascript:void();">translate</a>\
-            string += ' <span> ' + feed.buzz_comments[i].timestamp + ' </span>\
-                                            </div>\
-                                        </div>\
-                                    </div>\
-                                </li>\
-            ';
-        }
 
-    } else {
-        for (var i = 0; i < feed.buzz_comments.length; i++) {
-            string += '<li class="mb-2">\
+    for (var i = 0; i < feed.buzz_comments.length; i++) {
+        string += '<li class="mb-2">\
                                     <div class="d-flex flex-wrap">\
                                         <div class="user-img">\
                                             <img src="' + feed.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
@@ -207,15 +184,14 @@ function postTemplateStart(feed) {
                                             <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
                                             <div class="d-flex flex-wrap align-items-center comment-activity">\
                                             <a href="javascript:void();">like</a>';
-            // <a href="javascript:void();">reply</a>\
-            // <a href="javascript:void();">translate</a>\
-            string += ' <span> ' + feed.buzz_comments[i].timestamp + ' </span>\
+        // <a href="javascript:void();">reply</a>\
+        // <a href="javascript:void();">translate</a>\
+        string += ' <span> ' + feed.buzz_comments[i].timestamp + ' </span>\
                                             </div>\
                                         </div>\
                                     </div>\
                                 </li>\
             ';
-        }
     }
 
 
@@ -237,7 +213,7 @@ function postTemplateStart(feed) {
                     </div>\
                 </li> -->\
             </ul>\
-            <div class="align-items-center" id="feed-' + feed.buzz_id + '"> <a href="javascript:void();">View All Comments</a></div>\
+            <divclass="align-items-center"> <a href="single-post.html">View All Comments</a></div>\
             <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
                 <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" >\
                 <div class="comment-attagement d-flex">\
@@ -255,258 +231,33 @@ function postTemplateStart(feed) {
     return string;
 }
 
-
-function saveBuzz(buzzid) {
-    console.log("Saving Post : " + buzzid);
-    // if user is not signed in 
-    if (getLocalStorage(USER) == "true") {
-        // ajax call
-    } else {
-        alert("Please sign in.");
-    }
-}
-
-function hideBuzz(buzzid) {
-    console.log("Hide Post : " + buzzid);
-    // if user is not signed in 
-    if (getLocalStorage(USER) == "true") {
-        // ajax call
-    } else {
-        alert("Please sign in.");
-    }
-}
-
-var follow = 0
-
-function followUnfollowClick(feedid) {
-    // if user is not signed in 
-    if (getLocalStorage(USER) == "true") {
-        // ajax call
-        let buzz = getJSONLocalStorage(ALL_BUZZ);
-        //check if buzz username is in follow list of user
-        if (follow == 0) {
-            followUser(feedid);
-        } else {
-            unfollowUser(feedid);
+function initSingleBuzzPage() {
+    renderTopRight();
+    renderTopMiddle();
+    renderLeftBar();
+    let feed;
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    let curr_buzz = getLocalStorage(CURR_BUZZ);
+    for (let i = 0; i < buzz.length; i++) {
+        if (buzz[i].buzz_id == curr_buzz) {
+            feed = buzz[i];
         }
-    } else {
-        alert("Please sign in.");
     }
-}
-
-
-function followUser(feedid) {
-    console.log("Follow User : ");
-    //ajax call
-    //on success
-    updateFollowStatus(username, feedid, 1);
-}
-
-function unfollowUser(feedid) {
-    console.log("Unfollow User : ");
-    //ajax call
-    //on success
-    updateFollowStatus(username, feedid, 0);
-}
-
-var buzzFollowed = 0
-
-function setUnsetBuzzNotification(buzzid) {
-    // if user is not signed in 
-    if (getLocalStorage(USER) == "true") {
-        // ajax call
-        //check if buzz is already followed
-        if (buzzFollowed == 0) {
-            setBuzzNotification(buzzid);
-        } else {
-            unsetBuzzNotification(buzzid);
-        }
-    } else {
-        alert("Please sign in.");
-    }
-}
-
-function setBuzzNotification(buzzid) {
-    console.log("Set notification For : " + buzzid);
-}
-
-function unsetBuzzNotification(buzzid) {
-    console.log("Unset notification For : " + buzzid);
-}
-
-function upvoteBuzzByFeedId(feedid) {
-    // if user is not signed in 
-    if (getLocalStorage(USER) == "true") {
-
-        //check if already upvoted
-        let buzz = getJSONLocalStorage(ALL_BUZZ);
-        let buzz_upvotes = [];
-        for (let i = 0; i < buzz.length; i++) {
-            if (buzz[i].buzz_id == feedid) {
-                buzz_upvotes = buzz[i].buzz_upvotes;
+    console.log(feed);
+    document.getElementById('single-post-content').innerHTML = singleBuzzLoad(feed);
+    let inputCommentField = document.getElementById("commentinput-" + getLocalStorage(CURR_BUZZ));
+    inputCommentField.addEventListener("keydown", function(e) {
+        if (e.keyCode == 13) {
+            console.log("enter")
+                // if user is not signed in 
+            if (getLocalStorage(USER) == "true") {
+                console.log('running');
+                let feedid = getLocalStorage(CURR_BUZZ);
+                addComment(feedid, inputCommentField.value);
+                inputCommentField.value = "";
+            } else {
+                alert("Please sign in.")
             }
         }
-
-        let uName = getUserDetails().uname;
-        console.log(buzz_upvotes);
-
-        let flag = 0;
-        for (let j = 0; j < buzz_upvotes.length; j++) {
-            if (buzz_upvotes[j].username == uName) {
-                flag = 1;
-            }
-        }
-        if (flag == 1) {
-            //call unlike api
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/removeUpvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    //data.votes will be array of upvotes
-                    notifyUpvotesSinglePost(data.upvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
-        } else {
-            //call like api
-            //ajax
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/upvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    notifyUpvotesSinglePost(data.upvotes, feedid);
-                    notifyDownvotesSinglePost(data.downvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
-        }
-
-        // highlight icon as upvoted   
-    } else {
-        alert("Please sign in.")
-    }
+    })
 }
-
-
-function downvoteBuzzByFeedId(feedid) {
-    // if user is not signed in 
-    if (getLocalStorage(USER) == "true") {
-
-        let buzz = getJSONLocalStorage(ALL_BUZZ);
-        let buzz_downvotes = [];
-        for (let i = 0; i < buzz.length; i++) {
-            if (buzz[i].buzz_id == feedid) {
-                buzz_downvotes = buzz[i].buzz_downvotes;
-            }
-        }
-        let uName = getUserDetails().uname;
-
-        let flag = 0;
-        for (let j = 0; j < buzz_downvotes.length; j++) {
-            if (buzz_downvotes[j].username == uName) {
-                flag = 1;
-            }
-        }
-        if (flag == 1) {
-            //call removeDownvote
-            //ajax
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/removeDownvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    notifyDownvotesSinglePost(data.downvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
-        } else {
-            // highlight icon as downvoted
-            //ajax
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/downvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    notifyDownvotesSinglePost(data.downvotes, feedid);
-                    notifyUpvotesSinglePost(data.upvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
-        }
-    } else {
-        alert("Please sign in.")
-    }
-}
-
-
-// function unfollowUser(id) {
-//     console.log('unfollow');
-//     let postId = id.slice(9, id.length);
-//     let posts = getJSONLocalStorage(POSTS);
-
-//     for (let i = 0; i < posts.length; i++) {
-//         if (posts[i].feedid == postId) {
-//             posts[i].buzz_followed = false;
-//             setJSONLocalStorage(POSTS, posts);
-//             break;
-//         }
-//     }
-//     fetchPost();
-// }
-
-// function followUser(id) {
-//     console.log('follow');
-//     let postId = id.slice(7, id.length);
-//     let posts = getJSONLocalStorage(POSTS);
-
-//     for (let i = 0; i < posts.length; i++) {
-//         if (posts[i].feedid == postId) {
-//             break;
-//         }
-//     }
-
-//     //api call
-//     $.ajax({
-//         type: 'POST',
-//         url: SERVER_URL + 'feed/feedUpvote',
-//         data: {
-//             followed_by: user.username,
-//             followes_to: posts[i].username
-//         },
-//         success: function(data) {
-//             console.log(data);
-//             posts[i].buzz_followed = true;
-//             setJSONLocalStorage(POSTS, posts);
-
-//             fetchPost();
-//         },
-//         error: function(data) {
-//             console.log(data);
-//         }
-//     });
-
-
-
-// }

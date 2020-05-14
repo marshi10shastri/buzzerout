@@ -81,7 +81,7 @@ function updateUserProfileDetails(data) {
     setLocalStorage(L_NAME, data.last_name);
     setLocalStorage(P_IMAGE, data.user_profile_image);
     setLocalStorage(T_IMAGE, data.user_timeline_image);
-    setLocalStorage(WEBSITE, data.website);
+    setLocalStorage(WEBSITE, data.user_website);
     setLocalStorage(U_SOCIAL_LINK, data.user_social_link);
 }
 

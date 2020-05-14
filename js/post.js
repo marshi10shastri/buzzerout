@@ -177,10 +177,8 @@ function createPost() {
     // ------------------------------------------
 }
 
-var feedInputArray = [];
 
 function fetchPost() {
-    feedInputArray = [];
 
     let user = getJSONLocalStorage(USER_INFO);
     let inhtml = document.getElementById("posting-area");

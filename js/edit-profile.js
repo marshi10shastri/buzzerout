@@ -7,6 +7,7 @@ function initProfileEdit() {
 }
 
 function uploadProfileImage() {
+    let user = getUserProfileDetails();
     let file = document.getElementById('profile-image-upload').files[0];
 
     if (file) {
@@ -38,9 +39,9 @@ function uploadProfileImage() {
                         console.log(response);
                         //set profile image as
                         if (response.error == false) {
-                            user.userimage = response.profile_detail.user_profile_image;
-                            setJSONLocalStorage(USER_INFO, user);
-                            setProfileNameImage();
+                            user.pImage = response.profile_detail.user_profile_image;
+                            // setProfileNameImage(response.profile_detail);
+                            updateUserProfileDetails(response.profile_detail);
                         } else {
                             console.log('error occured');
                         }
@@ -212,7 +213,7 @@ function editPersonalInfo() {
 
     //ajax call to edit profile.
     $.ajax({
-        type:'POST',
+        type: 'POST',
         url: SERVER_URL + 'profile/updateProfile',
         data: {
             username: unameIn,
@@ -225,15 +226,15 @@ function editPersonalInfo() {
             dob: dobIn,
             marital: maritalIn
         },
-        success: function(response){
-            if(response.error == false){
+        success: function(response) {
+            if (response.error == false) {
                 console.log(response);
-                 //update function calls.
+                //update function calls.
                 let userDetails = {
-                    username: unameIn,
-                    email: getUserDetails().email
-                }
-                //console userdetails
+                        username: unameIn,
+                        email: getUserDetails().email
+                    }
+                    //console userdetails
                 console.log(userDetails);
                 updateUserDetails(userDetails);
 
@@ -252,13 +253,13 @@ function editPersonalInfo() {
                         user_timeline_image: getUserProfileDetails().tImage,
                         user_social_link: getUserProfileDetails().social,
                         website: getUserProfileDetails().website
-                }
-                //console profile
+                    }
+                    //console profile
                 console.log(profile);
                 updateUserProfileDetails(profile);
             }
         },
-        error: function(response){
+        error: function(response) {
             console.log(response);
         }
     });
@@ -295,7 +296,7 @@ function enablePersonalInputs() {
     document.getElementById("state-edit-dropdown").disabled = false;
 }
 
-function setInputValues(){
+function setInputValues() {
     document.getElementById('pedit-profile-image').src = getUserProfileDetails().pImage;
     document.getElementById("fnameIn").value = getUserProfileDetails().fName;
     document.getElementById("lnameIn").value = getUserProfileDetails().lName;
@@ -308,17 +309,16 @@ function setInputValues(){
     document.getElementById("state-edit-dropdown").value = getUserProfileDetails().state;
 
     let g = getUserProfileDetails().gender;
-    if(g == 'Male'){
+    if (g == 'Male') {
         document.getElementById("customRadio6").checked = true;
         document.getElementById("customRadio7").checked = false;
-    }
-    else{
+    } else {
         document.getElementById("customRadio6").checked = false;
         document.getElementById("customRadio7").checked = true;
     }
 }
 
-function hideSubmitBtn(){
+function hideSubmitBtn() {
     document.getElementById('edit-submit-btn').style.display = "none";
     document.getElementById('edit-reset-btn').style.display = "none";
     document.getElementById('edit-profile-btn').style.display = "inline-block";
@@ -327,7 +327,7 @@ function hideSubmitBtn(){
     disablePersonalInputs();
 }
 
-function showSubmitBtn(){
+function showSubmitBtn() {
     document.getElementById('edit-profile-btn').style.display = "none";
     document.getElementById('edit-submit-btn').style.display = "inline-block";
     document.getElementById('edit-reset-btn').style.display = "inline-block";
@@ -336,7 +336,7 @@ function showSubmitBtn(){
     enablePersonalInputs();
 }
 
-function cancelEdit(){
+function cancelEdit() {
     //call setter func
     setInputValues();
     //call edit btn func
