@@ -4,6 +4,7 @@ function initProfileEdit() {
     renderProfileEditTopMiddle();
     setInputValues();
     hideSubmitBtn();
+    hideUploadPimageBtn();
 }
 
 function uploadProfileImage() {
@@ -42,6 +43,10 @@ function uploadProfileImage() {
                             user.pImage = response.profile_detail.user_profile_image;
                             // setProfileNameImage(response.profile_detail);
                             updateUserProfileDetails(response.profile_detail);
+
+                            //update header
+                            renderProfileEditTopRight();
+                            hideUploadPimageBtn();
                         } else {
                             console.log('error occured');
                         }
@@ -341,4 +346,12 @@ function cancelEdit() {
     setInputValues();
     //call edit btn func
     hideSubmitBtn();
+}
+
+function showUploadPimageBtn(){
+    document.getElementById('upload-pImage-button').style.display = 'inline-block';
+}
+
+function hideUploadPimageBtn(){
+    document.getElementById('upload-pImage-button').style.display = 'none';
 }
