@@ -188,3 +188,16 @@ function getPostFromFeedId(feedid){
         }
     }
 }
+
+function getPostByUsername(username){
+
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    let posts = [];
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_username == username){
+            posts.push(buzz[i]);
+        }
+    }
+
+    return posts;
+}

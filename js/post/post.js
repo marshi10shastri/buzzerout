@@ -232,45 +232,46 @@ function editSinglePost(editFeed) {
 // Template
 
 
-function updateFollowStatus(userName, feedid, followStatus) {
-    let followingList = getUserFollowing();
-
-    if(followStatus == 1){
-        followingList.push(userName);
-    }
-    else{
-        let userInd = followingList.indexOf(userName);
-        followingList.splice(userInd, 1);
-    }
-
+function updateFollowStatus(followingList, userName, followStatus) {
     updateUserFollowing(followingList);
-    showFollowUpdate(feedid, followStatus);
+    showFollowUpdate(userName, followStatus);
 }
 
-function showFollowUpdate(feedid, followStatus) {
-    let feed;
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-    for(let i=0; i<buzz.length; i++){
-        if(feedid == buzz[i].buzz_id){
-            feed = buzz[i];
+function showFollowUpdate(username, followStatus) {
+    console.log('andar aaya')
+    let feeds = getPostByUsername(username);
+
+    if (followStatus == 1) {
+        console.log('ab unfollow likha aayega');
+        for(let i=0; i<feeds.length; i++){
+            var div = document.getElementById('follow-option-' + feeds[i].buzz_id);
+            div.innerHTML = '';
+                div.innerHTML = '<a class="dropdown-item p-3" onclick="unfollowUser(\'' + feeds[i].buzz_id + '\')">\
+                <div class="d-flex align-items-top">\
+                    <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+                    <div class="data ml-2">\
+                        <h6> Unfollow User </h6>\
+                        <p class="mb-0">Stop seeing posts from '+ feeds[i].buzz_username +'.</p>\
+                    </div>\
+                </div></a>';
         }
     }
-
-    let div = document.getElementById('follow-option-' + feedid);
-    div.innerHTML = '';
-    if (followStatus == 1) {
-        div.innerHTML = '<div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
-        <div class="data ml-2">\
-            <h6> Unfollow User </h6>\
-            <p class="mb-0">Stop seeing posts from '+ feed.buzz_username +'.</p>\
-        </div>';
-    } else {
-        div.innerHTML = '<div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
-        <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
-                                    <div class="data ml-2">\
-                                        <h6>Follow User</h6>\
-                                        <p class="mb-0">See more posts from '+ feed.buzz_username +'.</p>\
-                                    </div>';
+    else {
+        console.log('ab follow likha aayega');
+        for(let i=0; i<feeds.length; i++){
+            var div = document.getElementById('follow-option-' + feeds[i].buzz_id);
+            div.innerHTML = '';
+        div.innerHTML = '<a class="dropdown-item p-3" onclick="followUser(\'' + feeds[i].buzz_id + '\')">\
+        <div class="d-flex align-items-top">\
+            <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+            <div class="data ml-2">\
+                <h6>Follow User</h6>\
+                <p class="mb-0">See more posts from '+ feeds[i].buzz_username +'.</p>\
+            </div>\
+        </div>\
+    </a>';
+    }
     }
 
+    console.log(getUserFollowing());
 }

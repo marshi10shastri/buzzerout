@@ -53,7 +53,7 @@ function postTemplateStart(feed) {
                                 </div>\
                             </a>';
     } else {
-        if(getUserFollowing().includes(feed.buzz_username)){
+        if(containsFollowing(feed.buzz_username)){
             string += '<span id="follow-option-' + feed.buzz_id + '"><a class="dropdown-item p-3" onclick="unfollowUser(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
@@ -338,12 +338,15 @@ function followUser(feedid) {
             },
 
             success: function(data){
+                console.log(data);
                 if(data.error == false){
                     //on success
-                    updateFollowStatus(username, feedid, 1);
+                    console.log(data);
+                    updateFollowStatus(data.following, username, 1);
                 }
                 else{
                     console.log('error following');
+                    console.log(data)
                 }
             },
             error: function(data){
@@ -365,18 +368,20 @@ function unfollowUser(feedid) {
         //ajax call
         $.ajax({
             type:'POST',
-            url:SERVER_URL + 'follow/newFollow',
+            url:SERVER_URL + 'follow/deleteFollowing',
             data:{
-                followed_by: getUserDetails().uname,
-                followes_to: username
+                username: getUserDetails().uname,
+                user_to_deleted: username
             },
 
             success: function(data){
                 if(data.error == false){
                     //on success
-                    updateFollowStatus(username, feedid, 0);
+                    console.log(data);
+                    updateFollowStatus(data.following, username, 0);
                 }
                 else{
+                    console.log(data);
                     console.log('error following');
                 }
             },
@@ -546,4 +551,15 @@ function downvoteBuzzByFeedId(feedid) {
 //deletPost clicked
 function deletePostClick(feedid){
     alert(feedid + 'clicked');
+}
+
+function containsFollowing(username){
+    //checks if current user follows input username
+    let fList = getUserFollowing();
+    for(let i=0; i<fList.length; i++){
+        if(fList[i].name == username){
+            return true;
+        }
+    }
+    return false;
 }
