@@ -181,7 +181,7 @@ function createPost() {
 
 function fetchPost() {
 
-    let user = getJSONLocalStorage(USER_INFO);
+    let user = getUserDetails().uname;
     let inhtml = document.getElementById("posting-area");
 
     inhtml.innerHTML = "";
@@ -189,7 +189,9 @@ function fetchPost() {
         type: "POST",
         url: "http://buzzerout.com/buzzerout_server/v1/feed/fetchAllFeed",
         crossDomain: true,
-        data: {},
+        data: {
+            username: user
+        },
         success: function(resp) {
             console.log(resp);
 

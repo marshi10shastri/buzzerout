@@ -11,7 +11,7 @@ function renderProfileHeader(){
             window.location = 'https://www.facebook.com/' + getUserSocialDetails().facebook;
         });
 
-        document.getElementById('no-of-posts').innerText = '3'; //no. of posts of user
+        document.getElementById('no-of-posts').innerText = getPostByUsername(getUserDetails().uname).length; //no. of posts of user
         document.getElementById('num-followers').innerText = getUserFollowers().length; //no. of followers
         document.getElementById('num-following').innerText = getUserFollowing().length; //no.of following
 }
