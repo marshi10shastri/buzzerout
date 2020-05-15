@@ -126,7 +126,7 @@ function createPost() {
                     success: function(data) {
                         console.log(data);
                         let feedId = data.feedid;
-                        var post = [{
+                        var post = {
                             feedid: data.feedid,
                             buzz_username: getUserDetails().uname,
                             // username: getJSONLocalStorage(USER_INFO).username,
@@ -137,11 +137,12 @@ function createPost() {
                             timestamp: "Just Now",
                             likes: 0,
                             comments: [],
-                        }, ];
-                        var local_posts = getJSONLocalStorage(POSTS);
-                        setJSONLocalStorage(POSTS, post.concat(local_posts));
+                        };
+                        showCreatedBuzz(post);
+                        // var local_posts = getJSONLocalStorage(POSTS);
+                        // setJSONLocalStorage(POSTS, post.concat(local_posts));
                         document.getElementById("close-modal").click();
-                        fetchPost();
+                        // fetchPost();
                         // fetchTimelinePosts();
 
                         //upload image to feed
