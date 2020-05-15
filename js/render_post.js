@@ -156,8 +156,7 @@ function postTemplateStart(feed) {
                             <div class="dropdown">\
                                 <span id="upvote-count-' + feed.buzz_id + '" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
     string += feed.buzz_upvotes.length
-    string += ' Upvotes\
-                    </span>\
+    string += ' </span>\
                             </div>\
                         </div>\
                     <div class="like-data">\
@@ -180,14 +179,13 @@ function postTemplateStart(feed) {
                             <div class="dropdown">\
                                 <span id="downvote-count-' + feed.buzz_id + '" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
     string += feed.buzz_downvotes.length
-    string += ' Downvotes\
-                    </span>\
+    string += ' </span>\
                             </div>\
                         </div>\
                     </div>\
                     <div class="total-comment-block">\
                         <div class="dropdown">\
-                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" role="button">';
+                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" role="button" id="comment-count-'+feed.buzz_id+'">';
     string += feed.buzz_comments.length
     string += ' Comment\
                  </span>\
