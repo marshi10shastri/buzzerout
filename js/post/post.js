@@ -165,6 +165,8 @@ function updateCommentToPost(id, ifSinglePost) {
                     commentsDiv.innerHTML += string;
                 }
             }
+            let commentCountSpan = document.getElementById("comment-count-" + id)
+            commentCountSpan.textContent = comments.length + ' Comments';
         }
     }
 }
