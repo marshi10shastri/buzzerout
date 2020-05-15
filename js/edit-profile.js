@@ -5,6 +5,9 @@ function initProfileEdit() {
     setInputValues();
     hideSubmitBtn();
     hideUploadPimageBtn();
+
+    setContactInputValues();
+    hideContactSubmit();
 }
 
 function uploadProfileImage() {
@@ -400,4 +403,87 @@ function changePassword(){
         alert("new pass and verify not same");
     }
     console.log('bahar');
+}
+
+
+function setContactInputValues(){
+    let profile = getUserProfileDetails();
+    document.getElementById('cno').value = profile.mob;
+    document.getElementById('social-inp').value = profile.social;
+    document.getElementById('url').value = profile.website;
+}
+//manage contact
+function manageContact(){
+    let contact = document.getElementById('cno').value;
+    let socialLink = document.getElementById('social-inp').value;
+    let website = document.getElementById('url').value;
+    let profile = getUserProfileDetails();
+    //ajax
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'profile/updateUserWebsiteLink',
+        data:{
+            username: getUserDetails().uname,
+            phone_no: contact,
+            social_link: socialLink,
+            website_url: website
+        },
+        success: function(data){
+            console.log(data);
+            if(data.error == false){
+                profile.mob = contact;
+                profile.website = website;
+                profile.social = socialLink;
+
+                setLocalStorage(MOBILE, contact);
+                setLocalStorage(WEBSITE, website);
+                setLocalStorage(U_SOCIAL_LINK, socialLink);
+                setContactInputValues();
+                hideContactSubmit();
+            }
+            else{
+                console.log('error');
+            }
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
+}
+
+function showContactSubmit(){
+    let submitBtn = document.getElementById('submitContact');
+    let cancelBtn = document.getElementById('cancelContact');
+    let editBtn = document.getElementById('editContact');
+
+    let contact = document.getElementById('cno');
+    let socialLink = document.getElementById('social-inp');
+    let website = document.getElementById('url');
+
+    submitBtn.style.display = 'inline-block';
+    cancelBtn.style.display = 'inline-block';
+    editBtn.style.display = 'none';
+
+    contact.disabled = false;
+    socialLink.disabled = false;
+    website.disabled = false;
+}
+
+function hideContactSubmit(){
+    setContactInputValues();
+    let submitBtn = document.getElementById('submitContact');
+    let cancelBtn = document.getElementById('cancelContact');
+    let editBtn = document.getElementById('editContact');
+
+    let contact = document.getElementById('cno');
+    let socialLink = document.getElementById('social-inp');
+    let website = document.getElementById('url');
+
+    submitBtn.style.display = 'none';
+    cancelBtn.style.display = 'none';
+    editBtn.style.display = 'inline-block';
+
+    contact.disabled = true;
+    socialLink.disabled = true;
+    website.disabled = true;
 }

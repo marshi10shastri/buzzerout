@@ -1703,7 +1703,7 @@
 
                                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
 
-                                                <button type="reset" class="btn iq-bg-danger">Cancle</button>
+                                                <button type="reset" class="btn iq-bg-danger">Cancel</button>
 
                                             </form>
 
@@ -1729,7 +1729,7 @@
 
                                         <div class="iq-card-body">
 
-                                            <form>
+                                            <div>
 
                                                 <div class="form-group">
 
@@ -1741,9 +1741,9 @@
 
                                                 <div class="form-group">
 
-                                                    <label for="email">Email:</label>
+                                                    <label for="social-inp">Social:</label>
 
-                                                    <input type="text" class="form-control" id="email" value="Bnijone@demo.com">
+                                                    <input type="text" class="form-control" id="social-inp" value="Bnijone@demo.com">
 
                                                 </div>
 
@@ -1755,11 +1755,13 @@
 
                                                 </div>
 
-                                                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                                <button onclick="manageContact()" class="btn btn-primary mr-2" id="submitContact">Submit</button>
 
-                                                <button type="reset" class="btn iq-bg-danger">Cancle</button>
+                                                <button onclick="hideContactSubmit()" class="btn iq-bg-danger" id="cancelContact">Cancel</button>
 
-                                            </form>
+                                                <button onclick="showContactSubmit()" class="btn btn-primary mr-2" id="editContact">Edit Details</button>
+
+                                            </div>
 
                                         </div>
 
