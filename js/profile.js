@@ -382,8 +382,15 @@ function showProfilePosts() {
             timeline_post_commentNo(tposts[i].buzz_comments.length);
 
         if (tposts[i].buzz_comments.length > 0) {
-            for (let j = 0; j < tposts[i].buzz_comments.length; j++) {
-                timelinePostBox += timeline_post_comment(tposts[i].buzz_comments[j].commentImg, tposts[i].buzz_comments[j].username, tposts[i].buzz_comments[j].text, tposts[i].buzz_comments[j].timestamp);
+            if(tposts[i].buzz_comments.length < 5){
+                for (let j = 0; j < tposts[i].buzz_comments.length; j++) {
+                    timelinePostBox += timeline_post_comment(tposts[i].buzz_comments[j].commentImg, tposts[i].buzz_comments[j].username, tposts[i].buzz_comments[j].text, tposts[i].buzz_comments[j].timestamp);
+                }
+            }
+            else{
+                for (let j = tposts[i].buzz_comments.length -5 ; j < tposts[i].buzz_comments.length; j++) {
+                    timelinePostBox += timeline_post_comment(tposts[i].buzz_comments[j].commentImg, tposts[i].buzz_comments[j].username, tposts[i].buzz_comments[j].text, tposts[i].buzz_comments[j].timestamp);
+                }
             }
         }
 
