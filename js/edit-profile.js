@@ -355,3 +355,49 @@ function showUploadPimageBtn(){
 function hideUploadPimageBtn(){
     document.getElementById('upload-pImage-button').style.display = 'none';
 }
+
+
+
+// password change section
+function changePassword(){
+    console.log('andar aaya');
+    let currPass = document.getElementById('cpass').value;
+    let newPass = document.getElementById('npass').value;
+    let verifyPass = document.getElementById('vpass').value;
+
+    if(newPass === verifyPass){
+        if(currPass === newPass){
+            //ajax call
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + 'user/resetPassword',
+                data: {
+                    username: getUserDetails().uname,
+                    old_password: currPass,
+                    new_password: newPass
+                },
+
+                success: function(data){
+                    if(data.error == false){
+                        alert('changed');
+                        console.log(data)
+                    }else{
+                        console.log("Error");
+                        console.log(data);
+                    }
+                },
+                error: function(data){
+                    alert('api error');
+                    console.log(data);
+                }
+            });
+        }
+        else{
+            alert('new password and current password field cannot be same');
+        }
+    }
+    else{
+        alert("new pass and verify not same");
+    }
+    console.log('bahar');
+}

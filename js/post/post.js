@@ -230,28 +230,45 @@ function editSinglePost(editFeed) {
 // Template
 
 
-function updateFollowStatus(userList, feedid, followStatus) {
-    //take follow list of current user from local storage,
-    //update list from userList input
-    // update local storage
+function updateFollowStatus(userName, feedid, followStatus) {
+    let followingList = getUserFollowing();
 
+    if(followStatus == 1){
+        followingList.push(userName);
+    }
+    else{
+        let userInd = followingList.indexOf(userName);
+        followingList.splice(userInd, 1);
+    }
+
+    updateUserFollowing(followingList);
     showFollowUpdate(feedid, followStatus);
 }
 
 function showFollowUpdate(feedid, followStatus) {
+    let feed;
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    for(let i=0; i<buzz.length; i++){
+        if(feedid == buzz[i].buzz_id){
+            feed = buzz[i];
+        }
+    }
+
     let div = document.getElementById('follow-option-' + feedid);
+    div.innerHTML = '';
     if (followStatus == 1) {
         div.innerHTML = '<div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
         <div class="data ml-2">\
-            <h6>Unfollow User</h6>\
-            <p class="mb-0">You wont get any posts from this user.</p>\
+            <h6> Unfollow User </h6>\
+            <p class="mb-0">Stop seeing posts from '+ feed.buzz_username +'.</p>\
         </div>';
     } else {
         div.innerHTML = '<div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
-        <div class="data ml-2">\
-            <h6>Follow User</h6>\
-            <p class="mb-0">See more posts from this user.</p>\
-        </div>';
+        <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+                                    <div class="data ml-2">\
+                                        <h6>Follow User</h6>\
+                                        <p class="mb-0">See more posts from '+ feed.buzz_username +'.</p>\
+                                    </div>';
     }
 
 }
