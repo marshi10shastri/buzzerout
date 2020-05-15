@@ -175,7 +175,16 @@ function updateUserFollowing(data){
     setJSONLocalStorage(FOLLOWING, data);
 }
 
-function getUserFollowers(){
+function getUserFollowing(){
     let following = getJSONLocalStorage(FOLLOWING);
     return following;
+}
+
+function getPostFromFeedId(feedid){
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            return buzz[i];
+        }
+    }
 }

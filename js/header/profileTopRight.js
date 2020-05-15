@@ -1,6 +1,6 @@
 function renderProfileTopRight(){
         document.getElementById('navbarSupportedContent').style.visibility = 'visible';
-        document.getElementById('person-name').textContent = getUserProfileDetails().fName;
+        document.getElementById('profile-person-name').textContent = getUserProfileDetails().fName;
         document.getElementById('topnav-profile-user-image').src = getUserProfileDetails().pImage;
         document.getElementById('topnav-friend-icon').style.display = 'none';
         document.getElementById('topnav-messages-dropdown').style.display = 'none';
