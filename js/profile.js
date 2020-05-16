@@ -372,19 +372,22 @@ function showProfilePosts() {
     }
     setJSONLocalStorage(T_POSTS, tposts);
     console.log(getJSONLocalStorage(T_POSTS));
-    // let user = getJSONLocalStorage(USER_INFO);
     var timelinePostBox = document.getElementById('timeline-posts').innerHTML;
     timelinePostBox = "";
 
     if(tposts.length == 0){
         timelinePostBox = timeline_post_template_no_post();
     }
+
+    document.getElementById('timeline-posts').innerHTML = '';
     for (let i = 0; i < tposts.length; i++) {
-        timelinePostBox += timeline_post_basics(tposts[i]);
+        // single tl post mapper
+        singleTimelinePostMapper(tposts[i]);
+
         TfeedInputArray.push("commentinput-" + tposts[i].buzz_id);
     }
 
-    document.getElementById('timeline-posts').innerHTML = timelinePostBox;
+    // document.getElementById('timeline-posts').innerHTML = timelinePostBox;
     for (let j = 0; j < TfeedInputArray.length; j++) {
         let inputCommentField = document.getElementById(TfeedInputArray[j]);
         inputCommentField.addEventListener("keydown", function(e) {
@@ -392,7 +395,7 @@ function showProfilePosts() {
                 // if user is not signed in 
                 if (getLocalStorage(USER) == "true") {
                     let feedid = TfeedInputArray[j].split("-")[1];
-                    addComment(feedid, inputCommentField.value);
+                    addCommentTimeline(feedid, inputCommentField.value, false);
                     inputCommentField.value = "";
                 } else {
                     alert("Please sign in.")
@@ -400,6 +403,195 @@ function showProfilePosts() {
             }
         });
     }
+}
+
+//function single post mapper
+function singleTimelinePostMapper(post){
+    let timelinePostBox = document.getElementById('timeline-posts');
+    timelinePostBox.innerHTML += timeline_post(post);
+}
+
+function addCommentTimeline(feedid, commentData, ifSinglePost){
+    console.log("adding comment");
+    $.ajax({
+        type: "POST",
+        url: SERVER_URL + "comment/addComment",
+        data: {
+            user_id: getUserDetails().uname,
+            text: commentData,
+            feed_id: feedid,
+        },
+        success: function(response) {
+            console.log(response);
+            let resp = {
+                buzz_id: feedid,
+                buzz_comments: response.comments,
+            };
+            addCommentToSingleTimelinePost(resp, ifSinglePost);
+        },
+        error: function(response) {
+            console.log(response);
+        },
+    });
+}
+
+function addCommentToSingleTimelinePost(data, ifSinglePost){
+    //update local
+    let buzz = getJSONLocalStorage(T_POSTS);
+    for (let i = 0; i < buzz.length; i++) {
+        if (buzz[i].buzz_id == data.buzz_id) {
+            console.log("Changed");
+            buzz[i].buzz_comments = data.buzz_comments;
+
+            //update local all posts
+            setJSONLocalStorage(T_POSTS, buzz);
+            updateLocalStoragePosts(buzz[i]);
+        }
+    }
+
+    //edit html (render)
+    updateCommentToTimelinePost(data.buzz_id, ifSinglePost);
+}
+
+function updateCommentToTimelinePost(id, ifSinglePost) {
+    let commentsDiv = document.getElementById('Tcommentslist-' + id);
+
+    let feed = getJSONLocalStorage(T_POSTS);
+
+    for (let i = 0; i < feed.length; i++) {
+        if (feed[i].buzz_id == id) {
+            console.log(feed[i])
+            commentsDiv.innerHTML = "";
+            let comments = feed[i].buzz_comments;
+            let len = comments.length;
+            if (len > 5 && !ifSinglePost) {
+                for (let j = 0; j < 5; j++) {
+                    let string =`<li class="mb-2">
+
+                    <div class="d-flex flex-wrap">
+        
+                        <div class="user-img">
+        
+                            <img src=` + feed[i].buzz_comments[j].commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
+        
+                                </div>
+        
+                            <div class="comment-data-block ml-3">
+        
+                                <h6>` + feed[i].buzz_comments[j].username + `</h6>
+        
+                                <p class="mb-0">` + feed[i].buzz_comments[j].text + `</p>
+        
+                                <div class="d-flex flex-wrap align-items-center comment-activity">
+        
+                                    <span> ` + feed[i].buzz_comments[j].timestamp + `  </span>
+        
+                                </div>
+        
+                            </div>
+        
+                        </div>
+        
+                        </li>`;
+                    commentsDiv.innerHTML += string;
+                }
+            } else {
+                for (let j = 0; j < len; j++) {
+                    let string =`<li class="mb-2">
+
+                    <div class="d-flex flex-wrap">
+        
+                        <div class="user-img">
+        
+                            <img src=` + feed[i].buzz_comments[j].commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
+        
+                                </div>
+        
+                            <div class="comment-data-block ml-3">
+        
+                                <h6>` + feed[i].buzz_comments[j].username + `</h6>
+        
+                                <p class="mb-0">` + feed[i].buzz_comments[j].text + `</p>
+        
+                                <div class="d-flex flex-wrap align-items-center comment-activity">
+        
+                                    <span> ` + feed[i].buzz_comments[j].timestamp + `  </span>
+        
+                                </div>
+        
+                            </div>
+        
+                        </div>
+        
+                        </li>`;
+                    commentsDiv.innerHTML += string;
+                }
+            }
+            let commentCountSpan = document.getElementById("Tcomment-count-" + id)
+            commentCountSpan.textContent = comments.length + ' Comments';
+        }
+    }
+}
+//update comments
+//update text
+//upvote downvote update
+function notifyTUpvotesSinglePost(votes, feedid){
+    let post = getPostFromFeedId(feedid);
+    post.buzz_upvotes = votes;
+
+    updateLocalStoragePosts(post)
+    updateUpvotesSingleTPost(feedid);
+}
+
+function updateUpvotesSingleTPost(feedid){
+    let upvoteSpan = document.getElementById('Tupvote-count-' + feedid);
+    let buzz = getPostFromFeedId(feedid);
+    upvoteSpan.innerText = buzz.buzz_upvotes.length;
+}
+
+function notifyTDownvotesSinglePost(votes, feedid) {
+    let post = getPostFromFeedId(feedid);
+    post.buzz_downvotes = votes;
+
+    updateLocalStoragePosts(post)
+    updateDownvotesSingleTPost(feedid);
+}
+
+function updateDownvotesSingleTPost(feedid) {
+    let downvoteSpan = document.getElementById('Tdownvote-count-' + feedid);
+    let buzz = getPostFromFeedId(feedid);
+    downvoteSpan.innerText = buzz.buzz_downvotes.length;
+}
+
+//delete post
+function updateDeleteTPost(feedid){
+    console.log('set karne aaya')
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    let post = getJSONLocalStorage(T_POSTS);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            buzz.splice(i,1);
+            break;
+        }
+    }
+    for(let i=0; i<post.length; i++){
+        if(post[i].buzz_id == feedid){
+            post.splice(i,1);
+            break;
+        }
+    }
+    setJSONLocalStorage(T_POSTS, post);
+    setJSONLocalStorage(ALL_BUZZ, buzz);
+
+    console.log('show delete call');
+    showDeleteTPost(feedid);
+}
+
+function showDeleteTPost(feedid){
+    console.log('aaya show delete me');
+    let div = document.getElementById(feedid);
+    div.remove();
+    console.log('removed');
 }
 
 function profileImageUpload() {

@@ -308,9 +308,7 @@ function timeline_write_post(userimage) {
 var post = '';
 
 function timeline_post(feed) {
-    post = `<div class="iq-card" id="`+feed.buzz_id+`">
-    <div class="iq-card-body">
-    <div class="post-item">
+    post = `<div class="post-item">
 
     <div class="user-post-data p-3">
 
@@ -396,12 +394,11 @@ function timeline_post(feed) {
 
                                 </div>
 
-                            </a>`;
+                            </a>
 
- post +=                           '<a class="dropdown-item p-3" href="#" onclick="deleteTPostClick(\'' + feed.buzz_id + '\')">';
+                            <a class="dropdown-item p-3" href="#">
 
-
- post+=                              ` <div class="d-flex align-items-top">
+                                <div class="d-flex align-items-top">
 
                                     <div class="icon font-size-20"><i class="ri-delete-bin-7-line"></i></div>
 
@@ -443,54 +440,76 @@ function timeline_post(feed) {
 
             </div>
 
-        </div>
-        <div class="mt-3">
-        <p id="timeline_buzz_description_` + feed.buzz_id + `">` + feed.buzz_description + `</p>
         </div>`;
 
     if (feed.buzz_images.length > 0) {
         post += `<div class="user-post">
 
         <a href="javascript:void();"><img src=` + feed.buzz_images[0] + ` alt="post-image" class="img-fluid w-100" /></a>
+        <p>` + feed.buzz_description + `</p>
+
+    </div>`;
+    }else{
+    post += `<div class="user-post">
+
+            <a href="javascript:void();"></a>
+            <p>` + feed.buzz_description + `</p>
+
         </div>`;
     }
 
-    post += '<div class="comment-area mt-3">\
-    <div class="d-flex justify-content-between align-items-center">\
-        <div class="like-block position-relative d-flex align-items-center">\
-            <div class="d-flex align-items-center">\
-                <div class="like-data">\
-                    <div class="dropdown">\
-                        <span onclick="upvoteTBuzzByFeedId(\'' + feed.buzz_id + '\')" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
-            <img src="images/icon/like.jpg" class="img-fluid" alt="">\
-            </span>\
-                    </div>\
-                </div>\
-                <div class="total-like-block ml-2 mr-3">\
-                    <div class="dropdown">\
-                        <span id="Tupvote-count-' + feed.buzz_id + '" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+    post += `<div class="comment-area mt-3">
 
- post += feed.buzz_upvotes.length;
- 
- post += '</span>\
-            </div>\
-            </div>\
-            <div class="like-data">\
-            <div class="dropdown">\
-                <span onclick="downvoteTBuzzByFeedId(\'' + feed.buzz_id + '\')" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
-            <img src="images/icon/dislike.jpg" class="img-fluid" alt="">\
-            </span>\
-            </div>\
-            </div>\
-            <div class="total-like-block ml-2 mr-3">\
-            <div class="dropdown">\
-            <span id="Tdownvote-count-' + feed.buzz_id + '" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+            <div class="d-flex justify-content-between align-items-center">
 
-post += feed.buzz_downvotes.length;
+                <div class="like-block position-relative d-flex align-items-center">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="like-data">
+
+                            <div class="dropdown">
+
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+
+                                    <img src="images/icon/01.png" class="img-fluid" alt="">
+
+                                                            </span>
+
+                                    <div class="dropdown-menu">
+
+                                        <a id="like-` + feed.buzz_id + `" class="ml-2 mr-2" href="#like-` + feed.buzz_id + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(thid.id)"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
+
+                                            <a id="dlike-` + feed.buzz_id + `" class="mr-2" href="#dlike-` + feed.buzz_id + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
+
+                                        <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>
+
+                                                    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="HaHa"><img src="images/icon/04.png" class="img-fluid" alt=""></a>
+
+                                                        <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Think"><img src="images/icon/05.png" class="img-fluid" alt=""></a>
+
+                                                            <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sade"><img src="images/icon/06.png" class="img-fluid" alt=""></a>
+
+                                                                <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Lovely"><img src="images/icon/07.png" class="img-fluid" alt=""></a>-->
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                        <div class="total-like-block ml-2 mr-3">
+
+                                                            <div class="dropdown">
+
+                                                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+
+                                                                    ` + feed.buzz_upvotes.length + ` Upvotes 
+
+                                                            </span>`;
 
 
-
-    post += `</span>   </div>
+    post += `   </div>
 
                 </div>
 
@@ -500,7 +519,7 @@ post += feed.buzz_downvotes.length;
 
                 <div class="dropdown">
 
-                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" id='Tcomment-count-`+feed.buzz_id+`'>
+                    <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" id='Tcomment-count-`+ feed.buzz_id +`>
 
                         ` + feed.buzz_comments.length + ` Comments
 
@@ -524,12 +543,12 @@ post += feed.buzz_downvotes.length;
 
     <hr>
 
-        <ul class="post-comments p-0 m-0" id="Tcommentslist-`+ feed.buzz_id +`">`;
+        <ul class="post-comments p-0 m-0" id='Tcommentslist-` + feed.buzz_id +`'>`;
 
 
     let len = feed.buzz_comments.length;
     if (len > 5) {
-        for (var i = 0; i < 5; i++) {
+        for (var i = feed.buzz_comments.length - 5; i < feed.buzz_comments.length; i++) {
         post+= `<li class="mb-2">
 
             <div class="d-flex flex-wrap">
@@ -587,14 +606,14 @@ post += feed.buzz_downvotes.length;
                 </div>
 
                 </li>`;
-        }
+            }
 
     }
 
 
     post +=  `</ul>
     <div class="align-items-center" id="feed-` + feed.buzz_id + `"> <a href="javascript:void();">View full post</a></div>\
-    <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
+    <div class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
 
         <input type="text" id="commentinput-` + feed.buzz_id + `" class="form-control rounded">
 
@@ -608,13 +627,11 @@ post += feed.buzz_downvotes.length;
 
             </div>
 
-    </form>
+    </div>
 
-</div>
+    </div>
 
-</div>
-</div>
-</div>`;
+    </div>`;
 
 return post;
 }
@@ -657,136 +674,4 @@ function timeline_post_template_no_post() {
     </div>
 
 </div>`;
-}
-
-
-function upvoteTBuzzByFeedId(feedid){
-    if (getLocalStorage(USER) == "true") {
-        let buzz_upvotes = getPostFromFeedId(feedid).buzz_upvotes;
-
-        
-        let uName = getUserDetails().uname;
-        console.log(buzz_upvotes);
-
-        let flag = 0;
-        for (let j = 0; j < buzz_upvotes.length; j++) {
-            if (buzz_upvotes[j].username == uName) {
-                flag = 1;
-            }
-        }
-        if (flag == 1) {
-            //call unlike api
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/removeUpvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    //data.votes will be array of upvotes
-                    notifyTUpvotesSinglePost(data.upvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
-        } else {
-            //call like api
-            //ajax
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/upvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    notifyTUpvotesSinglePost(data.upvotes, feedid);
-                    notifyTDownvotesSinglePost(data.downvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
-        }
-
-    }else{
-        alert("Please sign in.");
-    }
-}
-
-
-function downvoteTBuzzByFeedId(feedid) {
-    // if user is not signed in 
-    if (getLocalStorage(USER) == "true") {
-
-        let buzz_downvotes = getPostFromFeedId(feedid).buzz_downvotes;
-        let uName = getUserDetails().uname;
-
-        let flag = 0;
-        for (let j = 0; j < buzz_downvotes.length; j++) {
-            if (buzz_downvotes[j].username == uName) {
-                flag = 1;
-            }
-        }
-        if (flag == 1) {
-            //call removeDownvote
-            //ajax
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/removeDownvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    notifyTDownvotesSinglePost(data.downvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
-        } else {
-            // highlight icon as downvoted
-            //ajax
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/downvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    notifyTDownvotesSinglePost(data.downvotes, feedid);
-                    notifyTUpvotesSinglePost(data.upvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
-        }
-    } else {
-        alert("Please sign in.")
-    }
-}
-
-function deleteTPostClick(feedid){
-    //ajax
-    $.ajax({
-        type:'POST',
-        url: SERVER_URL + 'feed/clearFeedByFeedId',
-        data:{
-            feed_id: feedid,
-            username: getUserDetails().uname
-        },
-        success: function(data){
-            console.log(data);
-                //update local storage
-                updateDeleteTPost(feedid);
-        },
-        error: function(data){
-            console.log(data);
-        }
-    });
 }

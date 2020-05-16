@@ -201,3 +201,36 @@ function getPostByUsername(username){
 
     return posts;
 }
+
+
+function getTimelinePosts(){
+    let tPosts = [];
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_username == getUserDetails().uname){
+            tPosts.push(buzz[i]);
+        }
+    }
+    return tPosts;
+}
+
+function updateLocalStoragePosts(buzz){
+    let posts = getJSONLocalStorage(ALL_BUZZ);
+    let tPosts = getJSONLocalStorage(T_POSTS);
+    for(let i=0; i<posts.length; i++){
+        if(posts[i].buzz_id == buzz.buzz_id){
+            posts[i] = buzz;
+            break;
+        }
+    }
+
+    for(let i=0; i<tPosts.length; i++){
+        if(tPosts[i].buzz_id == buzz.buzz_id){
+            tPosts[i] = buzz;
+            break;
+        }
+    }
+
+    setJSONLocalStorage(T_POSTS, tPosts);
+    setJSONLocalStorage(ALL_BUZZ, posts);
+}
