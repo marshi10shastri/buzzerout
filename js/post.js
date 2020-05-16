@@ -26,18 +26,20 @@ function createPost() {
                     var post = {
                         buzz_id: data.feedid,
                         buzz_username: getUserDetails().uname,
-                        name: getUserProfileDetails().fname,
-                        userimage: getUserProfileDetails().pImage,
+                        buzz_user_image: getUserProfileDetails().pImage,
                         buzz_images: [],
                         buzz_description: desc,
                         buzz_timestamp: "Just Now",
                         buzz_upvotes: [],
                         buzz_downvotes: [],
                         buzz_comments: [],
+                        buzz_title:'title',
+                        buzz_location:'Hyderabad'
                     };
                     showCreatedBuzz(post);
                     // var local_posts = getJSONLocalStorage(POSTS);
                     // setJSONLocalStorage(POSTS, post.concat(local_posts));
+                    desc = '';
                     document.getElementById("close-modal").click();
                     // fetchPost();
                 } else {
@@ -127,17 +129,19 @@ function createPost() {
                         console.log(data);
                         let feedId = data.feedid;
                         var post = {
-                            feedid: data.feedid,
+                            buzz_id: data.feedid,
                             buzz_username: getUserDetails().uname,
-                            // username: getJSONLocalStorage(USER_INFO).username,
-                            name: getUserProfileDetails().fname,
-                            userimage: getUserProfileDetails().pImage,
-                            images: [link],
-                            description: desc,
-                            timestamp: "Just Now",
-                            likes: 0,
-                            comments: [],
+                            buzz_user_image: getUserProfileDetails().pImage,
+                            buzz_images: link,
+                            buzz_description: desc,
+                            buzz_timestamp: "Just Now",
+                            buzz_upvotes: [],
+                            buzz_downvotes: [],
+                            buzz_comments: [],
+                            buzz_location:'Hyderabad',
+                            buzz_title:'title'
                         };
+                        console.log(post);
                         showCreatedBuzz(post);
                         // var local_posts = getJSONLocalStorage(POSTS);
                         // setJSONLocalStorage(POSTS, post.concat(local_posts));
@@ -156,6 +160,8 @@ function createPost() {
                             },
                             success: function(data) {
                                 console.log(data);
+                                document.getElementById('buzz-photo-input').value = '';
+                                document.getElementById('buzz-post-input').value = '';
                             },
                             error: function(response) {
                                 console.log(response);

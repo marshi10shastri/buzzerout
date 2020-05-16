@@ -305,9 +305,10 @@ function timeline_write_post(userimage) {
 `
 }
 
+var post = '';
 
-function timeline_post_basics(image, name, time) {
-    return `<div class="post-item">
+function timeline_post_basics(feed) {
+    post = `<div class="post-item">
 
     <div class="user-post-data p-3">
 
@@ -315,17 +316,17 @@ function timeline_post_basics(image, name, time) {
 
             <div class="media-support-user-img mr-3">
 
-                <img class="rounded-circle img-fluid" src=` + image + ` alt="">
+                <img class="rounded-circle img-fluid" src=` + feed.buzz_user_image + ` alt="">
 
                                                             </div>
 
                 <div class="media-support-info mt-2">
 
-                    <h5 class="mb-0 d-inline-block"><a href="#" class="">` + name + `</a></h5>
+                    <h5 class="mb-0 d-inline-block"><a href="#" class="">` + feed.buzz_username + `</a></h5>
 
                     <p class="ml-1 mb-0 d-inline-block">Addded New Post</p>
 
-                    <p class="mb-0">` + time + ` hour ago</p>
+                    <p class="mb-0">` + feed.buzz_timestamp + ` hour ago</p>
 
                 </div>
 
@@ -439,31 +440,26 @@ function timeline_post_basics(image, name, time) {
 
             </div>
 
-        </div>`
-}
+        </div>`;
 
+    if (feed.buzz_images.length > 0) {
+        post += `<div class="user-post">
 
-function timeline_post_body(description, image) {
-    if (image.length > 0) {
-        return `<div class="user-post">
+        <a href="javascript:void();"><img src=` + feed.buzz_images[0] + ` alt="post-image" class="img-fluid w-100" /></a>
+        <p>` + feed.buzz_description + `</p>
 
-        <a href="javascript:void();"><img src=` + image[0] + ` alt="post-image" class="img-fluid w-100" /></a>
-        <p>` + description + `</p>
-
-    </div>`
-    }
-    return `<div class="user-post">
+    </div>`;
+    }else{
+    post += `<div class="user-post">
 
             <a href="javascript:void();"></a>
-            <p>` + description + `</p>
+            <p>` + feed.buzz_description + `</p>
 
-        </div>`
+        </div>`;
+    }
 
-}
-
-function timeline_post_likeNo(like, feedid) {
     let likes = like.length;
-    return `<div class="comment-area mt-3">
+    post += `<div class="comment-area mt-3">
 
             <div class="d-flex justify-content-between align-items-center">
 
@@ -511,11 +507,7 @@ function timeline_post_likeNo(like, feedid) {
 
                                                                     ` + likes + ` Upvotes 
 
-                                                            </span>`
-
-
-
-}
+                                                            </span>`;
 
 
 function timeline_post_commentNo(commentNo) {
