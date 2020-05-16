@@ -458,7 +458,6 @@ function timeline_post_basics(feed) {
         </div>`;
     }
 
-    let likes = like.length;
     post += `<div class="comment-area mt-3">
 
             <div class="d-flex justify-content-between align-items-center">
@@ -479,9 +478,9 @@ function timeline_post_basics(feed) {
 
                                     <div class="dropdown-menu">
 
-                                        <a id="like-` + feedid + `" class="ml-2 mr-2" href="#like-` + feedid + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(thid.id)"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
+                                        <a id="like-` + feed.buzz_id + `" class="ml-2 mr-2" href="#like-` + feed.buzz_id + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upvote" onclick="upvotePost(thid.id)"><img src="images/icon/01.png" class="img-fluid" alt=""></a>
 
-                                            <a id="dlike-` + feedid + `" class="mr-2" href="#dlike-` + feedid + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
+                                            <a id="dlike-` + feed.buzz_id + `" class="mr-2" href="#dlike-` + feed.buzz_id + `" data-toggle="tooltip" data-placement="top" title="" data-original-title="Downvote" onclick="downvotePost(this.id)"><img src="images/icon/02.png" class="img-fluid" alt=""></a>
 
                                         <!--    <a class="mr-2" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Happy"><img src="images/icon/03.png" class="img-fluid" alt=""></a>
 
@@ -505,14 +504,12 @@ function timeline_post_basics(feed) {
 
                                                                 <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
 
-                                                                    ` + likes + ` Upvotes 
+                                                                    ` + feed.buzz_upvotes.length + ` Upvotes 
 
                                                             </span>`;
 
 
-function timeline_post_commentNo(commentNo) {
-
-    return `   </div>
+    post += `   </div>
 
                 </div>
 
@@ -524,7 +521,7 @@ function timeline_post_commentNo(commentNo) {
 
                     <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
 
-                        ` + commentNo + ` Comment
+                        ` + feed.buzz_comments.length + ` Comments
 
                 </span>
 
@@ -546,45 +543,79 @@ function timeline_post_commentNo(commentNo) {
 
     <hr>
 
-        <ul class="post-comments p-0 m-0">`
-}
+        <ul class="post-comments p-0 m-0">`;
 
-function timeline_post_comment(commentImg, commentUser, commentText, timestamp) {
-    return `<li class="mb-2">
 
-    <div class="d-flex flex-wrap">
+    let len = feed.buzz_comments.length;
+    if (len > 5) {
+        for (var i = feed.buzz_comments.length - 5; i < feed.buzz_comments.length; i++) {
+        post+= `<li class="mb-2">
 
-        <div class="user-img">
+            <div class="d-flex flex-wrap">
 
-            <img src=` + commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
+                <div class="user-img">
+
+                    <img src=` + feed.buzz_comments[i].commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
+
+                        </div>
+
+                    <div class="comment-data-block ml-3">
+
+                        <h6>` + feed.buzz_comments[i].username + `</h6>
+
+                        <p class="mb-0">` + feed.buzz_comments[i].text + `</p>
+
+                        <div class="d-flex flex-wrap align-items-center comment-activity">
+
+                            <span> ` + feed.buzz_comments[i].timestamp + `  </span>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-            <div class="comment-data-block ml-3">
+                </li>`;
+        }
+    }else{
+        for (var i = 0; i < feed.buzz_comments.length; i++) {
+            post+= `<li class="mb-2">
 
-                <h6>` + commentUser + `</h6>
+            <div class="d-flex flex-wrap">
 
-                <p class="mb-0">` + commentText + `</p>
+                <div class="user-img">
 
-                <div class="d-flex flex-wrap align-items-center comment-activity">
+                    <img src=` + feed.buzz_comments[i].commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
 
-                    <span> ` + timestamp + `  </span>
+                        </div>
+
+                    <div class="comment-data-block ml-3">
+
+                        <h6>` + feed.buzz_comments[i].username + `</h6>
+
+                        <p class="mb-0">` + feed.buzz_comments[i].text + `</p>
+
+                        <div class="d-flex flex-wrap align-items-center comment-activity">
+
+                            <span> ` + feed.buzz_comments[i].timestamp + `  </span>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-            </div>
+                </li>`;
+        }
 
-        </div>
+    }
 
-        </li>`
-}
 
-function timeline_post_addComment(feedId) {
-    return `</ul>
-
+    post +=  `</ul>
+    <div class="align-items-center" id="feed-` + feed.buzz_id + `"> <a href="javascript:void();">View full post</a></div>\
     <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
 
-        <input type="text" id="commentinput-` + feedId + `" class="form-control rounded">
+        <input type="text" id="commentinput-` + feed.buzz_id + `" class="form-control rounded">
 
             <div class="comment-attagement d-flex">
 
@@ -600,5 +631,45 @@ function timeline_post_addComment(feedId) {
 
 </div>
 
-</div>`
+</div>`;
+}
+
+function timeline_post_template_no_post() {
+    return `
+<div class="col-sm-12">
+
+    <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+
+        <div class="iq-card-body">
+
+            <div class="user-post-data">
+
+                <div class="d-flex flex-wrap">
+
+                    <div class="media-support-user-img mr-3">
+
+                        <img class="rounded-circle img-fluid" src="images/logo/logo-small1.png" alt="">
+
+                    </div>
+
+                    <div class="media-support-info mt-2">
+
+                        <h5 class="mb-0 d-inline-block"><a href="#" class="">No Buzz to show</a></h5>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="mt-3">
+
+                <p>No buzz to show</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>`;
 }

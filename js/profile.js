@@ -375,26 +375,12 @@ function showProfilePosts() {
     // let user = getJSONLocalStorage(USER_INFO);
     var timelinePostBox = document.getElementById('timeline-posts').innerHTML;
     timelinePostBox = "";
+
+    if(tposts.length == 0){
+        timelinePostBox = timeline_post_template_no_post();
+    }
     for (let i = 0; i < tposts.length; i++) {
-        timelinePostBox += timeline_post_basics(tposts[i].buzz_user_image, tposts[i].buzz_username, tposts[i].buzz_timestamp) +
-            timeline_post_body(tposts[i].buzz_description, tposts[i].buzz_images) +
-            timeline_post_likeNo(tposts[i].buzz_upvotes, tposts[i].buzz_id) +
-            timeline_post_commentNo(tposts[i].buzz_comments.length);
-
-        if (tposts[i].buzz_comments.length > 0) {
-            if(tposts[i].buzz_comments.length < 5){
-                for (let j = 0; j < tposts[i].buzz_comments.length; j++) {
-                    timelinePostBox += timeline_post_comment(tposts[i].buzz_comments[j].commentImg, tposts[i].buzz_comments[j].username, tposts[i].buzz_comments[j].text, tposts[i].buzz_comments[j].timestamp);
-                }
-            }
-            else{
-                for (let j = tposts[i].buzz_comments.length -5 ; j < tposts[i].buzz_comments.length; j++) {
-                    timelinePostBox += timeline_post_comment(tposts[i].buzz_comments[j].commentImg, tposts[i].buzz_comments[j].username, tposts[i].buzz_comments[j].text, tposts[i].buzz_comments[j].timestamp);
-                }
-            }
-        }
-
-        timelinePostBox += timeline_post_addComment(tposts[i].buzz_id);
+        timelinePostBox += timeline_post_basics(tposts[i]);
         TfeedInputArray.push("commentinput-" + tposts[i].buzz_id);
     }
 
@@ -412,7 +398,7 @@ function showProfilePosts() {
                     alert("Please sign in.")
                 }
             }
-        })
+        });
     }
 }
 
