@@ -55,6 +55,7 @@ function renderCreateBuzz() {
 }
 
 function showCreatedBuzz(data) {
+    console.log(data);
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     buzz.unshift(data);
     setJSONLocalStorage(ALL_BUZZ, buzz);

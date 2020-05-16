@@ -275,3 +275,26 @@ function showFollowUpdate(username, followStatus) {
 
     console.log(getUserFollowing());
 }
+
+//deletePost
+function updateDeletePost(feedid){
+    console.log('set karne aaya')
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            buzz.splice(i,1);
+            break;
+        }
+    }
+    setJSONLocalStorage(ALL_BUZZ, buzz);
+
+    console.log('show delete call');
+    showDeletePost(feedid);
+}
+
+function showDeletePost(feedid){
+    console.log('aaya show delete me');
+    let div = document.getElementById(feedid);
+    div.remove();
+    console.log('removed');
+}

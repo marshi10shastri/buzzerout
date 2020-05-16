@@ -550,7 +550,23 @@ function downvoteBuzzByFeedId(feedid) {
 
 //deletPost clicked
 function deletePostClick(feedid){
-    alert(feedid + 'clicked');
+    //ajax
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'feed/clearFeedByFeedId',
+        data:{
+            feed_id: feedid,
+            username: getUserDetails().uname
+        },
+        success: function(data){
+            console.log(data);
+                //update local storage
+                updateDeletePost(feedid);
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
 }
 
 function containsFollowing(username){
