@@ -482,7 +482,7 @@ function upvoteBuzzByFeedId(feedid) {
 
         // highlight icon as upvoted   
     } else {
-        alert("Please sign in.")
+        alert("Please sign in.");
     }
 }
 

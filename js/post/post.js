@@ -52,10 +52,10 @@ function postMapper(data) {
                 if (getLocalStorage(USER) == "true") {
                     console.log('running');
                     let feedid = feedInputArray[j].split("-")[1];
-                    addComment(feedid, inputCommentField.value);
+                    addComment(feedid, inputCommentField.value, false);
                     inputCommentField.value = "";
                 } else {
-                    alert("Please sign in.")
+                    alert("Please sign in.");
                 }
             }
         })
