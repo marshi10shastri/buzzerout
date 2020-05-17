@@ -640,6 +640,20 @@ function updateSingleTPost(feedid){
     descDiv.innerHTML = buzz.buzz_description;
 }
 
+//save buzz
+function updateLocalSaveTBuzz(feedid){
+    //change local
+    showSaveTBuzz(feedid);
+}
+
+//ui update save buzz
+function showSaveTBuzz(feedid){
+    let heading = document.getElementById('timeline-save-heading-' + feedid);
+    let para = document.getElementById('timeline-save-para-'+ feedid);
+    heading.innerHTML = 'Unsave Post';
+    para.innerHTML = 'Remove this from your saved items';
+}
+
 function profileImageUpload() {
     let user = getJSONLocalStorage(USER_INFO);
     let file = document.getElementById('profile-image-upload').files[0];

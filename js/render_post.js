@@ -289,6 +289,22 @@ function saveBuzz(buzzid) {
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
         // ajax call
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL + 'buzz/saveBuzz',
+            data:{
+                username: getUserDetails().uname,
+                feed_id: buzzid
+            },
+            success: function(data){
+                console.log(data);
+                //update local
+                //update ui
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
     } else {
         alert("Please sign in.");
     }
@@ -299,6 +315,22 @@ function hideBuzz(buzzid) {
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
         // ajax call
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL + 'buzz/hideBuzz',
+            data:{
+                username: getUserDetails().uname,
+                feed_id: buzzid
+            },
+            success: function(data){
+                console.log(data);
+                //update local
+                //update ui
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
     } else {
         alert("Please sign in.");
     }
