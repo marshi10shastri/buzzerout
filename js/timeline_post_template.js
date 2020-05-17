@@ -342,19 +342,19 @@ function timeline_post(feed) {
 
                         </span>
 
-                        <div class="dropdown-menu m-0 p-0">
+                        <div class="dropdown-menu m-0 p-0">`;
 
-                            <a class="dropdown-item p-3" href="#">
+post +=                     '<a class="dropdown-item p-3" onclick="saveTBuzz(\'' + feed.buzz_id + '\')">';
 
-                                <div class="d-flex align-items-top">
+ post+=                          `<div class="d-flex align-items-top">
 
                                     <div class="icon font-size-20"><i class="ri-save-line"></i></div>
 
                                     <div class="data ml-2">
 
-                                        <h6>Save Post</h6>
+                                        <h6 id="timeline-save-heading-`+feed.buzz_id+`">Save Post</h6>
 
-                                        <p class="mb-0">Add this to your saved items</p>
+                                        <p class="mb-0" id="timeline-save-para-`+feed.buzz_id+`">Add this to your saved items</p>
 
                                     </div>
 
@@ -362,7 +362,7 @@ function timeline_post(feed) {
 
                             </a>`;
 
-  post +=                          '<a class="dropdown-item p-3" href="#" data-toggle="modal" data-target="#edit-post-modal" onclick="editTPostModal(\'' + feed.buzz_id + '\')">';
+  post +=                          '<a class="dropdown-item p-3" data-toggle="modal" data-target="#edit-post-modal" onclick="editTPostModal(\'' + feed.buzz_id + '\')">';
 
   post +=                              `<div class="d-flex align-items-top">
 
@@ -378,11 +378,11 @@ function timeline_post(feed) {
 
                                 </div>
 
-                            </a>
+                            </a>`
 
-                            <a class="dropdown-item p-3" href="#">
+post +=                    '<a class="dropdown-item p-3" onclick="hideTBuzz(\'' + feed.buzz_id + '\')">';
 
-                                <div class="d-flex align-items-top">
+post +=                        `<div class="d-flex align-items-top">
 
                                     <div class="icon font-size-20"><i class="ri-close-circle-line"></i></div>
 
@@ -398,7 +398,7 @@ function timeline_post(feed) {
 
                             </a>`;
 
- post +=                           '<a class="dropdown-item p-3" href="#" onclick="deleteTPostClick(\'' + feed.buzz_id + '\')">';
+ post +=                           '<a class="dropdown-item p-3" onclick="deleteTPostClick(\'' + feed.buzz_id + '\')">';
 
 
  post+=                              ` <div class="d-flex align-items-top">
@@ -409,7 +409,7 @@ function timeline_post(feed) {
 
                                         <h6>Delete</h6>
 
-                                        <p class="mb-0">Remove thids Post on Timeline</p>
+                                        <p class="mb-0">Remove this Post on Timeline</p>
 
                                     </div>
 
@@ -801,4 +801,58 @@ function editTPostModal(feedid){
     document.getElementById('edit-tpost-btn').addEventListener('click', function(){
         editTPost(feedid);
     });
+}
+
+//hide tbuzz
+function hideTBuzz(feedid){
+    console.log("Hide Post : " +feedid);
+    // if user is not signed in 
+    if (getLocalStorage(USER) == "true") {
+        // ajax call
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL + 'buzz/hideBuzz',
+            data:{
+                username: getUserDetails().uname,
+                feed_id: feedid
+            },
+            success: function(data){
+                console.log(data);
+                //update local
+                //update ui
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+    } else {
+        alert("Please sign in.");
+    }
+}
+
+function saveTBuzz(feedid){
+    console.log("Saving Post : " + feedid);
+    // if user is not signed in 
+    if (getLocalStorage(USER) == "true") {
+        // ajax call
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL + 'buzz/saveBuzz',
+            data:{
+                username: getUserDetails().uname,
+                feed_id: feedid
+            },
+            success: function(data){
+                console.log(data);
+                //update local
+                updateLocalSaveTBuzz(feedid);
+                //update ui
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+    } else {
+        alert("Please sign in.");
+    }
 }
