@@ -15,7 +15,7 @@ function postTemplateStart(feed) {
                     <div class="media-support-info mt-2">\
                         <h5 class="mb-0 d-inline-block"><a href="#" class="">' + feed.buzz_username + ' </a></h5>\
                         <p class="mb-0 d-inline-block">'+ feed.buzz_title +'</p>\
-                        <p class="mb-0 text-primary">' + feed.buzz_timestamp + ' hours ago</p>\
+                        <p class="mb-0 text-primary">' + feed.buzz_timestamp + '</p>\
                     </div>\
                     <div class="iq-card-post-toolbar">\
                         <div class="dropdown">\
@@ -27,8 +27,8 @@ function postTemplateStart(feed) {
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
                                     <div class="data ml-2"  >\
-                                        <h6>Save Post</h6>\
-                                        <p class="mb-0">Add this to your saved items</p>\
+                                        <h6 id="post-save-heading-' + feedid +'">Save Post</h6>\
+                                        <p class="mb-0" id="post-save-para-' + feedid +'">Add this to your saved items</p>\
                                     </div>\
                                 </div>\
                             </a>\
@@ -192,8 +192,8 @@ function postTemplateStart(feed) {
                         </div>\
                     </div>\
                 </div>\
-                <div class="share-block d-flex align-items-center feather-icon mr-3">\
-                    <a href="javascript:void();" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')"><i class="ri-share-line"></i>\
+                <div class="share-block d-flex align-items-center feather-icon mr-3" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')" id="shareBtn-'+ feed.buzz_id +'">\
+                    <a href="#"><i class="ri-share-line"></i>\
            <span class="ml-1"> Share</span></a>\
                 </div>\
             </div>\
@@ -299,6 +299,7 @@ function saveBuzz(buzzid) {
             success: function(data){
                 console.log(data);
                 //update local
+                updateLocalSaveBuzz(feedid);
                 //update ui
             },
             error: function(data){
@@ -325,6 +326,7 @@ function hideBuzz(buzzid) {
             success: function(data){
                 console.log(data);
                 //update local
+                updateLocalHideBuzz(buzzid);
                 //update ui
             },
             error: function(data){
@@ -614,6 +616,7 @@ function containsFollowing(username){
 
 //share buzz
 function shareBuzzByFeedId(feedid){
+    console.log('clicked: share');
     let buzz = getPostFromFeedId(feedid);
     //ajax
     $.ajax({
@@ -625,10 +628,11 @@ function shareBuzzByFeedId(feedid){
         },
         success: function(data){
             console.log(data);
-            buzz.buzz_title = 'Shared post';
+            // buzz.buzz_title = 'Shared post';
             //local update
             updateLocalStoragePosts(buzz);
             //ui update
+            document.getElementById('shareBtn-' + feedid).style.display = 'none';
         },
         error: function(data){
             console.log(data);

@@ -298,3 +298,42 @@ function showDeletePost(feedid){
     div.remove();
     console.log('removed');
 }
+
+//hide buzz(similar to delete)
+function updateLocalHideBuzz(feedid){
+    //get feed by id and save it to hide list
+
+    //remove from posts and update local
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            buzz.splice(i,1);
+            break;
+        }
+    }
+    setJSONLocalStorage(ALL_BUZZ, buzz);
+
+    console.log('show delete call');
+    showHiddenPost(feedid);
+}
+
+function showHiddenPost(feedid){
+    console.log('aaya show hide me');
+    let div = document.getElementById(feedid);
+    div.remove();
+    console.log('removed');
+}
+
+
+//save buzz
+function updateLocalSaveBuzz(feedid){
+    //change local
+    showSaveBuzz(feedid);
+}
+
+function showSaveBuzz(feedid){
+    let heading = document.getElementById('post-save-heading-' + feedid);
+    let para = document.getElementById('post-save-para-'+ feedid);
+    heading.innerHTML = 'Unsave Post';
+    para.innerHTML = 'Remove this from your saved items';
+}

@@ -654,6 +654,39 @@ function showSaveTBuzz(feedid){
     para.innerHTML = 'Remove this from your saved items';
 }
 
+//hide t buzz local
+function updateLocalHideTBuzz(feedid){
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    for(let i=0; i<buzz.length; i++){
+        if(buzz[i].buzz_id == feedid){
+            buzz.splice(i,1);
+            break;
+        }
+    }
+    setJSONLocalStorage(ALL_BUZZ, buzz);
+
+    let posts = getJSONLocalStorage(T_POSTS);
+    for(let i=0; i<posts.length; i++){
+        if(posts[i].buzz_id == feedid){
+            posts.splice(i,1);
+            break;
+        }
+    }
+    setJSONLocalStorage(T_POSTS, posts);
+
+    //ui update
+    showHiddenTPost(feedid);
+}
+
+
+function showHiddenTPost(feedid){
+    console.log('aaya show hide me');
+    let div = document.getElementById(feedid);
+    div.remove();
+    console.log('removed');
+}
+
+
 function profileImageUpload() {
     let user = getJSONLocalStorage(USER_INFO);
     let file = document.getElementById('profile-image-upload').files[0];

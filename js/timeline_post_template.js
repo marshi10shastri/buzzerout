@@ -362,7 +362,7 @@ post +=                     '<a class="dropdown-item p-3" onclick="saveTBuzz(\''
 
                             </a>`;
 
-  post +=                          '<a class="dropdown-item p-3" data-toggle="modal" data-target="#edit-post-modal" onclick="editTPostModal(\'' + feed.buzz_id + '\')">';
+  post +=                          '<a class="dropdown-item p-3" data-toggle="modal" data-target="#edit-tpost-modal" onclick="editTPostModal(\'' + feed.buzz_id + '\')">';
 
   post +=                              `<div class="d-flex align-items-top">
 
@@ -819,6 +819,7 @@ function hideTBuzz(feedid){
             success: function(data){
                 console.log(data);
                 //update local
+                updateLocalHideTBuzz(feedid);
                 //update ui
             },
             error: function(data){
