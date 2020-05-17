@@ -326,9 +326,9 @@ function timeline_post(feed) {
 
                     <h5 class="mb-0 d-inline-block"><a href="#" class="">` + feed.buzz_username + `</a></h5>
 
-                    <p class="ml-1 mb-0 d-inline-block">Addded New Post</p>
+                    <p class="ml-1 mb-0 d-inline-block">`+ feed.buzz_title +`</p>
 
-                    <p class="mb-0">` + feed.buzz_timestamp + ` hour ago</p>
+                    <p class="mb-0">` + feed.buzz_timestamp + `</p>
 
                 </div>
 
@@ -360,11 +360,11 @@ function timeline_post(feed) {
 
                                 </div>
 
-                            </a>
+                            </a>`;
 
-                            <a class="dropdown-item p-3" href="#">
+  post +=                          '<a class="dropdown-item p-3" href="#" data-toggle="modal" data-target="#edit-post-modal" onclick="editTPostModal(\'' + feed.buzz_id + '\')">';
 
-                                <div class="d-flex align-items-top">
+  post +=                              `<div class="d-flex align-items-top">
 
                                     <div class="icon font-size-20"><i class="ri-pencil-line"></i></div>
 
@@ -516,7 +516,7 @@ post += feed.buzz_downvotes.length;
 
             <a href="javascript:void();"><i class="ri-share-line"></i>
 
-                <span class="ml-1">99 Share </span></a>
+                <span class="ml-1"> Share </span></a>
 
         </div>
 
@@ -788,5 +788,17 @@ function deleteTPostClick(feedid){
         error: function(data){
             console.log(data);
         }
+    });
+}
+
+//edit post
+function editTPostModal(feedid){
+    console.log('clicked');
+    let buzz = getPostFromFeedId(feedid);
+    document.getElementById('buzz-tpost-editinput').value = buzz.buzz_description;
+    // $("#edit-post-modal").modal();
+
+    document.getElementById('edit-tpost-btn').addEventListener('click', function(){
+        editTPost(feedid);
     });
 }
