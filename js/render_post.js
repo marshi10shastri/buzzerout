@@ -27,8 +27,8 @@ function postTemplateStart(feed) {
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
                                     <div class="data ml-2"  >\
-                                        <h6 id="post-save-heading-' + feedid.buzz_id +'">Save Post</h6>\
-                                        <p class="mb-0" id="post-save-para-' + feedid.buzz_id +'">Add this to your saved items</p>\
+                                        <h6 id="post-save-heading-' + feed.buzz_id +'">Save Post</h6>\
+                                        <p class="mb-0" id="post-save-para-' + feed.buzz_id +'">Add this to your saved items</p>\
                                     </div>\
                                 </div>\
                             </a>\
