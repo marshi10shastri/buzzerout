@@ -323,3 +323,17 @@ function showHiddenPost(feedid){
     div.remove();
     console.log('removed');
 }
+
+
+//save buzz
+function updateLocalSaveBuzz(feedid){
+    //change local
+    showSaveBuzz(feedid);
+}
+
+function showSaveBuzz(feedid){
+    let heading = document.getElementById('post-save-heading-' + feedid);
+    let para = document.getElementById('post-save-para-'+ feedid);
+    heading.innerHTML = 'Unsave Post';
+    para.innerHTML = 'Remove this from your saved items';
+}

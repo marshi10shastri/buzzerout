@@ -27,8 +27,8 @@ function postTemplateStart(feed) {
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
                                     <div class="data ml-2"  >\
-                                        <h6>Save Post</h6>\
-                                        <p class="mb-0">Add this to your saved items</p>\
+                                        <h6 id="post-save-heading-' + feedid +'">Save Post</h6>\
+                                        <p class="mb-0" id="post-save-para-' + feedid +'">Add this to your saved items</p>\
                                     </div>\
                                 </div>\
                             </a>\
@@ -299,6 +299,7 @@ function saveBuzz(buzzid) {
             success: function(data){
                 console.log(data);
                 //update local
+                updateLocalSaveBuzz(feedid);
                 //update ui
             },
             error: function(data){
