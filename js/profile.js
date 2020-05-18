@@ -359,6 +359,7 @@ function reply_click_work(id) {
 
 
 var TfeedInputArray = [];
+var TfeedIdArray = [];
 
 function showProfilePosts() {
     let allposts = getJSONLocalStorage(ALL_BUZZ);
@@ -385,6 +386,7 @@ function showProfilePosts() {
         singleTimelinePostMapper(tposts[i]);
 
         TfeedInputArray.push("commentinput-" + tposts[i].buzz_id);
+        TfeedIdArray.push("feed-" + tposts[i].buzz_id);
     }
 
     // document.getElementById('timeline-posts').innerHTML = timelinePostBox;
@@ -401,6 +403,17 @@ function showProfilePosts() {
                     alert("Please sign in.")
                 }
             }
+        });
+    }
+
+    //view full
+    for (let j = 0; j < TfeedIdArray.length; j++) {
+        let elem = document.getElementById(TfeedIdArray[j]);
+        elem.addEventListener("click", function(e) {
+            let feedid = TfeedIdArray[j].split("-")[1];
+            console.log("Setting feed id to " + feedid);
+            setLocalStorage(CURR_BUZZ, feedid);
+            window.location = 'single-post.html';
         });
     }
 }

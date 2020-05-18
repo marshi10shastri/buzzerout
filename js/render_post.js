@@ -94,7 +94,7 @@ function postTemplateStart(feed) {
     }else{
         string += '<a class="dropdown-item p-3" onclick="setUnsetBuzzNotification(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
-                                    <div class="icon font-size-20"><i class="ri-notification-line"></i></div>\
+                                    <div class="icon font-size-20"><i class="ri-delete-bin-7-line"></i></div>\
                                     <div class="data ml-2">\
                                         <h6>Notifications</h6>\
                                         <p class="mb-0">Turn on notifications for this post.</p>\
