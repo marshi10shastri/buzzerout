@@ -165,7 +165,7 @@ function updateCommentToPost(id, ifSinglePost) {
                     commentsDiv.innerHTML += string;
                 }
             }
-            let commentCountSpan = document.getElementById("comment-count-" + id)
+            let commentCountSpan = document.getElementById("comment-count-" + id);
             commentCountSpan.textContent = comments.length + ' Comments';
         }
     }
@@ -276,6 +276,7 @@ function showFollowUpdate(username, followStatus) {
     console.log(getUserFollowing());
 }
 
+
 //deletePost
 function updateDeletePost(feedid){
     console.log('set karne aaya')
@@ -292,12 +293,14 @@ function updateDeletePost(feedid){
     showDeletePost(feedid);
 }
 
+
 function showDeletePost(feedid){
     console.log('aaya show delete me');
     let div = document.getElementById(feedid);
     div.remove();
     console.log('removed');
 }
+
 
 //hide buzz(similar to delete)
 function updateLocalHideBuzz(feedid){
@@ -317,6 +320,7 @@ function updateLocalHideBuzz(feedid){
     showHiddenPost(feedid);
 }
 
+
 function showHiddenPost(feedid){
     console.log('aaya show hide me');
     let div = document.getElementById(feedid);
@@ -330,6 +334,7 @@ function updateLocalSaveBuzz(feedid){
     //change local
     showSaveBuzz(feedid);
 }
+
 
 function showSaveBuzz(feedid){
     let heading = document.getElementById('post-save-heading-' + feedid);

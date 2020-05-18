@@ -51,7 +51,16 @@ function singleBuzzLoad(feed) {
                                         <p class="mb-0">Stop seeing posts but stay friends.</p>\
                                     </div>\
                                 </div>\
-                            </a>'
+                            </a>\
+                    <a class="dropdown-item p-3" onclick="deletePostClick(\'' + feed.buzz_id + '\')">\
+                    <div class="d-flex align-items-top">\
+                        <div class="icon font-size-20"><i class="ri-delete-bin-7-line"></i></div>\
+                        <div class="data ml-2">\
+                            <h6>Delete Post</h6>\
+                            <p class="mb-0">Remove this post from buzzerout.</p>\
+                        </div>\
+                    </div>\
+                </a>';
     } else {
         string += '<a class="dropdown-item p-3" onclick="followUnfollowClick(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top" id="follow-option-' + feed.buzz_id + '">\
@@ -157,7 +166,7 @@ function singleBuzzLoad(feed) {
                     </div>\
                     <div class="total-comment-block">\
                         <div class="dropdown">\
-                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" role="button">';
+                            <span id="comment-count-'+feed.buzz_id+'" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" role="button">';
     string += feed.buzz_comments.length
     string += ' Comment\
                  </span>\
