@@ -11,6 +11,7 @@ function initProfile() {
     // if user is not signed in 
     // showProfile();
     showProfilePosts();
+    renderCollections();
 }
 
 function showProfile() {
@@ -1102,5 +1103,6 @@ function showCreatedTimelineBuzz(data) {
     box.innerHTML = "";
     box.innerHTML += timeline_post(data);
     box.innerHTML += boxContent;
-
 }
+
+
