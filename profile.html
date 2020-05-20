@@ -1421,13 +1421,13 @@
 
                                         <li class="col-sm-3 p-0">
 
-                                            <a class="nav-link" data-toggle="pill" href="#friends">friends</a>
+                                            <a class="nav-link" data-toggle="pill" href="#people">People</a>
 
                                         </li>
 
                                         <li class="col-sm-3 p-0">
 
-                                            <a class="nav-link" data-toggle="pill" href="#photos">Photos</a>
+                                            <a class="nav-link" data-toggle="pill" href="#collections">Collections</a>
 
                                         </li>
 
@@ -1814,7 +1814,7 @@
 
                                                                     <form class="post-text ml-3 w-100" action="javascript:void();">
 
-                                                                        <input type="text" id="buzz-post-input" class="form-control rounded" placeholder="Write something here..." style="border:none;">
+                                                                        <input type="text" id="timeline-buzz-post-input" class="form-control rounded" placeholder="Write something here..." style="border:none;">
 
                                                                     </form>
 
@@ -1827,8 +1827,8 @@
                                                                     <li class="col-md-6 mb-3">
 
                                                                         <div class="iq-bg-primary rounded p-2 pointer mr-3">
-                                                                            <input type="file" id="buzz-photo-input" accept="image/*, image/heic, image/heif" style="position: absolute;
-                                                                            height:150px;
+                                                                            <input type="file" id="timeline-buzz-photo-input" accept="image/*, image/heic, image/heif" style="position: absolute;
+                                                                            height:50px;
                                                                             width:100%;
                                                                             border:none;
                                                                             background: none;
@@ -2004,7 +2004,7 @@
 
                                                                 </div> -->
 
-                                                                <button data-dismiss="modal" onclick="createPost()" class="btn btn-primary d-block w-100 mt-3">Post</button>
+                                                                <button data-dismiss="modal" onclick="createPostTimeline()" class="btn btn-primary d-block w-100 mt-3">Post</button>
 
                                                             </div>
 
@@ -2928,13 +2928,13 @@
 
                             </div>
 
-                            <div class="tab-pane fade" id="friends" role="tabpanel">
+                            <div class="tab-pane fade" id="people" role="tabpanel">
 
                                 <div class="iq-card">
 
                                     <div class="iq-card-body">
 
-                                        <h2>Friends</h2>
+                                        <h2>People</h2>
 
                                         <div class="friend-list-tab mt-2">
 
@@ -6988,13 +6988,13 @@
 
                             </div>
 
-                            <div class="tab-pane fade" id="photos" role="tabpanel">
+                            <div class="tab-pane fade" id="collections" role="tabpanel">
 
                                 <div class="iq-card">
 
                                     <div class="iq-card-body">
 
-                                        <h2>Photos</h2>
+                                        <h2>Collections</h2>
 
                                         <div class="friend-list-tab mt-2">
 
@@ -7002,13 +7002,13 @@
 
                                                 <li>
 
-                                                    <a class="nav-link active" data-toggle="pill" href="#photosofyou">Photos of You</a>
+                                                    <a class="nav-link active" data-toggle="pill" href="#photosofyou">Saved Posts</a>
 
                                                 </li>
 
                                                 <li>
 
-                                                    <a class="nav-link" data-toggle="pill" href="#your-photos">Your Photos</a>
+                                                    <a class="nav-link" data-toggle="pill" href="#your-photos">Hidden Posts</a>
 
                                                 </li>
 
@@ -8210,7 +8210,7 @@
 
                     </div>
 
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 text-center extra">
 
                         <img src="images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;">
 

@@ -125,6 +125,11 @@ function addWork() {
             }
         });
     }
+    else{
+        alert('Please fill both the fields!');
+        document.getElementById('workPlaceInput').value = '';
+        document.getElementById('workProfileInput').value = '';
+    }
 }
 
 
@@ -156,6 +161,10 @@ function addCollege() {
             }
         });
 
+    }else{
+        alert('Please fill both the fields');
+        document.getElementById('collegeNameInput').value = '';
+        document.getElementById('collegePlaceInput').value = '';
     }
 }
 
@@ -190,6 +199,10 @@ function addCity() {
                 console.log(data);
             }
         });
+    }else{
+        alert('Please fill both the fields');
+        document.getElementById('cityNameInput').value = '';
+        document.getElementById('cityStateInput').value = '';
     }
 }
 
@@ -271,7 +284,7 @@ function editCollege() {
             college_id: college_id
         },
         success: function(data) {
-            console.log(data.messsage);
+            console.log(data.message);
             userColleges = data.colleges;
             updateUserCollegeDetails(userColleges);
             showCollegesDetails();
@@ -889,4 +902,205 @@ function showDetailsAboutDetails() {
     document.getElementById('about-favourite-quote').innerText = getUserAboutDetails().quote;
     document.getElementById('about-other-name').innerText = getUserAboutDetails().nickname;
     document.getElementById('about-about-details').innerText = getUserAboutDetails().about;
+}
+
+
+// create post
+function createPostTimeline() {
+    var file = document.getElementById("timeline-buzz-photo-input").files[0];
+    var resizedImage;
+
+    if (document.getElementById("timeline-buzz-photo-input").files.length == 0) {
+        let user_name = getUserDetails().uname;
+        let desc = document.getElementById("timeline-buzz-post-input").value;
+        $.ajax({
+            type: "POST",
+            url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+            data: {
+                username: user_name,
+                title: "title",
+                description: desc,
+                location: "abc",
+            },
+            success: function(data) {
+                console.log(data);
+                if (data["error"] == false) {
+                    var post = {
+                        buzz_id: data.feedid,
+                        buzz_username: getUserDetails().uname,
+                        buzz_user_image: getUserProfileDetails().pImage,
+                        buzz_images: [],
+                        buzz_description: desc,
+                        buzz_timestamp: "Just Now",
+                        buzz_upvotes: [],
+                        buzz_downvotes: [],
+                        buzz_comments: [],
+                        buzz_title:'title',
+                        buzz_location:'Hyderabad'
+                    };
+                    showCreatedTimelineBuzz(post);
+                    document.getElementById("timeline-buzz-post-input").value = '';
+                    document.getElementById("close-modal").click();
+                } else {
+                    alert(data["message"]);
+                }
+            },
+            error: function(response) {
+                console.log(response);
+            },
+        });
+    } else {
+        // ---------------------------------------
+        if (file.type.match(/image.*/)) {
+            console.log("An image has been loaded");
+
+            // Load the image
+            var reader = new FileReader();
+            reader.onload = function(readerEvent) {
+                var image = new Image();
+                image.onload = function(imageEvent) {
+                    // Resize the image
+                    var canvas = document.createElement("canvas"),
+                        max_size = 544, // TODO : pull max size from a site config
+                        width = image.width,
+                        height = image.height;
+                    if (width > height) {
+                        if (width > max_size) {
+                            console.log("width max");
+                            height *= max_size / width;
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            console.log("height max");
+                            width *= max_size / height;
+                            height = max_size;
+                        }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    canvas.getContext("2d").drawImage(image, 0, 0, width, height);
+                    var dataUrl = canvas.toDataURL("image/jpeg");
+                    resizedImage = dataURLToBlob(dataUrl);
+                    $.event.trigger({
+                        type: "imageResized",
+                        blob: resizedImage,
+                        url: dataUrl,
+                    });
+                };
+                image.src = readerEvent.target.result;
+            };
+        }
+        // ----------------------------------------
+        var link = [];
+
+        var formData = new FormData();
+        email = "raman.10102@gmail.com";
+        formData.append("file", file);
+        formData.append("product", "buzzerout");
+        formData.append("application", "buzzerout");
+        formData.append("to", email);
+        formData.append("from", email);
+        formData.append("message", "My Buzz");
+        $.ajax({
+            type: "POST",
+            url: "http://appnivi.com/server/v1/file/fileupload",
+            data: formData,
+            success: function(data) {
+                link.push(data.link);
+                console.log(data.link);
+
+                let user_name = getUserDetails().uname;
+                let desc = document.getElementById("timeline-buzz-post-input").value;
+                console.log(user_name);
+                console.log(desc);
+                // on success
+                $.ajax({
+                    type: "POST",
+                    url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+                    data: {
+                        username: user_name,
+                        title: "title",
+                        description: desc,
+                        location: "abc",
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        let feedId = data.feedid;
+                        var post = {
+                            buzz_id: data.feedid,
+                            buzz_username: getUserDetails().uname,
+                            buzz_user_image: getUserProfileDetails().pImage,
+                            buzz_images: link,
+                            buzz_description: desc,
+                            buzz_timestamp: "Just Now",
+                            buzz_upvotes: [],
+                            buzz_downvotes: [],
+                            buzz_comments: [],
+                            buzz_location:'Hyderabad',
+                            buzz_title:'title'
+                        };
+                        console.log(post);
+                        showCreatedTimelineBuzz(post);
+
+                        document.getElementById('timeline-buzz-photo-input').value = '';
+                        document.getElementById('timeline-buzz-post-input').value = '';
+                        document.getElementById("close-modal").click();
+
+
+                        //upload image to feed
+                        $.ajax({
+                            type: "POST",
+                            url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeedImage",
+                            data: {
+                                username: user_name,
+                                feed_id: feedId,
+                                img: link[0],
+                            },
+                            success: function(data) {
+                                console.log(data);
+                                document.getElementById('timeline-buzz-photo-input').value = '';
+                                document.getElementById('timeline-buzz-post-input').value = '';
+                            },
+                            error: function(response) {
+                                console.log(response);
+                            },
+                        });
+
+
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    },
+                });
+            },
+            error: function(error) {
+                console.log(error);
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+        });
+    }
+    // ------------------------------------------
+
+}
+
+// show recently created buzz in timeline
+function showCreatedTimelineBuzz(data) {
+    console.log(data);
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    buzz.unshift(data);
+    setJSONLocalStorage(ALL_BUZZ, buzz);
+
+    let posts = getJSONLocalStorage(T_POSTS);
+    posts.unshift(data);
+
+    let box = document.getElementById('timeline-posts');
+    let boxContent = box.innerHTML;
+
+    box.innerHTML = "";
+    box.innerHTML += timeline_post(data);
+    box.innerHTML += boxContent;
+
 }
