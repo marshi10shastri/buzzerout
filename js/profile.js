@@ -20,7 +20,6 @@ function showProfile() {
 
     // adding dummy values
     userDetails += profile_template_contactInfo(getUserDetails().email, getUserProfileDetails().mob, getUserProfileDetails().address) +
-        // profile_template_websites(currUser.website, currUser.socialLink) +
         profile_template_basicInfo(getUserProfileDetails().dob, getUserProfileDetails().dob, getUserProfileDetails().gender) +
         profile_family() +
         profile_template_work();
@@ -837,6 +836,7 @@ function showBasicDetails() {
     document.getElementById('about-email').innerText = getUserDetails().email;
     document.getElementById('about-mobile').innerText = getUserProfileDetails().mob;
     document.getElementById('about-address').innerText = getUserProfileDetails().address;
+    // document.getElementById('about-address').style.display = 'none';
     document.getElementById('about-website').innerText = getUserProfileDetails().website;
     document.getElementById('about-social').innerText = getUserProfileDetails().social;
     document.getElementById('about-dob').innerText = getUserProfileDetails().dob;
