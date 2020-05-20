@@ -12,6 +12,7 @@ function initProfile() {
     // showProfile();
     showProfilePosts();
     renderCollections();
+    renderPeople();
 }
 
 function showProfile() {
@@ -618,6 +619,9 @@ function showDeleteTPost(feedid){
     let div = document.getElementById(feedid);
     div.remove();
     console.log('removed');
+
+    //show post count in header
+    renderProfileHeader();
 }
 
 //edit post
@@ -710,6 +714,9 @@ function showHiddenTPost(feedid){
     let div = document.getElementById(feedid);
     div.remove();
     console.log('removed');
+
+    //update post count in profile header
+    renderProfileHeader();
 }
 
 

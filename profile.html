@@ -2942,29 +2942,29 @@
 
                                                 <li>
 
-                                                    <a class="nav-link active" data-toggle="pill" href="#all-friends">All Friends</a>
+                                                    <a class="nav-link active" data-toggle="pill" href="#people-followers">Followers</a>
 
                                                 </li>
 
                                                 <li>
 
-                                                    <a class="nav-link" data-toggle="pill" href="#recently-add">Recently Added</a>
+                                                    <a class="nav-link" data-toggle="pill" href="#people-following">Following</a>
 
                                                 </li>
 
                                                 <li>
 
-                                                    <a class="nav-link" data-toggle="pill" href="#closefriends">Close friends</a>
+                                                    <a class="nav-link" data-toggle="pill" href="#people-suggestions">Suggestions</a>
 
                                                 </li>
 
-                                                <li>
+                                                <li class="extra">
 
                                                     <a class="nav-link" data-toggle="pill" href="#home">Home/Town</a>
 
                                                 </li>
 
-                                                <li>
+                                                <li class="extra">
 
                                                     <a class="nav-link" data-toggle="pill" href="#following">Following</a>
 
@@ -2974,11 +2974,11 @@
 
                                             <div class="tab-content">
 
-                                                <div class="tab-pane fade active show" id="all-friends" role="tabpanel">
+                                                <div class="tab-pane fade active show" id="people-followers" role="tabpanel">
 
                                                     <div class="iq-card-body p-0">
 
-                                                        <div class="row">
+                                                        <div class="row" id="people-followers-div">
 
                                                             <div class="col-md-6 col-lg-6 mb-3">
 
@@ -4726,11 +4726,11 @@
 
                                                 </div>
 
-                                                <div class="tab-pane fade" id="recently-add" role="tabpanel">
+                                                <div class="tab-pane fade" id="people-following" role="tabpanel">
 
                                                     <div class="iq-card-body p-0">
 
-                                                        <div class="row">
+                                                        <div class="row" id="people-following-div">
 
                                                             <div class="col-md-6 col-lg-6 mb-3">
 
@@ -5202,11 +5202,11 @@
 
                                                 </div>
 
-                                                <div class="tab-pane fade" id="closefriends" role="tabpanel">
+                                                <div class="tab-pane fade" id="people-suggestions" role="tabpanel">
 
                                                     <div class="iq-card-body p-0">
 
-                                                        <div class="row">
+                                                        <div class="row" id="people-suggestions-div">
 
                                                             <div class="col-md-6 col-lg-6 mb-3">
 
@@ -9317,6 +9317,8 @@
     <script src="js/profile/profileHeader.js"></script>
     <script src="js/profile/collectionsTemplate.js"></script>
     <script src="js/profile/renderCollections.js"></script>
+    <script src="js/profile/peopleTemplate.js"></script>
+    <script src="js/profile/renderPeople.js"></script>
 </body>
 
 </html>

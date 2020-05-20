@@ -30,7 +30,7 @@ function renderSharedPosts(shares){
 function renderCollections(){
     $.ajax({
         type:'POST',
-        url: SERVER_URL + 'feed/fetchCollectionByUser',
+        url: SERVER_URL + 'feed/fetchCollectionByuser',
         data:{
             username: getUserDetails().uname
         },
