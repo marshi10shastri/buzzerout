@@ -11,6 +11,8 @@ function initProfile() {
     // if user is not signed in 
     // showProfile();
     showProfilePosts();
+    renderCollections();
+    renderPeople();
 }
 
 function showProfile() {
@@ -617,6 +619,9 @@ function showDeleteTPost(feedid){
     let div = document.getElementById(feedid);
     div.remove();
     console.log('removed');
+
+    //show post count in header
+    renderProfileHeader();
 }
 
 //edit post
@@ -709,6 +714,9 @@ function showHiddenTPost(feedid){
     let div = document.getElementById(feedid);
     div.remove();
     console.log('removed');
+
+    //update post count in profile header
+    renderProfileHeader();
 }
 
 
@@ -1102,5 +1110,6 @@ function showCreatedTimelineBuzz(data) {
     box.innerHTML = "";
     box.innerHTML += timeline_post(data);
     box.innerHTML += boxContent;
-
 }
+
+
