@@ -214,7 +214,7 @@ function editPersonalInfo() {
     let unameIn = document.getElementById("uname").value;
     let cityIn = document.getElementById("cname").value;
     let dobIn = document.getElementById("dob").value;
-    let age = document.getElementById("age-input").value;
+    let age = document.getElementById("age-input");
     let maritalIn = document.getElementById("marital-status-dropdown").value;
     let countryIn = document.getElementById("country-edit-dropdown").value;
     let stateIn = document.getElementById("state-edit-dropdown").value;
@@ -265,6 +265,7 @@ function editPersonalInfo() {
                     //console profile
                 console.log(profile);
                 updateUserProfileDetails(profile);
+                age.value = getAge(getUserProfileDetails().dob);
             }
         },
         error: function(response) {
@@ -311,7 +312,7 @@ function setInputValues() {
     document.getElementById("uname").value = getUserDetails().uname;
     document.getElementById("cname").value = getUserProfileDetails().city
     document.getElementById("dob").value = getUserProfileDetails().dob;
-    document.getElementById("age-input").value = "22";
+    document.getElementById("age-input").value = getAge(getUserProfileDetails().dob);
     document.getElementById("marital-status-dropdown").value = getUserProfileDetails().marital;
     document.getElementById("country-edit-dropdown").value = getUserProfileDetails().country;
     document.getElementById("state-edit-dropdown").value = getUserProfileDetails().state;
@@ -486,4 +487,19 @@ function hideContactSubmit(){
     contact.disabled = true;
     socialLink.disabled = true;
     website.disabled = true;
+}
+
+
+//age calculation
+function getAge(dateString) 
+{
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
 }

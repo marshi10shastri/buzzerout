@@ -39,7 +39,7 @@ function createPost() {
                     showCreatedBuzz(post);
                     // var local_posts = getJSONLocalStorage(POSTS);
                     // setJSONLocalStorage(POSTS, post.concat(local_posts));
-                    desc = '';
+                    document.getElementById('buzz-post-input').value = '';
                     document.getElementById("close-modal").click();
                     // fetchPost();
                 } else {
@@ -143,6 +143,9 @@ function createPost() {
                         };
                         console.log(post);
                         showCreatedBuzz(post);
+
+                        document.getElementById('buzz-photo-input').value = '';
+                        document.getElementById('buzz-post-input').value = '';
                         // var local_posts = getJSONLocalStorage(POSTS);
                         // setJSONLocalStorage(POSTS, post.concat(local_posts));
                         document.getElementById("close-modal").click();

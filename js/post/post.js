@@ -123,7 +123,7 @@ function updateCommentToPost(id, ifSinglePost) {
             let comments = buzz[i].buzz_comments;
             let len = comments.length;
             if (len > 5 && !ifSinglePost) {
-                for (let j = len - 5; j < len; j++) {
+                for (let j = 0; j < 5; j++) {
                     let string = `
                 <li>
                     <div class="d-flex flex-wrap">
@@ -187,7 +187,7 @@ function updateUpvotesSinglePost(feedid) {
     let upvoteSpan = document.getElementById('upvote-count-' + feedid);
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == feedid) {
-            upvoteSpan.innerText = buzz[i].buzz_upvotes.length + " Upvotes";
+            upvoteSpan.innerText = buzz[i].buzz_upvotes.length;
         }
     }
 }
@@ -209,7 +209,7 @@ function updateDownvotesSinglePost(feedid) {
     let downvoteSpan = document.getElementById('downvote-count-' + feedid);
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == feedid) {
-            downvoteSpan.innerText = buzz[i].buzz_downvotes.length + " Downnvotes";
+            downvoteSpan.innerText = buzz[i].buzz_downvotes.length;
         }
     }
 }

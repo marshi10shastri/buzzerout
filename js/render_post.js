@@ -202,7 +202,7 @@ function postTemplateStart(feed) {
             ';
     let len = feed.buzz_comments.length;
     if (len > 5) {
-        for (var i = feed.buzz_comments.length - 5; i < feed.buzz_comments.length; i++) {
+        for (var i = 0; i < 5; i++) {
             string += '<li class="mb-2">\
                                     <div class="d-flex flex-wrap">\
                                         <div class="user-img">\
