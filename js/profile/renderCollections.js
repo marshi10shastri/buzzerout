@@ -37,6 +37,7 @@ function renderCollections(){
 
         success: function(data){
             console.log(data);
+            setJSONLocalStorage(SAVED, data.save_buzz);
             renderSavedPosts(data.save_buzz);
             renderHiddenPosts(data.hide_buzz);
             renderSharedPosts(data.shared_buzz);
