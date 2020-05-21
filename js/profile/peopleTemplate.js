@@ -25,17 +25,17 @@ function singleFollower(person){
 
             <div class="iq-card-header-toolbar d-flex align-items-center">
 
-                <div class="dropdown">`;
+                <div class="dropdown" id="button-`+ person.name +`">`;
 
             if(isPersonFollowed(person)){
-                people +=    `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(`+ person.name +`)">
+                people +=    `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(`+ person +`)">
 
                             <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow
 
                             </span>`;
             }
             else{
-                people +=    `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(`+ person.name +`)">
+                people +=    `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(`+ person +`)">
 
                             <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow
 
@@ -161,24 +161,69 @@ function isPersonFollowed(person){
     return false;
 }
 
-function unfollowUserByUname(name){
+function unfollowUserByUname(person){
+    $.ajax({
+            type:'POST',
+            url:SERVER_URL + 'follow/deleteFollowing',
+            data:{
+                username: getUserDetails().uname,
+                user_to_deleted: person.name
+            },
+
+            success: function(data){
+                if(data.error == false){
+                    //on success
+                    console.log(data);
+                    //update local
+                    updateUserFollowing(data.following);
+
+                    let div = document.getElementById("button-"+ person.name);
+                    div.innerHTML = `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(`+ person +`)">
+
+                    <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow
+
+                    </span>`
+                }
+                else{
+                    console.log(data);
+                    console.log('error following');
+                }
+            },
+            error: function(data){
+                console.log('follow api error');
+                console.log(data);
+            }
+        });
+}
+
+
+function followUserByUname(person){
     $.ajax({
         type:'POST',
-        url:SERVER_URL + 'follow/deleteFollowing',
+        url:SERVER_URL + 'follow/newFollow',
         data:{
-            username: getUserDetails().uname,
-            user_to_deleted: name
+            followed_by: getUserDetails().uname,
+            followes_to: person.name
         },
 
         success: function(data){
+            console.log(data);
             if(data.error == false){
                 //on success
                 console.log(data);
-                updateFollowStatus(data.following, name, 0);
+                
+                updateUserFollowing(data.following);
+
+                let div = document.getElementById("button-"+ person.name);
+                div.innerHTML = `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(`+ person +`)">
+
+                <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow
+
+                </span>`
             }
             else{
-                console.log(data);
                 console.log('error following');
+                console.log(data)
             }
         },
         error: function(data){
