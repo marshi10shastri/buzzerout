@@ -1,25 +1,34 @@
 function singleSaved(buzz){
     save = `<div class="col-md-6 col-lg-3 mb-3">
 
-        <div class="user-images position-relative overflow-hidden">
+        <div class="user-images position-relative overflow-hidden">`;
 
-            <a href="#">
+    if(buzz.images.length > 0){
+        save+=        `<a href="#">
 
-                <img src="`+ buzz.buzz_images[0] +`">
+                <img src="`+ buzz.images[0] +`">
 
-            </a>
+            </a>`;
+    }else{
+        save+=        `<a href="#">
 
-            <div class="image-hover-data">
+                <img src="images/page-img/51.jpg">
+
+            </a>`;
+    }
+    
+
+    save+=        `<div class="image-hover-data">
 
                 <div class="product-elements-icon">
 
                     <ul class="d-flex align-items-center m-0 p-0 list-inline">
 
-                        <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
+                        <li><a href="#" class="pr-3 text-white"> `+ buzz.upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
 
-                        <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
+                        <li><a href="#" class="pr-3 text-white"> `+ buzz.downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
 
-                        <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_comments.length +` <i class="ri-chat-3-line"></i> </a></li>
+                        <li><a href="#" class="pr-3 text-white"> `+ buzz.comments.length +` <i class="ri-chat-3-line"></i> </a></li>
 
                     </ul>
 
@@ -39,25 +48,33 @@ function singleSaved(buzz){
 function singleHidden(buzz){
     hidden = `<div class="col-md-6 col-lg-3 mb-3">
 
-    <div class="user-images position-relative overflow-hidden">
+    <div class="user-images position-relative overflow-hidden">`;
 
-        <a href="#">
+    if(buzz.images.length > 0){
+        hidden+=        `<a href="#">
 
-            <img src="`+ buzz.buzz_images[0] +`">
+                <img src="`+ buzz.images[0] +`">
 
-        </a>
+            </a>`;
+    }else{
+        hidden+=        `<a href="#">
 
-        <div class="image-hover-data">
+                <img src="images/page-img/51.jpg">
+
+            </a>`;
+    }
+
+    hidden+=    `<div class="image-hover-data">
 
             <div class="product-elements-icon">
 
                 <ul class="d-flex align-items-center m-0 p-0 list-inline">
 
-                    <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
+                    <li><a href="#" class="pr-3 text-white"> `+ buzz.upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
 
-                    <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
+                    <li><a href="#" class="pr-3 text-white"> `+ buzz.downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
 
-                    <li><a href="#" class="pr-3 text-white"> `+ buzz_buzz_comments.length +` <i class="ri-chat-3-line"></i> </a></li>
+                    <li><a href="#" class="pr-3 text-white"> `+ buzz.comments.length +` <i class="ri-chat-3-line"></i> </a></li>
 
                 </ul>
 
@@ -70,31 +87,40 @@ function singleHidden(buzz){
     </div>
 
 </div>`
+return hidden;
 }
 
 
 function singleShared(buzz){
     shared =    `<div class="col-md-6 col-lg-3 mb-3">
 
-            <div class="user-images position-relative overflow-hidden">
+            <div class="user-images position-relative overflow-hidden">`;
 
-                <a href="#">
+            if(buzz.images.length > 0){
+                shared+=        `<a href="#">
+        
+                        <img src="`+ buzz.images[0] +`">
+        
+                    </a>`;
+            }else{
+                shared+=        `<a href="#">
+        
+                        <img src="images/page-img/51.jpg">
+        
+                    </a>`
+            }
 
-                    <img src="`+ buzz.buzz_images[0] +`">
-
-                </a>
-
-                <div class="image-hover-data">
+    shared+=      `<div class="image-hover-data">
 
                     <div class="product-elements-icon">
 
                         <ul class="d-flex align-items-center m-0 p-0 list-inline">
 
-                            <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
+                            <li><a href="#" class="pr-3 text-white"> `+ buzz.upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
 
-                            <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
+                            <li><a href="#" class="pr-3 text-white"> `+ buzz.downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
 
-                            <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_buzz_comments.length +` <i class="ri-chat-3-line"></i> </a></li>
+                            <li><a href="#" class="pr-3 text-white"> `+ buzz.comments.length +` <i class="ri-chat-3-line"></i> </a></li>
 
                         </ul>
 

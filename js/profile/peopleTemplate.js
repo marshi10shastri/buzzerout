@@ -25,29 +25,24 @@ function singleFollower(person){
 
             <div class="iq-card-header-toolbar d-flex align-items-center">
 
-                <div class="dropdown">
+                <div class="dropdown" id="button-`+ person.name +`">`;
 
-                    <span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" data-toggle="dropdown" aria-expanded="true" role="button">
+            if(isPersonFollowed(person)){
+                people +=    `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(`+ person +`)">
 
-   <i class="ri-check-line mr-1 text-white font-size-16"></i> Friend
+                            <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow
 
-   </span>
+                            </span>`;
+            }
+            else{
+                people +=    `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(`+ person +`)">
 
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton01">
+                            <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow
 
-                        <a class="dropdown-item" href="#">Get Notification</a>
-
-                        <a class="dropdown-item" href="#">Close Friend</a>
-
-                        <a class="dropdown-item" href="#">Unfollow</a>
-
-                        <a class="dropdown-item" href="#">Unfriend</a>
-
-                        <a class="dropdown-item" href="#">Block</a>
-
-                    </div>
-
-                </div>
+                            </span>`;
+            }
+            
+   people += `</div>
 
             </div>
 
@@ -89,26 +84,11 @@ function singleFollowing(person){
 
                 <div class="dropdown">
 
-                    <span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton31" data-toggle="dropdown" aria-expanded="true" role="button">
+                    <span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton31" aria-expanded="true" role="button">
 
-   <i class="ri-check-line mr-1 text-white font-size-16"></i> Friend
+   <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow
 
    </span>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton31">
-
-                        <a class="dropdown-item" href="#">Get Notification</a>
-
-                        <a class="dropdown-item" href="#">Close Friend</a>
-
-                        <a class="dropdown-item" href="#">Unfollow</a>
-
-                        <a class="dropdown-item" href="#">Unfriend</a>
-
-                        <a class="dropdown-item" href="#">Block</a>
-
-                    </div>
-
                 </div>
 
             </div>
@@ -151,26 +131,11 @@ function singleSuggestion(person){
 
                 <div class="dropdown">
 
-                    <span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton39" data-toggle="dropdown" aria-expanded="true" role="button">
+                    <span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton39" aria-expanded="true" role="button">
 
-   <i class="ri-check-line mr-1 text-white font-size-16"></i> Friend
+   <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow
 
    </span>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton39">
-
-                        <a class="dropdown-item" href="#">Get Notification</a>
-
-                        <a class="dropdown-item" href="#">Close Friend</a>
-
-                        <a class="dropdown-item" href="#">Unfollow</a>
-
-                        <a class="dropdown-item" href="#">Unfriend</a>
-
-                        <a class="dropdown-item" href="#">Block</a>
-
-                    </div>
-
                 </div>
 
             </div>
@@ -182,4 +147,88 @@ function singleSuggestion(person){
 </div>`;
 
 return people;
+}
+
+
+function isPersonFollowed(person){
+    let following = getUserFollowing();
+    for(let i = 0; i<following.length; i++){
+        if(following[i].name == person.name){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function unfollowUserByUname(person){
+    $.ajax({
+            type:'POST',
+            url:SERVER_URL + 'follow/deleteFollowing',
+            data:{
+                username: getUserDetails().uname,
+                user_to_deleted: person.name
+            },
+
+            success: function(data){
+                if(data.error == false){
+                    //on success
+                    console.log(data);
+                    //update local
+                    updateUserFollowing(data.following);
+
+                    let div = document.getElementById("button-"+ person.name);
+                    div.innerHTML = `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(`+ person +`)">
+
+                    <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow
+
+                    </span>`
+                }
+                else{
+                    console.log(data);
+                    console.log('error following');
+                }
+            },
+            error: function(data){
+                console.log('follow api error');
+                console.log(data);
+            }
+        });
+}
+
+
+function followUserByUname(person){
+    $.ajax({
+        type:'POST',
+        url:SERVER_URL + 'follow/newFollow',
+        data:{
+            followed_by: getUserDetails().uname,
+            followes_to: person.name
+        },
+
+        success: function(data){
+            console.log(data);
+            if(data.error == false){
+                //on success
+                console.log(data);
+                
+                updateUserFollowing(data.following);
+
+                let div = document.getElementById("button-"+ person.name);
+                div.innerHTML = `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(`+ person +`)">
+
+                <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow
+
+                </span>`
+            }
+            else{
+                console.log('error following');
+                console.log(data)
+            }
+        },
+        error: function(data){
+            console.log('follow api error');
+            console.log(data);
+        }
+    });
 }

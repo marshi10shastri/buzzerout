@@ -13,6 +13,7 @@ function initProfile() {
     showProfilePosts();
     renderCollections();
     renderPeople();
+    renderTimelineFollowerFollowing()
 }
 
 function showProfile() {
