@@ -269,9 +269,7 @@ function postTemplateStart(feed) {
             <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
                 <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
                 <div class="comment-attagement d-flex">\
-                    <a href="javascript:void();"><i class="ri-link mr-3"></i></a>\
-                    <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>\
-                    <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>\
+                    <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', false)"><i class="ri-send-plane-line mr-3"></i></a>\
                 </div>\
             </div>\
         </div>\
@@ -628,11 +626,12 @@ function shareBuzzByFeedId(feedid){
         },
         success: function(data){
             console.log(data);
+            console.log(feedid);
             // buzz.buzz_title = 'Shared post';
             //local update
             updateLocalStoragePosts(buzz);
             //ui update
-            document.getElementById('shareBtn-' + feedid).style.display = 'none';
+            document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
         },
         error: function(data){
             console.log(data);

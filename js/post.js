@@ -91,7 +91,7 @@ function createPost() {
                 };
                 image.src = readerEvent.target.result;
             };
-        }
+        
         // ----------------------------------------
         var link = [];
 
@@ -183,6 +183,8 @@ function createPost() {
             contentType: false,
             processData: false,
         });
+    }
+
     }
     // ------------------------------------------
 
