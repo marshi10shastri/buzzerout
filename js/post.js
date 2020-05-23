@@ -55,49 +55,62 @@ function createPost() {
         if (file.type.match(/image.*/)) {
             console.log("An image has been loaded");
 
-            // Load the image
             var reader = new FileReader();
-            reader.onload = function(readerEvent) {
-                var image = new Image();
-                image.onload = function(imageEvent) {
-                    // Resize the image
-                    var canvas = document.createElement("canvas"),
-                        max_size = 544, // TODO : pull max size from a site config
-                        width = image.width,
-                        height = image.height;
-                    if (width > height) {
-                        if (width > max_size) {
-                            console.log("width max");
-                            height *= max_size / width;
-                            width = max_size;
-                        }
-                    } else {
-                        if (height > max_size) {
-                            console.log("height max");
-                            width *= max_size / height;
-                            height = max_size;
-                        }
-                    }
-                    canvas.width = width;
-                    canvas.height = height;
-                    canvas.getContext("2d").drawImage(image, 0, 0, width, height);
-                    var dataUrl = canvas.toDataURL("image/jpeg");
-                    resizedImage = dataURLToBlob(dataUrl);
-                    $.event.trigger({
-                        type: "imageResized",
-                        blob: resizedImage,
-                        url: dataUrl,
-                    });
-                };
-                image.src = readerEvent.target.result;
+	        reader.onload = function(event) {
+			    var i = new Image();
+			    console.log(i);
+                i.src = event.target.result;
             };
+            // Load the image
+            // var reader = new FileReader();
+            // reader.onload = function(readerEvent) {
+            //     var image = new Image();
+            //     image.onload = function(imageEvent) {
+            //         // Resize the image
+            //         var canvas = document.createElement("canvas"),
+            //             max_size = 544, // TODO : pull max size from a site config
+            //             width = image.width,
+            //             height = image.height;
+            //         if (width > height) {
+            //             if (width > max_size) {
+            //                 console.log("width max");
+            //                 height *= max_size / width;
+            //                 width = max_size;
+            //             }
+            //         } else {
+            //             if (height > max_size) {
+            //                 console.log("height max");
+            //                 width *= max_size / height;
+            //                 height = max_size;
+            //             }
+            //         }
+            //         canvas.width = width;
+            //         canvas.height = height;
+            //         canvas.getContext("2d").drawImage(image, 0, 0, width, height);
+            //         var dataUrl = canvas.toDataURL("image/jpeg");
+            //         resizedImage = dataURLToBlob(dataUrl);
+            //         $.event.trigger({
+            //             type: "imageResized",
+            //             blob: resizedImage,
+            //             url: dataUrl,
+            //         });
+            //     };
+            //     image.src = readerEvent.target.result;
+            // };
         
+        var source = i;
+        var compressed = new Image();
+        var output_format = file.name.split(".").pop();
+        var quality = 30;
+        compressed.src = jic.compress(source, quality, output_format).src
+        console.log(source);
+        console.log(compressed);
         // ----------------------------------------
         var link = [];
 
         var formData = new FormData();
         email = "raman.10102@gmail.com";
-        formData.append("file", file);
+        formData.append("file", compressed.src);
         formData.append("product", "buzzerout");
         formData.append("application", "buzzerout");
         formData.append("to", email);
