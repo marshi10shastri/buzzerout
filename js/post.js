@@ -61,7 +61,17 @@ function createPost() {
 			    console.log(i);
                 i.src = event.target.result;
             };
-            // Load the image
+
+        var source = i;
+        var compressed = new Image();
+        var output_format = file.name.split(".").pop();
+        var quality = 30;
+        compressed.src = jic.compress(source, quality, output_format).src
+        console.log(source);
+        console.log(compressed);
+
+
+                    // Load the image
             // var reader = new FileReader();
             // reader.onload = function(readerEvent) {
             //     var image = new Image();
@@ -97,14 +107,6 @@ function createPost() {
             //     };
             //     image.src = readerEvent.target.result;
             // };
-        
-        var source = i;
-        var compressed = new Image();
-        var output_format = file.name.split(".").pop();
-        var quality = 30;
-        compressed.src = jic.compress(source, quality, output_format).src
-        console.log(source);
-        console.log(compressed);
         // ----------------------------------------
         var link = [];
 
