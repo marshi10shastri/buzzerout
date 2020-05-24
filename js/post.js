@@ -47,13 +47,13 @@ function createPost() {
         // ---------------------------------------
         if (file.type.match(/image.*/)) {
             console.log("An image has been loaded");
-            let postImg = getJSONLocalStorage(POST_IMG);
+
         // ----------------------------------------
         var link = [];
 
         var formData = new FormData();
         email = "raman.10102@gmail.com";
-        formData.append("file", postImg);
+        formData.append("file", file_toke);
         formData.append("product", "buzzerout");
         formData.append("application", "buzzerout");
         formData.append("to", email);
@@ -138,7 +138,7 @@ function createPost() {
             contentType: false,
             processData: false,
         });
-    }
+        }
 
     }
     // ------------------------------------------

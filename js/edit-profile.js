@@ -8,6 +8,11 @@ function initProfileEdit() {
 
     setContactInputValues();
     hideContactSubmit();
+
+    document.getElementById('profile-image-upload').addEventListener("change", function (event) {
+        showUploadPimageBtn();
+        compressPImage(event);
+    });
 }
 
 function uploadProfileImage() {
@@ -306,7 +311,7 @@ function enablePersonalInputs() {
 }
 
 function setInputValues() {
-    document.getElementById('pedit-profile-image').src = getUserProfileDetails().pImage;
+    // document.getElementById('pedit-profile-image').src = getUserProfileDetails().pImage;
     document.getElementById("fnameIn").value = getUserProfileDetails().fName;
     document.getElementById("lnameIn").value = getUserProfileDetails().lName;
     document.getElementById("uname").value = getUserDetails().uname;

@@ -14,6 +14,10 @@ function initProfile() {
     renderCollections();
     renderPeople();
     renderTimelineFollowerFollowing()
+
+    document.getElementById('upload-cover-pic').addEventListener("change", function (event) {
+        compresstImage(event);
+    });
 }
 
 function showProfile() {

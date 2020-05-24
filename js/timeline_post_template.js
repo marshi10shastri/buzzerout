@@ -522,9 +522,16 @@ post += feed.buzz_downvotes.length;
 
                 </div>
 
-    <hr>
+    <hr>`;
 
-        <ul class="post-comments p-0 m-0" id="Tcommentslist-`+ feed.buzz_id +`">`;
+post +=    '<div class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">\
+        <input type="text" id="commentinput-` + feed.buzz_id + `" class="form-control rounded">\
+        <div class="comment-attagement d-flex">\
+        <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', false)"><i class="ri-send-plane-line mr-3"></i></a>\
+        </div>\
+    </div>\
+<hr>\
+        <ul class="post-comments p-0 m-0" id="Tcommentslist-`+ feed.buzz_id +`">';
 
 
     let len = feed.buzz_comments.length;
@@ -592,24 +599,8 @@ post += feed.buzz_downvotes.length;
     }
 
 
-    post +=  `</ul>
+    post +=  `</ul><hr>
     <div class="align-items-center" id="feed-` + feed.buzz_id + `"> <a href="javascript:void();">View full post</a></div>\
-    <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
-
-        <input type="text" id="commentinput-` + feed.buzz_id + `" class="form-control rounded">
-
-            <div class="comment-attagement d-flex">
-
-                <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
-
-                <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
-
-                <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
-
-            </div>
-
-    </form>
-
 </div>
 
 </div>

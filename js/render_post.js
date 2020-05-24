@@ -198,6 +198,13 @@ function postTemplateStart(feed) {
                 </div>\
             </div>\
             <hr>\
+            <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
+                <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
+                <div class="comment-attagement d-flex">\
+                    <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', false)"><i class="ri-send-plane-line mr-3"></i></a>\
+                </div>\
+            </div>\
+            <hr>\
             <ul class="post-comments p-0 m-0"  id="commentslist-' + feed.buzz_id + '" >\
             ';
     let len = feed.buzz_comments.length;
@@ -265,13 +272,8 @@ function postTemplateStart(feed) {
                     </div>\
                 </li> -->\
             </ul>\
+            <hr>\
             <div class="align-items-center" id="feed-' + feed.buzz_id + '"> <a href="javascript:void();">View full post</a></div>\
-            <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
-                <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
-                <div class="comment-attagement d-flex">\
-                    <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', false)"><i class="ri-send-plane-line mr-3"></i></a>\
-                </div>\
-            </div>\
         </div>\
     </div>\
 </div>\

@@ -179,7 +179,12 @@ function singleBuzzLoad(feed) {
                 </div>\
             </div>\
             <hr>\
-            <divclass="align-items-center"> <a href="#commentinput-' + feed.buzz_id + '">Add Your Comment</a></div>\
+            <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
+                <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
+                <div class="comment-attagement d-flex">\
+                    <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', true)"><i class="ri-send-plane-line mr-3"></i></a>\
+                </div>\
+            </div>\
             <hr>\
             <ul class="post-comments p-0 m-0"  id="commentslist-' + feed.buzz_id + '" >\
             ';
@@ -224,12 +229,6 @@ function singleBuzzLoad(feed) {
                     </div>\
                 </li> -->\
             </ul>\
-            <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
-                <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
-                <div class="comment-attagement d-flex">\
-                    <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', true)"><i class="ri-send-plane-line mr-3"></i></a>\
-                </div>\
-            </div>\
         </div>\
     </div>\
 </div>\
