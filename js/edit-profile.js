@@ -8,6 +8,11 @@ function initProfileEdit() {
 
     setContactInputValues();
     hideContactSubmit();
+
+    document.getElementById('profile-image-upload').addEventListener("change", function (event) {
+        showUploadPimageBtn();
+        compressPImage(event);
+    });
 }
 
 function uploadProfileImage() {
@@ -16,7 +21,7 @@ function uploadProfileImage() {
 
     if (file) {
         var formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', pImage_toke);
         formData.append('product', 'appnivi');
         formData.append('application', 'nivishare');
         formData.append('to', 'raman.10101@gmail.com');
@@ -79,7 +84,7 @@ function uploadCoverImage() {
 
     if (file) {
         var formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', tImage_toke);
         formData.append('product', 'appnivi');
         formData.append('application', 'nivishare');
         formData.append('to', 'raman.10101@gmail.com');
@@ -306,7 +311,7 @@ function enablePersonalInputs() {
 }
 
 function setInputValues() {
-    document.getElementById('pedit-profile-image').src = getUserProfileDetails().pImage;
+    document.getElementById('pedit-profile').src = getUserProfileDetails().pImage;
     document.getElementById("fnameIn").value = getUserProfileDetails().fName;
     document.getElementById("lnameIn").value = getUserProfileDetails().lName;
     document.getElementById("uname").value = getUserDetails().uname;

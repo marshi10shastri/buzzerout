@@ -73,6 +73,16 @@ function postMapper(data) {
 
 }
 
+//add comment by btn
+function addCommentByBtn(feedid, isSinglePost){
+    console.log(feedid);
+    console.log(isSinglePost);
+    let inputBox = document.getElementById('commentinput-' + feedid).value;
+    addComment(feedid, inputBox, isSinglePost);
+
+    document.getElementById('commentinput-' + feedid).value = '';
+}
+
 function singlePostMapper(data) {
     // Ui 
     let postingBox = document.getElementById("posting-area");

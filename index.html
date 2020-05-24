@@ -38,6 +38,7 @@
 
     <script src="js/base.js"></script>
     <script src="js/post.js"></script>
+    <script src="js/JIC.js"></script>
     <script>
         if (getLocalStorage(USER) != undefined) {
             if (getLocalStorage(USER) == 'true') {
@@ -1312,9 +1313,9 @@
 
                                     <hr>
 
-                                    <ul class="post-opt-block d-flex align-items-center list-inline m-0 p-0">
+                                   <ul class="post-opt-block d-flex align-items-center list-inline m-0 p-0">
 
-                                        <li class="iq-bg-primary rounded p-2 pointer mr-3">
+                                        <li class="iq-bg-primary rounded p-2 pointer mr-3" id="create-buzz-photo">
                                             <a href="#"></a><img src="images/small/07.png" alt="icon" class="img-fluid"> Add Photo/Video</li>
 
                                         <li class="iq-bg-primary rounded p-2 pointer mr-3" id="create-buzz-tag">
@@ -1466,6 +1467,8 @@
                                                     </li>
 
                                                 </ul>
+
+                                                <div id="body-div"></div>
 
                                                 <hr>
 
@@ -3842,6 +3845,7 @@
     <script src="js/custom.js"></script>
 
     <script src="js/base.js"></script>
+    <script src="js/compress.js"></script>
     <script src="js/render_post.js"></script>
     <script src="js/post.js"></script>
     <script src="js/init-index.js"></script>

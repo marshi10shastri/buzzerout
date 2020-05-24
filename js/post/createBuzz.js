@@ -1,4 +1,5 @@
 function renderCreateBuzz() {
+    let photo = document.getElementById('create-buzz-photo');
     let buzzToggle = document.getElementById('create-buzz-toggle');
     let writeUImage = document.getElementById('post-write-userimage');
     let tag = document.getElementById('create-buzz-tag');
@@ -16,6 +17,10 @@ function renderCreateBuzz() {
     let modalother = document.getElementById('create-buzz-modal-other');
 
     let editModalImage = document.getElementById('post-edit-userimage-inside');
+
+    //inputs
+    let photoInput = document.getElementById('buzz-photo-input');
+    let textInput = document.getElementById('buzz-post-input');
 
 
 
@@ -38,6 +43,7 @@ function renderCreateBuzz() {
     }
 
     //outside modal
+    photo.style.display = 'none';
     tag.style.display = "none";
     feeling.style.display = "none";
     extra.style.display = "none";
@@ -51,6 +57,13 @@ function renderCreateBuzz() {
     modalwatch.style.display = "none";
     modalplay.style.display = "none";
     modalother.style.display = "none";
+    photoInput.value = '';
+    textInput.value = '';
+
+    //adding event listener to photo input
+    photoInput.addEventListener("change", function (event) {
+        compress(event);
+    });
 
 }
 

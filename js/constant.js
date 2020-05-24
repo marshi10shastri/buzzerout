@@ -93,5 +93,6 @@ const FOLLOWING = 'following';
 const ALL_BUZZ = "all_buzz";
 const CURR_BUZZ = "curr_buzz";
 const SAVED = "saved_buzz";
+const POST_IMG = "post_image";
 // URLs
 const SERVER_URL = 'http://buzzerout.com/buzzerout_server/v1/';
