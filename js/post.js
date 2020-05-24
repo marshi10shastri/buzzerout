@@ -1,13 +1,6 @@
-function focusLocation() {
-    var locationInput = document.getElementById("buzz-location-input");
-    locationInput.style.display = "block";
-    locationInput.focus();
-}
 
 function createPost() {
     var file = document.getElementById("buzz-photo-input").files[0];
-    var resizedImage;
-
     if (document.getElementById("buzz-photo-input").files.length == 0) {
         let user_name = getUserDetails().uname;
         let desc = document.getElementById("buzz-post-input").value;
@@ -54,65 +47,13 @@ function createPost() {
         // ---------------------------------------
         if (file.type.match(/image.*/)) {
             console.log("An image has been loaded");
-
-            var reader = new FileReader();
-	        reader.onload = function(event) {
-			    var i = new Image();
-			    console.log(i);
-                i.src = event.target.result;
-            };
-
-        var source = i;
-        var compressed = new Image();
-        var output_format = file.name.split(".").pop();
-        var quality = 30;
-        compressed.src = jic.compress(source, quality, output_format).src
-        console.log(source);
-        console.log(compressed);
-
-
-                    // Load the image
-            // var reader = new FileReader();
-            // reader.onload = function(readerEvent) {
-            //     var image = new Image();
-            //     image.onload = function(imageEvent) {
-            //         // Resize the image
-            //         var canvas = document.createElement("canvas"),
-            //             max_size = 544, // TODO : pull max size from a site config
-            //             width = image.width,
-            //             height = image.height;
-            //         if (width > height) {
-            //             if (width > max_size) {
-            //                 console.log("width max");
-            //                 height *= max_size / width;
-            //                 width = max_size;
-            //             }
-            //         } else {
-            //             if (height > max_size) {
-            //                 console.log("height max");
-            //                 width *= max_size / height;
-            //                 height = max_size;
-            //             }
-            //         }
-            //         canvas.width = width;
-            //         canvas.height = height;
-            //         canvas.getContext("2d").drawImage(image, 0, 0, width, height);
-            //         var dataUrl = canvas.toDataURL("image/jpeg");
-            //         resizedImage = dataURLToBlob(dataUrl);
-            //         $.event.trigger({
-            //             type: "imageResized",
-            //             blob: resizedImage,
-            //             url: dataUrl,
-            //         });
-            //     };
-            //     image.src = readerEvent.target.result;
-            // };
+            let postImg = getJSONLocalStorage(POST_IMG);
         // ----------------------------------------
         var link = [];
 
         var formData = new FormData();
         email = "raman.10102@gmail.com";
-        formData.append("file", compressed.src);
+        formData.append("file", postImg);
         formData.append("product", "buzzerout");
         formData.append("application", "buzzerout");
         formData.append("to", email);
@@ -125,7 +66,6 @@ function createPost() {
             success: function(data) {
                 link.push(data.link);
                 console.log(data.link);
-
                 let user_name = getUserDetails().uname;
                 let desc = document.getElementById("buzz-post-input").value;
                 console.log(user_name);

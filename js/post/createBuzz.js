@@ -17,6 +17,10 @@ function renderCreateBuzz() {
 
     let editModalImage = document.getElementById('post-edit-userimage-inside');
 
+    //inputs
+    let photoInput = document.getElementById('buzz-photo-input');
+    let textInput = document.getElementById('buzz-post-input');
+
 
 
 
@@ -51,6 +55,14 @@ function renderCreateBuzz() {
     modalwatch.style.display = "none";
     modalplay.style.display = "none";
     modalother.style.display = "none";
+    photoInput.value = '';
+    textInput.value = '';
+
+    //adding event listener to photo input
+    photoInput.addEventListener("change", function (event) {
+        compress(event);
+
+    });
 
 }
 
