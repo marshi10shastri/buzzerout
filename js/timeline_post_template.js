@@ -328,7 +328,7 @@ function timeline_post(feed) {
 
                     <p class="ml-1 mb-0 d-inline-block">`+ feed.buzz_title +`</p>
 
-                    <p class="mb-0">` + feed.buzz_timestamp + `</p>
+                    <p class="mb-0">` + timeSince(new Date(feed.buzz_timestamp)) + `</p>
 
                 </div>
 
@@ -525,13 +525,13 @@ post += feed.buzz_downvotes.length;
     <hr>`;
 
 post +=    '<div class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">\
-        <input type="text" id="commentinput-` + feed.buzz_id + `" class="form-control rounded">\
+        <input type="text" id="commentinput-' + feed.buzz_id + '" class="form-control rounded" placeholder="Write your comment '+getUserDetails().uname+'...">\
         <div class="comment-attagement d-flex">\
-        <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', false)"><i class="ri-send-plane-line mr-3"></i></a>\
+        <a onclick="addTCommentByBtn(\''+ feed.buzz_id +'\', false)"><i class="ri-send-plane-2-line"></i></a>\
         </div>\
     </div>\
 <hr>\
-        <ul class="post-comments p-0 m-0" id="Tcommentslist-`+ feed.buzz_id +`">';
+        <ul class="post-comments p-0 m-0" id="Tcommentslist-'+ feed.buzz_id +'">';
 
 
     let len = feed.buzz_comments.length;
@@ -553,9 +553,14 @@ post +=    '<div class="comment-text d-flex align-items-center mt-3" action="jav
 
                         <p class="mb-0">` + feed.buzz_comments[i].text + `</p>
 
-                        <div class="d-flex flex-wrap align-items-center comment-activity">
+                        <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
-                            <span> ` + feed.buzz_comments[i].timestamp + `  </span>
+                        if(feed.buzz_comments[i].username == getUserDetails().uname){
+                            post +=    '<a href="index.html">edit</a>\
+                                          <a href="javascript:void();">reply</a>'
+                        }
+
+                        post+=    `<span> ` + timeSince(new Date(feed.buzz_comments[i].timestamp)) + `  </span>
 
                         </div>
 
@@ -583,9 +588,14 @@ post +=    '<div class="comment-text d-flex align-items-center mt-3" action="jav
 
                         <p class="mb-0">` + feed.buzz_comments[i].text + `</p>
 
-                        <div class="d-flex flex-wrap align-items-center comment-activity">
+                        <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
-                            <span> ` + feed.buzz_comments[i].timestamp + `  </span>
+                        if(feed.buzz_comments[i].username == getUserDetails().uname){
+                            post +=    '<a href="javascript:void();">edit</a>\
+                                          <a href="javascript:void();">reply</a>'
+                        }
+
+                            `<span> ` + timeSince(new Date(feed.buzz_comments[i].timestamp)) + `  </span>
 
                         </div>
 

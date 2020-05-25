@@ -27,19 +27,16 @@ function singleFollower(person){
 
                 <div class="dropdown" id="button-`+ person.name +`">`;
 
+                console.log(person);
             if(isPersonFollowed(person)){
                 people +=    `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(`+ person +`)">
-
                             <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow
-
                             </span>`;
             }
             else{
-                people +=    `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(`+ person +`)">
-
-                            <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow
-
-                            </span>`;
+                people +=    '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(\''+ person +'\')">\
+                            <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow\
+                            </span>';
             }
             
    people += `</div>
@@ -151,23 +148,26 @@ return people;
 
 
 function isPersonFollowed(person){
+    console.log(person);
     let following = getUserFollowing();
     for(let i = 0; i<following.length; i++){
         if(following[i].name == person.name){
+            console.log(person);
             return true;
         }
     }
-
+    console.log(person);
     return false;
 }
 
 function unfollowUserByUname(person){
+    console.log(person);
     $.ajax({
             type:'POST',
             url:SERVER_URL + 'follow/deleteFollowing',
             data:{
                 username: getUserDetails().uname,
-                user_to_deleted: person.name
+                user_to_deleted: name
             },
 
             success: function(data){
@@ -177,7 +177,7 @@ function unfollowUserByUname(person){
                     //update local
                     updateUserFollowing(data.following);
 
-                    let div = document.getElementById("button-"+ person.name);
+                    let div = document.getElementById("button-"+ name);
                     div.innerHTML = `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(`+ person +`)">
 
                     <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow
