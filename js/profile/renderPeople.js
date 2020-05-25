@@ -3,6 +3,7 @@ function renderFollowers(people){
     followers.innerHTML = '';
 
     for(let i=0; i<people.length; i++){
+        console.log(people[i]);
         followers.innerHTML += singleFollower(people[i]);
     }
 }

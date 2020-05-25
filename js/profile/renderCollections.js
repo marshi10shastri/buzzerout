@@ -37,10 +37,12 @@ function renderCollections(){
 
         success: function(data){
             console.log(data);
-            setJSONLocalStorage(SAVED, data.save_buzz);
+            if(data.error == false){
+                setJSONLocalStorage(SAVED, data.save_buzz);
             renderSavedPosts(data.save_buzz);
             renderHiddenPosts(data.hide_buzz);
             renderSharedPosts(data.shared_buzz);
+            }
         },
 
         error: function(data){

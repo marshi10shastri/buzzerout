@@ -392,11 +392,12 @@ function showProfilePosts() {
     }
     setJSONLocalStorage(T_POSTS, tposts);
     console.log(getJSONLocalStorage(T_POSTS));
-    var timelinePostBox = document.getElementById('timeline-posts').innerHTML;
-    timelinePostBox = "";
+    
 
     if(tposts.length == 0){
-        timelinePostBox = timeline_post_template_no_post();
+        let timelinePostBox = document.getElementById('timeline-posts');
+        timelinePostBox.innerHTML = "";
+        timelinePostBox.innerHTML = timeline_post_template_no_post();
     }
 
     document.getElementById('timeline-posts').innerHTML = '';
@@ -443,13 +444,25 @@ function singleTimelinePostMapper(post){
     timelinePostBox.innerHTML += timeline_post(post);
 }
 
+
+//comments
+function addTCommentByBtn(feedid, isSinglePost){
+    console.log(feedid);
+    console.log(isSinglePost);
+    let inputBox = document.getElementById('commentinput-' + feedid).value;
+    addCommentTimeline(feedid, inputBox, isSinglePost);
+
+    document.getElementById('commentinput-' + feedid).value = '';
+}
+
+
 function addCommentTimeline(feedid, commentData, ifSinglePost){
     console.log("adding comment");
     $.ajax({
         type: "POST",
         url: SERVER_URL + "comment/addComment",
         data: {
-            user_id: getUserDetails().uname,
+            username: getUserDetails().uname,
             text: commentData,
             feed_id: feedid,
         },
@@ -514,9 +527,14 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
         
                                 <p class="mb-0">` + feed[i].buzz_comments[j].text + `</p>
         
-                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                <div class="d-flex flex-wrap align-items-center comment-activity">`;
+
+                                if(comment[j].username == getUserDetails().uname){
+                                    string +=  `<a href="javascript:void();">Edit</a>
+                                                <a href="javascript:void();">Delete</a>`
+                                }
         
-                                    <span> ` + feed[i].buzz_comments[j].timestamp + `  </span>
+                                string +=    `<span> ` + timeSince(new Date(feed[i].buzz_comments[j].timestamp)) + `  </span>
         
                                 </div>
         
@@ -545,9 +563,14 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
         
                                 <p class="mb-0">` + feed[i].buzz_comments[j].text + `</p>
         
-                                <div class="d-flex flex-wrap align-items-center comment-activity">
+                                <div class="d-flex flex-wrap align-items-center comment-activity">`;
+
+                                if(comment[j].username == getUserDetails().uname){
+                                    string +=  `<a href="javascript:void();">Edit</a>
+                                                <a href="javascript:void();">Delete</a>`
+                                }
         
-                                    <span> ` + feed[i].buzz_comments[j].timestamp + `  </span>
+                                string +=    `<span> ` + timeSince(new Date(feed[i].buzz_comments[j].timestamp)) + `  </span>
         
                                 </div>
         

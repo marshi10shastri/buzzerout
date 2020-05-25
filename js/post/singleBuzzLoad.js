@@ -15,7 +15,7 @@ function singleBuzzLoad(feed) {
                     <div class="media-support-info mt-2">\
                         <h5 class="mb-0 d-inline-block"><a href="#" class="">' + feed.buzz_username + ' </a></h5>\
                         <p class="mb-0 d-inline-block">Add New Post</p>\
-                        <p class="mb-0 text-primary">' + feed.buzz_timestamp + ' hours ago</p>\
+                        <p class="mb-0 text-primary">' + new Date(feed.buzz_timestamp) + ' </p>\
                     </div>\
                     <div class="iq-card-post-toolbar">\
                         <div class="dropdown">\
@@ -182,7 +182,7 @@ function singleBuzzLoad(feed) {
             <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
                 <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
                 <div class="comment-attagement d-flex">\
-                    <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', true)"><i class="ri-send-plane-line mr-3"></i></a>\
+                    <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', true)"><i class="ri-send-plane-2-line"></i></a>\
                 </div>\
             </div>\
             <hr>\
@@ -198,10 +198,11 @@ function singleBuzzLoad(feed) {
                                         <div class="comment-data-block ml-3">\
                                             <h6>' + feed.buzz_comments[i].username + '</h6>\
                                             <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
-                                            <div class="d-flex flex-wrap align-items-center comment-activity">\
-                                            <a href="javascript:void();">like</a>';
-        // <a href="javascript:void();">reply</a>\
-        // <a href="javascript:void();">translate</a>\
+                                            <div class="d-flex flex-wrap align-items-center comment-activity">'
+                                            if(feed.buzz_comments[i].username == getUserDetails().uname){
+                                                string +=    '<a href="javascript:void();">edit</a>\
+                                                              <a href="javascript:void();">reply</a>'
+                                            }
         string += ' <span> ' + feed.buzz_comments[i].timestamp + ' </span>\
                                             </div>\
                                         </div>\

@@ -182,7 +182,7 @@ function addComment(feedid, commentData, ifSinglePost) {
         type: "POST",
         url: SERVER_URL + "comment/addComment",
         data: {
-            user_id: getUserDetails().uname,
+            username: getUserDetails().uname,
             text: commentData,
             feed_id: feedid,
         },

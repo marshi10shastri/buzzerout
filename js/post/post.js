@@ -143,9 +143,13 @@ function updateCommentToPost(id, ifSinglePost) {
                         <div class="comment-data-block ml-3">
                             <h6>` + comments[j].username + `</h6>
                             <p class="mb-0">` + comments[j].text + `</p>
-                            <div class="d-flex flex-wrap align-items-center comment-activity">
-                                <a href="javascript:void();">like</a>
-                                <span> ` + comments[j].timestamp + ` </span>
+                            <div class="d-flex flex-wrap align-items-center comment-activity">`
+                            if(comment[j].username == getUserDetails().uname){
+                                string +=  `<a href="javascript:void();">Edit</a>
+                                            <a href="javascript:void();">Delete</a>`
+                            }
+                               string += `<a href="javascript:void();">like</a>
+                                <span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
                             </div>
                         </div>
                     </div>
@@ -166,7 +170,7 @@ function updateCommentToPost(id, ifSinglePost) {
                             <p class="mb-0">` + comments[j].text + `</p>
                             <div class="d-flex flex-wrap align-items-center comment-activity">
                                 <a href="javascript:void();">like</a>
-                                <span> ` + comments[j].timestamp + ` </span>
+                                <span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
                             </div>
                         </div>
                     </div>
