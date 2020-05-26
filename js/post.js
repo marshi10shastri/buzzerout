@@ -178,7 +178,26 @@ function fetchPost() {
     } else if (getLocalStorage(USER_TYPE) == "testuser") {
 
     } else if (getLocalStorage(USER_TYPE) == "logoutuser") {
+        inhtml.innerHTML = "";
+        $.ajax({
+            type: "POST",
+            url: "http://buzzerout.com/buzzerout_server/v1/feed/fetchAllFeedWithoutUser",
+            crossDomain: true,
+            success: function (resp) {
+                console.log(resp);
 
+                if (0 != resp.Feed.length) {
+                    postMapper(resp.Feed);
+                } else {
+                    let inhtml = document.getElementById("posting-area");
+                    inhtml.innerHTML = post_template_no_post();
+                }
+            },
+            error: function (response) {
+                console.log(response);
+                alert("sorry, low internet");
+            },
+        });
     } else if (getLocalStorage(USER_TYPE) == "dummy") {
 
     }
