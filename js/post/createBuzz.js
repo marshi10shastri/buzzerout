@@ -70,9 +70,12 @@ function renderCreateBuzz() {
 function showCreatedBuzz(data) {
     console.log(data);
     let buzz = getJSONLocalStorage(ALL_BUZZ);
-    buzz.unshift(data);
+    if(buzz.length != null){
+        buzz.unshift(data);
+    }else{
+        buzz.push(data);
+    }
     setJSONLocalStorage(ALL_BUZZ, buzz);
-
     let box = document.getElementById('posting-area');
     let boxContent = box.innerHTML;
 
