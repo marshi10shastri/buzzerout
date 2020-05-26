@@ -81,7 +81,8 @@ function uploadProfileImage() {
 function uploadCoverImage() {
     let user = getUserProfileDetails();
     let file = document.getElementById('upload-cover-pic').files[0];
-
+    console.log("Defined");
+    console.log(tImage_toke);
     if (file) {
         var formData = new FormData();
         formData.append('file', tImage_toke);
@@ -96,6 +97,7 @@ function uploadCoverImage() {
             url: 'http://appnivi.com/server/v1/file/fileupload',
             data: formData,
             success: function(data) {
+                console.log(data)
                 var link = data.link;
                 console.log(data.link);
 

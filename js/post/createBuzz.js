@@ -81,6 +81,9 @@ function showCreatedBuzz(data) {
 
     box.innerHTML = "";
     box.innerHTML += postTemplateStart(data);
-    box.innerHTML += boxContent;
+    if(buzz != null && buzz.length != 1){
+        box.innerHTML += boxContent;
+    }
+    
 
 }

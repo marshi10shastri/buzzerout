@@ -1,8 +1,14 @@
 function initProfile() {
+
     renderProfileTopRight();
     renderProfileTopMiddle();
+
+
     renderProfileLeftBar();
+
+
     renderProfileHeader();
+
     showBasicDetails();
     showWorksDetails();
     showCollegesDetails();
@@ -90,7 +96,6 @@ function editWebsite() {
             socialLink: social_link
         },
         success: function(data) {
-            console.log(data);
             user.website = website
             user.socialLink = social_link
             setJSONLocalStorage(USER_INFO, user);
@@ -120,7 +125,6 @@ function addWork() {
                 work_profile: workIn.workProfile
             },
             success: function(data) {
-                console.log(data);
                 userWorks = data.works;
                 updateUserWorksDetails(userWorks);
                 showWorksDetails();
@@ -156,7 +160,6 @@ function addCollege() {
                 college_place: collegeIn.collegePlace
             },
             success: function(data) {
-                console.log(data.messsage);
                 userColleges = data.colleges;
                 updateUserCollegeDetails(userColleges);
                 showCollegesDetails();
@@ -193,9 +196,6 @@ function addCity() {
                 place_state: placeIn.placeState
             },
             success: function(data) {
-                console.log("add city called")
-                console.log(data);
-
                 userCities = data.places;
                 updateUserPlacesDetails(userCities);
                 showPlacesDetails();
@@ -217,10 +217,6 @@ function editDetails() {
     about_inp = document.getElementById('aboutInput').value;
     other_name_inp = document.getElementById('otherNameInput').value;
     fav_quote_inp = document.getElementById('quoteInput').value;
-
-    // console.log(about_inp);
-    // console.log(other_name_inp);
-    // console.log(fav_quote_inp);
     $.ajax({
         type: 'POST',
         url: SERVER_URL + 'detail/updateUserDetails',
@@ -231,10 +227,8 @@ function editDetails() {
             fav_quote: fav_quote_inp
         },
         success: function(data) {
-            console.log(data);
             updateUserAboutDetails(data.userdetails);
             showDetailsAboutDetails();
-            // document.getElementById('detailsLink').click();
         },
         error: function(data) {
             console.log(data);
@@ -261,11 +255,9 @@ function editCity() {
             place_id: cityId
         },
         success: function(data) {
-            console.log(data);
             userCities = data.places
             updateUserPlacesDetails(userCities);
             showPlacesDetails();
-            // document.getElementById('placeLink').click();
         },
         error: function(data) {
             console.log(data);
@@ -290,11 +282,9 @@ function editCollege() {
             college_id: college_id
         },
         success: function(data) {
-            console.log(data.message);
             userColleges = data.colleges;
             updateUserCollegeDetails(userColleges);
             showCollegesDetails();
-            // document.getElementById('workLink').click();
         },
         error: function(data) {
             console.log(data);
@@ -319,7 +309,6 @@ function editWork() {
             work_id: workId
         },
         success: function(data) {
-            console.log(data);
             userWork = data.works;
             updateUserWorksDetails(userWork);
             showWorksDetails();
@@ -384,16 +373,12 @@ function showProfilePosts() {
     let allposts = getJSONLocalStorage(ALL_BUZZ);
     let tposts = []
     for (let i = 0; i < allposts.length; i++) {
-        console.log(allposts[i])
         if (allposts[i].buzz_username == getUserDetails().uname) {
 
             tposts.push(allposts[i]);
         }
     }
     setJSONLocalStorage(T_POSTS, tposts);
-    console.log(getJSONLocalStorage(T_POSTS));
-    
-
     if(tposts.length == 0){
         let timelinePostBox = document.getElementById('timeline-posts');
         timelinePostBox.innerHTML = "";
@@ -431,7 +416,6 @@ function showProfilePosts() {
         let elem = document.getElementById(TfeedIdArray[j]);
         elem.addEventListener("click", function(e) {
             let feedid = TfeedIdArray[j].split("-")[1];
-            console.log("Setting feed id to " + feedid);
             setLocalStorage(CURR_BUZZ, feedid);
             window.location = 'single-post.html';
         });
@@ -447,8 +431,6 @@ function singleTimelinePostMapper(post){
 
 //comments
 function addTCommentByBtn(feedid, isSinglePost){
-    console.log(feedid);
-    console.log(isSinglePost);
     let inputBox = document.getElementById('commentinput-' + feedid).value;
     addCommentTimeline(feedid, inputBox, isSinglePost);
 
@@ -457,7 +439,6 @@ function addTCommentByBtn(feedid, isSinglePost){
 
 
 function addCommentTimeline(feedid, commentData, ifSinglePost){
-    console.log("adding comment");
     $.ajax({
         type: "POST",
         url: SERVER_URL + "comment/addComment",
@@ -467,7 +448,6 @@ function addCommentTimeline(feedid, commentData, ifSinglePost){
             feed_id: feedid,
         },
         success: function(response) {
-            console.log(response);
             let resp = {
                 buzz_id: feedid,
                 buzz_comments: response.comments,
@@ -505,7 +485,6 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
 
     for (let i = 0; i < feed.length; i++) {
         if (feed[i].buzz_id == id) {
-            console.log(feed[i])
             commentsDiv.innerHTML = "";
             let comments = feed[i].buzz_comments;
             let len = comments.length;

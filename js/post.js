@@ -161,8 +161,6 @@ function fetchPost() {
                 username: user
             },
             success: function (resp) {
-                console.log(resp);
-
                 if (0 != resp.Feed.length) {
                     postMapper(resp.Feed);
                 } else {
@@ -184,8 +182,6 @@ function fetchPost() {
             url: "http://buzzerout.com/buzzerout_server/v1/feed/fetchAllFeedWithoutUser",
             crossDomain: true,
             success: function (resp) {
-                console.log(resp);
-
                 if (0 != resp.Feed.length) {
                     postMapper(resp.Feed);
                 } else {
@@ -206,7 +202,6 @@ function fetchPost() {
 }
 
 function addComment(feedid, commentData, ifSinglePost) {
-    console.log("adding comment");
     $.ajax({
         type: "POST",
         url: SERVER_URL + "comment/addComment",
@@ -216,7 +211,6 @@ function addComment(feedid, commentData, ifSinglePost) {
             feed_id: feedid,
         },
         success: function (response) {
-            console.log(response);
             let resp = {
                 buzz_id: feedid,
                 buzz_comments: response.comments,
@@ -238,7 +232,6 @@ function unfollowBuzzByFeedId() {
 }
 
 function editPostModal(feedid) {
-    console.log(feedid);
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == feedid) {
