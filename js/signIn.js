@@ -20,9 +20,14 @@ function signIn() {
         }
 
         if(username == "dummy" && password == "dummy"){
+            // To be added - Dummy User || Dummy Post
+            
             setLocalStorage(USER, "true");
             setLocalStorage(USER_TYPE, "dummy");
             window.location = "index.html";
+
+
+
         }else{
             $.ajax({
                 type: 'POST',
@@ -35,10 +40,11 @@ function signIn() {
                     console.log(data);
                     if (data.error == false) {
                         setLocalStorage(USER, "true");
+                        setLocalStorage(USER_TYPE, "liveuser");
                         // liveUserMapper()
                         userMapper(data);
                         // let temp = data.user
-                        // let dummy = DUMMY_USER;
+                        // /*let dummy = DUMMY_USER;*/
     
                         // Get details from temp and set to dummy
                         // if (undefined != temp.username) {

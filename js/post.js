@@ -176,7 +176,7 @@ function fetchPost() {
             },
         });
     } else if (getLocalStorage(USER_TYPE) == "testuser") {
-
+        // Add COndition For Test User
     } else if (getLocalStorage(USER_TYPE) == "logoutuser") {
         inhtml.innerHTML = "";
         $.ajax({
@@ -199,7 +199,7 @@ function fetchPost() {
             },
         });
     } else if (getLocalStorage(USER_TYPE) == "dummy") {
-
+        // Add Dummy Data
     }
 
 

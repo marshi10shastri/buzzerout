@@ -6,13 +6,13 @@ function singleSaved(buzz){
     if(buzz.images.length > 0){
         save+=        `<a href="#">
 
-                <img src="`+ buzz.images[0] +`">
+                <img src="`+ buzz.images[0] +`" style="width:224px;height:150px;">
 
             </a>`;
     }else{
         save+=        `<a href="#">
 
-                <img src="images/page-img/51.jpg">
+                <img src="images/page-img/51.jpg" style="width:224px;height:150px;">
 
             </a>`;
     }
@@ -53,13 +53,13 @@ function singleHidden(buzz){
     if(buzz.images.length > 0){
         hidden+=        `<a href="#">
 
-                <img src="`+ buzz.images[0] +`">
+                <img src="`+ buzz.images[0] +`" style="width:224px;height:150px;">
 
             </a>`;
     }else{
         hidden+=        `<a href="#">
 
-                <img src="images/page-img/51.jpg">
+                <img src="images/page-img/51.jpg" style="width:224px;height:150px;">
 
             </a>`;
     }
@@ -99,13 +99,13 @@ function singleShared(buzz){
             if(buzz.images.length > 0){
                 shared+=        `<a href="#">
         
-                        <img src="`+ buzz.images[0] +`">
+                        <img src="`+ buzz.images[0] +`" style="width:224px;height:150px;">
         
                     </a>`;
             }else{
                 shared+=        `<a href="#">
         
-                        <img src="images/page-img/51.jpg">
+                        <img src="images/page-img/51.jpg" style="width:224px;height:150px;">
         
                     </a>`
             }

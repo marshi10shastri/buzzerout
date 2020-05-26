@@ -14,7 +14,7 @@ function postTemplateStart(feed) {
                     </div>\
                     <div class="media-support-info mt-2">\
                         <h5 class="mb-0 d-inline-block"><a href="#" class="">' + feed.buzz_username + ' </a></h5>\
-                        <p class="mb-0 d-inline-block">'+ feed.buzz_title +'</p>\
+                        <p class="mb-0 d-inline-block">'+ feed.buzz_title + '</p>\
                         <p class="mb-0 text-primary">' + timeSince(new Date(feed.buzz_timestamp)) + '</p>\
                     </div>\
                     <div class="iq-card-post-toolbar">\
@@ -27,8 +27,8 @@ function postTemplateStart(feed) {
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
                                     <div class="data ml-2"  >\
-                                        <h6 id="post-save-heading-' + feed.buzz_id +'">Save Post</h6>\
-                                        <p class="mb-0" id="post-save-para-' + feed.buzz_id +'">Add this to your saved items</p>\
+                                        <h6 id="post-save-heading-' + feed.buzz_id + '">Save Post</h6>\
+                                        <p class="mb-0" id="post-save-para-' + feed.buzz_id + '">Add this to your saved items</p>\
                                     </div>\
                                 </div>\
                             </a>\
@@ -53,25 +53,25 @@ function postTemplateStart(feed) {
                                 </div>\
                             </a>';
     } else {
-        if(containsFollowing(feed.buzz_username)){
+        if (containsFollowing(feed.buzz_username)) {
             string += '<span id="follow-option-' + feed.buzz_id + '"><a class="dropdown-item p-3" onclick="unfollowUser(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
                                     <div class="data ml-2">\
                                         <h6> Unfollow User </h6>\
-                                        <p class="mb-0">Stop seeing posts from '+ feed.buzz_username +'.</p>\
+                                        <p class="mb-0">Stop seeing posts from '+ feed.buzz_username + '.</p>\
                                     </div>\
                                 </div>\
                             </a></span>';
         }
-        else{
+        else {
             string += '<span id="follow-option-' + feed.buzz_id + '">\
             <a class="dropdown-item p-3" onclick="followUser(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
                                     <div class="data ml-2">\
                                         <h6>Follow User</h6>\
-                                        <p class="mb-0">See more posts from '+ feed.buzz_username +'.</p>\
+                                        <p class="mb-0">See more posts from '+ feed.buzz_username + '.</p>\
                                     </div>\
                                 </div>\
                             </a>\
@@ -80,9 +80,9 @@ function postTemplateStart(feed) {
     }
 
 
-    if(feed.buzz_username == getUserDetails().uname){
-        string += 
-        '<a class="dropdown-item p-3" onclick="deletePostClick(\'' + feed.buzz_id + '\')">\
+    if (feed.buzz_username == getUserDetails().uname) {
+        string +=
+            '<a class="dropdown-item p-3" onclick="deletePostClick(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-notification-line"></i></div>\
                                     <div class="data ml-2">\
@@ -91,7 +91,7 @@ function postTemplateStart(feed) {
                                     </div>\
                                 </div>\
                             </a>';
-    }else{
+    } else {
         string += '<a class="dropdown-item p-3" onclick="setUnsetBuzzNotification(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-delete-bin-7-line"></i></div>\
@@ -103,7 +103,7 @@ function postTemplateStart(feed) {
                             </a>';
     }
 
-    string +=                    '</div>\
+    string += '</div>\
                     </div>\
                 </div>\
             </div>\
@@ -185,14 +185,14 @@ function postTemplateStart(feed) {
                     </div>\
                     <div class="total-comment-block">\
                         <div class="dropdown">\
-                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" role="button" id="comment-count-'+feed.buzz_id+'">';
+                            <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" role="button" id="comment-count-'+ feed.buzz_id + '">';
     string += feed.buzz_comments.length
     string += ' Comment\
                  </span>\
                         </div>\
                     </div>\
                 </div>\
-                <div class="share-block d-flex align-items-center feather-icon mr-3" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')" id="shareBtn-'+ feed.buzz_id +'">\
+                <div class="share-block d-flex align-items-center feather-icon mr-3" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')" id="shareBtn-' + feed.buzz_id + '">\
                     <a href="#"><i class="ri-share-line"></i>\
            <span class="ml-1"> Share</span></a>\
                 </div>\
@@ -201,7 +201,7 @@ function postTemplateStart(feed) {
             <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
                 <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
                 <div class="comment-attagement d-flex">\
-                    <a onclick="addCommentByBtn(\''+ feed.buzz_id +'\', false)"><i class="ri-send-plane-2-line"></i></a>\
+                    <a onclick="addCommentByBtn(\''+ feed.buzz_id + '\', false)"><i class="ri-send-plane-2-line"></i></a>\
                 </div>\
             </div>\
             <hr>\
@@ -220,12 +220,12 @@ function postTemplateStart(feed) {
                                             <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
                                             <div class="d-flex flex-wrap align-items-center comment-activity">';
 
-                                            if(feed.buzz_comments[i].username == getUserDetails().uname){
-                                                string +=    '<a>Edit</a>\
+            if (feed.buzz_comments[i].username == getUserDetails().uname) {
+                string += '<a>Edit</a>\
                                                               <a href="javascript:void();">Delete</a>';
-                                            }
+            }
 
-                                            string +=    '<a href="javascript:void();">like</a>\
+            string += '<a href="javascript:void();">like</a>\
               <span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
                                             </div>\
                                         </div>\
@@ -246,11 +246,11 @@ function postTemplateStart(feed) {
                                             <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
                                             <div class="d-flex flex-wrap align-items-center comment-activity">';
 
-                                            if(feed.buzz_comments[i].username == getUserDetails().uname){
-                                                string +=    '<a>Edit</a>\
+            if (feed.buzz_comments[i].username == getUserDetails().uname) {
+                string += '<a>Edit</a>\
                                                               <a href="javascript:void();">Delete</a>'
-                                            }
-                                            
+            }
+
             string += ' <span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
                                             </div>\
                                         </div>\
@@ -297,19 +297,19 @@ function saveBuzz(buzzid) {
     if (getLocalStorage(USER) == "true") {
         // ajax call
         $.ajax({
-            type:'POST',
+            type: 'POST',
             url: SERVER_URL + 'buzz/saveBuzz',
-            data:{
+            data: {
                 username: getUserDetails().uname,
                 feed_id: buzzid
             },
-            success: function(data){
+            success: function (data) {
                 console.log(data);
                 //update local
                 updateLocalSaveBuzz(feedid);
                 //update ui
             },
-            error: function(data){
+            error: function (data) {
                 console.log(data);
             }
         });
@@ -324,19 +324,19 @@ function hideBuzz(buzzid) {
     if (getLocalStorage(USER) == "true") {
         // ajax call
         $.ajax({
-            type:'POST',
+            type: 'POST',
             url: SERVER_URL + 'buzz/hideBuzz',
-            data:{
+            data: {
                 username: getUserDetails().uname,
                 feed_id: buzzid
             },
-            success: function(data){
+            success: function (data) {
                 console.log(data);
                 //update local
                 updateLocalHideBuzz(buzzid);
                 //update ui
             },
-            error: function(data){
+            error: function (data) {
                 console.log(data);
             }
         });
@@ -365,74 +365,74 @@ var follow = 0
 
 
 function followUser(feedid) {
-    if(getLocalStorage(USER) == 'true'){
+    if (getLocalStorage(USER) == 'true') {
         console.log("Follow User : ");
         let feed = getPostFromFeedId(feedid);
         let username = feed.buzz_username;
         //ajax call
         $.ajax({
-            type:'POST',
-            url:SERVER_URL + 'follow/newFollow',
-            data:{
+            type: 'POST',
+            url: SERVER_URL + 'follow/newFollow',
+            data: {
                 followed_by: getUserDetails().uname,
                 followes_to: username
             },
 
-            success: function(data){
+            success: function (data) {
                 console.log(data);
-                if(data.error == false){
+                if (data.error == false) {
                     //on success
                     console.log(data);
                     updateFollowStatus(data.following, username, 1);
                 }
-                else{
+                else {
                     console.log('error following');
                     console.log(data)
                 }
             },
-            error: function(data){
+            error: function (data) {
                 console.log('follow api error');
                 console.log(data);
             }
         });
     }
-    else{
-       console.log('please sign in');
+    else {
+        console.log('please sign in');
     }
 }
 
 function unfollowUser(feedid) {
-    if(getLocalStorage(USER) == 'true'){
+    if (getLocalStorage(USER) == 'true') {
         console.log("Unfollow User : ");
         let feed = getPostFromFeedId(feedid);
         let username = feed.buzz_username;
         //ajax call
         $.ajax({
-            type:'POST',
-            url:SERVER_URL + 'follow/deleteFollowing',
-            data:{
+            type: 'POST',
+            url: SERVER_URL + 'follow/deleteFollowing',
+            data: {
                 username: getUserDetails().uname,
                 user_to_deleted: username
             },
 
-            success: function(data){
-                if(data.error == false){
+            success: function (data) {
+                if (data.error == false) {
                     //on success
                     console.log(data);
                     updateFollowStatus(data.following, username, 0);
                 }
-                else{
+                else {
                     console.log(data);
                     console.log('error following');
                 }
             },
-            error: function(data){
+            error: function (data) {
                 console.log('follow api error');
                 console.log(data);
             }
         });
     }
-    else{
+    else {
         alert('please sign in');
     }
 }
@@ -493,11 +493,11 @@ function upvoteBuzzByFeedId(feedid) {
                     username: uName,
                     feed_id: feedid
                 },
-                success: function(data) {
+                success: function (data) {
                     //data.votes will be array of upvotes
                     notifyUpvotesSinglePost(data.upvotes, feedid);
                 },
-                error: function(data) {
+                error: function (data) {
                     console.log('cannot like');
                 }
             });
@@ -511,11 +511,11 @@ function upvoteBuzzByFeedId(feedid) {
                     username: uName,
                     feed_id: feedid
                 },
-                success: function(data) {
+                success: function (data) {
                     notifyUpvotesSinglePost(data.upvotes, feedid);
                     notifyDownvotesSinglePost(data.downvotes, feedid);
                 },
-                error: function(data) {
+                error: function (data) {
                     console.log('cannot like');
                 }
             });
@@ -557,10 +557,10 @@ function downvoteBuzzByFeedId(feedid) {
                     username: uName,
                     feed_id: feedid
                 },
-                success: function(data) {
+                success: function (data) {
                     notifyDownvotesSinglePost(data.downvotes, feedid);
                 },
-                error: function(data) {
+                error: function (data) {
                     console.log('cannot like');
                 }
             });
@@ -574,11 +574,11 @@ function downvoteBuzzByFeedId(feedid) {
                     username: uName,
                     feed_id: feedid
                 },
-                success: function(data) {
+                success: function (data) {
                     notifyDownvotesSinglePost(data.downvotes, feedid);
                     notifyUpvotesSinglePost(data.upvotes, feedid);
                 },
-                error: function(data) {
+                error: function (data) {
                     console.log('cannot like');
                 }
             });
@@ -590,50 +590,53 @@ function downvoteBuzzByFeedId(feedid) {
 
 
 //deletPost clicked
-function deletePostClick(feedid){
+function deletePostClick(feedid) {
     //ajax
     $.ajax({
-        type:'POST',
+        type: 'POST',
         url: SERVER_URL + 'feed/clearFeedByFeedId',
-        data:{
+        data: {
             feed_id: feedid,
             username: getUserDetails().uname
         },
-        success: function(data){
+        success: function (data) {
             console.log(data);
-                //update local storage
-                updateDeletePost(feedid);
+            //update local storage
+            updateDeletePost(feedid);
         },
-        error: function(data){
+        error: function (data) {
             console.log(data);
         }
     });
 }
 
-function containsFollowing(username){
+function containsFollowing(username) {
     //checks if current user follows input username
     let fList = getUserFollowing();
-    for(let i=0; i<fList.length; i++){
-        if(fList[i].name == username){
-            return true;
+    if (fList!= null && fList.length > 0) {
+        for (let i = 0; i < fList.length; i++) {
+            if (fList[i].name == username) {
+                return true;
+            }
         }
     }
+
     return false;
 }
 
 //share buzz
-function shareBuzzByFeedId(feedid){
+function shareBuzzByFeedId(feedid) {
     console.log('clicked: share');
     let buzz = getPostFromFeedId(feedid);
     //ajax
     $.ajax({
-        type:'POST',
-        url:SERVER_URL + 'buzz/shareBuzz',
-        data:{
+        type: 'POST',
+        url: SERVER_URL + 'buzz/shareBuzz',
+        data: {
             username: getUserDetails().uname,
             feed_id: feedid
         },
-        success: function(data){
+        success: function (data) {
             console.log(data);
             console.log(feedid);
             // buzz.buzz_title = 'Shared post';
@@ -642,7 +645,7 @@ function shareBuzzByFeedId(feedid){
             //ui update
             document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
         },
-        error: function(data){
+        error: function (data) {
             console.log(data);
         }
     });

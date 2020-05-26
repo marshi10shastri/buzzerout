@@ -40,25 +40,19 @@
     <script src="js/post.js"></script>
     <script src="js/JIC.js"></script>
     <script>
-        /**
-         * 
-         * TODO : Divide Buzzerout in 3 parts
-         * 1. Live User
-         * 2. Test User
-         * 3. Demo User
-         * 
-         * */
         if (getLocalStorage(USER) != undefined) {
             if (getLocalStorage(USER) == 'true') {
+
                 if (getLocalStorage(USER_TYPE) == "dummy") {
+
                     setJSONLocalStorage(USER_INFO, DUMMY_USER);
                     // Set Everything To Dummy
                 } else if (getLocalStorage(USER_TYPE) == "liveuser") {
                     // Set Everything To LiveUser
 
-
                 } else if (getLocalStorage(USER_TYPE) == "testuser") {
                     // set everything to test user
+
                 }
             } else {
                 // Condition For Logout User When Directly Comes To Website

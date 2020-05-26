@@ -70,7 +70,7 @@ function renderCreateBuzz() {
 function showCreatedBuzz(data) {
     console.log(data);
     let buzz = getJSONLocalStorage(ALL_BUZZ);
-    if(buzz.length != null){
+    if(buzz != null){
         buzz.unshift(data);
     }else{
         buzz.push(data);

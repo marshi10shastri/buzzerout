@@ -3,7 +3,7 @@ function singleTimelineFollower(person){
 
             <a href="javascript:void();">
 
-                <img src="`+person.image+`" /></a>
+                <img src="`+person.image+`" style="width:100px;height:100px;"/></a>
 
             <h6 class="mt-2">`+person.name+`</h6>
 
@@ -17,7 +17,7 @@ function singleTimelineFollowing(person){
 
             <a href="javascript:void();">
 
-                <img src="`+person.image+`" /></a>
+                <img src="`+person.image+`" style="width:100px;height:100px;" /></a>
 
             <h6 class="mt-2">`+person.name+`</h6>
 
