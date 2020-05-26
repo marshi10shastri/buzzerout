@@ -50,7 +50,7 @@ const DUMMY_USER = {
     ]
 }
 
-
+const USER_TYPE = "user_type";
 const USER_INFO = "user_info";
 const USER = "user";
 const POSTS = "posts";

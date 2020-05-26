@@ -40,14 +40,33 @@
     <script src="js/post.js"></script>
     <script src="js/JIC.js"></script>
     <script>
+        /**
+         * 
+         * TODO : Divide Buzzerout in 3 parts
+         * 1. Live User
+         * 2. Test User
+         * 3. Demo User
+         * 
+         * */
         if (getLocalStorage(USER) != undefined) {
             if (getLocalStorage(USER) == 'true') {
-                // setJSONLocalStorage(USER_INFO, DUMMY_USER);
+                if (getLocalStorage(USER_TYPE) == "dummy") {
+                    setJSONLocalStorage(USER_INFO, DUMMY_USER);
+                    // Set Everything To Dummy
+                } else if (getLocalStorage(USER_TYPE) == "liveuser") {
+                    // Set Everything To LiveUser
+
+
+                } else if (getLocalStorage(USER_TYPE) == "testuser") {
+                    // set everything to test user
+                }
             } else {
-                setJSONLocalStorage(USER_INFO, DUMMY_USER);
+                // Condition For Logout User When Directly Comes To Website
+                setLocalStorage(USER_TYPE, "logoutuser");
             }
         } else {
-            setJSONLocalStorage(USER_INFO, DUMMY_USER);
+            // Condition For Logout User When Directly Comes To Website
+            setLocalStorage(USER_TYPE, "logoutuser");
         }
     </script>
 
@@ -769,7 +788,7 @@
 
                             <li class="nav-item" id="user-false-btn">
                                 <!-- user false -->
-                                <div class="d-inline-block w-100 text-center p-3" style="display: none;">
+                                <div class="d-inline-block w-100 text-center" style="display: none;">
 
                                     <a class="bg-primary iq-sign-btn" href="sign-in.html" role="button">Sign In<i class="ri-login-box-line ml-2"></i></a>
 
@@ -1313,7 +1332,7 @@
 
                                     <hr>
 
-                                   <ul class="post-opt-block d-flex align-items-center list-inline m-0 p-0">
+                                    <ul class="post-opt-block d-flex align-items-center list-inline m-0 p-0">
 
                                         <li class="iq-bg-primary rounded p-2 pointer mr-3" id="create-buzz-photo">
                                             <a href="#"></a><img src="images/small/07.png" alt="icon" class="img-fluid"> Add Photo/Video</li>
