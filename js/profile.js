@@ -508,7 +508,7 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
         
                                 <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
-                                if(comment[j].username == getUserDetails().uname){
+                                if(comments[j].username == getUserDetails().uname){
                                     string +=  `<a href="javascript:void();">Edit</a>
                                                 <a href="javascript:void();">Delete</a>`
                                 }
@@ -544,7 +544,7 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
         
                                 <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
-                                if(comment[j].username == getUserDetails().uname){
+                                if(comments[j].username == getUserDetails().uname){
                                     string +=  `<a href="javascript:void();">Edit</a>
                                                 <a href="javascript:void();">Delete</a>`
                                 }

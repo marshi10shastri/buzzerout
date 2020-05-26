@@ -524,7 +524,7 @@ post += feed.buzz_downvotes.length;
 
     <hr>`;
 
-post +=    '<div class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">\
+post +=    '<div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
         <input type="text" id="commentinput-' + feed.buzz_id + '" class="form-control rounded" placeholder="Write your comment '+getUserDetails().uname+'...">\
         <div class="comment-attagement d-flex">\
         <a onclick="addTCommentByBtn(\''+ feed.buzz_id +'\', false)"><i class="ri-send-plane-2-line"></i></a>\

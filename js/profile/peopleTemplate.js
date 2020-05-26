@@ -27,14 +27,19 @@ function singleFollower(person){
 
                 <div class="dropdown" id="button-`+ person.name +`">`;
 
-                console.log(person);
+            let x = {
+                name:person.name,
+                image:person.image
+            }
             if(isPersonFollowed(person)){
-                people +=    `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(`+ person +`)">
-                            <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow
-                            </span>`;
+                console.log(person);
+                people +=    '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                            <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow\
+                            </span>';
             }
             else{
-                people +=    '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(\''+ person +'\')">\
+                console.log(person);
+                people +=    '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(\''+ person.name+"-"+person.image  +'\')">\
                             <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow\
                             </span>';
             }
@@ -160,14 +165,20 @@ function isPersonFollowed(person){
     return false;
 }
 
-function unfollowUserByUname(person){
-    console.log(person);
+function unfollowUserByUname(pers){
+    console.log(pers);
+    let pname = pers.split("-")[0];
+    let pImage = pers.split("-")[1];
+    let person = {
+        name:pname,
+        image:pImage
+    }
     $.ajax({
             type:'POST',
             url:SERVER_URL + 'follow/deleteFollowing',
             data:{
                 username: getUserDetails().uname,
-                user_to_deleted: name
+                user_to_deleted: person.name
             },
 
             success: function(data){
@@ -177,12 +188,10 @@ function unfollowUserByUname(person){
                     //update local
                     updateUserFollowing(data.following);
 
-                    let div = document.getElementById("button-"+ name);
-                    div.innerHTML = `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(`+ person +`)">
-
-                    <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow
-
-                    </span>`
+                    let div = document.getElementById("button-"+ person.name);
+                    div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="followUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                    <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow\
+                    </span>'
                 }
                 else{
                     console.log(data);
@@ -197,7 +206,14 @@ function unfollowUserByUname(person){
 }
 
 
-function followUserByUname(person){
+function followUserByUname(pers){
+    console.log(pers);
+    let pname = pers.split("-")[0];
+    let pImage = pers.split("-")[1];
+    let person = {
+        name:pname,
+        image:pImage
+    }
     $.ajax({
         type:'POST',
         url:SERVER_URL + 'follow/newFollow',
@@ -215,11 +231,9 @@ function followUserByUname(person){
                 updateUserFollowing(data.following);
 
                 let div = document.getElementById("button-"+ person.name);
-                div.innerHTML = `<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(`+ person +`)">
-
-                <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow
-
-                </span>`
+                div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" aria-expanded="true" role="button" onclick="unfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                <i class="ri-check-line mr-1 text-white font-size-16"></i> Unfollow\
+                </span>'
             }
             else{
                 console.log('error following');

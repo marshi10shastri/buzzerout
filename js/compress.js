@@ -65,7 +65,7 @@ function compressPImage(e) {
                 pImage_toke = file;
             }, 'image/jpeg', 1);
             document.getElementById('pedit-profile-image').innerHTML = '';
-            document.getElementById('pedit-profile-image').appendChild(elem);
+            // document.getElementById('pedit-profile-image').appendChild(elem);
         },
             reader.onerror = error => console.log(error);
 
