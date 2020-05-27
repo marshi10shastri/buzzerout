@@ -196,6 +196,8 @@ function fetchPost() {
         });
     } else if (getLocalStorage(USER_TYPE) == "dummy") {
         // Add Dummy Data
+    }else{
+        console.log('user type set nhi h');
     }
 
 

@@ -4,4 +4,5 @@ function initIndexPage() {
     renderTopRight();
     renderLeftBar();
     fetchPost();
+    renderLatestNews();
 }
