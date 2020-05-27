@@ -221,8 +221,8 @@ function postTemplateStart(feed) {
                                             <div class="d-flex flex-wrap align-items-center comment-activity">';
 
             if (feed.buzz_comments[i].username == getUserDetails().uname) {
-                string += '<a>Edit</a>\
-                                                              <a href="javascript:void();">Delete</a>';
+                string += '<a onclick="editCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">Edit</a>\
+                            <a onclick="deleteCommentClick()">Delete</a>';
             }
 
             string += '<a href="javascript:void();">like</a>\
@@ -236,7 +236,7 @@ function postTemplateStart(feed) {
 
     } else {
         for (var i = 0; i < feed.buzz_comments.length; i++) {
-            string += '<li class="mb-2">\
+            string += '<li class="mb-2" id="'+feed.buzz_comments[i].comment_id+'">\
                                     <div class="d-flex flex-wrap">\
                                         <div class="user-img">\
                                             <img src="' + feed.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
@@ -247,8 +247,8 @@ function postTemplateStart(feed) {
                                             <div class="d-flex flex-wrap align-items-center comment-activity">';
 
             if (feed.buzz_comments[i].username == getUserDetails().uname) {
-                string += '<a>Edit</a>\
-                                                              <a href="javascript:void();">Delete</a>'
+                string += '<a onclick="editCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">Edit</a>\
+                           <a onclick="deleteCommentClick()">Delete</a>'
             }
 
             string += ' <span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
@@ -646,6 +646,62 @@ function shareBuzzByFeedId(feedid) {
             document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
         },
         error: function (data) {
+            console.log(data);
+        }
+    });
+}
+
+
+function editCommentClick(comment){
+    let commentId = comment.split('-')[0];
+    let comment_text = comment.split('-')[1];
+    //modal call
+    let textField = document.getElementById('modalCommentTextInput');
+    textField.value = comment_text;
+    $("#editCommentModal").modal()
+
+    let commentInputText = comment_text
+    if(textField.value != ''){
+        commentInputText = textField.value;
+    }
+
+    //ajax
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'comment/editComment',
+        data:{
+            comment_id: commentId,
+            username: getUserDetails().uname,
+            text: commentInputText
+        },
+        success: function(data){
+            console.log(data);
+            if(data.error == false){
+                //update local storage
+
+                //update ui
+                let commentLi = document.getElementById(commentId);
+                commentLi.innerHTML = '<div class="d-flex flex-wrap">\
+                                    <div class="user-img">\
+                                        <img src="' + feed.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                    </div>\
+                                    <div class="comment-data-block ml-3">\
+                                        <h6>' + feed.buzz_comments[i].username + '</h6>\
+                                        <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
+                                        <div class="d-flex flex-wrap align-items-center comment-activity">';
+
+                if (feed.buzz_comments[i].username == getUserDetails().uname) {
+                    commentLi.innerHTML += '<a onclick="editCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">Edit</a>\
+                <a onclick="deleteCommentClick()">Delete</a>';
+                }
+
+                commentLi.innerHTML += ' <span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
+                                </div>\
+                            </div>\
+                        </div>';
+            }
+        },
+        error: function(){
             console.log(data);
         }
     });

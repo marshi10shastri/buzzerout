@@ -144,12 +144,12 @@ function updateCommentToPost(id, ifSinglePost) {
                             <h6>` + comments[j].username + `</h6>
                             <p class="mb-0">` + comments[j].text + `</p>
                             <div class="d-flex flex-wrap align-items-center comment-activity">`
-                            if(comment[j].username == getUserDetails().uname){
-                                string +=  `<a href="javascript:void();">Edit</a>
-                                            <a href="javascript:void();">Delete</a>`
+                            if(comments[j].username == getUserDetails().uname){
+                                string +=  `<a onclick="editCommentClick()">Edit</a>
+                                            <a onclick="deleteCommentClick()">Delete</a>`
                             }
-                               string += `<a href="javascript:void();">like</a>
-                                <span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
+                               string +=
+                                `<span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
                             </div>
                         </div>
                     </div>
@@ -160,7 +160,7 @@ function updateCommentToPost(id, ifSinglePost) {
             } else {
                 for (let j = 0; j < len; j++) {
                     let string = `
-                <li>
+                <li class="mb-2" id="`+ comments[j].comment_id +`">
                     <div class="d-flex flex-wrap">
                         <div class="user-img">
                             <img src="`+ comments[j].commentImg +`" class="avatar-35 rounded-circle img-fluid">
@@ -168,9 +168,14 @@ function updateCommentToPost(id, ifSinglePost) {
                         <div class="comment-data-block ml-3">
                             <h6>` + comments[j].username + `</h6>
                             <p class="mb-0">` + comments[j].text + `</p>
-                            <div class="d-flex flex-wrap align-items-center comment-activity">
-                                <a href="javascript:void();">like</a>
-                                <span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
+                            <div class="d-flex flex-wrap align-items-center comment-activity">`;
+
+                            if(comments[j].username == getUserDetails().uname){
+                                string +=  `<a onclick="editCommentClick()">Edit</a>
+                                            <a onclick="deleteCommentClick()">Delete</a>`
+                            }
+                            
+                            string+=    `<span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
                             </div>
                         </div>
                     </div>
