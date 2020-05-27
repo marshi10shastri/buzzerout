@@ -8720,8 +8720,7 @@
     <!-- Footer END -->
     <!-- MODAL -->
 
-    <!-- Firstname lastname modal -->
-    <!-- <div id="gridSystemModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
+    <div id="editTCommentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
 
         <div class="modal-dialog" role="document">
 
@@ -8729,7 +8728,7 @@
 
                 <div class="modal-header">
 
-                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
+                    <h5 class="modal-title" id="gridModalLabel">Edit Comment</h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 
@@ -8739,34 +8738,19 @@
 
                     <div class="form-group row">
 
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="fNameInput">First Name:</label>
+                        <label class="control-label col-sm-2 align-self-center mb-0" for="modalTCommentTextInput">Comment Text:</label>
 
                         <div class="col-sm-10">
 
-                            <input type="text" class="form-control" id="fNameInput" placeholder="First Name">
+                            <input type="text" class="form-control" id="modalTCommentTextInput" placeholder="Enter Comment">
+                            <input type="hidden" id="editTCommentIdHidden">
 
                         </div>
 
                     </div>
-
-                    <div class="form-group row">
-
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="lNameInput">Last Name:</label>
-
-                        <div class="col-sm-10">
-
-                            <input type="text" class="form-control" id="lNameInput" placeholder="Last Name">
-
-                        </div>
-
-                    </div>
-                </div>
 
                 <div class="modal-footer">
-
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editName()">Save changes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editTimelineComment()">Save changes</button>
 
                 </div>
 
@@ -8774,55 +8758,7 @@
 
         </div>
 
-    </div> -->
-
-    <!-- contact info modal -->
-    <!-- <div id="contactInfoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-
-        <div class="modal-dialog" role="document">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-
-                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-
-                </div>
-
-                <div class="modal-body">
-                    <div class="form-row">
-
-                        <div class="col">
-
-                            <input type="text" id="mobileInput" class="form-control" placeholder="Mobile">
-
-                        </div>
-
-                        <div class="col">
-
-                            <input type="text" id="addressInput" class="form-control" placeholder="Address">
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editContactInfo()">Save changes</button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div> -->
+    </div>
 
     <!-- website/social modal -->
     <div id="websiteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
@@ -8873,87 +8809,6 @@
 
     </div>
 
-    <!-- basic info modal -->
-    <!-- <div id="basicModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
-
-        <div class="modal-dialog" role="document">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-
-                    <h5 class="modal-title" id="gridModalLabel">Grids in modals</h5>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-
-                </div>
-
-                <div class="modal-body">
-
-                    <div class="form-group row">
-
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="inputDob">Birth Date:</label>
-
-                        <div class="col-sm-10">
-
-                            <input type="text" class="form-control" id="inputDob" placeholder="Date and Month">
-
-                        </div>
-
-                    </div>
-                    <div class="form-group row">
-
-                        <label class="control-label col-sm-2 align-self-center mb-0" for="yearInput">Birth Year:</label>
-
-                        <div class="col-sm-10">
-
-                            <input type="text" class="form-control" id="yearInput" placeholder="Birth Year">
-
-                        </div>
-
-                    </div>
-
-                    <div class="form-group row">
-
-                        <label class="control-label col-sm-2 align-self-center mb-0">Gender:</label>
-
-                        <div class="form-group">
-
-                            <div class="custom-control custom-radio custom-control-inline">
-
-                                <input type="radio" id="maleRadio" name="customRadio1" class="custom-control-input">
-
-                                <label class="custom-control-label" for="maleRadio"> Male</label>
-
-                            </div>
-
-                            <div class="custom-control custom-radio custom-control-inline">
-
-                                <input type="radio" id="femaleRadio" name="customRadio1" class="custom-control-input">
-
-                                <label class="custom-control-label" for="femaleRadio"> Female</label>
-
-                            </div>
-                        </div>
-                    </div>
-
-                     </div> 
-
-    </div>
-
-    <div class="modal-footer">
-
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="editBasic()">Save changes</button>
-
-    </div>
-
-    </div>
-
-    </div>
-
-    </div>-->
 
     <!-- add work modal -->
     <div id="addWorkModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
