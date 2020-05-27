@@ -222,7 +222,7 @@ function postTemplateStart(feed) {
 
             if (feed.buzz_comments[i].username == getUserDetails().uname) {
                 string += '<a onclick="editCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">Edit</a>\
-                            <a onclick="deleteCommentClick()">Delete</a>';
+                <a onclick="deleteCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_id + '\')">Delete</a>';
             }
 
             string += '<a href="javascript:void();">like</a>\
@@ -248,7 +248,7 @@ function postTemplateStart(feed) {
 
             if (feed.buzz_comments[i].username == getUserDetails().uname) {
                 string += '<a onclick="editCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">Edit</a>\
-                           <a onclick="deleteCommentClick()">Delete</a>'
+                           <a onclick="deleteCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_id + '\')">Delete</a>'
             }
 
             string += ' <span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
@@ -261,24 +261,7 @@ function postTemplateStart(feed) {
     }
 
 
-    string += ' <!-- <li>\
-                    <div class="d-flex flex-wrap">\
-                        <div class="user-img">\
-                            <img src="images/user/03.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
-                        </div>\
-                        <div class="comment-data-block ml-3">\
-                            <h6>Paul Molive</h6>\
-                            <p class="mb-0">Lorem ipsum dolor sit amet</p>\
-                            <div class="d-flex flex-wrap align-items-center comment-activity">\
-                                <a href="javascript:void();">like</a>\
-                                <a href="javascript:void();">reply</a>\
-                                <a href="javascript:void();">translate</a>\
-                                <span> 5 min </span>\
-                            </div>\
-                        </div>\
-                    </div>\
-                </li> -->\
-            </ul>\
+    string += '</ul>\
             <hr>\
             <div class="align-items-center" id="feed-' + feed.buzz_id + '"> <a href="javascript:void();">View full post</a></div>\
         </div>\
@@ -718,6 +701,97 @@ function editIndexComment(){
             }
         },
         error: function(){
+            console.log(data);
+        }
+    });
+}
+
+
+//delete comment
+function deleteCommentClick(Dcomment){
+    let comment_id = Dcomment.split('-')[0];
+    let feedid = Dcomment.split('-')[1];
+    //ajax
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'comment/deleteCommentById',
+        data:{
+            username: getUserDetails().uname,
+            id: comment_id
+        },
+        success: function(data){
+            console.log(data);
+            if(data.error == false){
+                let post = getPostFromFeedId(feedid);
+
+                if(post.buzz_comments.length > 0){
+                    for(let i=0; i<post.buzz_comments.length; i++){
+                        if(post.buzz_comments[i].comment_id == comment_id){
+                            post.buzz_comments.splice(i,1);
+                            break;
+                        }
+                    }
+                }
+                
+                updateAllLocalStoragePosts(post);
+
+                //ui update
+                let ul = document.getElementById('commentslist-' + feedid);
+                ul.innerHTML ='';
+                if (post.buzz_comments.length > 5) {
+                    for (var i = 0; i < 5; i++) {
+                        ul.innerHTML += '<li class="mb-2">\
+                                                <div class="d-flex flex-wrap">\
+                                                    <div class="user-img">\
+                                                        <img src="' + post.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                                    </div>\
+                                                    <div class="comment-data-block ml-3">\
+                                                        <h6>' + post.buzz_comments[i].username + '</h6>\
+                                                        <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
+                                                        <div class="d-flex flex-wrap align-items-center comment-activity">';
+            
+                        if (post.buzz_comments[i].username == getUserDetails().uname) {
+                            ul.innerHTML += '<a onclick="editCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
+                                        <a onclick="deleteCommentClick()">Delete</a>';
+                        }
+            
+                        ul.innerHTML += '<a href="javascript:void();">like</a>\
+                          <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + ' </span>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </li>\
+                        ';
+                    }
+            
+                } else {
+                    for (var i = 0; i < post.buzz_comments.length; i++) {
+                        ul.innerHTML += '<li class="mb-2" id="'+post.buzz_comments[i].comment_id+'">\
+                                                <div class="d-flex flex-wrap">\
+                                                    <div class="user-img">\
+                                                        <img src="' + post.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                                    </div>\
+                                                    <div class="comment-data-block ml-3">\
+                                                        <h6>' + post.buzz_comments[i].username + '</h6>\
+                                                        <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
+                                                        <div class="d-flex flex-wrap align-items-center comment-activity">';
+            
+                        if (post.buzz_comments[i].username == getUserDetails().uname) {
+                            ul.innerHTML += '<a onclick="editCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
+                                       <a onclick="deleteCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>'
+                        }
+            
+                        ul.innerHTML += ' <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + ' </span>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </li>\
+                        ';
+                    }
+                }
+            }
+        },
+        error: function(data){
             console.log(data);
         }
     });

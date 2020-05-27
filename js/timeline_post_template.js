@@ -557,7 +557,7 @@ post +=    '<div class="comment-text d-flex align-items-center mt-3 text-positio
 
                         if(feed.buzz_comments[i].username == getUserDetails().uname){
                             post +=    '<a onclick="editTCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">edit</a>\
-                                          <a href="javascript:void();">reply</a>'
+                            <a onclick="deleteTCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_id + '\')">Delete</a>'
                         }
 
                         post+=    `<span> ` + timeSince(new Date(feed.buzz_comments[i].timestamp)) + `  </span>
@@ -592,7 +592,7 @@ post +=    '<div class="comment-text d-flex align-items-center mt-3 text-positio
 
                         if(feed.buzz_comments[i].username == getUserDetails().uname){
                             post +=    '<a onclick="editTCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">edit</a>\
-                                          <a href="javascript:void();">reply</a>'
+                            <a onclick="deleteTCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_id + '\')">Delete</a>'
                         }
 
                             `<span> ` + timeSince(new Date(feed.buzz_comments[i].timestamp)) + `  </span>
@@ -915,7 +915,7 @@ function editTimelineComment(){
 
                          if(mainComment.username == getUserDetails().uname){
                             commentLi.innerHTML += '<a onclick="editTCommentClick(\''+ mainComment.comment_id + "-" + mainComment.text + '\')">edit</a>\
-                            <a href="javascript:void();">reply</a>'
+                            <a onclick="deleteTCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + data.feed_id + '\')">Delete</a>'
                          }
                          commentLi.innerHTML+= '<span> ' + timeSince(new Date(mainComment.timestamp)) + ' </span>\
                          </div>\
@@ -927,4 +927,117 @@ function editTimelineComment(){
              console.log(data);
          }
      });
+}
+
+
+//delete comment
+function deleteTCommentClick(Dcomment){
+    let comment_id = Dcomment.split('-')[0];
+    let feedid = Dcomment.split('-')[1];
+    //ajax
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'comment/deleteCommentById',
+        data:{
+            username: getUserDetails().uname,
+            id: comment_id
+        },
+        success: function(data){
+            console.log(data);
+            if(data.error == false){
+                let post = getPostFromFeedId(feedid);
+
+                if(post.buzz_comments.length > 0){
+                    for(let i=0; i<post.buzz_comments.length; i++){
+                        if(post.buzz_comments[i].comment_id == comment_id){
+                            post.buzz_comments.splice(i,1);
+                            break;
+                        }
+                    }
+                }
+                
+                updateLocalStoragePosts(post);
+
+                //ui update
+                let ul = document.getElementById('Tcommentslist-' + feedid);
+                ul.innerHTML ='';
+                    let len = post.buzz_comments.length;
+                    if (len > 5) {
+                    for (var i = 0; i < 5; i++) {
+                        ul.innerHTML+= `<li class="mb-2" id="`+post.buzz_comments[i].comment_id+`">
+
+                        <div class="d-flex flex-wrap">
+
+                            <div class="user-img">
+
+                                <img src=` + post.buzz_comments[i].commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
+
+                                    </div>
+
+                                <div class="comment-data-block ml-3">
+
+                                    <h6>` + post.buzz_comments[i].username + `</h6>
+
+                                    <p class="mb-0">` + post.buzz_comments[i].text + `</p>
+
+                                    <div class="d-flex flex-wrap align-items-center comment-activity">`;
+
+                                    if(post.buzz_comments[i].username == getUserDetails().uname){
+                                        ul.innerHTML +=    '<a onclick="editTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">edit</a>\
+                                        <a onclick="deleteTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>'
+                                    }
+
+                                    ul.innerHTML+=    `<span> ` + timeSince(new Date(post.buzz_comments[i].timestamp)) + `  </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            </li>`;
+                    }
+                }else{
+                    for (var i = 0; i < post.buzz_comments.length; i++) {
+                        ul.innerHTML+= `<li class="mb-2" id="`+post.buzz_comments[i].comment_id+`">
+
+                        <div class="d-flex flex-wrap">
+
+                            <div class="user-img">
+
+                                <img src=` + post.buzz_comments[i].commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
+
+                                    </div>
+
+                                <div class="comment-data-block ml-3">
+
+                                    <h6>` + post.buzz_comments[i].username + `</h6>
+
+                                    <p class="mb-0">` + post.buzz_comments[i].text + `</p>
+
+                                    <div class="d-flex flex-wrap align-items-center comment-activity">`;
+
+                                    if(post.buzz_comments[i].username == getUserDetails().uname){
+                                        ul.innerHTML +=    '<a onclick="editTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">edit</a>\
+                                        <a onclick="deleteTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>'
+                                    }
+
+                                        `<span> ` + timeSince(new Date(post.buzz_comments[i].timestamp)) + `  </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            </li>`;
+                    }
+
+                }
+            }
+        },
+        error: function(data){
+            console.log(data);
+        }
+    });
 }
