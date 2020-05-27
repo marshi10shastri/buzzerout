@@ -235,6 +235,17 @@ function updateLocalStoragePosts(buzz){
     setJSONLocalStorage(ALL_BUZZ, posts);
 }
 
+function updateAllLocalStoragePosts(buzz){
+    let posts = getJSONLocalStorage(ALL_BUZZ);
+    for(let i=0; i<posts.length; i++){
+        if(posts[i].buzz_id == buzz.buzz_id){
+            posts[i] = buzz;
+            break;
+        }
+    }
+    setJSONLocalStorage(ALL_BUZZ, posts);
+}
+
 
 function timeSince(date) {
 

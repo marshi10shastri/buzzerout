@@ -190,7 +190,7 @@ function singleBuzzLoad(feed) {
             ';
 
     for (var i = 0; i < feed.buzz_comments.length; i++) {
-        string += '<li class="mb-2">\
+        string += '<li class="mb-2" id="'+ feed.buzz_comments[i].comment_id +'">\
                                     <div class="d-flex flex-wrap">\
                                         <div class="user-img">\
                                             <img src="' + feed.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
@@ -200,8 +200,8 @@ function singleBuzzLoad(feed) {
                                             <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
                                             <div class="d-flex flex-wrap align-items-center comment-activity">'
                                             if(feed.buzz_comments[i].username == getUserDetails().uname){
-                                                string +=    '<a href="javascript:void();">edit</a>\
-                                                              <a href="javascript:void();">reply</a>'
+                                                string += '<a onclick="editSCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">Edit</a>\
+                                                <a onclick="deleteCommentClick()">Delete</a>';
                                             }
         string += ' <span> ' + feed.buzz_comments[i].timestamp + ' </span>\
                                             </div>\
@@ -268,4 +268,75 @@ function initSingleBuzzPage() {
             }
         }
     })
+}
+
+
+//edit comment
+function editSCommentClick(comment){
+    let commentId = comment.split('-')[0];
+    let comment_text = comment.split('-')[1];
+    //modal call
+    let textField = document.getElementById('modalSCommentTextInput');
+    let commentIdField = document.getElementById('editSCommentIdHidden');
+    textField.value = comment_text;
+    commentIdField.value = commentId;
+    $("#editSCommentModal").modal();
+}
+
+
+function editSingleComment(){
+    let commentInputText = document.getElementById('modalSCommentTextInput').value;
+    let commentId = document.getElementById('editSCommentIdHidden').value;
+    //ajax
+    $.ajax({
+        type:'POST',
+        url: SERVER_URL + 'comment/editComment',
+        data:{
+            comment_id: commentId,
+            username: getUserDetails().uname,
+            text: commentInputText
+        },
+        success: function(data){
+            console.log(data);
+            if(data.error == false){
+                //update local storage
+                let post =  getPostFromFeedId(data.feed_id);
+                let post_comments = data.comments;
+
+                post.comments = post_comments;
+                updateAllLocalStoragePosts(post);
+
+                let mainComment;
+
+                for(let i=0; i<post_comments.length; i++){
+                    if(post_comments[i].comment_id == commentId){
+                        mainComment = post_comments[i];
+                    }
+                }
+
+                //update ui
+                let commentLi = document.getElementById(commentId);
+                commentLi.innerHTML = '';
+                commentLi.innerHTML = '<div class="d-flex flex-wrap">\
+                <div class="user-img">\
+                    <img src="' + mainComment.commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                </div>\
+                <div class="comment-data-block ml-3">\
+                    <h6>' + mainComment.username + '</h6>\
+                    <p class="mb-0">' + mainComment.text + '</p>\
+                    <div class="d-flex flex-wrap align-items-center comment-activity">'
+                    if(mainComment.username == getUserDetails().uname){
+                        commentLi.innerHTML += '<a onclick="editSCommentClick(\''+ mainComment.comment_id + "-" + mainComment.text + '\')">Edit</a>\
+                        <a onclick="deleteCommentClick()">Delete</a>';
+                    }
+                    commentLi.innerHTML += ' <span> ' + mainComment.timestamp + ' </span>\
+                    </div>\
+                </div>\
+            </div>';
+            }
+        },
+        error: function(){
+            console.log(data);
+        }
+    });
 }

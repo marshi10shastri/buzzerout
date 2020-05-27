@@ -657,14 +657,16 @@ function editCommentClick(comment){
     let comment_text = comment.split('-')[1];
     //modal call
     let textField = document.getElementById('modalCommentTextInput');
+    let commentIdField = document.getElementById('editCommentIdHidden');
     textField.value = comment_text;
-    $("#editCommentModal").modal()
+    commentIdField.value = commentId;
+    $("#editCommentModal").modal();
+}
 
-    let commentInputText = comment_text
-    if(textField.value != ''){
-        commentInputText = textField.value;
-    }
 
+function editIndexComment(){
+    let commentInputText = document.getElementById('modalCommentTextInput').value;
+    let commentId = document.getElementById('editCommentIdHidden').value;
     //ajax
     $.ajax({
         type:'POST',
@@ -678,24 +680,38 @@ function editCommentClick(comment){
             console.log(data);
             if(data.error == false){
                 //update local storage
+                let post =  getPostFromFeedId(data.feed_id);
+                let post_comments = data.comments;
+
+                post.comments = post_comments;
+                updateAllLocalStoragePosts(post);
+
+                let mainComment;
+
+                for(let i=0; i<post_comments.length; i++){
+                    if(post_comments[i].comment_id == commentId){
+                        mainComment = post_comments[i];
+                    }
+                }
 
                 //update ui
                 let commentLi = document.getElementById(commentId);
+                commentLi.innerHTML = '';
                 commentLi.innerHTML = '<div class="d-flex flex-wrap">\
                                     <div class="user-img">\
-                                        <img src="' + feed.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                        <img src="' + mainComment.commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
                                     </div>\
                                     <div class="comment-data-block ml-3">\
-                                        <h6>' + feed.buzz_comments[i].username + '</h6>\
-                                        <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
+                                        <h6>' + mainComment.username + '</h6>\
+                                        <p class="mb-0">' + mainComment.text + '</p>\
                                         <div class="d-flex flex-wrap align-items-center comment-activity">';
 
-                if (feed.buzz_comments[i].username == getUserDetails().uname) {
-                    commentLi.innerHTML += '<a onclick="editCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">Edit</a>\
+                if (mainComment.username == getUserDetails().uname) {
+                    commentLi.innerHTML += '<a onclick="editCommentClick(\''+ mainComment.comment_id + "-" + mainComment.text + '\')">Edit</a>\
                 <a onclick="deleteCommentClick()">Delete</a>';
                 }
 
-                commentLi.innerHTML += ' <span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
+                commentLi.innerHTML += ' <span> ' + timeSince(new Date(mainComment.timestamp)) + ' </span>\
                                 </div>\
                             </div>\
                         </div>';
