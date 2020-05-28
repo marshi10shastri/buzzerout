@@ -915,7 +915,7 @@ function editTimelineComment(){
 
                          if(mainComment.username == getUserDetails().uname){
                             commentLi.innerHTML += '<a onclick="editTCommentClick(\''+ mainComment.comment_id + "-" + mainComment.text + '\')">edit</a>\
-                            <a onclick="deleteTCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + data.feed_id + '\')">Delete</a>'
+                            <a onclick="deleteTCommentClick(\''+ mainComment.comment_id + "-" + post.buzz_id + '\')">Delete</a>'
                          }
                          commentLi.innerHTML+= '<span> ' + timeSince(new Date(mainComment.timestamp)) + ' </span>\
                          </div>\
@@ -959,6 +959,8 @@ function deleteTCommentClick(Dcomment){
                 updateLocalStoragePosts(post);
 
                 //ui update
+                let cmtCnt = document.getElementById('Tcomment-count-'+ post.buzz_id);
+                cmtCnt.innerText = post.buzz_comments.length + ' Comment(s)';
                 let ul = document.getElementById('Tcommentslist-' + feedid);
                 ul.innerHTML ='';
                     let len = post.buzz_comments.length;

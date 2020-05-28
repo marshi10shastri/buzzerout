@@ -327,7 +327,7 @@ function editSingleComment(){
                     <div class="d-flex flex-wrap align-items-center comment-activity">'
                     if(mainComment.username == getUserDetails().uname){
                         commentLi.innerHTML += '<a onclick="editSCommentClick(\''+ mainComment.comment_id + "-" + mainComment.text + '\')">Edit</a>\
-                        <a onclick="deleteSCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + data.feed_id + '\')">Delete</a>';
+                        <a onclick="deleteSCommentClick(\''+ mainComment.comment_id + "-" + post.buzz_id + '\')">Delete</a>';
                     }
                     commentLi.innerHTML += ' <span> ' + mainComment.timestamp + ' </span>\
                     </div>\
@@ -371,6 +371,8 @@ function deleteSCommentClick(Dcomment){
                 updateAllLocalStoragePosts(post);
 
                 //ui update
+                let cmtCnt = document.getElementById('comment-count-'+ post.buzz_id);
+                cmtCnt.innerText = post.buzz_comments.length+ ' Comment(s)';
                 let ul = document.getElementById('commentslist-' + feedid);
                 ul.innerHTML ='';
                 for (var i = 0; i < post.buzz_comments.length; i++) {
@@ -384,8 +386,8 @@ function deleteSCommentClick(Dcomment){
                                                         <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
                                                         <div class="d-flex flex-wrap align-items-center comment-activity">'
                                                         if(post.buzz_comments[i].username == getUserDetails().uname){
-                                                            string += '<a onclick="editSCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
-                                                            <a onclick="deleteSCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_id + '\')">Delete</a>';
+                                                            ul.innerHTML += '<a onclick="editSCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
+                                                            <a onclick="deleteSCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>';
                                                         }
                                                         ul.innerHTML += ' <span> ' + post.buzz_comments[i].timestamp + ' </span>\
                                                         </div>\

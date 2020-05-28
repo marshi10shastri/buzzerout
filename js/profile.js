@@ -490,7 +490,7 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
             let len = comments.length;
             if (len > 5 && !ifSinglePost) {
                 for (let j = 0; j < 5; j++) {
-                    let string =`<li class="mb-2">
+                    let string =`<li class="mb-2" id="`+feed[i].buzz_comments[j].comment_id+`">
 
                     <div class="d-flex flex-wrap">
         
@@ -509,8 +509,8 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
                                 <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                                 if(comments[j].username == getUserDetails().uname){
-                                    string +=  `<a href="javascript:void();">Edit</a>
-                                                <a href="javascript:void();">Delete</a>`
+                                    string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                    <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                                 }
         
                                 string +=    `<span> ` + timeSince(new Date(feed[i].buzz_comments[j].timestamp)) + `  </span>
@@ -526,7 +526,7 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
                 }
             } else {
                 for (let j = 0; j < len; j++) {
-                    let string =`<li class="mb-2">
+                    let string =`<li class="mb-2" id="`+feed[i].buzz_comments[j].comment_id+`">
 
                     <div class="d-flex flex-wrap">
         
@@ -545,8 +545,8 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
                                 <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                                 if(comments[j].username == getUserDetails().uname){
-                                    string +=  `<a href="javascript:void();">Edit</a>
-                                                <a href="javascript:void();">Delete</a>`
+                                    string +=  '<a onclick="editTCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                    <a onclick="deleteTCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>';
                                 }
         
                                 string +=    `<span> ` + timeSince(new Date(feed[i].buzz_comments[j].timestamp)) + `  </span>

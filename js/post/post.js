@@ -145,8 +145,8 @@ function updateCommentToPost(id, ifSinglePost) {
                             <p class="mb-0">` + comments[j].text + `</p>
                             <div class="d-flex flex-wrap align-items-center comment-activity">`
                             if(comments[j].username == getUserDetails().uname){
-                                string +=  `<a onclick="editCommentClick()">Edit</a>
-                                            <a onclick="deleteCommentClick()">Delete</a>`
+                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                             }
                                string +=
                                 `<span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
@@ -171,8 +171,36 @@ function updateCommentToPost(id, ifSinglePost) {
                             <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                             if(comments[j].username == getUserDetails().uname){
-                                string +=  `<a onclick="editCommentClick()">Edit</a>
-                                            <a onclick="deleteCommentClick()">Delete</a>`
+                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
+                            }
+                            
+                            string+=    `<span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                `;
+                    commentsDiv.innerHTML += string;
+                }
+            }
+            if(ifSinglePost){
+                commentsDiv.innerHTML = '';
+                for (let j = 0; j < len; j++) {
+                    let string = `
+                <li class="mb-2" id="`+ comments[j].comment_id +`">
+                    <div class="d-flex flex-wrap">
+                        <div class="user-img">
+                            <img src="`+ comments[j].commentImg +`" class="avatar-35 rounded-circle img-fluid">
+                        </div>
+                        <div class="comment-data-block ml-3">
+                            <h6>` + comments[j].username + `</h6>
+                            <p class="mb-0">` + comments[j].text + `</p>
+                            <div class="d-flex flex-wrap align-items-center comment-activity">`;
+
+                            if(comments[j].username == getUserDetails().uname){
+                                string +=  '<a onclick="editSCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                <a onclick="deleteSCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                             }
                             
                             string+=    `<span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
