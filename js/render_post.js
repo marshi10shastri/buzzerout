@@ -691,7 +691,7 @@ function editIndexComment(){
 
                 if (mainComment.username == getUserDetails().uname) {
                     commentLi.innerHTML += '<a onclick="editCommentClick(\''+ mainComment.comment_id + "-" + mainComment.text + '\')">Edit</a>\
-                <a onclick="deleteCommentClick()">Delete</a>';
+                    <a onclick="deleteSCommentClick(\''+ mainComment.comment_id + "-" + post.buzz_id + '\')">Delete</a>';
                 }
 
                 commentLi.innerHTML += ' <span> ' + timeSince(new Date(mainComment.timestamp)) + ' </span>\
@@ -736,6 +736,8 @@ function deleteCommentClick(Dcomment){
                 updateAllLocalStoragePosts(post);
 
                 //ui update
+                let cmtCnt = document.getElementById('comment-count-'+ post.buzz_id);
+                cmtCnt.innerText = post.buzz_comments.length + ' Comment(s)';
                 let ul = document.getElementById('commentslist-' + feedid);
                 ul.innerHTML ='';
                 if (post.buzz_comments.length > 5) {
@@ -752,7 +754,7 @@ function deleteCommentClick(Dcomment){
             
                         if (post.buzz_comments[i].username == getUserDetails().uname) {
                             ul.innerHTML += '<a onclick="editCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
-                                        <a onclick="deleteCommentClick()">Delete</a>';
+                            <a onclick="deleteSCommentClick(\''+ mainComment.comment_id + "-" + post.buzz_id + '\')">Delete</a>';
                         }
             
                         ul.innerHTML += '<a href="javascript:void();">like</a>\
