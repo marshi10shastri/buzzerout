@@ -26,3 +26,7 @@
 .text-position-relative {
     position: relative !important;
 }
+
+.media-body.ml-3 {
+    opacity: 1 !important;
+}

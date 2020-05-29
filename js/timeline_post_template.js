@@ -904,23 +904,36 @@ function editTimelineComment(){
                  //update ui
                  let commentLi = document.getElementById(commentId);
                  commentLi.innerHTML = '';
-                 commentLi.innerHTML = '<div class="d-flex flex-wrap">\
-                 <div class="user-img">\
-                     <img src=' + mainComment.commentImg + ' alt="userimg" class="avatar-35 rounded-circle img-fluid">\
-                         </div>\
-                     <div class="comment-data-block ml-3">\
-                         <h6>' + mainComment.username + '</h6>\
-                         <p class="mb-0">' + mainComment.text + '</p>\
-                         <div class="d-flex flex-wrap align-items-center comment-activity">';
 
-                         if(mainComment.username == getUserDetails().uname){
-                            commentLi.innerHTML += '<a onclick="editTCommentClick(\''+ mainComment.comment_id + "-" + mainComment.text + '\')">edit</a>\
-                            <a onclick="deleteTCommentClick(\''+ mainComment.comment_id + "-" + post.buzz_id + '\')">Delete</a>'
-                         }
-                         commentLi.innerHTML+= '<span> ' + timeSince(new Date(mainComment.timestamp)) + ' </span>\
-                         </div>\
-                     </div>\
-                 </div>';
+                if(mainComment.username != getUserDetails().uname){
+                    commentLi.innerHTML = '<div class="d-flex flex-wrap">\
+                    <div class="user-img">\
+                        <img src=' + mainComment.commentImg + ' alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                            </div>\
+                        <div class="comment-data-block ml-3">\
+                            <h6>' + mainComment.username + '</h6>\
+                            <p class="mb-0">' + mainComment.text + '</p>\
+                            <div class="d-flex flex-wrap align-items-center comment-activity">\
+                            <span> ' + timeSince(new Date(mainComment.timestamp)) + ' </span>\
+                            </div>\
+                        </div>\
+                    </div>';
+                }else{
+                    commentLi.innerHTML = '<div class="d-flex flex-wrap">\
+                    <div class="user-img">\
+                        <img src=' + mainComment.commentImg + ' alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                            </div>\
+                        <div class="comment-data-block ml-3">\
+                            <h6>' + mainComment.username + '</h6>\
+                            <p class="mb-0">' + mainComment.text + '</p>\
+                            <div class="d-flex flex-wrap align-items-center comment-activity">\
+                                <a onclick="editTCommentClick(\''+ mainComment.comment_id + "-" + mainComment.text + '\')">edit</a>\
+                                <a onclick="deleteTCommentClick(\''+ mainComment.comment_id + "-" + post.buzz_id + '\')">Delete</a>\
+                                <span> ' + timeSince(new Date(mainComment.timestamp)) + ' </span>\
+                            </div>\
+                        </div>\
+                    </div>';
+                }
              }
          },
          error: function(){
