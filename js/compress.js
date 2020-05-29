@@ -39,6 +39,44 @@ function compress(e) {
 }
 
 
+//create post from profile page
+var t_token = {};
+function t_buzz_compress(e) {
+    const width = 660;
+    const height = 425;
+    const fileName = e.target.files[0].name;
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = event => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+            const elem = document.createElement('canvas');
+            const elem2 = document.createElement('canvas');
+            elem2.width = 100;
+            elem2.height = 100;
+            elem.width = width;
+            elem.height = height;
+            const ctx = elem.getContext('2d');
+            const ctx2 = elem2.getContext('2d');
+            // img.width and img.height will contain the original dimensions
+            ctx.drawImage(img, 0, 0, width, height);
+            ctx2.drawImage(img, 0, 0, 100, 100);
+            ctx.canvas.toBlob((blob) => {
+                let file = new File([blob], fileName, {
+                    type: 'image/jpeg',
+                    lastModified: Date.now()
+                });
+                t_token = file;
+            }, 'image/jpeg', 1);
+            document.getElementById('t-body-div').innerHTML = '';
+            document.getElementById('t-body-div').appendChild(elem2);
+        },
+            reader.onerror = error => console.log(error);
+
+    };
+}
+
 
 var pImage_toke = {};
 function compressPImage(e) {
