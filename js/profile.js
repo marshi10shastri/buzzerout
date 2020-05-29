@@ -24,6 +24,10 @@ function initProfile() {
     document.getElementById('upload-cover-pic').addEventListener("change", function (event) {
         compresstImage(event);
     });
+
+    document.getElementById('timeline-buzz-photo-input').addEventListener("change", function (event) {
+        t_buzz_compress(event);
+    });
 }
 
 function showProfile() {
@@ -923,7 +927,7 @@ function showDetailsAboutDetails() {
 // create post
 function createPostTimeline() {
     var file = document.getElementById("timeline-buzz-photo-input").files[0];
-    var resizedImage;
+    var resizedImage = t_token;
 
     if (document.getElementById("timeline-buzz-photo-input").files.length == 0) {
         let user_name = getUserDetails().uname;
@@ -970,48 +974,14 @@ function createPostTimeline() {
             console.log("An image has been loaded");
 
             // Load the image
-            var reader = new FileReader();
-            reader.onload = function(readerEvent) {
-                var image = new Image();
-                image.onload = function(imageEvent) {
-                    // Resize the image
-                    var canvas = document.createElement("canvas"),
-                        max_size = 544, // TODO : pull max size from a site config
-                        width = image.width,
-                        height = image.height;
-                    if (width > height) {
-                        if (width > max_size) {
-                            console.log("width max");
-                            height *= max_size / width;
-                            width = max_size;
-                        }
-                    } else {
-                        if (height > max_size) {
-                            console.log("height max");
-                            width *= max_size / height;
-                            height = max_size;
-                        }
-                    }
-                    canvas.width = width;
-                    canvas.height = height;
-                    canvas.getContext("2d").drawImage(image, 0, 0, width, height);
-                    var dataUrl = canvas.toDataURL("image/jpeg");
-                    resizedImage = dataURLToBlob(dataUrl);
-                    $.event.trigger({
-                        type: "imageResized",
-                        blob: resizedImage,
-                        url: dataUrl,
-                    });
-                };
-                image.src = readerEvent.target.result;
-            };
+            
         }
         // ----------------------------------------
         var link = [];
 
         var formData = new FormData();
         email = "raman.10102@gmail.com";
-        formData.append("file", file);
+        formData.append("file", resizedImage);
         formData.append("product", "buzzerout");
         formData.append("application", "buzzerout");
         formData.append("to", email);
