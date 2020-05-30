@@ -135,7 +135,7 @@ function updateCommentToPost(id, ifSinglePost) {
             if (len > 5 && !ifSinglePost) {
                 for (let j = 0; j < 5; j++) {
                     let string = `
-                <li>
+                <li class="mb-2" id="`+ comments[j].comment_id +`">
                     <div class="d-flex flex-wrap">
                         <div class="user-img">
                             <img src="`+ comments[j].commentImg +`" alt="userimg" class="avatar-35 rounded-circle img-fluid">

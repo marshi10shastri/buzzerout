@@ -979,73 +979,75 @@ function deleteTCommentClick(Dcomment){
                     let len = post.buzz_comments.length;
                     if (len > 5) {
                     for (var i = 0; i < 5; i++) {
-                        ul.innerHTML+= `<li class="mb-2" id="`+post.buzz_comments[i].comment_id+`">
-
-                        <div class="d-flex flex-wrap">
-
-                            <div class="user-img">
-
-                                <img src=` + post.buzz_comments[i].commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
-
-                                    </div>
-
-                                <div class="comment-data-block ml-3">
-
-                                    <h6>` + post.buzz_comments[i].username + `</h6>
-
-                                    <p class="mb-0">` + post.buzz_comments[i].text + `</p>
-
-                                    <div class="d-flex flex-wrap align-items-center comment-activity">`;
-
-                                    if(post.buzz_comments[i].username == getUserDetails().uname){
-                                        ul.innerHTML +=    '<a onclick="editTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">edit</a>\
-                                        <a onclick="deleteTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>'
-                                    }
-
-                                    ul.innerHTML+=    `<span> ` + timeSince(new Date(post.buzz_comments[i].timestamp)) + `  </span>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            </li>`;
+                        if(post.buzz_comments[i].username == getUserDetails().uname){
+                            ul.innerHTML+= '<li class="mb-2" id="'+post.buzz_comments[i].comment_id+'">\
+                                                <div class="d-flex flex-wrap">\
+                                                    <div class="user-img">\
+                                                        <img src=' + post.buzz_comments[i].commentImg + ' alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                                    </div>\
+                                                    <div class="comment-data-block ml-3">\
+                                                        <h6>' + post.buzz_comments[i].username + '</h6>\
+                                                        <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
+                                                        <div class="d-flex flex-wrap align-items-center comment-activity">\
+                                                            <a onclick="editTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">edit</a>\
+                                                            <a onclick="deleteTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>\
+                                                            <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + '</span>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </li>';
+                        }else{
+                            ul.innerHTML+= '<li class="mb-2" id="'+post.buzz_comments[i].comment_id+'">\
+                                                <div class="d-flex flex-wrap">\
+                                                    <div class="user-img">\
+                                                        <img src=' + post.buzz_comments[i].commentImg + ' alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                                    </div>\
+                                                    <div class="comment-data-block ml-3">\
+                                                        <h6>' + post.buzz_comments[i].username + '</h6>\
+                                                        <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
+                                                        <div class="d-flex flex-wrap align-items-center comment-activity">\
+                                                            <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + '</span>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </li>';
+                        }
                     }
                 }else{
                     for (var i = 0; i < post.buzz_comments.length; i++) {
-                        ul.innerHTML+= `<li class="mb-2" id="`+post.buzz_comments[i].comment_id+`">
-
-                        <div class="d-flex flex-wrap">
-
-                            <div class="user-img">
-
-                                <img src=` + post.buzz_comments[i].commentImg + ` alt="userimg" class="avatar-35 rounded-circle img-fluid">
-
-                                    </div>
-
-                                <div class="comment-data-block ml-3">
-
-                                    <h6>` + post.buzz_comments[i].username + `</h6>
-
-                                    <p class="mb-0">` + post.buzz_comments[i].text + `</p>
-
-                                    <div class="d-flex flex-wrap align-items-center comment-activity">`;
-
-                                    if(post.buzz_comments[i].username == getUserDetails().uname){
-                                        ul.innerHTML +=    '<a onclick="editTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">edit</a>\
-                                        <a onclick="deleteTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>'
-                                    }
-
-                                        `<span> ` + timeSince(new Date(post.buzz_comments[i].timestamp)) + `  </span>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            </li>`;
+                        if(post.buzz_comments[i].username == getUserDetails().uname){
+                            ul.innerHTML+= '<li class="mb-2" id="'+post.buzz_comments[i].comment_id+'">\
+                                                <div class="d-flex flex-wrap">\
+                                                    <div class="user-img">\
+                                                        <img src=' + post.buzz_comments[i].commentImg + ' alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                                    </div>\
+                                                    <div class="comment-data-block ml-3">\
+                                                        <h6>' + post.buzz_comments[i].username + '</h6>\
+                                                        <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
+                                                        <div class="d-flex flex-wrap align-items-center comment-activity">\
+                                                            <a onclick="editTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">edit</a>\
+                                                            <a onclick="deleteTCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>\
+                                                            <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + '</span>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </li>';
+                        }else{
+                            ul.innerHTML+= '<li class="mb-2" id="'+post.buzz_comments[i].comment_id+'">\
+                                                <div class="d-flex flex-wrap">\
+                                                    <div class="user-img">\
+                                                        <img src=' + post.buzz_comments[i].commentImg + ' alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                                    </div>\
+                                                    <div class="comment-data-block ml-3">\
+                                                        <h6>' + post.buzz_comments[i].username + '</h6>\
+                                                        <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
+                                                        <div class="d-flex flex-wrap align-items-center comment-activity">\
+                                                            <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + '</span>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </li>';
+                        }
                     }
 
                 }

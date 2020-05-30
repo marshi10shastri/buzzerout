@@ -389,25 +389,39 @@ function deleteSCommentClick(Dcomment) {
                 let ul = document.getElementById('commentslist-' + feedid);
                 ul.innerHTML = '';
                 for (var i = 0; i < post.buzz_comments.length; i++) {
-                    ul.innerHTML += '<li class="mb-2" id="' + post.buzz_comments[i].comment_id + '">\
-                                                <div class="d-flex flex-wrap">\
-                                                    <div class="user-img">\
-                                                        <img src="' + post.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
-                                                    </div>\
-                                                    <div class="comment-data-block ml-3">\
-                                                        <h6>' + post.buzz_comments[i].username + '</h6>\
-                                                        <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
-                                                        <div class="d-flex flex-wrap align-items-center comment-activity">'
                     if (post.buzz_comments[i].username == getUserDetails().uname) {
-                        ul.innerHTML += '<a onclick="editSCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
-                                                            <a onclick="deleteSCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>';
-                    }
-                    ul.innerHTML += ' <span> ' + post.buzz_comments[i].timestamp + ' </span>\
-                                                        </div>\
+                        ul.innerHTML += '<li class="mb-2" id="' + post.buzz_comments[i].comment_id + '">\
+                                            <div class="d-flex flex-wrap">\
+                                                <div class="user-img">\
+                                                    <img src="' + post.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                                </div>\
+                                                <div class="comment-data-block ml-3">\
+                                                    <h6>' + post.buzz_comments[i].username + '</h6>\
+                                                    <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
+                                                    <div class="d-flex flex-wrap align-items-center comment-activity">\
+                                                        <a onclick="editSCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
+                                                        <a onclick="deleteSCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>\
+                                                        <span> ' + post.buzz_comments[i].timestamp + ' </span>\
                                                     </div>\
                                                 </div>\
-                                            </li>\
-                        ';
+                                            </div>\
+                                        </li>';
+                    }else{
+                        ul.innerHTML += '<li class="mb-2" id="' + post.buzz_comments[i].comment_id + '">\
+                                            <div class="d-flex flex-wrap">\
+                                                <div class="user-img">\
+                                                    <img src="' + post.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                                </div>\
+                                                <div class="comment-data-block ml-3">\
+                                                    <h6>' + post.buzz_comments[i].username + '</h6>\
+                                                    <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
+                                                    <div class="d-flex flex-wrap align-items-center comment-activity">\
+                                                        <span> ' + post.buzz_comments[i].timestamp + ' </span>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </li>';
+                    }
                 }
             }
         },
