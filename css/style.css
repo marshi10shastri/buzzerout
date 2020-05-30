@@ -1476,7 +1476,7 @@ div#lottie-fullscreen svg path {
 
 .iq-navbar-logo a span {
     margin-left: 10px;
-    font-size: 28px;
+    font-size: 22px;
     font-family: 'Poppins', sans-serif;
     line-height: 45px;
     color: var(--iq-title-text);
@@ -1494,7 +1494,8 @@ div#lottie-fullscreen svg path {
 }
 
 .iq-navbar-logo img {
-    height: 45px;
+    height: 35px;
+    width: 35px;
 }
 
 
