@@ -161,6 +161,7 @@ function fetchPost() {
                 username: user
             },
             success: function (resp) {
+                console.log(resp)
                 if (0 != resp.Feed.length) {
                     postMapper(resp.Feed);
                 } else {
@@ -196,6 +197,9 @@ function fetchPost() {
         });
     } else if (getLocalStorage(USER_TYPE) == "dummy") {
         // Add Dummy Data
+        let buzz = getJSONLocalStorage(ALL_BUZZ);
+        inhtml.innerHTML = "";
+        postMapper(buzz);
     }else{
         console.log('user type set nhi h');
     }

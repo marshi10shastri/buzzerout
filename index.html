@@ -33,12 +33,10 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/extra.css">
 
-    <script src="js/constant.js"></script>
-    <script src="js/data.js"></script>
+    <script src="js/buzzerout/utility/constant.js"></script>
+    <script src="js/buzzerout/utility/data.js"></script>
+    <script src="js/buzzerout/utility/base.js"></script>
 
-    <script src="js/base.js"></script>
-    <script src="js/post.js"></script>
-    <script src="js/JIC.js"></script>
     <script>
         if (getLocalStorage(USER) != undefined) {
             if (getLocalStorage(USER) == 'true') {
@@ -46,7 +44,9 @@
                 if (getLocalStorage(USER_TYPE) == "dummy") {
 
                     setJSONLocalStorage(USER_INFO, DUMMY_USER);
+                    userMapper(DUMMY_USER);
                     // Set Everything To Dummy
+                    setJSONLocalStorage(ALL_BUZZ, DUMMY_DATA);
                 } else if (getLocalStorage(USER_TYPE) == "liveuser") {
                     // Set Everything To LiveUser
 

@@ -289,3 +289,17 @@ function timeSince(date) {
     }
     return Math.floor(seconds) + " seconds ago";
   }
+
+
+function validateUser(){
+    console.log("hello")
+    if (getLocalStorage(USER) != undefined) {
+        if (getLocalStorage(USER) == 'true') {
+            // do nothing
+        } else {
+            window.location = "index.html";
+        }
+    } else {
+        window.location = "index.html";
+    }
+}

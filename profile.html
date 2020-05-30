@@ -32,25 +32,14 @@
 
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/extra.css">
-    <script src="js/base.js"></script>
-    <script src="js/constant.js"></script>
-    <script>
-        console.log("hello")
-        if (getLocalStorage(USER) != undefined) {
-            if (getLocalStorage(USER) == 'true') {
-                // do nothing
-            } else {
-                window.location = "index.html";
-            }
-        } else {
-            window.location = "index.html";
-        }
-    </script>
     <style>
         .extra {
             display: none;
         }
     </style>
+
+    <script src="js/buzzerout/utility/base.js"></script>
+    <script src="js/buzzerout/utility/constant.js"></script>
 </head>
 
 <body class="sidebar-main-active right-column-fixed" onload="initProfile()">
@@ -9264,7 +9253,6 @@
     <script src="js/custom.js"></script>
 
     <!-- selfmade js -->
-    <script src="js/buzzerout/utility/constant.js"></script>
     <script src="js/buzzerout/profile/profile_template.js"></script>
     <script src="js/buzzerout/profile/profile.js"></script>
     <script src="js/buzerout/profile/timeline_post_template.js"></script>
