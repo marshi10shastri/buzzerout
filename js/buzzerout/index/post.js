@@ -1,147 +1,182 @@
 
 function createPost() {
     var file = document.getElementById("buzz-photo-input").files[0];
-    if (document.getElementById("buzz-photo-input").files.length == 0) {
-        let user_name = getUserDetails().uname;
+
+    //dummy user
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
         let desc = document.getElementById("buzz-post-input").value;
-        $.ajax({
-            type: "POST",
-            url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
-            data: {
-                username: user_name,
-                title: "title",
-                description: desc,
-                location: "abc",
-            },
-            success: function (data) {
-                console.log(data);
-                if (data["error"] == false) {
-                    var post = {
-                        buzz_id: data.feedid,
-                        buzz_username: getUserDetails().uname,
-                        buzz_user_image: getUserProfileDetails().pImage,
-                        buzz_images: [],
-                        buzz_description: desc,
-                        buzz_timestamp: "Just Now",
-                        buzz_upvotes: [],
-                        buzz_downvotes: [],
-                        buzz_comments: [],
-                        buzz_title: 'title',
-                        buzz_location: 'Hyderabad'
-                    };
-                    showCreatedBuzz(post);
-                    // var local_posts = getJSONLocalStorage(POSTS);
-                    // setJSONLocalStorage(POSTS, post.concat(local_posts));
-                    document.getElementById('buzz-post-input').value = '';
-                    document.getElementById("close-modal").click();
-                    // fetchPost();
-                } else {
-                    alert(data["message"]);
-                }
-            },
-            error: function (response) {
-                console.log(response);
-            },
-        });
-    } else {
-        // ---------------------------------------
-        if (file.type.match(/image.*/)) {
-            console.log("An image has been loaded");
+        let imageLink = [];
 
-            // ----------------------------------------
-            var link = [];
+        if (document.getElementById("buzz-photo-input").files.length != 0){
+            console.log(URL.createObjectURL(file_toke));
+            imageLink.push(URL.createObjectURL(file_toke));
 
-            var formData = new FormData();
-            email = "raman.10102@gmail.com";
-            formData.append("file", file_toke);
-            formData.append("product", "buzzerout");
-            formData.append("application", "buzzerout");
-            formData.append("to", email);
-            formData.append("from", email);
-            formData.append("message", "My Buzz");
+        }
+        
+        var dummy_post = {
+            buzz_id: data.feedid,
+            buzz_username: getUserDetails().uname,
+            buzz_user_image: getUserProfileDetails().pImage,
+            buzz_images: imageLink,
+            buzz_description: desc,
+            buzz_timestamp: new Date(),
+            buzz_upvotes: [],
+            buzz_downvotes: [],
+            buzz_comments: [],
+            buzz_title: 'title',
+            buzz_location: ''
+        };
+        showCreatedBuzz(dummy_post);
+
+        document.getElementById('buzz-photo-input').value = '';
+        document.getElementById('buzz-post-input').value = '';
+    }
+    else{
+
+        if (document.getElementById("buzz-photo-input").files.length == 0) {
+            let user_name = getUserDetails().uname;
+            let desc = document.getElementById("buzz-post-input").value;
             $.ajax({
                 type: "POST",
-                url: "http://appnivi.com/server/v1/file/fileupload",
-                data: formData,
+                url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+                data: {
+                    username: user_name,
+                    title: "title",
+                    description: desc,
+                    location: "abc",
+                },
                 success: function (data) {
-                    link.push(data.link);
-                    console.log(data.link);
-                    let user_name = getUserDetails().uname;
-                    let desc = document.getElementById("buzz-post-input").value;
-                    console.log(user_name);
-                    console.log(desc);
-                    // on success
-                    $.ajax({
-                        type: "POST",
-                        url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
-                        data: {
-                            username: user_name,
-                            title: "title",
-                            description: desc,
-                            location: "abc",
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            let feedId = data.feedid;
-                            var post = {
-                                buzz_id: data.feedid,
-                                buzz_username: getUserDetails().uname,
-                                buzz_user_image: getUserProfileDetails().pImage,
-                                buzz_images: link,
-                                buzz_description: desc,
-                                buzz_timestamp: "Just Now",
-                                buzz_upvotes: [],
-                                buzz_downvotes: [],
-                                buzz_comments: [],
-                                buzz_location: 'Hyderabad',
-                                buzz_title: 'title'
-                            };
-                            console.log(post);
-                            showCreatedBuzz(post);
-
-                            document.getElementById('buzz-photo-input').value = '';
-                            document.getElementById('buzz-post-input').value = '';
-                            // var local_posts = getJSONLocalStorage(POSTS);
-                            // setJSONLocalStorage(POSTS, post.concat(local_posts));
-                            document.getElementById("close-modal").click();
-                            // fetchPost();
-                            // fetchTimelinePosts();
-
-                            //upload image to feed
-                            $.ajax({
-                                type: "POST",
-                                url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeedImage",
-                                data: {
-                                    username: user_name,
-                                    feed_id: feedId,
-                                    img: link[0],
-                                },
-                                success: function (data) {
-                                    console.log(data);
-                                    document.getElementById('buzz-photo-input').value = '';
-                                    document.getElementById('buzz-post-input').value = '';
-                                },
-                                error: function (response) {
-                                    console.log(response);
-                                },
-                            });
-                        },
-                        error: function (data) {
-                            console.log(data);
-                        },
-                    });
+                    console.log(data);
+                    if (data["error"] == false) {
+                        var post = {
+                            buzz_id: data.feedid,
+                            buzz_username: getUserDetails().uname,
+                            buzz_user_image: getUserProfileDetails().pImage,
+                            buzz_images: [],
+                            buzz_description: desc,
+                            buzz_timestamp: "Just Now",
+                            buzz_upvotes: [],
+                            buzz_downvotes: [],
+                            buzz_comments: [],
+                            buzz_title: 'title',
+                            buzz_location: 'Hyderabad'
+                        };
+                        showCreatedBuzz(post);
+                        // var local_posts = getJSONLocalStorage(POSTS);
+                        // setJSONLocalStorage(POSTS, post.concat(local_posts));
+                        document.getElementById('buzz-post-input').value = '';
+                        document.getElementById("close-modal").click();
+                        // fetchPost();
+                    } else {
+                        alert(data["message"]);
+                    }
                 },
-                error: function (error) {
-                    console.log(error);
+                error: function (response) {
+                    console.log(response);
                 },
-                cache: false,
-                contentType: false,
-                processData: false,
             });
+        } else {
+            // ---------------------------------------
+            if (file.type.match(/image.*/)) {
+                console.log("An image has been loaded");
+    
+                // ----------------------------------------
+                var link = [];
+    
+                var formData = new FormData();
+                email = "raman.10102@gmail.com";
+                formData.append("file", file_toke);
+                formData.append("product", "buzzerout");
+                formData.append("application", "buzzerout");
+                formData.append("to", email);
+                formData.append("from", email);
+                formData.append("message", "My Buzz");
+                $.ajax({
+                    type: "POST",
+                    url: "http://appnivi.com/server/v1/file/fileupload",
+                    data: formData,
+                    success: function (data) {
+                        link.push(data.link);
+                        console.log(data.link);
+                        let user_name = getUserDetails().uname;
+                        let desc = document.getElementById("buzz-post-input").value;
+                        console.log(user_name);
+                        console.log(desc);
+                        // on success
+                        $.ajax({
+                            type: "POST",
+                            url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+                            data: {
+                                username: user_name,
+                                title: "title",
+                                description: desc,
+                                location: "abc",
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                let feedId = data.feedid;
+                                var post = {
+                                    buzz_id: data.feedid,
+                                    buzz_username: getUserDetails().uname,
+                                    buzz_user_image: getUserProfileDetails().pImage,
+                                    buzz_images: link,
+                                    buzz_description: desc,
+                                    buzz_timestamp: "Just Now",
+                                    buzz_upvotes: [],
+                                    buzz_downvotes: [],
+                                    buzz_comments: [],
+                                    buzz_location: 'Hyderabad',
+                                    buzz_title: 'title'
+                                };
+                                console.log(post);
+                                showCreatedBuzz(post);
+    
+                                document.getElementById('buzz-photo-input').value = '';
+                                document.getElementById('buzz-post-input').value = '';
+                                // var local_posts = getJSONLocalStorage(POSTS);
+                                // setJSONLocalStorage(POSTS, post.concat(local_posts));
+                                document.getElementById("close-modal").click();
+                                // fetchPost();
+                                // fetchTimelinePosts();
+    
+                                //upload image to feed
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeedImage",
+                                    data: {
+                                        username: user_name,
+                                        feed_id: feedId,
+                                        img: link[0],
+                                    },
+                                    success: function (data) {
+                                        console.log(data);
+                                        document.getElementById('buzz-photo-input').value = '';
+                                        document.getElementById('buzz-post-input').value = '';
+                                    },
+                                    error: function (response) {
+                                        console.log(response);
+                                    },
+                                });
+                            },
+                            error: function (data) {
+                                console.log(data);
+                            },
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                });
+            }
+    
         }
+        // ------------------------------------------
 
     }
-    // ------------------------------------------
+
 
 }
 
