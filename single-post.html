@@ -33,9 +33,13 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/extra.css">
 
-    <script src="js/base.js"></script>
-    <script src="js/constant.js"></script>
-    <script src="js/post.js"></script>
+    <script src="js/buzzerout/utility/base.js"></script>
+    <script src="js/buzzerout/utility/constant.js"></script>
+    <script src="js/buzzerout/index/post.js"></script>
+
+    <script>
+        validateUser();
+    </script>
 </head>
 
 <body class="sidebar-main-active right-column-fixed" onload="initSingleBuzzPage()">
@@ -66,13 +70,13 @@
 
                     <ul id="iq-sidebar-toggle" class="iq-menu">
 
-                        <li class="active" id="leftbar-newsfeed">
+                        <li class="active" id="leftbar-newsfeed" data-toggle="tooltip" data-placement="right" data-original-title="Buzz">
 
                             <a href="index.html" class="iq-waves-effect"><i class="las la-newspaper"></i><span>Buzz</span></a>
 
                         </li>
 
-                        <li id="leftbar-profile">
+                        <li id="leftbar-profile" data-toggle="tooltip" data-placement="right" data-original-title="Profile">
 
                             <a class="iq-waves-effect">
                                 <i class="las la-user"></i><span>Profile</span></a>
@@ -109,7 +113,7 @@
 
                         </li>
 
-                        <li id="leftbar-notification">
+                        <li id="leftbar-notification" data-toggle="tooltip" data-placement="right" data-original-title="Notifications">
 
                             <a class="iq-waves-effect"><i class="las la-bell"></i><span>Notification</span></a>
 
@@ -433,7 +437,7 @@
 
                         <ul class="navbar-nav ml-auto navbar-list">
 
-                            <li>
+                            <li data-toggle="tooltip" data-placement="bottom" data-original-title="Profile">
 
                                 <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
 
@@ -449,7 +453,7 @@
 
                             </li>
 
-                            <li id="topnav-home">
+                            <li id="topnav-home" data-toggle="tooltip" data-placement="bottom" data-original-title="Buzz">
 
                                 <a href="index.html" class="iq-waves-effect d-flex align-items-center">
 
@@ -625,7 +629,7 @@
 
                             </li>
 
-                            <li class="nav-item" id="topnav-notification">
+                            <li class="nav-item" id="topnav-notification" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications">
 
                                 <a href="#" class="search-toggle iq-waves-effect">
 
@@ -904,7 +908,7 @@
 
                         </ul>
 
-                        <ul class="navbar-list" id="topnav-down-arrow">
+                        <ul class="navbar-list" id="topnav-down-arrow" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings">
 
                             <li>
 
