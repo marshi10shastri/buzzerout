@@ -1,4 +1,5 @@
 function initProfileEdit() {
+    validateUser();
     // setProfileNameImage();
     renderProfileEditTopRight();
     renderProfileEditTopMiddle();

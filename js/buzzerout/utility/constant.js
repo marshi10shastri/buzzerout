@@ -1,23 +1,24 @@
 const DUMMY_USER = {
     user: {
-        id: "user.userid",
         username: "praty",
         email: "pratyush1997.aswal@gmail.com",
-        password: "praty",
-        role: "1",
         timestamp: "2020-05-04 10:53:47"
     },
     details: {
-        college: [],
+        college: [{college_name:"GBPIET", college_place:"Pauri"}],
         socialMedia: [],
-        works: [],
-        city: [],
+        works: [{work_place:"Appnivi", work_profile:"Developer"}],
+        city: [{place_city:"Dehradun", place_name:"Premnagar"}],
         profile: {
             id: "4",
             username: "praty",
             first_name: "pratyush",
             last_name: "aswal",
             user_address: null,
+            user_city: null,
+            user_state:"UTTARAKHAND",
+            user_country: null,
+            user_marital:"Married",
             user_mobile: null,
             user_gender: null,
             user_dob: null,
@@ -27,8 +28,17 @@ const DUMMY_USER = {
             user_social_link: null,
             timestamp: "2020-05-04 10:53:47"
         },
-        details: { about: "qwer", nickname: 'asfds', quote: "dasc" }
+        user_details: [{ about: "qwer", nickname: 'asfds', quote: "dasc" }],
+        socialMedia:[],
     },
+    followers:[
+        {name:"raman10101",
+        image:"http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg"}
+    ],
+    following:[
+        {name:"raman10101",
+        image:"http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg"}
+    ],
     feed: [{
             feed_id: "naman5eaff72ee3a50",
             username: "naman",
@@ -36,7 +46,8 @@ const DUMMY_USER = {
             description: "lockdown",
             location: "Haridwar",
             timestamp: "2020-05-04 11:06:22",
-            role: "1"
+            role: "1",
+            is_anonymous:"0"
         },
         {
             feed_id: "praty5eaff6db6ef43",
@@ -45,7 +56,8 @@ const DUMMY_USER = {
             description: "lockdown",
             location: "dehradun",
             timestamp: "2020-05-04 11:04:59",
-            role: "1"
+            role: "1",
+            is_anonymous:"0"
         }
     ]
 }

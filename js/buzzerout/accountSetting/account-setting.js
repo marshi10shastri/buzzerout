@@ -1,4 +1,5 @@
 function initAccount(){
+    validateUser();
     renderAccountTopRight();
     renderAccountTopMiddle();
     renderAccountLeftBar();

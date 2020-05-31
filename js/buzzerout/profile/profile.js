@@ -1,5 +1,5 @@
 function initProfile() {
-
+    validateUser();
     renderProfileTopRight();
     renderProfileTopMiddle();
 

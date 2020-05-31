@@ -32,25 +32,14 @@
 
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/extra.css">
-    <script src="js/base.js"></script>
-    <script src="js/constant.js"></script>
-    <script>
-        console.log("hello")
-        if (getLocalStorage(USER) != undefined) {
-            if (getLocalStorage(USER) == 'true') {
-                // do nothing
-            } else {
-                window.location = "index.html";
-            }
-        } else {
-            window.location = "index.html";
-        }
-    </script>
     <style>
         .extra {
             display: none;
         }
     </style>
+
+    <script src="js/buzzerout/utility/base.js"></script>
+    <script src="js/buzzerout/utility/constant.js"></script>
 </head>
 
 <body class="sidebar-main-active right-column-fixed" onload="initProfile()">
@@ -81,13 +70,13 @@
 
                     <ul id="iq-sidebar-toggle" class="iq-menu">
 
-                        <li id="leftbar-newsfeed">
+                        <li id="leftbar-newsfeed" data-toggle="tooltip" data-placement="right" data-original-title="Buzz">
 
                             <a href="index.html" class="iq-waves-effect"><i class="las la-newspaper"></i><span>Buzz</span></a>
 
                         </li>
 
-                        <li class="active" id="leftbar-profile">
+                        <li class="active" id="leftbar-profile" data-toggle="tooltip" data-placement="right" data-original-title="Profile">
 
                             <a class="iq-waves-effect">
                                 <i class="las la-user"></i><span>Profile</span></a>
@@ -124,7 +113,7 @@
 
                         </li>
 
-                        <li id="leftbar-notification">
+                        <li id="leftbar-notification" data-toggle="tooltip" data-placement="right" data-original-title="Notifications">
 
                             <a class="iq-waves-effect"><i class="las la-bell"></i><span>Notification</span></a>
 
@@ -448,7 +437,7 @@
 
                         <ul class="navbar-nav ml-auto navbar-list">
 
-                            <li>
+                            <li data-toggle="tooltip" data-placement="bottom" data-original-title="Profile">
 
                                 <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
 
@@ -464,7 +453,7 @@
 
                             </li>
 
-                            <li id="topnav-home">
+                            <li id="topnav-home" data-toggle="tooltip" data-placement="bottom" data-original-title="Buzz">
 
                                 <a href="index.html" class="iq-waves-effect d-flex align-items-center">
 
@@ -640,7 +629,7 @@
 
                             </li>
 
-                            <li class="nav-item" id="topnav-notification">
+                            <li class="nav-item" id="topnav-notification" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications">
 
                                 <a href="#" class="search-toggle iq-waves-effect">
 
@@ -908,7 +897,7 @@
 
                         </ul>
 
-                        <ul class="navbar-list" id="topnav-down-arrow">
+                        <ul class="navbar-list" id="topnav-down-arrow" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings">
 
                             <li>
 
@@ -9262,25 +9251,26 @@
     <!-- Custom JavaScript -->
 
     <script src="js/custom.js"></script>
-    <script src="js/constant.js"></script>
-    <script src="js/profile_template.js"></script>
-    <script src="js/profile.js"></script>
-    <script src="js/timeline_post_template.js"></script>
-    <script src="js/post.js"></script>
-    <script src="js/edit-profile.js"></script>
-    <script src="js/logout.js"></script>
-    <script src="js/user.js"></script>
-    <script src="js/header/profileTopRight.js"></script>
-    <script src="js/header/profileTopMiddle.js"></script>
-    <script src="js/sidebar/profileLeftBar.js"></script>
-    <script src="js/profile/profileHeader.js"></script>
-    <script src="js/profile/collectionsTemplate.js"></script>
-    <script src="js/profile/renderCollections.js"></script>
-    <script src="js/profile/peopleTemplate.js"></script>
-    <script src="js/profile/renderPeople.js"></script>
-    <script src="js/profile/renderTimelineFollowers.js"></script>
-    <script src="js/profile/timelineFollowerTemplate.js"></script>
-    <script src="js/compress.js"></script>
+
+    <!-- selfmade js -->
+    <script src="js/buzzerout/profile/profile_template.js"></script>
+    <script src="js/buzzerout/profile/profile.js"></script>
+    <script src="js/buzerout/profile/timeline_post_template.js"></script>
+    <script src="js/buzzerout/index/post.js"></script>
+    <script src="js/buzzerout/profileEdit/edit-profile.js"></script>
+    <script src="js/buzzerout/signout/logout.js"></script>
+    <script src="js/buzzerout/signin/user.js"></script>
+    <script src="js/buzzerout/header/profileTopRight.js"></script>
+    <script src="js/buzzerout/header/profileTopMiddle.js"></script>
+    <script src="js/buzzerout/sidebar/profileLeftBar.js"></script>
+    <script src="js/buzzerout/profile/profileHeader.js"></script>
+    <script src="js/buzzerout/profile/collectionsTemplate.js"></script>
+    <script src="js/buzzerout/profile/renderCollections.js"></script>
+    <script src="js/buzzerout/profile/peopleTemplate.js"></script>
+    <script src="js/buzzerout/profile/renderPeople.js"></script>
+    <script src="js/buzzerout/profile/renderTimelineFollowers.js"></script>
+    <script src="js/buzzerout/profile/timelineFollowerTemplate.js"></script>
+    <script src="js/buzzerout/utility/compress.js"></script>
 </body>
 
 </html>
