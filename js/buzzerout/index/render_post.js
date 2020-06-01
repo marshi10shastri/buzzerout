@@ -728,6 +728,16 @@ function editIndexComment() {
     let feedid = document.getElementById('editCommentFeedId').value;
 
     if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let post = getPostFromFeedId(feedid);
+        let post_comments;
+        for(let i=0; i<post.buzz_comments.length; i++){
+            if(post.buzz_comments[i].comment_id == commentId){
+                post.buzz_comments[i].text = commentInputText;
+                post_comment = post.buzz_comments[i];
+            }
+        }
+        updateAllLocalStoragePosts(post);
+
         let commentLi = document.getElementById(commentId);
         commentLi.innerHTML = '';
             commentLi.innerHTML += '\
@@ -741,7 +751,7 @@ function editIndexComment() {
                     <div class="d-flex flex-wrap align-items-center comment-activity">\
                         <a onclick="editCommentClick(\'' + commentId + "-" + commentInputText + "-" + feedid + '\')">Edit</a>\
                         <a onclick="deleteCommentClick(\''+ commentId + "-" + feedid + '\')">Delete</a>\
-                        <span> ' + timeSince(new Date()) + ' </span>\
+                        <span> ' + timeSince(new Date(post_comment.timestamp)) + ' </span>\
                     </div>\
                 </div>\
             </div>';

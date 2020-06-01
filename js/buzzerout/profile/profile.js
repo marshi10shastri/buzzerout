@@ -425,7 +425,8 @@ function showProfilePosts() {
                             buzz_id: feedid,
                             buzz_comments: respPostComments,
                         };
-                        addCommentToSingleTimelinePost(resp, false)
+                        addCommentToSingleTimelinePost(resp, false);
+                        inputCommentField.value = "";
                     }
                     else if(getLocalStorage(USER_TYPE) == 'testuser'){
 
@@ -574,7 +575,7 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
                                 <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                                 if(comments[j].username == getUserDetails().uname){
-                                    string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                    string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id +'\')">Edit</a>\
                                     <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                                 }
         
@@ -610,7 +611,7 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
                                 <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                                 if(comments[j].username == getUserDetails().uname){
-                                    string +=  '<a onclick="editTCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                    string +=  '<a onclick="editTCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id +'\')">Edit</a>\
                                     <a onclick="deleteTCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>';
                                 }
         

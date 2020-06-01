@@ -116,7 +116,8 @@ function showCreatedBuzz(data) {
                         buzz_comments: respPostComments,
                     };
                     console.log(resp);
-                    addCommentToSinglePost(resp, false)
+                    addCommentToSinglePost(resp, false);
+                    inputCommentField.value = "";
                 }
                 else if(getLocalStorage(USER_TYPE) == 'testuser'){
 
