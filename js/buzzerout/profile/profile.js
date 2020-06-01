@@ -465,10 +465,41 @@ function singleTimelinePostMapper(post){
 
 //comments
 function addTCommentByBtn(feedid, isSinglePost){
-    let inputBox = document.getElementById('commentinput-' + feedid).value;
-    addCommentTimeline(feedid, inputBox, isSinglePost);
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let respPost = getPostFromFeedId(feedid);
+        let inputBox = document.getElementById('commentinput-' + feedid).value;
+        let respPostComments = respPost.buzz_comments;
 
-    document.getElementById('commentinput-' + feedid).value = '';
+        let newComment = {
+            commentImg: getUserProfileDetails().pImage,
+            comment_id: getUserDetails().uname + Date.now(),
+            first_name: getUserProfileDetails().fName,
+            last_name: getUserProfileDetails().lname,
+            text: inputBox,
+            timestamp: Date.now(),
+            username: getUserDetails().uname
+        }
+        respPstComments = respPostComments.unshift(newComment);
+        let resp = {
+            buzz_id: feedid,
+            buzz_comments: respPostComments,
+        };
+        addCommentToSingleTimelinePost(resp, isSinglePost);
+        document.getElementById('commentinput-' + feedid).value = '';
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+        //test user
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+        // logout user
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        let inputBox = document.getElementById('commentinput-' + feedid).value;
+        addCommentTimeline(feedid, inputBox, isSinglePost);
+
+        document.getElementById('commentinput-' + feedid).value = '';
+    }
+    
 }
 
 
@@ -606,7 +637,6 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
 function notifyTUpvotesSinglePost(votes, feedid){
     let post = getPostFromFeedId(feedid);
     post.buzz_upvotes = votes;
-
     updateLocalStoragePosts(post)
     updateUpvotesSingleTPost(feedid);
 }
@@ -1185,7 +1215,8 @@ function showCreatedTimelineBuzz(data) {
                         buzz_comments: respPostComments,
                     };
                     console.log(resp);
-                    addCommentToSingleTimelinePost(resp, false)
+                    addCommentToSingleTimelinePost(resp, false);
+                    inputCommentField.value = "";
                 }
                 else if(getLocalStorage(USER_TYPE) == 'testuser'){
 

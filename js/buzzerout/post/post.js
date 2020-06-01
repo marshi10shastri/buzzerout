@@ -69,7 +69,8 @@ function postMapper(data) {
                             buzz_id: feedid,
                             buzz_comments: respPostComments,
                         };
-                        addCommentToSinglePost(resp, false)
+                        addCommentToSinglePost(resp, false);
+                        document.getElementById(feedInputArray[j]).value = '';
                     }
                     else if(getLocalStorage(USER_TYPE) == 'testuser'){
 
@@ -81,7 +82,7 @@ function postMapper(data) {
                         console.log('running');
                         let feedid = feedInputArray[j].split("-")[1];
                         addComment(feedid, inputCommentField.value, false);
-                        inputCommentField.value = "";
+                        inputCommentField.value = '';
                     }
                 } else {
                     alert("Please sign in.");
@@ -104,12 +105,46 @@ function postMapper(data) {
 
 //add comment by btn
 function addCommentByBtn(feedid, isSinglePost){
-    console.log(feedid);
-    console.log(isSinglePost);
-    let inputBox = document.getElementById('commentinput-' + feedid).value;
-    addComment(feedid, inputBox, isSinglePost);
+    //depending on user type
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let respPost = getPostFromFeedId(feedid);
+        let inputBox = document.getElementById('commentinput-' + feedid).value;
+        let respPostComments = respPost.buzz_comments;
 
-    document.getElementById('commentinput-' + feedid).value = '';
+        let newComment = {
+            commentImg: getUserProfileDetails().pImage,
+            comment_id: getUserDetails().uname + Date.now(),
+            first_name: getUserProfileDetails().fName,
+            last_name: getUserProfileDetails().lname,
+            text: inputBox,
+            timestamp: Date.now(),
+            username: getUserDetails().uname
+        }
+        respPstComments = respPostComments.unshift(newComment);
+        let resp = {
+            buzz_id: feedid,
+            buzz_comments: respPostComments,
+        };
+        addCommentToSinglePost(resp, isSinglePost);
+        document.getElementById('commentinput-' + feedid).value = '';
+
+    }
+    else if(getLocalStorage(USER_TYPE)== 'liveuser'){
+        console.log(feedid);
+        console.log(isSinglePost);
+        let inputBox = document.getElementById('commentinput-' + feedid).value;
+        addComment(feedid, inputBox, isSinglePost);
+
+        document.getElementById('commentinput-' + feedid).value = '';
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+        //logout user
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+        // test user
+    }
+
 }
 
 function singlePostMapper(data) {

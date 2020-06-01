@@ -663,53 +663,96 @@ function timeline_post_template_no_post() {
 
 function upvoteTBuzzByFeedId(feedid){
     if (getLocalStorage(USER) == "true") {
-        let buzz_upvotes = getPostFromFeedId(feedid).buzz_upvotes;
-
-        
-        let uName = getUserDetails().uname;
-        console.log(buzz_upvotes);
-
-        let flag = 0;
-        for (let j = 0; j < buzz_upvotes.length; j++) {
-            if (buzz_upvotes[j].username == uName) {
+        if(getLocalStorage(USER_TYPE)== 'dummy'){
+            let buzz = getPostFromFeedId(feedid);
+            let buzz_upvotes = buzz.buzz_upvotes;
+            let buzz_downvotes = buzz.buzz_downvotes;
+            let uname = getUserDetails().uname;
+            let flag = 0;
+            if(buzz_upvotes.includes(uname)){
                 flag = 1;
             }
+
+            //upvote - unupvote game
+            if(flag == 1){
+                //remove that upvote
+                let index = buzz_upvotes.indexOf(uname);
+                if (index !== -1){
+                    buzz_upvotes.splice(index, 1);
+                }
+
+                //upvote removed successfully now notify upvotes
+                notifyTUpvotesSinglePost(buzz_upvotes, feedid);
+            }
+            else{
+                //add upvote
+                buzz_upvotes.push(uname);
+                //now notify this. We need to remove downvote if there is because we cant do both at same time.
+
+                if(buzz_downvotes.includes(uname)){
+                    //removing downvote
+                    let index = buzz_downvotes.indexOf(uname);
+                    if (index !== -1){
+                        buzz_downvotes.splice(index, 1);
+                    }
+                }
+                notifyTUpvotesSinglePost(buzz_upvotes, feedid);
+                notifyTDownvotesSinglePost(buzz_downvotes, feedid);
+            }
         }
-        if (flag == 1) {
-            //call unlike api
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/removeUpvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    //data.votes will be array of upvotes
-                    notifyTUpvotesSinglePost(data.upvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
-        } else {
-            //call like api
-            //ajax
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/upvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    notifyTUpvotesSinglePost(data.upvotes, feedid);
-                    notifyTDownvotesSinglePost(data.downvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
-                }
-            });
+        else if(getLocalStorage(USER_INFO) == 'testuser'){
+            //test user
+        }
+        else if(getLocalStorage(USER_INFO) == 'logoutuser'){
+            // logged out user
+        }
+        else if(getLocalStorage(USER_INFO)== 'liveuser'){
+            let buzz = getPostFromFeedId(feedid);
+            let buzz_upvotes = buzz.buzz_upvotes;
+            let buzz_downvotes = buzz.buzz_downvotes;
+            let uName = getUserDetails().uname;
+            let flag = 0;
+            if(buzz_upvotes.includes(uname)){
+                flag = 1;
+            }
+
+            //apis
+            if (flag == 1) {
+                //call unlike api
+                $.ajax({
+                    type: 'POST',
+                    url: SERVER_URL + "buzz/removeUpvoteBuzz",
+                    data: {
+                        username: uName,
+                        feed_id: feedid
+                    },
+                    success: function(data) {
+                        //data.votes will be array of upvotes
+                        notifyTUpvotesSinglePost(data.upvotes, feedid);
+                    },
+                    error: function(data) {
+                        console.log('cannot like');
+                    }
+                });
+            } else {
+                //call like api
+                //ajax
+                $.ajax({
+                    type: 'POST',
+                    url: SERVER_URL + "buzz/upvoteBuzz",
+                    data: {
+                        username: uName,
+                        feed_id: feedid
+                    },
+                    success: function(data) {
+                        notifyTUpvotesSinglePost(data.upvotes, feedid);
+                        notifyTDownvotesSinglePost(data.downvotes, feedid);
+                    },
+                    error: function(data) {
+                        console.log('cannot like');
+                    }
+                });
+            }
         }
 
     }else{
@@ -721,52 +764,94 @@ function upvoteTBuzzByFeedId(feedid){
 function downvoteTBuzzByFeedId(feedid) {
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
-
-        let buzz_downvotes = getPostFromFeedId(feedid).buzz_downvotes;
-        let uName = getUserDetails().uname;
-
-        let flag = 0;
-        for (let j = 0; j < buzz_downvotes.length; j++) {
-            if (buzz_downvotes[j].username == uName) {
+        if(getLocalStorage(USER_TYPE) == 'dummy'){
+            let buzz = getPostFromFeedId(feedid);
+            let buzz_upvotes = buzz.buzz_upvotes;
+            let buzz_downvotes = buzz.buzz_downvotes;
+            let uname = getUserDetails().uname;
+            let flag = 0;
+            if(buzz_downvotes.includes(uname)){
                 flag = 1;
             }
-        }
-        if (flag == 1) {
-            //call removeDownvote
-            //ajax
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/removeDownvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    notifyTDownvotesSinglePost(data.downvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
+
+            if(flag == 1){
+                //remove downvote
+                let index = buzz_downvotes.indexOf(uname);
+                if (index !== -1){
+                    buzz_downvotes.splice(index, 1);
                 }
-            });
-        } else {
-            // highlight icon as downvoted
-            //ajax
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + "buzz/downvoteBuzz",
-                data: {
-                    username: uName,
-                    feed_id: feedid
-                },
-                success: function(data) {
-                    notifyTDownvotesSinglePost(data.downvotes, feedid);
-                    notifyTUpvotesSinglePost(data.upvotes, feedid);
-                },
-                error: function(data) {
-                    console.log('cannot like');
+
+                notifyTDownvotesSinglePost(buzz_downvotes, feedid);
+            }
+            else{
+                //add downvote and if there remove upvote
+                buzz_downvotes.push(uname);
+                if(buzz_downvotes.includes(uname)){
+                    //removing upvote
+                    let index = buzz_upvotes.indexOf(uname);
+                    if (index !== -1){
+                        buzz_upvotes.splice(index, 1);
+                    }
                 }
-            });
+                notifyTUpvotesSinglePost(buzz_upvotes, feedid);
+                notifyTDownvotesSinglePost(buzz_downvotes, feedid);
+
+            }
         }
+        else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+            let buzz = getPostFromFeedId(feedid);
+            let buzz_upvotes = buzz.buzz_upvotes;
+            let buzz_downvotes = buzz.buzz_downvotes;
+            let uName = getUserDetails().uname;
+            let flag = 0;
+            if(buzz_downvotes.includes(uname)){
+                flag = 1;
+            }
+
+            if (flag == 1) {
+                //call removeDownvote
+                //ajax
+                $.ajax({
+                    type: 'POST',
+                    url: SERVER_URL + "buzz/removeDownvoteBuzz",
+                    data: {
+                        username: uName,
+                        feed_id: feedid
+                    },
+                    success: function(data) {
+                        notifyTDownvotesSinglePost(data.downvotes, feedid);
+                    },
+                    error: function(data) {
+                        console.log('cannot like');
+                    }
+                });
+            } else {
+                // highlight icon as downvoted
+                //ajax
+                $.ajax({
+                    type: 'POST',
+                    url: SERVER_URL + "buzz/downvoteBuzz",
+                    data: {
+                        username: uName,
+                        feed_id: feedid
+                    },
+                    success: function(data) {
+                        notifyTDownvotesSinglePost(data.downvotes, feedid);
+                        notifyTUpvotesSinglePost(data.upvotes, feedid);
+                    },
+                    error: function(data) {
+                        console.log('cannot like');
+                    }
+                });
+            }
+        }
+
     } else {
         alert("Please sign in.")
     }
