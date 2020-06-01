@@ -209,7 +209,7 @@ function updateCommentToPost(id, ifSinglePost) {
                             <p class="mb-0">` + comments[j].text + `</p>
                             <div class="d-flex flex-wrap align-items-center comment-activity">`
                             if(comments[j].username == getUserDetails().uname){
-                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text +  id + '\')">Edit</a>\
                                 <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                             }
                                string +=
@@ -235,7 +235,7 @@ function updateCommentToPost(id, ifSinglePost) {
                             <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                             if(comments[j].username == getUserDetails().uname){
-                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + id + '\')">Edit</a>\
                                 <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                             }
                             
@@ -263,7 +263,7 @@ function updateCommentToPost(id, ifSinglePost) {
                             <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                             if(comments[j].username == getUserDetails().uname){
-                                string +=  '<a onclick="editSCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                string +=  '<a onclick="editSCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + id +'\')">Edit</a>\
                                 <a onclick="deleteSCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                             }
                             

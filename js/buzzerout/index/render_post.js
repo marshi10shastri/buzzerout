@@ -221,7 +221,7 @@ function postTemplateStart(feed) {
                                             <div class="d-flex flex-wrap align-items-center comment-activity">';
 
             if (feed.buzz_comments[i].username == getUserDetails().uname) {
-                string += '<a onclick="editCommentClick(\'' + feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">Edit</a>\
+                string += '<a onclick="editCommentClick(\'' + feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + "-" + feed.buzz_id + '\')">Edit</a>\
                 <a onclick="deleteCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_id + '\')">Delete</a>';
             }
 
@@ -247,8 +247,8 @@ function postTemplateStart(feed) {
                                             <div class="d-flex flex-wrap align-items-center comment-activity">';
 
             if (feed.buzz_comments[i].username == getUserDetails().uname) {
-                string += '<a onclick="editCommentClick(\'' + feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + '\')">Edit</a>\
-                           <a onclick="deleteCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_id + '\')">Delete</a>'
+                string += '<a onclick="editCommentClick(\'' + feed.buzz_comments[i].comment_id + "-" + feed.buzz_comments[i].text + "-" + feed.buzz_id +'\')">Edit</a>\
+                           <a onclick="deleteCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_id + "-" + feed.buzz_id +'\')">Delete</a>'
             }
 
             string += ' <span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
@@ -705,11 +705,17 @@ function shareBuzzByFeedId(feedid) {
 
 
 function editCommentClick(comment) {
+    console.log(comment);
     let commentId = comment.split('-')[0];
     let comment_text = comment.split('-')[1];
+    let feedid = comment.split('-')[2];
+    console.log(feedid);
     //modal call
     let textField = document.getElementById('modalCommentTextInput');
     let commentIdField = document.getElementById('editCommentIdHidden');
+    let feed_id = document.getElementById('editCommentFeedId');
+
+    feed_id.value = feedid;
     textField.value = comment_text;
     commentIdField.value = commentId;
     $("#editCommentModal").modal();
@@ -719,6 +725,7 @@ function editCommentClick(comment) {
 function editIndexComment() {
     let commentInputText = document.getElementById('modalCommentTextInput').value;
     let commentId = document.getElementById('editCommentIdHidden').value;
+    let feedid = document.getElementById('editCommentFeedId').value;
 
     if(getLocalStorage(USER_TYPE) == 'dummy'){
         let commentLi = document.getElementById(commentId);
@@ -732,8 +739,8 @@ function editIndexComment() {
                     <h6>' + getUserDetails().uname + '</h6>\
                     <p class="mb-0">' + commentInputText + '</p>\
                     <div class="d-flex flex-wrap align-items-center comment-activity">\
-                        <a onclick="editCommentClick(\'' + commentId + "-" + commentInputText + '\')">Edit</a>\
-                    <!--    <a onclick="deleteCommentClick(\''+ commentId + "-" + post.buzz_id + '\')">Delete</a> -->\
+                        <a onclick="editCommentClick(\'' + commentId + "-" + commentInputText + "-" + feedid + '\')">Edit</a>\
+                        <a onclick="deleteCommentClick(\''+ commentId + "-" + feedid + '\')">Delete</a>\
                         <span> ' + timeSince(new Date()) + ' </span>\
                     </div>\
                 </div>\
@@ -800,7 +807,7 @@ function editIndexComment() {
                                     <h6>' + mainComment.username + '</h6>\
                                     <p class="mb-0">' + mainComment.text + '</p>\
                                     <div class="d-flex flex-wrap align-items-center comment-activity">\
-                                        <a onclick="editCommentClick(\'' + mainComment.comment_id + "-" + mainComment.text + '\')">Edit</a>\
+                                        <a onclick="editCommentClick(\'' + mainComment.comment_id + "-" + mainComment.text + "-" + post.buzz_id +'\')">Edit</a>\
                                         <a onclick="deleteCommentClick(\''+ mainComment.comment_id + "-" + post.buzz_id + '\')">Delete</a>\
                                         <span> ' + timeSince(new Date(mainComment.timestamp)) + ' </span>\
                                     </div>\
@@ -825,19 +832,18 @@ function deleteCommentClick(Dcomment) {
     if(getLocalStorage(USER_TYPE) == 'dummy'){
         let comment_id = Dcomment.split('-')[0];
         let feedid = Dcomment.split('-')[1];
+
         let post = getPostFromFeedId(feedid);
         let index = -1;
-        for(let i=0; i<post.buzz_comments; i++){
-            console.log('andar gaya')
+        for(let i=0; i<post.buzz_comments.length; i++){
             if(post.buzz_comments[i].comment_id == comment_id){
                 index = i;
-                console.log('mila tha use');
             }
         }
         if (index !== -1){
             post.buzz_comments.splice(index, 1);
         }
-        console.log('deleted');
+
         //update local
         updateAllLocalStoragePosts(post);
         console.log(post);
@@ -858,7 +864,7 @@ function deleteCommentClick(Dcomment) {
                                         <h6>' + post.buzz_comments[i].username + '</h6>\
                                         <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
                                         <div class="d-flex flex-wrap align-items-center comment-activity">\
-                                            <a onclick="editCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
+                                            <a onclick="editCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + "-" + post.buzz_id + '\')">Edit</a>\
                                             <a onclick="deleteCommentClick(\''+ mainComment.comment_id + "-" + post.buzz_id + '\')">Delete</a>\
                                             <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + ' </span>\
                                         </div>\
@@ -898,7 +904,7 @@ function deleteCommentClick(Dcomment) {
                                         <h6>' + post.buzz_comments[i].username + '</h6>\
                                         <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
                                         <div class="d-flex flex-wrap align-items-center comment-activity">\
-                                            <a onclick="editCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
+                                            <a onclick="editCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + "-" + post.buzz_id +'\')">Edit</a>\
                                             <a onclick="deleteCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>\
                                             <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + ' </span>\
                                         </div>\
@@ -975,7 +981,7 @@ function deleteCommentClick(Dcomment) {
                                         <h6>' + post.buzz_comments[i].username + '</h6>\
                                         <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
                                         <div class="d-flex flex-wrap align-items-center comment-activity">\
-                                            <a onclick="editCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
+                                            <a onclick="editCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + "-" + post.buzz_id +'\')">Edit</a>\
                                             <a onclick="deleteCommentClick(\''+ mainComment.comment_id + "-" + post.buzz_id + '\')">Delete</a>\
                                             <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + ' </span>\
                                         </div>\
@@ -1015,7 +1021,7 @@ function deleteCommentClick(Dcomment) {
                                         <h6>' + post.buzz_comments[i].username + '</h6>\
                                         <p class="mb-0">' + post.buzz_comments[i].text + '</p>\
                                         <div class="d-flex flex-wrap align-items-center comment-activity">\
-                                            <a onclick="editCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + '\')">Edit</a>\
+                                            <a onclick="editCommentClick(\'' + post.buzz_comments[i].comment_id + "-" + post.buzz_comments[i].text + "-" + post.buzz_id +'\')">Edit</a>\
                                             <a onclick="deleteCommentClick(\''+ post.buzz_comments[i].comment_id + "-" + post.buzz_id + '\')">Delete</a>\
                                             <span> ' + timeSince(new Date(post.buzz_comments[i].timestamp)) + ' </span>\
                                         </div>\
