@@ -405,9 +405,40 @@ function showProfilePosts() {
             if (e.keyCode == 13) {
                 // if user is not signed in 
                 if (getLocalStorage(USER) == "true") {
-                    let feedid = TfeedInputArray[j].split("-")[1];
-                    addCommentTimeline(feedid, inputCommentField.value, false);
-                    inputCommentField.value = "";
+                    if(getLocalStorage(USER_TYPE) == 'dummy'){
+                        console.log('dummy aaya');
+                        let feedid = TfeedInputArray[j].split("-")[1];
+                        let respPost = getPostFromFeedId(feedid);
+                        let respPostComments = respPost.buzz_comments;
+                        
+                        let newComment = {
+                            commentImg: getUserProfileDetails().pImage,
+                            comment_id: getUserDetails().uname + Date.now(),
+                            first_name: getUserProfileDetails().fName,
+                            last_name: getUserProfileDetails().lname,
+                            text: inputCommentField.value,
+                            timestamp: Date.now(),
+                            username: getUserDetails().uname
+                        }
+                        respPstComments = respPostComments.unshift(newComment);
+                        let resp = {
+                            buzz_id: feedid,
+                            buzz_comments: respPostComments,
+                        };
+                        addCommentToSingleTimelinePost(resp, false);
+                        inputCommentField.value = "";
+                    }
+                    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+                    }
+                    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+                    }
+                    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+                        let feedid = TfeedInputArray[j].split("-")[1];
+                        addCommentTimeline(feedid, inputCommentField.value, false);
+                        inputCommentField.value = "";
+                    }
                 } else {
                     alert("Please sign in.")
                 }
@@ -435,10 +466,41 @@ function singleTimelinePostMapper(post){
 
 //comments
 function addTCommentByBtn(feedid, isSinglePost){
-    let inputBox = document.getElementById('commentinput-' + feedid).value;
-    addCommentTimeline(feedid, inputBox, isSinglePost);
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let respPost = getPostFromFeedId(feedid);
+        let inputBox = document.getElementById('commentinput-' + feedid).value;
+        let respPostComments = respPost.buzz_comments;
 
-    document.getElementById('commentinput-' + feedid).value = '';
+        let newComment = {
+            commentImg: getUserProfileDetails().pImage,
+            comment_id: getUserDetails().uname + Date.now(),
+            first_name: getUserProfileDetails().fName,
+            last_name: getUserProfileDetails().lname,
+            text: inputBox,
+            timestamp: Date.now(),
+            username: getUserDetails().uname
+        }
+        respPstComments = respPostComments.unshift(newComment);
+        let resp = {
+            buzz_id: feedid,
+            buzz_comments: respPostComments,
+        };
+        addCommentToSingleTimelinePost(resp, isSinglePost);
+        document.getElementById('commentinput-' + feedid).value = '';
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+        //test user
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+        // logout user
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        let inputBox = document.getElementById('commentinput-' + feedid).value;
+        addCommentTimeline(feedid, inputBox, isSinglePost);
+
+        document.getElementById('commentinput-' + feedid).value = '';
+    }
+    
 }
 
 
@@ -513,7 +575,7 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
                                 <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                                 if(comments[j].username == getUserDetails().uname){
-                                    string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                    string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id +'\')">Edit</a>\
                                     <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                                 }
         
@@ -549,7 +611,7 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
                                 <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                                 if(comments[j].username == getUserDetails().uname){
-                                    string +=  '<a onclick="editTCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                    string +=  '<a onclick="editTCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id +'\')">Edit</a>\
                                     <a onclick="deleteTCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>';
                                 }
         
@@ -576,7 +638,6 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
 function notifyTUpvotesSinglePost(votes, feedid){
     let post = getPostFromFeedId(feedid);
     post.buzz_upvotes = votes;
-
     updateLocalStoragePosts(post)
     updateUpvotesSingleTPost(feedid);
 }
@@ -928,146 +989,182 @@ function showDetailsAboutDetails() {
 function createPostTimeline() {
     var file = document.getElementById("timeline-buzz-photo-input").files[0];
     var resizedImage = t_token;
-
-    if (document.getElementById("timeline-buzz-photo-input").files.length == 0) {
-        let user_name = getUserDetails().uname;
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
         let desc = document.getElementById("timeline-buzz-post-input").value;
-        $.ajax({
-            type: "POST",
-            url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
-            data: {
-                username: user_name,
-                title: "title",
-                description: desc,
-                location: "abc",
-            },
-            success: function(data) {
-                console.log(data);
-                if (data["error"] == false) {
-                    var post = {
-                        buzz_id: data.feedid,
-                        buzz_username: getUserDetails().uname,
-                        buzz_user_image: getUserProfileDetails().pImage,
-                        buzz_images: [],
-                        buzz_description: desc,
-                        buzz_timestamp: "Just Now",
-                        buzz_upvotes: [],
-                        buzz_downvotes: [],
-                        buzz_comments: [],
-                        buzz_title:'title',
-                        buzz_location:'Hyderabad'
-                    };
-                    showCreatedTimelineBuzz(post);
-                    document.getElementById("timeline-buzz-post-input").value = '';
-                    document.getElementById("close-modal").click();
-                } else {
-                    alert(data["message"]);
-                }
-            },
-            error: function(response) {
-                console.log(response);
-            },
-        });
-    } else {
-        // ---------------------------------------
-        if (file.type.match(/image.*/)) {
-            console.log("An image has been loaded");
+        let imageLink = [];
 
-            // Load the image
-            
+        if (document.getElementById("timeline-buzz-photo-input").files.length != 0){
+            console.log(URL.createObjectURL(resizedImage));
+            imageLink.push(URL.createObjectURL(resizedImage));
+
         }
-        // ----------------------------------------
-        var link = [];
+        
+        var dummy_post = {
+            buzz_id: getUserDetails().uname + Date.now(),
+            buzz_username: getUserDetails().uname,
+            buzz_user_image: getUserProfileDetails().pImage,
+            buzz_images: imageLink,
+            buzz_description: desc,
+            buzz_timestamp: Date.now(),
+            buzz_upvotes: [],
+            buzz_downvotes: [],
+            buzz_comments: [],
+            buzz_title: 'title',
+            buzz_location: ''
+        };
+        showCreatedTimelineBuzz(dummy_post);
 
-        var formData = new FormData();
-        email = "raman.10102@gmail.com";
-        formData.append("file", resizedImage);
-        formData.append("product", "buzzerout");
-        formData.append("application", "buzzerout");
-        formData.append("to", email);
-        formData.append("from", email);
-        formData.append("message", "My Buzz");
-        $.ajax({
-            type: "POST",
-            url: "http://appnivi.com/server/v1/file/fileupload",
-            data: formData,
-            success: function(data) {
-                link.push(data.link);
-                console.log(data.link);
+        document.getElementById("close-modal").click();
+        document.getElementById('timeline-buzz-photo-input').value = '';
+        document.getElementById('timeline-buzz-post-input').value = '';
 
-                let user_name = getUserDetails().uname;
-                let desc = document.getElementById("timeline-buzz-post-input").value;
-                console.log(user_name);
-                console.log(desc);
-                // on success
-                $.ajax({
-                    type: "POST",
-                    url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
-                    data: {
-                        username: user_name,
-                        title: "title",
-                        description: desc,
-                        location: "abc",
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        let feedId = data.feedid;
+    }else if (getLocalStorage(USER_TYPE == 'testuser')){
+        //test user condition
+
+    }else if (getLocalStorage(USER_TYPE == 'logoutuser')){
+        //logout user condition
+
+    }else if(getLocalStorage(USER_TYPE == 'liveuser')){
+        if (document.getElementById("timeline-buzz-photo-input").files.length == 0) {
+            let user_name = getUserDetails().uname;
+            let desc = document.getElementById("timeline-buzz-post-input").value;
+            $.ajax({
+                type: "POST",
+                url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+                data: {
+                    username: user_name,
+                    title: "title",
+                    description: desc,
+                    location: "abc",
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data["error"] == false) {
                         var post = {
                             buzz_id: data.feedid,
                             buzz_username: getUserDetails().uname,
                             buzz_user_image: getUserProfileDetails().pImage,
-                            buzz_images: link,
+                            buzz_images: [],
                             buzz_description: desc,
                             buzz_timestamp: "Just Now",
                             buzz_upvotes: [],
                             buzz_downvotes: [],
                             buzz_comments: [],
-                            buzz_location:'Hyderabad',
-                            buzz_title:'title'
+                            buzz_title:'title',
+                            buzz_location:'Hyderabad'
                         };
-                        console.log(post);
                         showCreatedTimelineBuzz(post);
-
-                        document.getElementById('timeline-buzz-photo-input').value = '';
-                        document.getElementById('timeline-buzz-post-input').value = '';
+                        document.getElementById("timeline-buzz-post-input").value = '';
                         document.getElementById("close-modal").click();
-
-
-                        //upload image to feed
-                        $.ajax({
-                            type: "POST",
-                            url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeedImage",
-                            data: {
-                                username: user_name,
-                                feed_id: feedId,
-                                img: link[0],
-                            },
-                            success: function(data) {
-                                console.log(data);
-                                document.getElementById('timeline-buzz-photo-input').value = '';
-                                document.getElementById('timeline-buzz-post-input').value = '';
-                            },
-                            error: function(response) {
-                                console.log(response);
-                            },
-                        });
-
-
-                    },
-                    error: function(data) {
-                        console.log(data);
-                    },
-                });
-            },
-            error: function(error) {
-                console.log(error);
-            },
-            cache: false,
-            contentType: false,
-            processData: false,
-        });
+                    } else {
+                        alert(data["message"]);
+                    }
+                },
+                error: function(response) {
+                    console.log(response);
+                },
+            });
+        } else {
+            // ---------------------------------------
+            if (file.type.match(/image.*/)) {
+                console.log("An image has been loaded");
+    
+                // Load the image
+                
+            }
+            // ----------------------------------------
+            var link = [];
+    
+            var formData = new FormData();
+            email = "raman.10102@gmail.com";
+            formData.append("file", resizedImage);
+            formData.append("product", "buzzerout");
+            formData.append("application", "buzzerout");
+            formData.append("to", email);
+            formData.append("from", email);
+            formData.append("message", "My Buzz");
+            $.ajax({
+                type: "POST",
+                url: "http://appnivi.com/server/v1/file/fileupload",
+                data: formData,
+                success: function(data) {
+                    link.push(data.link);
+                    console.log(data.link);
+    
+                    let user_name = getUserDetails().uname;
+                    let desc = document.getElementById("timeline-buzz-post-input").value;
+                    console.log(user_name);
+                    console.log(desc);
+                    // on success
+                    $.ajax({
+                        type: "POST",
+                        url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+                        data: {
+                            username: user_name,
+                            title: "title",
+                            description: desc,
+                            location: "abc",
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            let feedId = data.feedid;
+                            var post = {
+                                buzz_id: data.feedid,
+                                buzz_username: getUserDetails().uname,
+                                buzz_user_image: getUserProfileDetails().pImage,
+                                buzz_images: link,
+                                buzz_description: desc,
+                                buzz_timestamp: "Just Now",
+                                buzz_upvotes: [],
+                                buzz_downvotes: [],
+                                buzz_comments: [],
+                                buzz_location:'Hyderabad',
+                                buzz_title:'title'
+                            };
+                            console.log(post);
+                            showCreatedTimelineBuzz(post);
+    
+                            document.getElementById('timeline-buzz-photo-input').value = '';
+                            document.getElementById('timeline-buzz-post-input').value = '';
+                            document.getElementById("close-modal").click();
+    
+    
+                            //upload image to feed
+                            $.ajax({
+                                type: "POST",
+                                url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeedImage",
+                                data: {
+                                    username: user_name,
+                                    feed_id: feedId,
+                                    img: link[0],
+                                },
+                                success: function(data) {
+                                    console.log(data);
+                                    document.getElementById('timeline-buzz-photo-input').value = '';
+                                    document.getElementById('timeline-buzz-post-input').value = '';
+                                },
+                                error: function(response) {
+                                    console.log(response);
+                                },
+                            });
+    
+    
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        },
+                    });
+                },
+                error: function(error) {
+                    console.log(error);
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+            });
+        }
+        // ------------------------------------------
     }
-    // ------------------------------------------
 
 }
 
@@ -1080,6 +1177,7 @@ function showCreatedTimelineBuzz(data) {
 
     let posts = getJSONLocalStorage(T_POSTS);
     posts.unshift(data);
+    setJSONLocalStorage(T_POSTS, posts);
 
     let box = document.getElementById('timeline-posts');
     let boxContent = box.innerHTML;
@@ -1087,6 +1185,56 @@ function showCreatedTimelineBuzz(data) {
     box.innerHTML = "";
     box.innerHTML += timeline_post(data);
     box.innerHTML += boxContent;
+
+    let inputCommentField = document.getElementById('commentinput-'+ data.buzz_id);
+    inputCommentField.addEventListener("keydown", function(e) {
+        if (e.keyCode == 13) {
+            // if user is not signed in 
+            if (getLocalStorage(USER) == "true") {
+                if(getLocalStorage(USER_TYPE) == 'dummy'){
+                    console.log('dummy aaya');
+                    let feedid = data.buzz_id;
+                    console.log(data.buzz_id);
+                    let respPost = getPostFromFeedId(feedid);
+                    let respPostComments = respPost.buzz_comments;
+                    console.log(respPostComments);
+                    
+                    let newComment = {
+                        commentImg: getUserProfileDetails().pImage,
+                        comment_id: getUserDetails().uname + Date.now(),
+                        first_name: getUserProfileDetails().fName,
+                        last_name: getUserProfileDetails().lname,
+                        text: inputCommentField.value,
+                        timestamp: Date.now(),
+                        username: getUserDetails().uname
+                    }
+                    console.log(newComment);
+                    respPostComments.unshift(newComment);
+                    console.log(respPostComments);
+                    let resp = {
+                        buzz_id: feedid,
+                        buzz_comments: respPostComments,
+                    };
+                    console.log(resp);
+                    addCommentToSingleTimelinePost(resp, false);
+                    inputCommentField.value = "";
+                }
+                else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+                }
+                else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+                }
+                else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+                    let feedid = TfeedInputArray[j].split("-")[1];
+                    addCommentTimeline(feedid, inputCommentField.value, false);
+                    inputCommentField.value = "";
+                }
+            } else {
+                alert("Please sign in.")
+            }
+        }
+    });
 }
 
 

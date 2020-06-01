@@ -1,6 +1,6 @@
 const DUMMY_USER = {
     user: {
-        username: "praty",
+        username: "dumb",
         email: "pratyush1997.aswal@gmail.com",
         timestamp: "2020-05-04 10:53:47"
     },
@@ -11,9 +11,9 @@ const DUMMY_USER = {
         city: [{place_city:"Dehradun", place_name:"Premnagar"}],
         profile: {
             id: "4",
-            username: "praty",
-            first_name: "pratyush",
-            last_name: "aswal",
+            username: "dumb",
+            first_name: "dummer",
+            last_name: "dust",
             user_address: null,
             user_city: null,
             user_state:"UTTARAKHAND",

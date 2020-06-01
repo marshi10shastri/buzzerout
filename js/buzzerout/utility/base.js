@@ -287,7 +287,7 @@ function timeSince(date) {
         }
       return interval + " minutes ago";
     }
-    return Math.floor(seconds) + " seconds ago";
+    return "A few seconds ago";
   }
 
 

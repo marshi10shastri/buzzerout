@@ -50,10 +50,40 @@ function postMapper(data) {
             if (e.keyCode == 13) {
                 // if user is not signed in 
                 if (getLocalStorage(USER) == "true") {
-                    console.log('running');
-                    let feedid = feedInputArray[j].split("-")[1];
-                    addComment(feedid, inputCommentField.value, false);
-                    inputCommentField.value = "";
+                    if(getLocalStorage(USER_TYPE) == 'dummy'){
+                        let feedid = feedInputArray[j].split("-")[1];
+                        let respPost = getPostFromFeedId(feedid);
+                        let respPostComments = respPost.buzz_comments;
+                        
+                        let newComment = {
+                            commentImg: getUserProfileDetails().pImage,
+                            comment_id: getUserDetails().uname + Date.now(),
+                            first_name: getUserProfileDetails().fName,
+                            last_name: getUserProfileDetails().lname,
+                            text: inputCommentField.value,
+                            timestamp: Date.now(),
+                            username: getUserDetails().uname
+                        }
+                        respPstComments = respPostComments.unshift(newComment);
+                        let resp = {
+                            buzz_id: feedid,
+                            buzz_comments: respPostComments,
+                        };
+                        addCommentToSinglePost(resp, false);
+                        document.getElementById(feedInputArray[j]).value = '';
+                    }
+                    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+                    }
+                    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+                    }
+                    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+                        console.log('running');
+                        let feedid = feedInputArray[j].split("-")[1];
+                        addComment(feedid, inputCommentField.value, false);
+                        inputCommentField.value = '';
+                    }
                 } else {
                     alert("Please sign in.");
                 }
@@ -75,12 +105,46 @@ function postMapper(data) {
 
 //add comment by btn
 function addCommentByBtn(feedid, isSinglePost){
-    console.log(feedid);
-    console.log(isSinglePost);
-    let inputBox = document.getElementById('commentinput-' + feedid).value;
-    addComment(feedid, inputBox, isSinglePost);
+    //depending on user type
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let respPost = getPostFromFeedId(feedid);
+        let inputBox = document.getElementById('commentinput-' + feedid).value;
+        let respPostComments = respPost.buzz_comments;
 
-    document.getElementById('commentinput-' + feedid).value = '';
+        let newComment = {
+            commentImg: getUserProfileDetails().pImage,
+            comment_id: getUserDetails().uname + Date.now(),
+            first_name: getUserProfileDetails().fName,
+            last_name: getUserProfileDetails().lname,
+            text: inputBox,
+            timestamp: Date.now(),
+            username: getUserDetails().uname
+        }
+        respPstComments = respPostComments.unshift(newComment);
+        let resp = {
+            buzz_id: feedid,
+            buzz_comments: respPostComments,
+        };
+        addCommentToSinglePost(resp, isSinglePost);
+        document.getElementById('commentinput-' + feedid).value = '';
+
+    }
+    else if(getLocalStorage(USER_TYPE)== 'liveuser'){
+        console.log(feedid);
+        console.log(isSinglePost);
+        let inputBox = document.getElementById('commentinput-' + feedid).value;
+        addComment(feedid, inputBox, isSinglePost);
+
+        document.getElementById('commentinput-' + feedid).value = '';
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+        //logout user
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+        // test user
+    }
+
 }
 
 function singlePostMapper(data) {
@@ -128,7 +192,7 @@ function updateCommentToPost(id, ifSinglePost) {
 
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == id) {
-            console.log(buzz[i])
+            console.log(buzz[i]);
             commentsDiv.innerHTML = "";
             let comments = buzz[i].buzz_comments;
             let len = comments.length;
@@ -145,7 +209,7 @@ function updateCommentToPost(id, ifSinglePost) {
                             <p class="mb-0">` + comments[j].text + `</p>
                             <div class="d-flex flex-wrap align-items-center comment-activity">`
                             if(comments[j].username == getUserDetails().uname){
-                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id + '\')">Edit</a>\
                                 <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                             }
                                string +=
@@ -171,7 +235,7 @@ function updateCommentToPost(id, ifSinglePost) {
                             <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                             if(comments[j].username == getUserDetails().uname){
-                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id + '\')">Edit</a>\
                                 <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                             }
                             
@@ -199,7 +263,7 @@ function updateCommentToPost(id, ifSinglePost) {
                             <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                             if(comments[j].username == getUserDetails().uname){
-                                string +=  '<a onclick="editSCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + '\')">Edit</a>\
+                                string +=  '<a onclick="editSCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id +'\')">Edit</a>\
                                 <a onclick="deleteSCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                             }
                             

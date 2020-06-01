@@ -14,12 +14,12 @@ function createPost() {
         }
         
         var dummy_post = {
-            buzz_id: data.feedid,
+            buzz_id: getUserDetails().uname + Date.now(),
             buzz_username: getUserDetails().uname,
             buzz_user_image: getUserProfileDetails().pImage,
             buzz_images: imageLink,
             buzz_description: desc,
-            buzz_timestamp: new Date(),
+            buzz_timestamp: Date.now(),
             buzz_upvotes: [],
             buzz_downvotes: [],
             buzz_comments: [],
@@ -28,10 +28,17 @@ function createPost() {
         };
         showCreatedBuzz(dummy_post);
 
+        document.getElementById("close-modal").click();
         document.getElementById('buzz-photo-input').value = '';
         document.getElementById('buzz-post-input').value = '';
     }
-    else{
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+        // condition for test user
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+        // condition for logout user
+    }
+    else if (getLocalStorage(USER_TYPE == 'liveuser')){
 
         if (document.getElementById("buzz-photo-input").files.length == 0) {
             let user_name = getUserDetails().uname;
@@ -62,11 +69,8 @@ function createPost() {
                             buzz_location: 'Hyderabad'
                         };
                         showCreatedBuzz(post);
-                        // var local_posts = getJSONLocalStorage(POSTS);
-                        // setJSONLocalStorage(POSTS, post.concat(local_posts));
                         document.getElementById('buzz-post-input').value = '';
                         document.getElementById("close-modal").click();
-                        // fetchPost();
                     } else {
                         alert(data["message"]);
                     }
