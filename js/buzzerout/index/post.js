@@ -14,7 +14,7 @@ function createPost() {
         }
         
         var dummy_post = {
-            buzz_id: data.feedid,
+            buzz_id: getUserDetails().uname + Date.now(),
             buzz_username: getUserDetails().uname,
             buzz_user_image: getUserProfileDetails().pImage,
             buzz_images: imageLink,

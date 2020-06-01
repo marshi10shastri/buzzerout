@@ -50,10 +50,39 @@ function postMapper(data) {
             if (e.keyCode == 13) {
                 // if user is not signed in 
                 if (getLocalStorage(USER) == "true") {
-                    console.log('running');
-                    let feedid = feedInputArray[j].split("-")[1];
-                    addComment(feedid, inputCommentField.value, false);
-                    inputCommentField.value = "";
+                    if(getLocalStorage(USER_TYPE) == 'dummy'){
+                        let feedid = feedInputArray[j].split("-")[1];
+                        let respPost = getPostFromFeedId(feedid);
+                        let respPostComments = respPost.buzz_comments;
+                        
+                        let newComment = {
+                            commentImg: getUserProfileDetails().pImage,
+                            comment_id: getUserDetails().uname + Date.now(),
+                            first_name: getUserProfileDetails().fName,
+                            last_name: getUserProfileDetails().lname,
+                            text: inputCommentField.value,
+                            timestamp: Date.now(),
+                            username: getUserDetails().uname
+                        }
+                        respPstComments = respPostComments.unshift(newComment);
+                        let resp = {
+                            buzz_id: feedid,
+                            buzz_comments: respPostComments,
+                        };
+                        addCommentToSinglePost(resp, false)
+                    }
+                    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+                    }
+                    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+                    }
+                    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+                        console.log('running');
+                        let feedid = feedInputArray[j].split("-")[1];
+                        addComment(feedid, inputCommentField.value, false);
+                        inputCommentField.value = "";
+                    }
                 } else {
                     alert("Please sign in.");
                 }
@@ -128,7 +157,7 @@ function updateCommentToPost(id, ifSinglePost) {
 
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == id) {
-            console.log(buzz[i])
+            console.log(buzz[i]);
             commentsDiv.innerHTML = "";
             let comments = buzz[i].buzz_comments;
             let len = comments.length;
