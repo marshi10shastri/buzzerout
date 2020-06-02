@@ -4,6 +4,9 @@ function userMapper(data) {
     updateUserSocialDetails(data.details.socialMedia);
     updateUserFollowers(data.followers);
     updateUserFollowing(data.following);
+    updateUserSaved(data.saved);
+    updateUserHidden(data.hidden);
+    updateUserShared(data.shared);
     console.log(data.details);
     if (undefined != data.details.user_details) {
         updateUserAboutDetails(data.details.user_details);

@@ -343,8 +343,27 @@ function timeline_post(feed) {
                         </span>
 
                         <div class="dropdown-menu m-0 p-0">`;
+if(getUserSaved().includes(feed.buzz_id)){
+    post +=                     '<a class="dropdown-item p-3" onclick="saveTBuzz(\'' + feed.buzz_id + '\')">';
 
-post +=                     '<a class="dropdown-item p-3" onclick="saveTBuzz(\'' + feed.buzz_id + '\')">';
+ post+=                          `<div class="d-flex align-items-top">
+
+                                    <div class="icon font-size-20"><i class="ri-save-line"></i></div>
+
+                                    <div class="data ml-2">
+
+                                        <h6 id="timeline-save-heading-`+feed.buzz_id+`">Unsave Post</h6>
+
+                                        <p class="mb-0" id="timeline-save-para-`+feed.buzz_id+`">Remove this from your saved items</p>
+
+                                    </div>
+
+                                </div>
+
+                            </a>`;
+}
+else{
+    post +=                     '<a class="dropdown-item p-3" onclick="saveTBuzz(\'' + feed.buzz_id + '\')">';
 
  post+=                          `<div class="d-flex align-items-top">
 
@@ -361,6 +380,8 @@ post +=                     '<a class="dropdown-item p-3" onclick="saveTBuzz(\''
                                 </div>
 
                             </a>`;
+}
+
 
   post +=                          '<a class="dropdown-item p-3" data-toggle="modal" data-target="#edit-tpost-modal" onclick="editTPostModal(\'' + feed.buzz_id + '\')">';
 
@@ -894,24 +915,36 @@ function hideTBuzz(feedid){
     console.log("Hide Post : " +feedid);
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
-        // ajax call
-        $.ajax({
-            type:'POST',
-            url: SERVER_URL + 'buzz/hideBuzz',
-            data:{
-                username: getUserDetails().uname,
-                feed_id: feedid
-            },
-            success: function(data){
-                console.log(data);
-                //update local
-                updateLocalHideTBuzz(feedid);
-                //update ui
-            },
-            error: function(data){
-                console.log(data);
-            }
-        });
+        if(getLocalStorage(USER_TYPE) == 'dummy'){
+            updateLocalHideTBuzz(feedid);
+        }
+        else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+            // ajax call
+            $.ajax({
+                type:'POST',
+                url: SERVER_URL + 'buzz/hideBuzz',
+                data:{
+                    username: getUserDetails().uname,
+                    feed_id: feedid
+                },
+                success: function(data){
+                    console.log(data);
+                    //update local
+                    updateLocalHideTBuzz(feedid);
+                    //update ui
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        }
+
     } else {
         alert("Please sign in.");
     }
@@ -921,24 +954,65 @@ function saveTBuzz(feedid){
     console.log("Saving Post : " + feedid);
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
-        // ajax call
-        $.ajax({
-            type:'POST',
-            url: SERVER_URL + 'buzz/saveBuzz',
-            data:{
-                username: getUserDetails().uname,
-                feed_id: feedid
-            },
-            success: function(data){
-                console.log(data);
-                //update local
-                updateLocalSaveTBuzz(feedid);
-                //update ui
-            },
-            error: function(data){
-                console.log(data);
+            if(getLocalStorage(USER_TYPE) == 'dummy'){
+                let saved = getUserSaved()
+                let flag = 0;
+                if(saved.includes(feedid)){
+                    flag = 1
+                    //now we need to unsave this
+                }
+    
+                if(flag == 1){
+                    //remove from saved and update local
+                    console.log('unsaving');
+                    updateLocalSaveTBuzz(feedid, flag);
+                }
+                else{
+                    //add to saved list and update ui to unsave post
+                    console.log('saving');
+                    updateLocalSaveTBuzz(feedid, flag);
+                }
             }
-        });
+            else if(getLocalStorage(USER_TYPE) == 'testuser'){
+    
+            }
+            else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+    
+            }
+            else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+                let saved = getUserSaved()
+                let flag = 0;
+                if(saved.includes(feedid)){
+                    flag = 1
+                    //now we need to unsave this
+                }
+
+                if(flag == 0){
+                    // ajax call
+                    $.ajax({
+                        type:'POST',
+                        url: SERVER_URL + 'buzz/saveBuzz',
+                        data:{
+                            username: getUserDetails().uname,
+                            feed_id: feedid
+                        },
+                        success: function(data){
+                            console.log(data);
+                            //update local
+                            updateLocalSaveTBuzz(feedid, 0);
+                            //update ui
+                        },
+                        error: function(data){
+                            console.log(data);
+                        }
+                    });
+                }
+                else{
+                    //ajax for unsave
+                    // then call updateLocalSaveTBuzz(feedid, 1);
+                }
+            }
+
     } else {
         alert("Please sign in.");
     }

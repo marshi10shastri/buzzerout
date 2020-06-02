@@ -14,7 +14,7 @@ function singleBuzzLoad(feed) {
                     </div>\
                     <div class="media-support-info mt-2">\
                         <h5 class="mb-0 d-inline-block"><a href="#" class="">' + feed.buzz_username + ' </a></h5>\
-                        <p class="mb-0 d-inline-block">Add New Post</p>\
+                        <p class="mb-0 d-inline-block">'+feed.buzz_title+'</p>\
                         <p class="mb-0 text-primary">' + new Date(feed.buzz_timestamp) + ' </p>\
                     </div>\
                     <div class="iq-card-post-toolbar">\
@@ -22,17 +22,31 @@ function singleBuzzLoad(feed) {
                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
                                 <i class="ri-more-fill"></i>\
                             </span>\
-                        <div class="dropdown-menu m-0 p-0">\
-                            <a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')" >\
-                                <div class="d-flex align-items-top">\
-                                    <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
-                                    <div class="data ml-2"  >\
-                                        <h6>Save Post</h6>\
-                                        <p class="mb-0">Add this to your saved items</p>\
-                                    </div>\
-                                </div>\
-                            </a>\
-                            <a class="dropdown-item p-3" onclick="hideBuzz(\'' + feed.buzz_id + '\')">\
+                        <div class="dropdown-menu m-0 p-0">';
+        
+        if(getUserSaved().includes(feed.buzz_id)){
+            string += '<a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')" >\
+            <div class="d-flex align-items-top">\
+                <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
+                <div class="data ml-2"  >\
+                    <h6 id="post-save-heading-'+feed.buzz_id+'">Unsave Post</h6>\
+                    <p class="mb-0" id="post-save-para-'+feed.buzz_id+'">Remove this from your saved items</p>\
+                </div>\
+            </div>\
+        </a>'
+        }
+        else{
+            string += '<a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')" >\
+            <div class="d-flex align-items-top">\
+                <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
+                <div class="data ml-2"  >\
+                    <h6 id="post-save-heading-'+feed.buzz_id+'">Save Post</h6>\
+                    <p class="mb-0" id="post-save-para-'+feed.buzz_id+'">Add this to your saved items</p>\
+                </div>\
+            </div>\
+            </a>'
+        }
+        string += ' <a class="dropdown-item p-3" onclick="hideBuzz(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-close-circle-line"></i></div>\
                                     <div class="data ml-2">\
@@ -62,15 +76,29 @@ function singleBuzzLoad(feed) {
                     </div>\
                 </a>';
     } else {
-        string += '<a class="dropdown-item p-3" onclick="followUnfollowClick(\'' + feed.buzz_id + '\')">\
+        if(containsFollowing(feed.buzz_username)){
+            string += '<span id="Sfollow-option-' + feed.buzz_id + '"><a class="dropdown-item p-3" onclick="unfollowUser(\'' + feed.buzz_id + "-1" +'\')">\
                                 <div class="d-flex align-items-top" id="follow-option-' + feed.buzz_id + '">\
                                     <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
                                     <div class="data ml-2">\
                                         <h6>Follow User</h6>\
-                                        <p class="mb-0">Stop seeing posts but stay friends.</p>\
+                                        <p class="mb-0">Stop seeing posts from '+feed.buzz_username+'.</p>\
                                     </div>\
                                 </div>\
-                            </a>'
+                            </a></span>'
+        }
+        else{
+            string += '<span id="Sfollow-option-' + feed.buzz_id + '"><a class="dropdown-item p-3" onclick="followUser(\'' + feed.buzz_id + "-1"+'\')">\
+                                <div class="d-flex align-items-top" id="follow-option-' + feed.buzz_id + '">\
+                                    <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+                                    <div class="data ml-2">\
+                                        <h6>Follow User</h6>\
+                                        <p class="mb-0">See more posts from '+feed.buzz_username+'.</p>\
+                                    </div>\
+                                </div>\
+                            </a></span>'
+        }
+
     }
 
     string += '<a class="dropdown-item p-3" onclick="setUnsetBuzzNotification(\'' + feed.buzz_id + '\')">\

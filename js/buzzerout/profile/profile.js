@@ -743,17 +743,37 @@ function updateSingleTPost(feedid){
 }
 
 //save buzz
-function updateLocalSaveTBuzz(feedid){
+function updateLocalSaveTBuzz(feedid, ifSaved){
+    let saved = getUserSaved();
+    if(ifSaved){
+        //if saved-> unsave it
+        let index = saved.indexOf(feedid);
+        saved.splice(index, 1);
+
+        updateUserSaved(saved);
+    }
+    else{
+        //save it
+        saved.push(feedid);
+        updateUserSaved(saved);
+    }
     //change local
-    showSaveTBuzz(feedid);
+    showSaveTBuzz(feedid, ifSaved);
 }
 
 //ui update save buzz
-function showSaveTBuzz(feedid){
+function showSaveTBuzz(feedid, ifSaved){
     let heading = document.getElementById('timeline-save-heading-' + feedid);
     let para = document.getElementById('timeline-save-para-'+ feedid);
-    heading.innerHTML = 'Unsave Post';
-    para.innerHTML = 'Remove this from your saved items';
+
+    if(ifSaved){
+        heading.innerHTML = 'Save Post';
+        para.innerHTML = 'Add this to your saved items';
+    }
+    else{
+        heading.innerHTML = 'Unsave Post';
+        para.innerHTML = 'Remove this from your saved items';
+    }
 }
 
 //hide t buzz local
