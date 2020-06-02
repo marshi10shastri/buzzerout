@@ -20,7 +20,7 @@ const DUMMY_USER = {
             user_country: null,
             user_marital:"Married",
             user_mobile: null,
-            user_gender: null,
+            user_gender: "Male",
             user_dob: null,
             user_profile_image: "http://buzzerout.com/images/default/default-user.png",
             user_timeline_image: "http://buzzerout.com/images/default/default-timeline.jpg",
