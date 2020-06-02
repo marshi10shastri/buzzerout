@@ -5,10 +5,10 @@ const DUMMY_USER = {
         timestamp: "2020-05-04 10:53:47"
     },
     details: {
-        college: [{college_name:"GBPIET", college_place:"Pauri"}],
+        college: [{college_name:"GBPIET", college_place:"Pauri", id:"56"}],
         socialMedia: [],
-        works: [{work_place:"Appnivi", work_profile:"Developer"}],
-        city: [{place_city:"Dehradun", place_name:"Premnagar"}],
+        works: [{work_place:"Appnivi", work_profile:"Developer", id:"12"}],
+        city: [{place_name:"Dehradun", place_state:"Premnagar", id:"1"}],
         profile: {
             id: "4",
             username: "dumb",

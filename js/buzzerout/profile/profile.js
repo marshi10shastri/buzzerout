@@ -124,7 +124,8 @@ function addWork() {
         if(getLocalStorage(USER_TYPE) == "dummy"){
             let work = {
                 work_place:workIn.workPlace,
-                work_profile:workIn.workProfile
+                work_profile:workIn.workProfile,
+                id: Date.now()
             }
             userWorks.push(work);
             updateUserWorksDetails(userWorks);
@@ -171,7 +172,8 @@ function addCollege() {
     let userColleges = getUserCollegeDetails();
     let collegeIn = {
         collegeName: document.getElementById('collegeNameInput').value,
-        collegePlace: document.getElementById('collegePlaceInput').value
+        collegePlace: document.getElementById('collegePlaceInput').value,
+        id: Date.now()
     };
     if ((collegeIn.collegeName != "") && (collegeIn.collegePlace != "")) {
         if(getLocalStorage(USER_TYPE) == 'dummy'){
@@ -224,14 +226,15 @@ function addCity() {
     let userCities = getUserPlacesDetails();
     let placeIn = {
         placeName: document.getElementById('cityNameInput').value,
-        placeState: document.getElementById('cityStateInput').value
+        placeState: document.getElementById('cityStateInput').value,
+        id: Date.now()
     };
 
     if ((placeIn.placeName != "") && (placeIn.placeState != "")) {
         if(getLocalStorage(USER_TYPE) == 'dummy'){
             let city = {
-                place_city:placeIn.placeName,
-                place_name: placeIn.placeState
+                place_name:placeIn.placeName,
+                place_state: placeIn.placeState
             }
             userCities.push(city);
             updateUserPlacesDetails(userCities);
@@ -323,24 +326,48 @@ function editCity() {
     place_name_inp = document.getElementById('cityNameEditInput').value;
     place_state_inp = document.getElementById('cityStateEditInput').value;
 
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + '/places/editPlace',
-        data: {
-            username: user,
-            place_name: place_name_inp,
-            place_state: place_state_inp,
-            place_id: cityId
-        },
-        success: function(data) {
-            userCities = data.places
-            updateUserPlacesDetails(userCities);
-            showPlacesDetails();
-        },
-        error: function(data) {
-            console.log(data);
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let city = {
+            place_name:place_name_inp,
+            place_state:place_state_inp,
+            id: cityId
         }
-    });
+        for(let i=0; i<userCities.length; i++){
+            if(cityId == userCities[i].id){
+                userCities[i] = city;
+                break;
+            }
+        }
+        updateUserPlacesDetails(userCities);
+        showPlacesDetails();
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + '/places/editPlace',
+            data: {
+                username: user,
+                place_name: place_name_inp,
+                place_state: place_state_inp,
+                place_id: cityId
+            },
+            success: function(data) {
+                userCities = data.places
+                updateUserPlacesDetails(userCities);
+                showPlacesDetails();
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
 }
 
 function editCollege() {
@@ -350,24 +377,50 @@ function editCollege() {
     cname_inp = document.getElementById('collegeNameEditInput').value;
     cplace_inp = document.getElementById('collegePlaceEditInput').value;
 
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + '/usersCollege/editCollege',
-        data: {
-            username: user,
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let college = {
             college_name: cname_inp,
-            college_place: cplace_inp,
-            college_id: college_id
-        },
-        success: function(data) {
-            userColleges = data.colleges;
-            updateUserCollegeDetails(userColleges);
-            showCollegesDetails();
-        },
-        error: function(data) {
-            console.log(data);
+            college_place:cplace_inp,
+            id:college_id
         }
-    });
+
+        for(let i=0; i<userColleges.length;i++){
+            if(userColleges[i].id == college.id){
+                userColleges[i] = college;
+                break;
+            }
+        }
+
+        updateUserCollegeDetails(userColleges);
+        showCollegesDetails();
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + '/usersCollege/editCollege',
+            data: {
+                username: user,
+                college_name: cname_inp,
+                college_place: cplace_inp,
+                college_id: college_id
+            },
+            success: function(data) {
+                userColleges = data.colleges;
+                updateUserCollegeDetails(userColleges);
+                showCollegesDetails();
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
 }
 
 function editWork() {
@@ -377,24 +430,50 @@ function editWork() {
     wplace = document.getElementById('workPlaceEditInput').value;
     wprofile = document.getElementById('workProfileEditInput').value;
 
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'usersWork/editWork',
-        data: {
-            username: user,
-            work_place: wplace,
-            work_profile: wprofile,
-            work_id: workId
-        },
-        success: function(data) {
-            userWork = data.works;
-            updateUserWorksDetails(userWork);
-            showWorksDetails();
-        },
-        error: function(data) {
-            console.log(data);
+    if(getLocalStorage(USER_TYPE)=='dummy'){
+        let work = {
+            work_place:wplace,
+            work_profile:wprofile,
+            id: workId
         }
-    });
+
+        for(let i=0; i<userWork.length; i++){
+            if(userWork[i].id == work.id){
+                userWork[i] = work;
+                break;
+            }
+        }
+
+        updateUserWorksDetails(userWork);
+        showWorksDetails();
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + 'usersWork/editWork',
+            data: {
+                username: user,
+                work_place: wplace,
+                work_profile: wprofile,
+                work_id: workId
+            },
+            success: function(data) {
+                userWork = data.works;
+                updateUserWorksDetails(userWork);
+                showWorksDetails();
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
 }
 
 
@@ -1080,8 +1159,8 @@ function showPlacesDetails() {
         placesList.innerHTML += '<li class="d-flex mb-4 align-items-center">\
         <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
         <div class="media-support-info ml-3">\
-            <h6>' + localPlaces[i].place_city + '</h6>\
-            <p class="mb-0">' + localPlaces[i].place_name + '</p>\
+            <h6>' + localPlaces[i].place_name + '</h6>\
+            <p class="mb-0">' + localPlaces[i].place_state + '</p>\
         </div>\
         <div class="edit-relation editButton" id="` + i + `" onClick="reply_click_city(\'' + localPlaces[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
     </li>'
