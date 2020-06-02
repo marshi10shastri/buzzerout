@@ -86,6 +86,7 @@ document.getElementById('quoteInput').value = getUserAboutDetails().quote;
 // document.getElementById('fNameInput').value = getJSONLocalStorage(USER_INFO).first_name;
 // document.getElementById('lNameInput').value = getJSONLocalStorage(USER_INFO).last_name;
 
+// d
 function editWebsite() {
     let user = getUserDetails().uname;
     website = document.getElementById('websiteInput').value;
@@ -120,24 +121,42 @@ function addWork() {
         workProfile: document.getElementById('workProfileInput').value
     };
     if ((workIn.workPlace != "") && (workIn.workProfile != "")) {
-        $.ajax({
-            type: 'POST',
-            url: SERVER_URL + 'usersWork/addWork',
-            data: {
-                username: user,
-                work_place: workIn.workPlace,
-                work_profile: workIn.workProfile
-            },
-            success: function(data) {
-                userWorks = data.works;
-                updateUserWorksDetails(userWorks);
-                showWorksDetails();
-                // document.getElementById('workLink').click();
-            },
-            error: function(data) {
-                console.log(data);
+        if(getLocalStorage(USER_TYPE) == "dummy"){
+            let work = {
+                work_place:workIn.workPlace,
+                work_profile:workIn.workProfile
             }
-        });
+            userWorks.push(work);
+            updateUserWorksDetails(userWorks);
+            showWorksDetails();
+        }
+        else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + 'usersWork/addWork',
+                data: {
+                    username: user,
+                    work_place: workIn.workPlace,
+                    work_profile: workIn.workProfile
+                },
+                success: function(data) {
+                    userWorks = data.works;
+                    updateUserWorksDetails(userWorks);
+                    showWorksDetails();
+                    // document.getElementById('workLink').click();
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        }
+        
     }
     else{
         alert('Please fill both the fields!');
@@ -155,24 +174,42 @@ function addCollege() {
         collegePlace: document.getElementById('collegePlaceInput').value
     };
     if ((collegeIn.collegeName != "") && (collegeIn.collegePlace != "")) {
-        $.ajax({
-            type: 'POST',
-            url: SERVER_URL + '/usersCollege/addCollege',
-            data: {
-                username: user,
+        if(getLocalStorage(USER_TYPE) == 'dummy'){
+            let college = {
                 college_name: collegeIn.collegeName,
-                college_place: collegeIn.collegePlace
-            },
-            success: function(data) {
-                userColleges = data.colleges;
-                updateUserCollegeDetails(userColleges);
-                showCollegesDetails();
-                // document.getElementById('workLink').click();
-            },
-            error: function(data) {
-                console.log(data);
+                college_place:collegeIn.collegePlace
             }
-        });
+            userColleges.push(college);
+            updateUserCollegeDetails(userColleges);
+            showCollegesDetails();
+        }
+        else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + '/usersCollege/addCollege',
+                data: {
+                    username: user,
+                    college_name: collegeIn.collegeName,
+                    college_place: collegeIn.collegePlace
+                },
+                success: function(data) {
+                    userColleges = data.colleges;
+                    updateUserCollegeDetails(userColleges);
+                    showCollegesDetails();
+                    // document.getElementById('workLink').click();
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        }
+
 
     }else{
         alert('Please fill both the fields');
@@ -191,24 +228,42 @@ function addCity() {
     };
 
     if ((placeIn.placeName != "") && (placeIn.placeState != "")) {
-        $.ajax({
-            type: 'POST',
-            url: SERVER_URL + '/places/addPlace',
-            data: {
-                username: user,
-                place_name: placeIn.placeName,
-                place_state: placeIn.placeState
-            },
-            success: function(data) {
-                userCities = data.places;
-                updateUserPlacesDetails(userCities);
-                showPlacesDetails();
-                // document.getElementById('placeLink').click();
-            },
-            error: function(data) {
-                console.log(data);
+        if(getLocalStorage(USER_TYPE) == 'dummy'){
+            let city = {
+                place_city:placeIn.placeName,
+                place_name: placeIn.placeState
             }
-        });
+            userCities.push(city);
+            updateUserPlacesDetails(userCities);
+            showPlacesDetails();
+        }
+        else if(getLocalStorage(USER_TYPE)== 'testuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + '/places/addPlace',
+                data: {
+                    username: user,
+                    place_name: placeIn.placeName,
+                    place_state: placeIn.placeState
+                },
+                success: function(data) {
+                    userCities = data.places;
+                    updateUserPlacesDetails(userCities);
+                    showPlacesDetails();
+                    // document.getElementById('placeLink').click();
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        }
+
     }else{
         alert('Please fill both the fields');
         document.getElementById('cityNameInput').value = '';
@@ -221,23 +276,42 @@ function editDetails() {
     about_inp = document.getElementById('aboutInput').value;
     other_name_inp = document.getElementById('otherNameInput').value;
     fav_quote_inp = document.getElementById('quoteInput').value;
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'detail/updateUserDetails',
-        data: {
-            username: user,
+
+    if(getLocalStorage(USER_TYPE)=='dummy'){
+        let userD = {
             about_you: about_inp,
             other_name: other_name_inp,
-            fav_quote: fav_quote_inp
-        },
-        success: function(data) {
-            updateUserAboutDetails(data.userdetails);
-            showDetailsAboutDetails();
-        },
-        error: function(data) {
-            console.log(data);
+            favorite_quote: fav_quote_inp
         }
-    });
+        updateUserAboutDetails(userD);
+        showDetailsAboutDetails();
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE)=='logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + 'detail/updateUserDetails',
+            data: {
+                username: user,
+                about_you: about_inp,
+                other_name: other_name_inp,
+                fav_quote: fav_quote_inp
+            },
+            success: function(data) {
+                updateUserAboutDetails(data.userdetails);
+                showDetailsAboutDetails();
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
 }
 
 
@@ -1006,8 +1080,8 @@ function showPlacesDetails() {
         placesList.innerHTML += '<li class="d-flex mb-4 align-items-center">\
         <div class="user-img img-fluid"><img src="images/user/01.jpg" alt="story-img" class="rounded-circle avatar-40"></div>\
         <div class="media-support-info ml-3">\
-            <h6>' + localPlaces[i].place_name + '</h6>\
-            <p class="mb-0">' + localPlaces[i].place_state + '</p>\
+            <h6>' + localPlaces[i].place_city + '</h6>\
+            <p class="mb-0">' + localPlaces[i].place_name + '</p>\
         </div>\
         <div class="edit-relation editButton" id="` + i + `" onClick="reply_click_city(\'' + localPlaces[i].id + '\')"><a href="javascript:void();" data-toggle="modal" data-target="#editPlaceModal"><i class="ri-edit-line mr-2"></i>Edit</a></div>\
     </li>'

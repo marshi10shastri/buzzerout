@@ -28,7 +28,7 @@ const DUMMY_USER = {
             user_social_link: null,
             timestamp: "2020-05-04 10:53:47"
         },
-        user_details: [{ about: "qwer", nickname: 'asfds', quote: "dasc" }],
+        user_details: { about_you: "qwer", other_name: 'asfds', favorite_quote: "dasc" },
         socialMedia:[],
     },
     followers:[
