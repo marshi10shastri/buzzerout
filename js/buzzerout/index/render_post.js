@@ -22,8 +22,20 @@ function postTemplateStart(feed) {
                             <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
                                 <i class="ri-more-fill"></i>\
                             </span>\
-                        <div class="dropdown-menu m-0 p-0">\
-                            <a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')" >\
+                        <div class="dropdown-menu m-0 p-0">';
+        if(getUserSaved().includes(feed.buzz_id)){
+            string+=  '<a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')">\
+                                <div class="d-flex align-items-top">\
+                                    <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
+                                    <div class="data ml-2"  >\
+                                        <h6 id="post-save-heading-' + feed.buzz_id + '">Unsave Post</h6>\
+                                        <p class="mb-0" id="post-save-para-' + feed.buzz_id + '">Remove this from your saved items</p>\
+                                    </div>\
+                                </div>\
+                            </a>';
+        }
+        else{
+        string+=  '<a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
                                     <div class="data ml-2"  >\
@@ -31,8 +43,9 @@ function postTemplateStart(feed) {
                                         <p class="mb-0" id="post-save-para-' + feed.buzz_id + '">Add this to your saved items</p>\
                                     </div>\
                                 </div>\
-                            </a>\
-                            <a class="dropdown-item p-3" onclick="hideBuzz(\'' + feed.buzz_id + '\')">\
+                            </a>';
+        }
+        string+=        '<a class="dropdown-item p-3" onclick="hideBuzz(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-close-circle-line"></i></div>\
                                     <div class="data ml-2">\
@@ -54,7 +67,7 @@ function postTemplateStart(feed) {
                             </a>';
     } else {
         if (containsFollowing(feed.buzz_username)) {
-            string += '<span id="follow-option-' + feed.buzz_id + '"><a class="dropdown-item p-3" onclick="unfollowUser(\'' + feed.buzz_id + '\')">\
+            string += '<span id="follow-option-' + feed.buzz_id + '"><a class="dropdown-item p-3" onclick="unfollowUser(\'' + feed.buzz_id + "-0"+'\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
                                     <div class="data ml-2">\
@@ -66,7 +79,7 @@ function postTemplateStart(feed) {
         }
         else {
             string += '<span id="follow-option-' + feed.buzz_id + '">\
-            <a class="dropdown-item p-3" onclick="followUser(\'' + feed.buzz_id + '\')">\
+            <a class="dropdown-item p-3" onclick="followUser(\'' + feed.buzz_id + "-0"+'\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
                                     <div class="data ml-2">\
@@ -278,24 +291,64 @@ function saveBuzz(buzzid) {
     console.log("Saving Post : " + buzzid);
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
-        // ajax call
-        $.ajax({
-            type: 'POST',
-            url: SERVER_URL + 'buzz/saveBuzz',
-            data: {
-                username: getUserDetails().uname,
-                feed_id: buzzid
-            },
-            success: function (data) {
-                console.log(data);
-                //update local
-                updateLocalSaveBuzz(feedid);
-                //update ui
-            },
-            error: function (data) {
-                console.log(data);
+        if(getLocalStorage(USER_TYPE) == 'dummy'){
+            let saved = getUserSaved()
+            let flag = 0;
+            if(saved.includes(buzzid)){
+                flag = 1
+                //now we need to unsave this
             }
-        });
+
+            if(flag == 1){
+                //remove from saved and update local
+                console.log('unsaving');
+                updateLocalSaveBuzz(buzzid, flag);
+            }
+            else{
+                //add to saved list and update ui to unsave post
+                console.log('saving');
+                updateLocalSaveBuzz(buzzid, flag);
+            }
+        }
+        else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+            let flag = 0;
+            if(saved.includes(buzzid)){
+                flag = 1
+                //now we need to unsave this
+            }
+
+            if(flag == 0){
+                        // ajax call
+                $.ajax({
+                    type: 'POST',
+                    url: SERVER_URL + 'buzz/saveBuzz',
+                    data: {
+                        username: getUserDetails().uname,
+                        feed_id: buzzid
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        //update local
+                        updateLocalSaveBuzz(buzzid, 0);
+                        //update ui
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }else{
+                //ajax call for unsave post
+                // on success-> updateLocalSaveBuzz(feedid, 1);
+            }
+        }
+
+
     } else {
         alert("Please sign in.");
     }
@@ -305,24 +358,36 @@ function hideBuzz(buzzid) {
     console.log("Hide Post : " + buzzid);
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
-        // ajax call
-        $.ajax({
-            type: 'POST',
-            url: SERVER_URL + 'buzz/hideBuzz',
-            data: {
-                username: getUserDetails().uname,
-                feed_id: buzzid
-            },
-            success: function (data) {
-                console.log(data);
-                //update local
-                updateLocalHideBuzz(buzzid);
-                //update ui
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+        if(getLocalStorage(USER_TYPE) == 'dummy'){
+            updateLocalHideBuzz(buzzid);
+        }
+        else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE)== 'logoutuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+            // ajax call
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + 'buzz/hideBuzz',
+                data: {
+                    username: getUserDetails().uname,
+                    feed_id: buzzid
+                },
+                success: function (data) {
+                    console.log(data);
+                    //update local
+                    updateLocalHideBuzz(buzzid);
+                    //update ui
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
     } else {
         alert("Please sign in.");
     }
@@ -347,73 +412,123 @@ var follow = 0
 // }
 
 
-function followUser(feedid) {
-    if (getLocalStorage(USER) == 'true') {
-        console.log("Follow User : ");
-        let feed = getPostFromFeedId(feedid);
-        let username = feed.buzz_username;
-        //ajax call
-        $.ajax({
-            type: 'POST',
-            url: SERVER_URL + 'follow/newFollow',
-            data: {
-                followed_by: getUserDetails().uname,
-                followes_to: username
-            },
+function followUser(data) {
+    let feedid = data.split('-')[0];
+    let ifSinglePost = data.split('-')[1];
 
-            success: function (data) {
-                console.log(data);
-                if (data.error == false) {
-                    //on success
-                    console.log(data);
-                    updateFollowStatus(data.following, username, 1);
-                }
-                else {
-                    console.log('error following');
-                    console.log(data)
-                }
-            },
-            error: function (data) {
-                console.log('follow api error');
-                console.log(data);
+    if (getLocalStorage(USER) == 'true') {
+        if(getLocalStorage(USER_TYPE) == 'dummy'){
+            let feed = getPostFromFeedId(feedid);
+            let username = feed.buzz_username;
+            let following = getUserFollowing();
+            let person = {
+                name: username,
+                image: feed.buzz_user_image
             }
-        });
+            following.push(person);
+            updateFollowStatus(following, username, 1, ifSinglePost);
+        }
+        else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+            console.log("Follow User : ");
+            let feed = getPostFromFeedId(feedid);
+            let username = feed.buzz_username;
+            //ajax call
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + 'follow/newFollow',
+                data: {
+                    followed_by: getUserDetails().uname,
+                    followes_to: username
+                },
+
+                success: function (data) {
+                    console.log(data);
+                    if (data.error == false) {
+                        //on success
+                        console.log(data);
+                        updateFollowStatus(data.following, username, 1, ifSinglePost);
+                    }
+                    else {
+                        console.log('error following');
+                        console.log(data)
+                    }
+                },
+                error: function (data) {
+                    console.log('follow api error');
+                    console.log(data);
+                }
+            });
+        }
+
     }
     else {
         console.log('please sign in');
     }
 }
 
-function unfollowUser(feedid) {
-    if (getLocalStorage(USER) == 'true') {
-        console.log("Unfollow User : ");
-        let feed = getPostFromFeedId(feedid);
-        let username = feed.buzz_username;
-        //ajax call
-        $.ajax({
-            type: 'POST',
-            url: SERVER_URL + 'follow/deleteFollowing',
-            data: {
-                username: getUserDetails().uname,
-                user_to_deleted: username
-            },
+function unfollowUser(data) {
+    let feedid = data.split('-')[0];
+    let ifSinglePost = data.split('-')[1];
 
-            success: function (data) {
-                if (data.error == false) {
-                    //on success
-                    console.log(data);
-                    updateFollowStatus(data.following, username, 0);
+    if (getLocalStorage(USER) == 'true') {
+        if(getLocalStorage(USER_TYPE) == 'dummy'){
+            let feed = getPostFromFeedId(feedid);
+            let username = feed.buzz_username;
+            let following = getUserFollowing();
+            if(following.length >0){
+                for(let i=0; i<following.length; i++){
+                    if(following[i].name == username){
+                        following.splice(i,1);
+                        break;
+                    }
                 }
-                else {
-                    console.log(data);
-                    console.log('error following');
-                }
-            },
-            error: function (data) {
-                console.log('follow api error');
-                console.log(data);
             }
-        });
+
+            updateFollowStatus(following, username, 0, ifSinglePost);
+        }
+        else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+        }
+        else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+            console.log("Unfollow User : ");
+            let feed = getPostFromFeedId(feedid);
+            let username = feed.buzz_username;
+            //ajax call
+            $.ajax({
+                type: 'POST',
+                url: SERVER_URL + 'follow/deleteFollowing',
+                data: {
+                    username: getUserDetails().uname,
+                    user_to_deleted: username
+                },
+
+                success: function (data) {
+                    if (data.error == false) {
+                        //on success
+                        console.log(data);
+                        updateFollowStatus(data.following, username, 0, ifSinglePost);
+                    }
+                    else {
+                        console.log(data);
+                        console.log('error following');
+                    }
+                },
+                error: function (data) {
+                    console.log('follow api error');
+                    console.log(data);
+                }
+            });
+        }
+
     }
     else {
         alert('please sign in');
@@ -643,23 +758,34 @@ function downvoteBuzzByFeedId(feedid) {
 
 //deletPost clicked
 function deletePostClick(feedid) {
-    //ajax
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'feed/clearFeedByFeedId',
-        data: {
-            feed_id: feedid,
-            username: getUserDetails().uname
-        },
-        success: function (data) {
-            console.log(data);
-            //update local storage
-            updateDeletePost(feedid);
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        updateDeletePost(feedid);
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        //ajax
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + 'feed/clearFeedByFeedId',
+            data: {
+                feed_id: feedid,
+                username: getUserDetails().uname
+            },
+            success: function (data) {
+                console.log(data);
+                //update local storage
+                updateDeletePost(feedid);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
 }
 
 function containsFollowing(username) {

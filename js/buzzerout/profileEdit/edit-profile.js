@@ -19,70 +19,103 @@ function initProfileEdit() {
 function uploadProfileImage() {
     let user = getUserProfileDetails();
     let file = document.getElementById('profile-image-upload').files[0];
+    
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        if(file){
+            // console.log(URL.createObjectURL(pImage_toke));
+            user.pImage = URL.createObjectURL(pImage_toke);
+            setLocalStorage(P_IMAGE, user.pImage);
 
-    if (file) {
-        var formData = new FormData();
-        formData.append('file', pImage_toke);
-        formData.append('product', 'appnivi');
-        formData.append('application', 'nivishare');
-        formData.append('to', 'raman.10101@gmail.com');
-        formData.append('from', 'raman.10101@gmail.com');
-        formData.append('message', 'Transfer File');
-
-        $.ajax({
-            type: 'POST',
-            url: 'http://appnivi.com/server/v1/file/fileupload',
-            data: formData,
-            success: function(data) {
-                var link = data.link;
-                console.log(data.link);
-
-                //change profile picture
-                $.ajax({
-                    type: 'POST',
-                    url: SERVER_URL + 'profile/updateUserProfileImage',
-                    data: {
-                        username: getUserDetails().uname,
-                        img: link,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        //set profile image as
-                        if (response.error == false) {
-                            user.pImage = response.profile_detail.user_profile_image;
-                            // setProfileNameImage(response.profile_detail);
-                            updateUserProfileDetails(response.profile_detail);
-
-                            //update header
-                            renderProfileEditTopRight();
-                            hideUploadPimageBtn();
-                        } else {
-                            console.log('error occured');
-                        }
-                    },
-                    error: function(response) {
-                        console.log(response)
-                    }
-                });
-
-            },
-            error: function(error) {
-                console.log(error);
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-        });
-
-    } else {
-        alert('Select file');
+            renderProfileEditTopRight();
+            hideUploadPimageBtn();
+        }
     }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        if (file) {
+            var formData = new FormData();
+            formData.append('file', pImage_toke);
+            formData.append('product', 'appnivi');
+            formData.append('application', 'nivishare');
+            formData.append('to', 'raman.10101@gmail.com');
+            formData.append('from', 'raman.10101@gmail.com');
+            formData.append('message', 'Transfer File');
+    
+            $.ajax({
+                type: 'POST',
+                url: 'http://appnivi.com/server/v1/file/fileupload',
+                data: formData,
+                success: function(data) {
+                    var link = data.link;
+                    console.log(data.link);
+    
+                    //change profile picture
+                    $.ajax({
+                        type: 'POST',
+                        url: SERVER_URL + 'profile/updateUserProfileImage',
+                        data: {
+                            username: getUserDetails().uname,
+                            img: link,
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            //set profile image as
+                            if (response.error == false) {
+                                user.pImage = response.profile_detail.user_profile_image;
+                                // setProfileNameImage(response.profile_detail);
+                                updateUserProfileDetails(response.profile_detail);
+    
+                                //update header
+                                renderProfileEditTopRight();
+                                hideUploadPimageBtn();
+                            } else {
+                                console.log('error occured');
+                            }
+                        },
+                        error: function(response) {
+                            console.log(response)
+                        }
+                    });
+    
+                },
+                error: function(error) {
+                    console.log(error);
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+    
+        } else {
+            alert('Select file');
+        }
+    }
+
 }
 
 function uploadCoverImage() {
     let user = getUserProfileDetails();
     let file = document.getElementById('upload-cover-pic').files[0];
-    console.log("Defined");
+
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        if(file){
+            document.getElementById('cover-pic').src = URL.createObjectURL(tImage_toke);
+            setLocalStorage(T_IMAGE, URL.createObjectURL(tImage_toke));
+        }
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        console.log("Defined");
     console.log(tImage_toke);
     if (file) {
         var formData = new FormData();
@@ -116,7 +149,8 @@ function uploadCoverImage() {
                         if (response.error == false) {
                             document.getElementById('cover-pic').src = link;
                             user.tImage = response.profile_detail.user_timeline_image;
-                            updateUserProfileDetails(user);
+                            updateUserProfileDetails(response.profile_detail);
+                            // update with response.profile_detail
                         } else {
                             console.log('error occurred');
                         }
@@ -138,9 +172,11 @@ function uploadCoverImage() {
     } else {
         alert('Select file');
     }
+    }
+    
 }
 
-
+// d
 function editName() {
     let user = getJSONLocalStorage(USER_INFO);
     let fname = document.getElementById('fnameIn').value;
@@ -167,7 +203,7 @@ function editName() {
     });
 }
 
-
+// d
 function editDobGender() {
     let user = getJSONLocalStorage(USER_INFO);
     let g;
@@ -206,10 +242,8 @@ function editDobGender() {
 
 }
 
+
 function editPersonalInfo() {
-    // uploadProfileImage();
-    // // editName();
-    // editDobGender();
 
     let fname = document.getElementById('fnameIn').value;
     let lname = document.getElementById('lnameIn').value;
@@ -227,62 +261,97 @@ function editPersonalInfo() {
     let countryIn = document.getElementById("country-edit-dropdown").value;
     let stateIn = document.getElementById("state-edit-dropdown").value;
 
-    //ajax call to edit profile.
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'profile/updateProfile',
-        data: {
-            username: unameIn,
-            firstname: fname,
-            lastname: lname,
-            city: cityIn,
-            state: stateIn,
-            country: countryIn,
-            gender: g,
-            dob: dobIn,
-            marital: maritalIn
-        },
-        success: function(response) {
-            if (response.error == false) {
-                console.log(response);
-                //update function calls.
-                let userDetails = {
-                        username: unameIn,
-                        email: getUserDetails().email
-                    }
-                    //console userdetails
-                console.log(userDetails);
-                updateUserDetails(userDetails);
-
-                let profile = {
-                        user_mobile: getUserProfileDetails().mob,
-                        user_dob: dobIn,
-                        user_gender: g,
-                        user_marital: maritalIn,
-                        user_address: getUserProfileDetails().address,
-                        user_city: cityIn,
-                        user_state: stateIn,
-                        user_country: countryIn,
-                        first_name: fname,
-                        last_name: lname,
-                        user_profile_image: getUserProfileDetails().pImage,
-                        user_timeline_image: getUserProfileDetails().tImage,
-                        user_social_link: getUserProfileDetails().social,
-                        website: getUserProfileDetails().website
-                    }
-                    //console profile
-                console.log(profile);
-                updateUserProfileDetails(profile);
-                age.value = getAge(getUserProfileDetails().dob);
-            }
-        },
-        error: function(response) {
-            console.log(response);
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let profile = {
+            user_mobile: getUserProfileDetails().mob,
+            user_dob: dobIn,
+            user_gender: g,
+            user_marital: maritalIn,
+            user_address: getUserProfileDetails().address,
+            user_city: cityIn,
+            user_state: stateIn,
+            user_country: countryIn,
+            first_name: fname,
+            last_name: lname,
+            user_profile_image: getUserProfileDetails().pImage,
+            user_timeline_image: getUserProfileDetails().tImage,
+            user_social_link: getUserProfileDetails().social,
+            website: getUserProfileDetails().website
         }
-    });
+        //console profile
+        console.log(profile);
+        updateUserProfileDetails(profile);
+        age.value = getAge(getUserProfileDetails().dob);
 
-    // lock the inputs and hide submit btn
-    hideSubmitBtn();
+        //lock inputs
+        hideSubmitBtn();
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        //ajax call to edit profile.
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + 'profile/updateProfile',
+            data: {
+                username: unameIn,
+                firstname: fname,
+                lastname: lname,
+                city: cityIn,
+                state: stateIn,
+                country: countryIn,
+                gender: g,
+                dob: dobIn,
+                marital: maritalIn
+            },
+            success: function(response) {
+                if (response.error == false) {
+                    console.log(response);
+                    //update function calls.
+                    let userDetails = {
+                            username: unameIn,
+                            email: getUserDetails().email
+                        }
+                        //console userdetails
+                    console.log(userDetails);
+                    updateUserDetails(userDetails);
+
+                    let profile = {
+                            user_mobile: getUserProfileDetails().mob,
+                            user_dob: dobIn,
+                            user_gender: g,
+                            user_marital: maritalIn,
+                            user_address: getUserProfileDetails().address,
+                            user_city: cityIn,
+                            user_state: stateIn,
+                            user_country: countryIn,
+                            first_name: fname,
+                            last_name: lname,
+                            user_profile_image: getUserProfileDetails().pImage,
+                            user_timeline_image: getUserProfileDetails().tImage,
+                            user_social_link: getUserProfileDetails().social,
+                            website: getUserProfileDetails().website
+                        }
+                        //console profile
+                    console.log(profile);
+                    updateUserProfileDetails(profile);
+                    age.value = getAge(getUserProfileDetails().dob);
+                }
+            },
+            error: function(response) {
+                console.log(response);
+            }
+        });
+
+        // lock the inputs and hide submit btn
+        hideSubmitBtn();
+    }
+    
 }
 
 function disablePersonalInputs() {
@@ -378,31 +447,43 @@ function changePassword(){
     let verifyPass = document.getElementById('vpass').value;
 
     if(newPass === verifyPass){
-        if(currPass === newPass){
-            //ajax call
-            $.ajax({
-                type: 'POST',
-                url: SERVER_URL + 'user/resetPassword',
-                data: {
-                    username: getUserDetails().uname,
-                    old_password: currPass,
-                    new_password: newPass
-                },
+        if(currPass !== newPass){
+            if(getLocalStorage(USER_TYPE) == 'dummy'){
+                alert('dummy password change call');
+            }
+            else if(getLocalStorage(USER_TYPE) == 'testuser'){
 
-                success: function(data){
-                    if(data.error == false){
-                        alert('changed');
-                        console.log(data)
-                    }else{
-                        console.log("Error");
+            }
+            else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+            }
+            else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+                //ajax call
+                $.ajax({
+                    type: 'POST',
+                    url: SERVER_URL + 'user/resetPassword',
+                    data: {
+                        username: getUserDetails().uname,
+                        old_password: currPass,
+                        new_password: newPass
+                    },
+
+                    success: function(data){
+                        if(data.error == false){
+                            alert('changed');
+                            console.log(data)
+                        }else{
+                            console.log("Error");
+                            console.log(data);
+                        }
+                    },
+                    error: function(data){
+                        alert('api error');
                         console.log(data);
                     }
-                },
-                error: function(data){
-                    alert('api error');
-                    console.log(data);
-                }
-            });
+                });
+            }
+            
         }
         else{
             alert('new password and current password field cannot be same');
@@ -411,6 +492,9 @@ function changePassword(){
     else{
         alert("new pass and verify not same");
     }
+    document.getElementById('cpass').value = '';
+    document.getElementById('npass').value = '';
+    document.getElementById('vpass').value = '';
     console.log('bahar');
 }
 
@@ -427,37 +511,54 @@ function manageContact(){
     let socialLink = document.getElementById('social-inp').value;
     let website = document.getElementById('url').value;
     let profile = getUserProfileDetails();
-    //ajax
-    $.ajax({
-        type:'POST',
-        url: SERVER_URL + 'profile/updateUserWebsiteLink',
-        data:{
-            username: getUserDetails().uname,
-            phone_no: contact,
-            social_link: socialLink,
-            website_url: website
-        },
-        success: function(data){
-            console.log(data);
-            if(data.error == false){
-                profile.mob = contact;
-                profile.website = website;
-                profile.social = socialLink;
 
-                setLocalStorage(MOBILE, contact);
-                setLocalStorage(WEBSITE, website);
-                setLocalStorage(U_SOCIAL_LINK, socialLink);
-                setContactInputValues();
-                hideContactSubmit();
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        setLocalStorage(MOBILE, contact);
+        setLocalStorage(WEBSITE, website);
+        setLocalStorage(U_SOCIAL_LINK, socialLink);
+        setContactInputValues();
+        hideContactSubmit();
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        //ajax
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL + 'profile/updateUserWebsiteLink',
+            data:{
+                username: getUserDetails().uname,
+                phone_no: contact,
+                social_link: socialLink,
+                website_url: website
+            },
+            success: function(data){
+                console.log(data);
+                if(data.error == false){
+                    profile.mob = contact;
+                    profile.website = website;
+                    profile.social = socialLink;
+
+                    setLocalStorage(MOBILE, contact);
+                    setLocalStorage(WEBSITE, website);
+                    setLocalStorage(U_SOCIAL_LINK, socialLink);
+                    setContactInputValues();
+                    hideContactSubmit();
+                }
+                else{
+                    console.log('error');
+                }
+            },
+            error: function(data){
+                console.log(data);
             }
-            else{
-                console.log('error');
-            }
-        },
-        error: function(data){
-            console.log(data);
-        }
-    });
+        });
+    }
+
 }
 
 function showContactSubmit(){

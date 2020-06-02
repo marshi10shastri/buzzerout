@@ -2,10 +2,39 @@ function renderLatestNews(){
     let newsList = document.getElementById('latest-news-list');
     newsList.innerHTML = '';
 
-    if(LATEST_NEWS.length > 0){
-        for(let i=0; i<LATEST_NEWS.length; i++){
-            newsList.innerHTML += singleLatestNews(LATEST_NEWS[i]);
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        if(LATEST_NEWS.length > 0){
+            for(let i=0; i<LATEST_NEWS.length; i++){
+                newsList.innerHTML += singleLatestNews(LATEST_NEWS[i]);
+            }
         }
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        //ajax
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + 'updates/fetchAllUpdates',
+            success: function(data){
+                if(data.error == false){
+                    let news = data.updates;
+
+                    if(news.length > 0){
+                        for(let i=0; i<news.length; i++){
+                            newsList.innerHTML += singleLatestNews(news[i]);
+                        }
+                    }
+                }
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
     }
 }
 

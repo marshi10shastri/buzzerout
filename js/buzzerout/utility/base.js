@@ -180,6 +180,33 @@ function getUserFollowing(){
     return following;
 }
 
+function updateUserSaved(data){
+    setJSONLocalStorage(SAVED, data);
+}
+
+function getUserSaved(){
+    let saved = getJSONLocalStorage(SAVED);
+    return saved;
+}
+
+function updateUserHidden(data){
+    setJSONLocalStorage(HIDDEN, data);
+}
+
+function getUserHidden(){
+    let hidden = getJSONLocalStorage(HIDDEN);
+    return hidden;
+}
+
+function updateUserShared(data){
+    setJSONLocalStorage(SHARED, data);
+}
+
+function getUserShared(){
+    let shared = getJSONLocalStorage(SHARED);
+    return shared;
+}
+
 function getPostFromFeedId(feedid){
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){

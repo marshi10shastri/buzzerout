@@ -28,25 +28,42 @@ function renderSharedPosts(shares){
 
 // api call
 function renderCollections(){
-    $.ajax({
-        type:'POST',
-        url: SERVER_URL + 'feed/fetchCollectionByuser',
-        data:{
-            username: getUserDetails().uname
-        },
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let saved = getUserSaved();
+        let hidden = getUserHidden();
+        let shared = getUserShared();
+        renderSavedPosts(saved);
+        renderHiddenPosts(hidden);
+        renderSharedPosts(shared);
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
 
-        success: function(data){
-            console.log(data);
-            if(data.error == false){
-                setJSONLocalStorage(SAVED, data.save_buzz);
-            renderSavedPosts(data.save_buzz);
-            renderHiddenPosts(data.hide_buzz);
-            renderSharedPosts(data.shared_buzz);
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL + 'feed/fetchCollectionByuser',
+            data:{
+                username: getUserDetails().uname
+            },
+    
+            success: function(data){
+                console.log(data);
+                if(data.error == false){
+                    setJSONLocalStorage(SAVED, data.save_buzz);
+                renderSavedPosts(data.save_buzz);
+                renderHiddenPosts(data.hide_buzz);
+                renderSharedPosts(data.shared_buzz);
+                }
+            },
+    
+            error: function(data){
+                console.log(data);
             }
-        },
-
-        error: function(data){
-            console.log(data);
-        }
-    });
+        });
+    }
+    
 }

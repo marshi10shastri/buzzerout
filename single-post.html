@@ -1279,6 +1279,52 @@
         </div>
 
         <!-- modal -->
+        <!-- edit modal -->
+        <div class="modal fade" id="edit-spost-modal" tabindex="-1" role="dialog" aria-labelledby="post-modalLabel" aria-hidden="true" style="display: none;">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="post-modalLabel">Edit Buzz</h5>
+
+                        <button type="button" id="close-edit-modal" class="btn btn-secondary" data-dismiss="modal"><i class="ri-close-fill"></i></button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="d-flex align-items-center">
+
+                            <div>
+
+                                <img id="post-edit-userimage-inside" src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle img-fluid curr-user-img">
+
+                            </div>
+
+                            <form class="post-text ml-3 w-100" action="javascript:void();">
+
+                                <input type="text" id="buzz-sedit-input" class="form-control rounded" placeholder="Write something here..." style="border:none;">
+
+                            </form>
+
+                        </div>
+
+                        <hr>
+
+                        <button id="editsPostButton" class="btn btn-primary d-block w-100 mt-3" data-dismiss="modal">Post</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- //edit comment -->
         <div id="editSCommentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
 
             <div class="modal-dialog" role="document">

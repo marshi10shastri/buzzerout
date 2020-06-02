@@ -343,46 +343,82 @@ function editSinglePost(editFeed) {
 // Template
 
 
-function updateFollowStatus(followingList, userName, followStatus) {
+function updateFollowStatus(followingList, userName, followStatus, ifSinglePost) {
     updateUserFollowing(followingList);
-    showFollowUpdate(userName, followStatus);
+    showFollowUpdate(userName, followStatus, ifSinglePost);
 }
 
-function showFollowUpdate(username, followStatus) {
+function showFollowUpdate(username, followStatus, ifSinglePost) {
     console.log('andar aaya')
     let feeds = getPostByUsername(username);
 
-    if (followStatus == 1) {
-        console.log('ab unfollow likha aayega');
-        for(let i=0; i<feeds.length; i++){
-            var div = document.getElementById('follow-option-' + feeds[i].buzz_id);
-            div.innerHTML = '';
-                div.innerHTML = '<a class="dropdown-item p-3" onclick="unfollowUser(\'' + feeds[i].buzz_id + '\')">\
-                <div class="d-flex align-items-top">\
-                    <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
-                    <div class="data ml-2">\
-                        <h6> Unfollow User </h6>\
-                        <p class="mb-0">Stop seeing posts from '+ feeds[i].buzz_username +'.</p>\
-                    </div>\
-                </div></a>';
+    if(ifSinglePost == 1){
+        if (followStatus == 1) {
+            console.log('ss ab unfollow likha aayega');
+            for(let i=0; i<feeds.length; i++){
+                var sdiv = document.getElementById('Sfollow-option-' + feeds[i].buzz_id);
+                sdiv.innerHTML = '';
+                    sdiv.innerHTML = '<a class="dropdown-item p-3" onclick="unfollowUser(\'' + feeds[i].buzz_id + "-1"+'\')">\
+                    <div class="d-flex align-items-top">\
+                        <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+                        <div class="data ml-2">\
+                            <h6> Unfollow User </h6>\
+                            <p class="mb-0">Stop seeing posts from '+ feeds[i].buzz_username +'.</p>\
+                        </div>\
+                    </div></a>';
+            }
+        }
+        else {
+            console.log('ab follow likha aayega');
+            for(let i=0; i<feeds.length; i++){
+                var sdiv = document.getElementById('Sfollow-option-' + feeds[i].buzz_id);
+                sdiv.innerHTML = '';
+            sdiv.innerHTML = '<a class="dropdown-item p-3" onclick="followUser(\'' + feeds[i].buzz_id + "-1"+'\')">\
+            <div class="d-flex align-items-top">\
+                <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+                <div class="data ml-2">\
+                    <h6>Follow User</h6>\
+                    <p class="mb-0">See more posts from '+ feeds[i].buzz_username +'.</p>\
+                </div>\
+            </div>\
+        </a>';
+        }
         }
     }
-    else {
-        console.log('ab follow likha aayega');
-        for(let i=0; i<feeds.length; i++){
-            var div = document.getElementById('follow-option-' + feeds[i].buzz_id);
-            div.innerHTML = '';
-        div.innerHTML = '<a class="dropdown-item p-3" onclick="followUser(\'' + feeds[i].buzz_id + '\')">\
-        <div class="d-flex align-items-top">\
-            <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
-            <div class="data ml-2">\
-                <h6>Follow User</h6>\
-                <p class="mb-0">See more posts from '+ feeds[i].buzz_username +'.</p>\
+    else{
+        if (followStatus == 1) {
+            console.log('ab unfollow likha aayega');
+            for(let i=0; i<feeds.length; i++){
+                var div = document.getElementById('follow-option-' + feeds[i].buzz_id);
+                div.innerHTML = '';
+                    div.innerHTML = '<a class="dropdown-item p-3" onclick="unfollowUser(\'' + feeds[i].buzz_id + "-0"+'\')">\
+                    <div class="d-flex align-items-top">\
+                        <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+                        <div class="data ml-2">\
+                            <h6> Unfollow User </h6>\
+                            <p class="mb-0">Stop seeing posts from '+ feeds[i].buzz_username +'.</p>\
+                        </div>\
+                    </div></a>';
+            }
+        }
+        else {
+            console.log('ab follow likha aayega');
+            for(let i=0; i<feeds.length; i++){
+                var div = document.getElementById('follow-option-' + feeds[i].buzz_id);
+                div.innerHTML = '';
+            div.innerHTML = '<a class="dropdown-item p-3" onclick="followUser(\'' + feeds[i].buzz_id + "-0"+'\')">\
+            <div class="d-flex align-items-top">\
+                <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+                <div class="data ml-2">\
+                    <h6>Follow User</h6>\
+                    <p class="mb-0">See more posts from '+ feeds[i].buzz_username +'.</p>\
+                </div>\
             </div>\
-        </div>\
-    </a>';
+        </a>';
+        }
+        }
     }
-    }
+    
 
     console.log(getUserFollowing());
 }
@@ -416,7 +452,9 @@ function showDeletePost(feedid){
 //hide buzz(similar to delete)
 function updateLocalHideBuzz(feedid){
     //get feed by id and save it to hide list
-
+    let hidden = getUserHidden();
+    hidden.push(feedid);
+    updateUserHidden(hidden);
     //remove from posts and update local
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){
@@ -441,15 +479,36 @@ function showHiddenPost(feedid){
 
 
 //save buzz
-function updateLocalSaveBuzz(feedid){
-    //change local
-    showSaveBuzz(feedid);
+function updateLocalSaveBuzz(feedid, ifSaved){
+    let saved = getUserSaved();
+    if(ifSaved){
+        //if saved-> unsave it
+        let index = saved.indexOf(feedid);
+        saved.splice(index, 1);
+
+        updateUserSaved(saved);
+    }
+    else{
+        //save it
+        saved.push(feedid);
+        updateUserSaved(saved);
+    }
+    //change ui
+    showSaveBuzz(feedid, ifSaved);
 }
 
 
-function showSaveBuzz(feedid){
+function showSaveBuzz(feedid, ifSaved){
     let heading = document.getElementById('post-save-heading-' + feedid);
     let para = document.getElementById('post-save-para-'+ feedid);
-    heading.innerHTML = 'Unsave Post';
-    para.innerHTML = 'Remove this from your saved items';
+
+    if(!ifSaved){
+        heading.innerHTML = 'Unsave Post';
+        para.innerHTML = 'Remove this from your saved items';
+    }
+    else{
+        heading.innerHTML = 'Save Post';
+        para.innerHTML = 'Add this to your saved items';
+    }
+
 }

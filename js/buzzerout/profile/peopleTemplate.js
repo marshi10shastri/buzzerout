@@ -12,7 +12,7 @@ function singleFollower(person){
                 </div>\
             </div>\
             <div class="iq-card-header-toolbar d-flex align-items-center">\
-                <div class="dropdown" id="button-"'+ person.name +'>';
+                <div class="dropdown" id="button-'+ person.name +'">';
             if(isPersonFollowed(person)){
                 console.log(person);
                 people +=    '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownFollower-'+person.name+'" aria-expanded="true" role="button" onclick="followerUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
@@ -139,7 +139,32 @@ function followerUnfollowUserByUname(pers){
         name:pname,
         image:pImage
     }
-    $.ajax({
+
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let people = getUserFollowing();
+        if(people.length > 0){
+            for(let i=0; i<people.length; i++){
+                if(people[i].name == person.name){
+                    people.splice(i,1);
+                }
+            }
+        }
+
+        updateUserFollowing(people);
+
+        let div = document.getElementById("button-"+ person.name);
+        div.innerHTML = '<span class="dropdown-toggle btn btn-primary mr-2" id="dropdownFollower-'+person.name+'" aria-expanded="true" role="button" onclick="followerFollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+        <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow\
+        </span>'
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
             type:'POST',
             url:SERVER_URL + 'follow/deleteFollowing',
             data:{
@@ -170,6 +195,7 @@ function followerUnfollowUserByUname(pers){
                 console.log(data);
             }
         });
+    }
 }
 
 
@@ -182,6 +208,31 @@ function followingUnfollowUserByUname(pers){
         name:pname,
         image:pImage
     }
+
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let people = getUserFollowing();
+        if(people.length > 0){
+            for(let i=0; i<people.length; i++){
+                if(people[i].name == person.name){
+                    people.splice(i,1);
+                }
+            }
+        }
+
+        updateUserFollowing(people);
+
+        let div = document.getElementById("followingBtn-"+ person.name);
+                    div.innerHTML = '<span class="dropdown-toggle btn btn-primary mr-2" id="dropdownFollowing-'+person.name+'" aria-expanded="true" role="button" onclick="followingFollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                    <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow\
+                    </span>'
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
     $.ajax({
             type:'POST',
             url:SERVER_URL + 'follow/deleteFollowing',
@@ -213,6 +264,8 @@ function followingUnfollowUserByUname(pers){
                 console.log(data);
             }
         });
+
+    }
 }
 
 
@@ -225,37 +278,57 @@ function followerFollowUserByUname(pers){
         name:pname,
         image:pImage
     }
-    $.ajax({
-        type:'POST',
-        url:SERVER_URL + 'follow/newFollow',
-        data:{
-            followed_by: getUserDetails().uname,
-            followes_to: person.name
-        },
 
-        success: function(data){
-            console.log(data);
-            if(data.error == false){
-                //on success
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let people = getUserFollowing();
+        people.push(person);
+        updateUserFollowing(people);
+
+        let div = document.getElementById("button-"+ person.name);
+        div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownFollower-'+person.name+'" aria-expanded="true" role="button" onclick="followerUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                    <i class="ri-close-line mr-1 text-white font-size-16"></i> Unfollow\
+                    </span>'
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type:'POST',
+            url:SERVER_URL + 'follow/newFollow',
+            data:{
+                followed_by: getUserDetails().uname,
+                followes_to: person.name
+            },
+    
+            success: function(data){
                 console.log(data);
-                
-                updateUserFollowing(data.following);
-
-                let div = document.getElementById("button-"+ person.name);
-                div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownFollower-'+person.name+'" aria-expanded="true" role="button" onclick="followerUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
-                <i class="ri-close-line mr-1 text-white font-size-16"></i> Unfollow\
-                </span>'
+                if(data.error == false){
+                    //on success
+                    console.log(data);
+                    
+                    updateUserFollowing(data.following);
+    
+                    let div = document.getElementById("button-"+ person.name);
+                    div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownFollower-'+person.name+'" aria-expanded="true" role="button" onclick="followerUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                    <i class="ri-close-line mr-1 text-white font-size-16"></i> Unfollow\
+                    </span>'
+                }
+                else{
+                    console.log('error following');
+                    console.log(data)
+                }
+            },
+            error: function(data){
+                console.log('follow api error');
+                console.log(data);
             }
-            else{
-                console.log('error following');
-                console.log(data)
-            }
-        },
-        error: function(data){
-            console.log('follow api error');
-            console.log(data);
-        }
-    });
+        });
+    }
+    
 }
 
 
@@ -268,37 +341,56 @@ function followingFollowUserByUname(pers){
         name:pname,
         image:pImage
     }
-    $.ajax({
-        type:'POST',
-        url:SERVER_URL + 'follow/newFollow',
-        data:{
-            followed_by: getUserDetails().uname,
-            followes_to: person.name
-        },
 
-        success: function(data){
-            console.log(data);
-            if(data.error == false){
-                //on success
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let people = getUserFollowing();
+        people.push(person);
+        updateUserFollowing(people);
+
+        let div = document.getElementById("followingBtn-"+ person.name);
+        div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownFollowing-'+person.name+'" aria-expanded="true" role="button" onclick="followingUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                    <i class="ri-close-line mr-1 text-white font-size-16"></i> Unfollow\
+                    </span>'
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type:'POST',
+            url:SERVER_URL + 'follow/newFollow',
+            data:{
+                followed_by: getUserDetails().uname,
+                followes_to: person.name
+            },
+
+            success: function(data){
                 console.log(data);
-                
-                updateUserFollowing(data.following);
+                if(data.error == false){
+                    //on success
+                    console.log(data);
+                    
+                    updateUserFollowing(data.following);
 
-                let div = document.getElementById("followingBtn-"+ person.name);
-                div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownFollowing-'+person.name+'" aria-expanded="true" role="button" onclick="followingUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
-                <i class="ri-close-line mr-1 text-white font-size-16"></i> Unfollow\
-                </span>'
+                    let div = document.getElementById("followingBtn-"+ person.name);
+                    div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownFollowing-'+person.name+'" aria-expanded="true" role="button" onclick="followingUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                    <i class="ri-close-line mr-1 text-white font-size-16"></i> Unfollow\
+                    </span>'
+                }
+                else{
+                    console.log('error following');
+                    console.log(data)
+                }
+            },
+            error: function(data){
+                console.log('follow api error');
+                console.log(data);
             }
-            else{
-                console.log('error following');
-                console.log(data)
-            }
-        },
-        error: function(data){
-            console.log('follow api error');
-            console.log(data);
-        }
-    });
+        });
+    }
 }
 
 
@@ -311,6 +403,31 @@ function suggestedUnfollowUserByUname(pers){
         name:pname,
         image:pImage
     }
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let people = getUserFollowing();
+        if(people.length > 0){
+            for(let i=0; i<people.length; i++){
+                if(people[i].name == person.name){
+                    people.splice(i,1);
+                }
+            }
+        }
+
+        updateUserFollowing(people);
+
+        //followers
+        let div = document.getElementById("buttonSuggested-"+ person.name);
+        div.innerHTML = '<span class="dropdown-toggle btn btn-primary mr-2" id="dropdownSuggested-'+person.name+'" aria-expanded="true" role="button" onclick="suggestedFollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+        <i class="ri-check-line mr-1 text-white font-size-16"></i> Follow\
+        </span>'
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
     $.ajax({
             type:'POST',
             url:SERVER_URL + 'follow/deleteFollowing',
@@ -342,6 +459,7 @@ function suggestedUnfollowUserByUname(pers){
                 console.log(data);
             }
         });
+    }
 }
 
 
@@ -353,35 +471,54 @@ function suggestedFollowUserByUname(pers){
         name:pname,
         image:pImage
     }
-    $.ajax({
-        type:'POST',
-        url:SERVER_URL + 'follow/newFollow',
-        data:{
-            followed_by: getUserDetails().uname,
-            followes_to: person.name
-        },
 
-        success: function(data){
-            console.log(data);
-            if(data.error == false){
-                //on success
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let people = getUserFollowing();
+        people.push(person);
+        updateUserFollowing(people);
+
+        let div = document.getElementById("buttonSuggested-"+ person.name);
+        div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownSuggested-'+person.name+'" aria-expanded="true" role="button" onclick="suggestedUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                    <i class="ri-close-line mr-1 text-white font-size-16"></i> Unfollow\
+                    </span>'
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type:'POST',
+            url:SERVER_URL + 'follow/newFollow',
+            data:{
+                followed_by: getUserDetails().uname,
+                followes_to: person.name
+            },
+
+            success: function(data){
                 console.log(data);
-                
-                updateUserFollowing(data.following);
+                if(data.error == false){
+                    //on success
+                    console.log(data);
+                    
+                    updateUserFollowing(data.following);
 
-                let div = document.getElementById("buttonSuggested-"+ person.name);
-                div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownSuggested-'+person.name+'" aria-expanded="true" role="button" onclick="suggestedUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
-                <i class="ri-close-line mr-1 text-white font-size-16"></i> Unfollow\
-                </span>'
+                    let div = document.getElementById("buttonSuggested-"+ person.name);
+                    div.innerHTML = '<span class="dropdown-toggle btn btn-secondary mr-2" id="dropdownSuggested-'+person.name+'" aria-expanded="true" role="button" onclick="suggestedUnfollowUserByUname(\''+ person.name+"-"+person.image  +'\')">\
+                    <i class="ri-close-line mr-1 text-white font-size-16"></i> Unfollow\
+                    </span>'
+                }
+                else{
+                    console.log('error following');
+                    console.log(data)
+                }
+            },
+            error: function(data){
+                console.log('follow api error');
+                console.log(data);
             }
-            else{
-                console.log('error following');
-                console.log(data)
-            }
-        },
-        error: function(data){
-            console.log('follow api error');
-            console.log(data);
-        }
-    });
+        });
+    }
 }

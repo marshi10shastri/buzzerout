@@ -5,10 +5,10 @@ const DUMMY_USER = {
         timestamp: "2020-05-04 10:53:47"
     },
     details: {
-        college: [{college_name:"GBPIET", college_place:"Pauri"}],
+        college: [{college_name:"GBPIET", college_place:"Pauri", id:"56"}],
         socialMedia: [],
-        works: [{work_place:"Appnivi", work_profile:"Developer"}],
-        city: [{place_city:"Dehradun", place_name:"Premnagar"}],
+        works: [{work_place:"Appnivi", work_profile:"Developer", id:"12"}],
+        city: [{place_name:"Dehradun", place_state:"Premnagar", id:"1"}],
         profile: {
             id: "4",
             username: "dumb",
@@ -20,15 +20,15 @@ const DUMMY_USER = {
             user_country: null,
             user_marital:"Married",
             user_mobile: null,
-            user_gender: null,
+            user_gender: "Male",
             user_dob: null,
             user_profile_image: "http://buzzerout.com/images/default/default-user.png",
-            user_timeline_image: null,
+            user_timeline_image: "http://buzzerout.com/images/default/default-timeline.jpg",
             user_website: null,
             user_social_link: null,
             timestamp: "2020-05-04 10:53:47"
         },
-        user_details: [{ about: "qwer", nickname: 'asfds', quote: "dasc" }],
+        user_details: { about_you: "qwer", other_name: 'asfds', favorite_quote: "dasc" },
         socialMedia:[],
     },
     followers:[
@@ -45,6 +45,7 @@ const DUMMY_USER = {
             title: "Third demo feed",
             description: "lockdown",
             location: "Haridwar",
+            images:[],
             timestamp: "2020-05-04 11:06:22",
             role: "1",
             is_anonymous:"0"
@@ -55,11 +56,15 @@ const DUMMY_USER = {
             title: "Second demo feed",
             description: "lockdown",
             location: "dehradun",
+            images:[],
             timestamp: "2020-05-04 11:04:59",
             role: "1",
             is_anonymous:"0"
         }
-    ]
+    ],
+    saved:['naman5eaff72ee3a50'],
+    hidden:['praty5eaff6db6ef43'],
+    shared:[]
 }
 
 const USER_TYPE = "user_type";
@@ -106,5 +111,8 @@ const ALL_BUZZ = "all_buzz";
 const CURR_BUZZ = "curr_buzz";
 const SAVED = "saved_buzz";
 const POST_IMG = "post_image";
+
+const HIDDEN = "hidden_posts";
+const SHARED = "shared_posts";
 // URLs
 const SERVER_URL = 'http://buzzerout.com/buzzerout_server/v1/';
