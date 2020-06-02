@@ -57,7 +57,7 @@ function singleBuzzLoad(feed) {
                             </a>';
 
     if (feed.buzz_username == getUserDetails().uname) {
-        string += '<a class="dropdown-item p-3" onclick="editPostModal(\'' + feed.buzz_id + '\')">\
+        string += '<a class="dropdown-item p-3" onclick="editsPostModal(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-pencil-line"></i></div>\
                                     <div class="data ml-2">\

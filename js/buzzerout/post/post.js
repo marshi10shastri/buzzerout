@@ -356,9 +356,9 @@ function showFollowUpdate(username, followStatus, ifSinglePost) {
         if (followStatus == 1) {
             console.log('ss ab unfollow likha aayega');
             for(let i=0; i<feeds.length; i++){
-                var div = document.getElementById('Sfollow-option-' + feeds[i].buzz_id);
-                div.innerHTML = '';
-                    div.innerHTML = '<a class="dropdown-item p-3" onclick="unfollowUser(\'' + feeds[i].buzz_id + "-1"+'\')">\
+                var sdiv = document.getElementById('Sfollow-option-' + feeds[i].buzz_id);
+                sdiv.innerHTML = '';
+                    sdiv.innerHTML = '<a class="dropdown-item p-3" onclick="unfollowUser(\'' + feeds[i].buzz_id + "-1"+'\')">\
                     <div class="d-flex align-items-top">\
                         <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
                         <div class="data ml-2">\
@@ -371,9 +371,9 @@ function showFollowUpdate(username, followStatus, ifSinglePost) {
         else {
             console.log('ab follow likha aayega');
             for(let i=0; i<feeds.length; i++){
-                var div = document.getElementById('Sfollow-option-' + feeds[i].buzz_id);
-                div.innerHTML = '';
-            div.innerHTML = '<a class="dropdown-item p-3" onclick="followUser(\'' + feeds[i].buzz_id + "-1"+'\')">\
+                var sdiv = document.getElementById('Sfollow-option-' + feeds[i].buzz_id);
+                sdiv.innerHTML = '';
+            sdiv.innerHTML = '<a class="dropdown-item p-3" onclick="followUser(\'' + feeds[i].buzz_id + "-1"+'\')">\
             <div class="d-flex align-items-top">\
                 <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
                 <div class="data ml-2">\

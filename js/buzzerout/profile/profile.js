@@ -700,31 +700,47 @@ function showDeleteTPost(feedid){
 function editTPost(feedid){
     let text = document.getElementById("buzz-tpost-editinput").value;
     console.log("text: " + text);
-    $.ajax({
-        type: "POST",
-        url: SERVER_URL + "feed/editFeed",
-        data: {
-            feed_id: feedid,
-            username: getUserDetails().uname,
-            title: "Edited Post",
-            description: text,
-            location: "asdf",
-        },
-        success: function(data) {
-            console.log(data);
-            if (data.error == false) {
-                console.log('false h error');
-                let editFeed = {
-                    buzz_id: feedid,
-                    buzz_text: text,
-                };
-                editSingleTPost(editFeed);
-            }
-        },
-        error: function(data) {
-            console.log(data);
-        },
-    });
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let editFeed = {
+            buzz_id: feedid,
+            buzz_text: text,
+        };
+        editSingleTPost(editFeed);
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type: "POST",
+            url: SERVER_URL + "feed/editFeed",
+            data: {
+                feed_id: feedid,
+                username: getUserDetails().uname,
+                title: "Edited Post",
+                description: text,
+                location: "asdf",
+            },
+            success: function(data) {
+                console.log(data);
+                if (data.error == false) {
+                    console.log('false h error');
+                    let editFeed = {
+                        buzz_id: feedid,
+                        buzz_text: text,
+                    };
+                    editSingleTPost(editFeed);
+                }
+            },
+            error: function(data) {
+                console.log(data);
+            },
+        });
+    }
+
 }
 
 function editSingleTPost(editFeed){

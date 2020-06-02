@@ -295,29 +295,108 @@ function editPostModal(feedid) {
 function editPost(feedid) {
     let text = document.getElementById("buzz-edit-input").value;
     console.log("text: " + text);
-    $.ajax({
-        type: "POST",
-        url: SERVER_URL + "feed/editFeed",
-        data: {
-            feed_id: feedid,
-            username: getUserDetails().uname,
-            title: "Edited Post",
-            description: text,
-            location: "asdf",
-        },
-        success: function (data) {
-            console.log(data);
-            if (data.error == false) {
-                console.log('false h error');
-                let editFeed = {
-                    buzz_id: feedid,
-                    buzz_text: text,
-                };
-                editSinglePost(editFeed);
-            }
-        },
-        error: function (data) {
-            console.log(error);
-        },
-    });
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let editFeed = {
+            buzz_id: feedid,
+            buzz_text: text,
+        };
+        editSinglePost(editFeed);
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type: "POST",
+            url: SERVER_URL + "feed/editFeed",
+            data: {
+                feed_id: feedid,
+                username: getUserDetails().uname,
+                title: "Edited Post",
+                description: text,
+                location: "asdf",
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.error == false) {
+                    console.log('false h error');
+                    let editFeed = {
+                        buzz_id: feedid,
+                        buzz_text: text,
+                    };
+                    editSinglePost(editFeed);
+                }
+            },
+            error: function (data) {
+                console.log(error);
+            },
+        });
+    }
+
+}
+
+
+function editsPostModal(feedid) {
+    let buzz = getJSONLocalStorage(ALL_BUZZ);
+    for (let i = 0; i < buzz.length; i++) {
+        if (buzz[i].buzz_id == feedid) {
+            document.getElementById("buzz-sedit-input").value = buzz[i].buzz_description;
+            break;
+        }
+    }
+    $("#edit-spost-modal").modal();
+    document
+        .getElementById("editsPostButton")
+        .addEventListener("click", function () {
+            editsPost(feedid);
+        });
+}
+
+function editsPost(feedid) {
+    let text = document.getElementById("buzz-sedit-input").value;
+    console.log("text: " + text);
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let editFeed = {
+            buzz_id: feedid,
+            buzz_text: text,
+        };
+        editSinglePost(editFeed);
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        $.ajax({
+            type: "POST",
+            url: SERVER_URL + "feed/editFeed",
+            data: {
+                feed_id: feedid,
+                username: getUserDetails().uname,
+                title: "Edited Post",
+                description: text,
+                location: "asdf",
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.error == false) {
+                    console.log('false h error');
+                    let editFeed = {
+                        buzz_id: feedid,
+                        buzz_text: text,
+                    };
+                    editSinglePost(editFeed);
+                }
+            },
+            error: function (data) {
+                console.log(error);
+            },
+        });
+    }
+
 }

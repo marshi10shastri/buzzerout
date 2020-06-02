@@ -879,23 +879,35 @@ function downvoteTBuzzByFeedId(feedid) {
 }
 
 function deleteTPostClick(feedid){
-    //ajax
-    $.ajax({
-        type:'POST',
-        url: SERVER_URL + 'feed/clearFeedByFeedId',
-        data:{
-            feed_id: feedid,
-            username: getUserDetails().uname
-        },
-        success: function(data){
-            console.log(data);
-                //update local storage
-                updateDeleteTPost(feedid);
-        },
-        error: function(data){
-            console.log(data);
-        }
-    });
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        updateDeleteTPost(feedid);
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        //ajax
+        $.ajax({
+            type:'POST',
+            url: SERVER_URL + 'feed/clearFeedByFeedId',
+            data:{
+                feed_id: feedid,
+                username: getUserDetails().uname
+            },
+            success: function(data){
+                console.log(data);
+                    //update local storage
+                    updateDeleteTPost(feedid);
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+    }
+    
 }
 
 //edit post
@@ -903,6 +915,7 @@ function editTPostModal(feedid){
     console.log('clicked');
     let buzz = getPostFromFeedId(feedid);
     document.getElementById('buzz-tpost-editinput').value = buzz.buzz_description;
+    document.getElementById('profile-write-post-user-image-inside').src = getUserProfileDetails().pImage;
     // $("#edit-post-modal").modal();
 
     document.getElementById('edit-tpost-btn').addEventListener('click', function(){
