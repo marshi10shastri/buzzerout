@@ -2,17 +2,28 @@ function renderSavedPosts(saves){
     let savedPosts = document.getElementById('saved-posts-collection');
     savedPosts.innerHTML = '';
 
-    for(let i=0; i<saves.length; i++){
-        savedPosts.innerHTML += singleSaved(saves[i]);
+    if(saves.length >0){
+        for(let i=0; i<saves.length; i++){
+            savedPosts.innerHTML += singleSaved(saves[i]);
+        }
     }
+    else{
+        savedPosts.innerHTML = 'No saved post';
+    }
+
 }
 
 function renderHiddenPosts(hidden){
     let hiddenPosts = document.getElementById('hidden-collections');
     hiddenPosts.innerHTML = '';
 
-    for(let i=0; i<hidden.length; i++){
-        hiddenPosts.innerHTML += singleHidden(hidden[i]);
+    if(hidden.length>0){
+        for(let i=0; i<hidden.length; i++){
+            hiddenPosts.innerHTML += singleHidden(hidden[i]);
+        }
+    }
+    else{
+        hiddenPosts.innerHTML = 'No hidden post';
     }
 }
 
@@ -20,9 +31,15 @@ function renderSharedPosts(shares){
     let sharedPosts = document.getElementById('shared-collections');
     sharedPosts.innerHTML = '';
 
-    for(let i=0; i<shares.length; i++){
-        sharedPosts.innerHTML += singleShared(shares[i]);
+    if(shares.length>0){
+        for(let i=0; i<shares.length; i++){
+            sharedPosts.innerHTML += singleShared(shares[i]);
+        }
     }
+    else{
+        sharedPosts.innerHTML = 'No shared post'
+    }
+
 }
 
 
@@ -53,8 +70,12 @@ function renderCollections(){
             success: function(data){
                 console.log(data);
                 if(data.error == false){
-                    setJSONLocalStorage(SAVED, data.save_buzz);
-                renderSavedPosts(data.save_buzz);
+                savedPostMapper(data.save_buzz);
+                hiddenPostMapper(data.hide_buzz);
+                sharedPostMapper(data.shared_buzz);
+
+                //render collections
+                renderSavedPosts(getJSONLocalStorage(SAVED));
                 renderHiddenPosts(data.hide_buzz);
                 renderSharedPosts(data.shared_buzz);
                 }

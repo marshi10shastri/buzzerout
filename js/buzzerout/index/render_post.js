@@ -23,7 +23,7 @@ function postTemplateStart(feed) {
                                 <i class="ri-more-fill"></i>\
                             </span>\
                         <div class="dropdown-menu m-0 p-0">';
-        if(getUserSaved().includes(feed.buzz_id)){
+        if(saveContains(feed.buzz_id)){
             string+=  '<a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
@@ -206,7 +206,7 @@ function postTemplateStart(feed) {
                     </div>\
                 </div>\
                 <div class="share-block d-flex align-items-center feather-icon mr-3" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')" id="shareBtn-' + feed.buzz_id + '">\
-                    <a href="#"><i class="ri-share-line"></i>\
+                    <a><i class="ri-share-line"></i>\
            <span class="ml-1"> Share</span></a>\
                 </div>\
             </div>\
@@ -292,22 +292,27 @@ function saveBuzz(buzzid) {
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
         if(getLocalStorage(USER_TYPE) == 'dummy'){
-            let saved = getUserSaved()
+            let saved = getUserSaved();
             let flag = 0;
-            if(saved.includes(buzzid)){
-                flag = 1
-                //now we need to unsave this
+            if(saved.length>0){
+                for(let i =0; i<saved.length; i++){
+                    if(saved[i].buzz_id == buzzid){
+                        flag = 1
+                        break;
+                    }
+                }
             }
 
+            let buzz = getPostFromFeedId(buzzid);
             if(flag == 1){
                 //remove from saved and update local
                 console.log('unsaving');
-                updateLocalSaveBuzz(buzzid, flag);
+                updateLocalSaveBuzz(buzz, flag);
             }
             else{
                 //add to saved list and update ui to unsave post
                 console.log('saving');
-                updateLocalSaveBuzz(buzzid, flag);
+                updateLocalSaveBuzz(buzz, flag);
             }
         }
         else if(getLocalStorage(USER_TYPE) == 'testuser'){
@@ -335,7 +340,8 @@ function saveBuzz(buzzid) {
                     success: function (data) {
                         console.log(data);
                         //update local
-                        updateLocalSaveBuzz(buzzid, 0);
+                        let buzz = getPostFromFeedId(buzzid)
+                        updateLocalSaveBuzz(buzz, 0);
                         //update ui
                     },
                     error: function (data) {
@@ -359,7 +365,8 @@ function hideBuzz(buzzid) {
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
         if(getLocalStorage(USER_TYPE) == 'dummy'){
-            updateLocalHideBuzz(buzzid);
+            let buzz = getPostFromFeedId(buzzid);
+            updateLocalHideBuzz(buzz);
         }
         else if(getLocalStorage(USER_TYPE) == 'testuser'){
 
@@ -379,7 +386,8 @@ function hideBuzz(buzzid) {
                 success: function (data) {
                     console.log(data);
                     //update local
-                    updateLocalHideBuzz(buzzid);
+                    let buzz = getPostFromFeedId(buzzid);
+                    updateLocalHideBuzz(buzz);
                     //update ui
                 },
                 error: function (data) {
@@ -806,27 +814,44 @@ function containsFollowing(username) {
 function shareBuzzByFeedId(feedid) {
     console.log('clicked: share');
     let buzz = getPostFromFeedId(feedid);
-    //ajax
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'buzz/shareBuzz',
-        data: {
-            username: getUserDetails().uname,
-            feed_id: feedid
-        },
-        success: function (data) {
-            console.log(data);
-            console.log(feedid);
-            // buzz.buzz_title = 'Shared post';
-            //local update
-            updateLocalStoragePosts(buzz);
-            //ui update
-            document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
+
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let shared = getUserShared();
+        shared.push(buzz);
+        buzz.buzz_title = "Shared buzz";
+        updateLocalStoragePosts(buzz);
+        document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+        //testuser
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+        //logoutuser
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        //ajax
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + 'buzz/shareBuzz',
+            data: {
+                username: getUserDetails().uname,
+                feed_id: feedid
+            },
+            success: function (data) {
+                console.log(data);
+                console.log(feedid);
+                // buzz.buzz_title = 'Shared post';
+                //local update
+                updateLocalStoragePosts(buzz);
+                //ui update
+                document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
 }
 
 

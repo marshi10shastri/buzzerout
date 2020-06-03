@@ -14,18 +14,18 @@ const DUMMY_USER = {
             username: "dumb",
             first_name: "dummer",
             last_name: "dust",
-            user_address: null,
-            user_city: null,
+            user_address: "Dehradun",
+            user_city: "Delhi",
             user_state:"UTTARAKHAND",
-            user_country: null,
+            user_country: "India",
             user_marital:"Married",
-            user_mobile: null,
+            user_mobile: "7060939204",
             user_gender: "Male",
             user_dob: null,
             user_profile_image: "http://buzzerout.com/images/default/default-user.png",
             user_timeline_image: "http://buzzerout.com/images/default/default-timeline.jpg",
-            user_website: null,
-            user_social_link: null,
+            user_website: "www.buzzerout.com",
+            user_social_link: "oyee_praty",
             timestamp: "2020-05-04 10:53:47"
         },
         user_details: { about_you: "qwer", other_name: 'asfds', favorite_quote: "dasc" },
@@ -62,9 +62,135 @@ const DUMMY_USER = {
             is_anonymous:"0"
         }
     ],
-    saved:['naman5eaff72ee3a50'],
-    hidden:['praty5eaff6db6ef43'],
-    shared:[]
+    saved:[{
+        feedid: "post1",
+        buzz_username: "Anna Sthesia",
+        buzz_userimage: "http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg",
+        buzz_images: [
+            "images/page-img/p2.jpg"
+        ],
+        buzz_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus",
+        buzz_timestamp: "2020-05-29 18:49:14",
+
+        buzz_comments: [{
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }, {
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }],
+        buzz_upvotes:[{ username: "raman10101",
+                timestamp: "2020-05-29 18:50:07" },
+                {username: "raman",
+                timestamp: "2020-05-30 07:01:36" }
+            ],
+        
+        buzz_downvotes:[{ username: "raman10101",
+                        timestamp: "2020-05-29 18:50:07" },
+                        {username: "raman",
+                        timestamp: "2020-05-30 07:01:36" }
+            ],
+        is_anonymous: "0",
+        location: "abc",
+        role: "0",
+        buzz_title: "Shared Buzz"
+    }],
+    hidden:[{
+        feedid: "post4",
+        buzz_username: "Rom rom",
+        buzz_userimage: "http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg",
+        buzz_images: [
+            "images/page-img/p2.jpg"
+        ],
+        buzz_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus",
+        buzz_timestamp: "2020-05-29 18:49:14",
+
+        buzz_comments: [{
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }, {
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }],
+        buzz_upvotes:[{ username: "raman10101",
+                timestamp: "2020-05-29 18:50:07" },
+                {username: "raman",
+                timestamp: "2020-05-30 07:01:36" }
+            ],
+        
+        buzz_downvotes:[{ username: "raman10101",
+            timestamp: "2020-05-29 18:50:07" },
+            {username: "raman",
+            timestamp: "2020-05-30 07:01:36" }
+        ],
+        is_anonymous: "0",
+        location: "abc",
+        role: "0",
+        buzz_title: "Shared Buzz"
+    }],
+    shared:[{
+        feedid: "post34",
+        buzz_username: "Anne",
+        buzz_userimage: "http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg",
+        buzz_images: [
+            "images/page-img/p2.jpg"
+        ],
+        buzz_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus",
+        buzz_timestamp: "2020-05-29 18:49:14",
+
+        buzz_comments: [{
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }, {
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }],
+        buzz_upvotes:[{ username: "raman10101",
+                timestamp: "2020-05-29 18:50:07" },
+                {username: "raman",
+                timestamp: "2020-05-30 07:01:36" }
+            ],
+        
+        buzz_downvotes:[{ username: "raman10101",
+                timestamp: "2020-05-29 18:50:07" },
+                {username: "raman",
+                timestamp: "2020-05-30 07:01:36" }
+        ],
+        is_anonymous: "0",
+        location: "abc",
+        role: "0",
+        buzz_title: "Shared Buzz"
+    }]
 }
 
 const USER_TYPE = "user_type";

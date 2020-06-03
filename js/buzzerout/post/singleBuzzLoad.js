@@ -24,7 +24,7 @@ function singleBuzzLoad(feed) {
                             </span>\
                         <div class="dropdown-menu m-0 p-0">';
         
-        if(getUserSaved().includes(feed.buzz_id)){
+        if(saveContains(feed.buzz_id)){
             string += '<a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')" >\
             <div class="d-flex align-items-top">\
                 <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
@@ -199,8 +199,8 @@ function singleBuzzLoad(feed) {
                         </div>\
                     </div>\
                 </div>\
-                <div class="share-block d-flex align-items-center feather-icon mr-3">\
-                    <a href="javascript:void();"><i class="ri-share-line"></i>\
+                <div class="share-block d-flex align-items-center feather-icon mr-3" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')" id="shareBtn-' + feed.buzz_id + '">\
+                    <a><i class="ri-share-line"></i>\
            <span class="ml-1"> Share</span></a>\
                 </div>\
             </div>\
