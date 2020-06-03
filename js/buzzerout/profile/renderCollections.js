@@ -70,8 +70,12 @@ function renderCollections(){
             success: function(data){
                 console.log(data);
                 if(data.error == false){
-                setJSONLocalStorage(SAVED, data.save_buzz);
-                renderSavedPosts(data.save_buzz);
+                savedPostMapper(data.save_buzz);
+                hiddenPostMapper(data.hide_buzz);
+                sharedPostMapper(data.shared_buzz);
+
+                //render collections
+                renderSavedPosts(getJSONLocalStorage(SAVED));
                 renderHiddenPosts(data.hide_buzz);
                 renderSharedPosts(data.shared_buzz);
                 }

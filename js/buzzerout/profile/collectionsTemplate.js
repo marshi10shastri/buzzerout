@@ -3,10 +3,10 @@ function singleSaved(buzz){
 
         <div class="user-images position-relative overflow-hidden">`;
 
-    if(buzz.images.length > 0){
+    if(buzz.buzz_images.length > 0){
         save+=        `<a href="#">
 
-                <img src="`+ buzz.images[0] +`" style="width:224px;height:150px;">
+                <img src="`+ buzz.buzz_images[0] +`" style="width:224px;height:150px;">
 
             </a>`;
     }else{
@@ -24,11 +24,11 @@ function singleSaved(buzz){
 
                     <ul class="d-flex align-items-center m-0 p-0 list-inline">
 
-                        <li><a href="#" class="pr-3 text-white"> `+ buzz.upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
+                        <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
 
-                        <li><a href="#" class="pr-3 text-white"> `+ buzz.downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
+                        <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
 
-                        <li><a href="#" class="pr-3 text-white"> `+ buzz.comments.length +` <i class="ri-chat-3-line"></i> </a></li>
+                        <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_comments.length +` <i class="ri-chat-3-line"></i> </a></li>
 
                     </ul>
 
@@ -50,10 +50,10 @@ function singleHidden(buzz){
 
     <div class="user-images position-relative overflow-hidden">`;
 
-    if(buzz.images.length > 0){
+    if(buzz.buzz_images.length > 0){
         hidden+=        `<a href="#">
 
-                <img src="`+ buzz.images[0] +`" style="width:224px;height:150px;">
+                <img src="`+ buzz.buzz_images[0] +`" style="width:224px;height:150px;">
 
             </a>`;
     }else{
@@ -70,11 +70,11 @@ function singleHidden(buzz){
 
                 <ul class="d-flex align-items-center m-0 p-0 list-inline">
 
-                    <li><a href="#" class="pr-3 text-white"> `+ buzz.upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
+                    <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
 
-                    <li><a href="#" class="pr-3 text-white"> `+ buzz.downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
+                    <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
 
-                    <li><a href="#" class="pr-3 text-white"> `+ buzz.comments.length +` <i class="ri-chat-3-line"></i> </a></li>
+                    <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_comments.length +` <i class="ri-chat-3-line"></i> </a></li>
 
                 </ul>
 
@@ -96,10 +96,10 @@ function singleShared(buzz){
 
             <div class="user-images position-relative overflow-hidden">`;
 
-            if(buzz.images.length > 0){
+            if(buzz.buzz_images.length > 0){
                 shared+=        `<a href="#">
         
-                        <img src="`+ buzz.images[0] +`" style="width:224px;height:150px;">
+                        <img src="`+ buzz.buzz_images[0] +`" style="width:224px;height:150px;">
         
                     </a>`;
             }else{
@@ -116,11 +116,11 @@ function singleShared(buzz){
 
                         <ul class="d-flex align-items-center m-0 p-0 list-inline">
 
-                            <li><a href="#" class="pr-3 text-white"> `+ buzz.upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
+                            <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_upvotes.length +` <i class="ri-thumb-up-line"></i> </a></li>
 
-                            <li><a href="#" class="pr-3 text-white"> `+ buzz.downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
+                            <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_downvotes.length +` <i class="ri-thumb-down-line"></i> </a></li>
 
-                            <li><a href="#" class="pr-3 text-white"> `+ buzz.comments.length +` <i class="ri-chat-3-line"></i> </a></li>
+                            <li><a href="#" class="pr-3 text-white"> `+ buzz.buzz_comments.length +` <i class="ri-chat-3-line"></i> </a></li>
 
                         </ul>
 
@@ -135,4 +135,116 @@ function singleShared(buzz){
         </div>`;
 
     return shared;
+}
+
+
+function savedPostMapper(data){
+    let savedBuzzArray = []
+
+    for (let i = 0; i < data.length; i++) {
+        let feedid = data[i].feed_id;
+        let title = data[i].title;
+        let description = data[i].description;
+        let username = data[i].username;
+        let userImage = data[i].userimage;
+        let images = data[i].images;
+        let comments = data[i].comments;
+        let upvotes = data[i].upvotes;
+        let downvotes = data[i].downvotes;
+        let location = data[i].location;
+        let timestamp = data[i].timestamp;
+        let buzz = {
+            buzz_id: feedid,
+            buzz_username: username,
+            buzz_user_image: userImage,
+            buzz_title: title,
+            buzz_description: description,
+            buzz_location: location,
+            buzz_timestamp: timestamp,
+            buzz_comments: comments,
+            buzz_images: images,
+            buzz_upvotes: upvotes,
+            buzz_downvotes: downvotes
+        }
+        console.log(buzz);
+
+        savedBuzzArray.push(buzz);
+        // feedInputArray.push("commentinput-" + data[i].feed_id);
+        // feedIdArray.push("feed-" + data[i].feed_id);
+    }
+    setJSONLocalStorage(SAVED, savedBuzzArray);
+}
+
+function hiddenPostMapper(data){
+    let hiddenBuzzArray = []
+
+    for (let i = 0; i < data.length; i++) {
+        let feedid = data[i].feed_id;
+        let title = data[i].title;
+        let description = data[i].description;
+        let username = data[i].username;
+        let userImage = data[i].userimage;
+        let images = data[i].images;
+        let comments = data[i].comments;
+        let upvotes = data[i].upvotes;
+        let downvotes = data[i].downvotes;
+        let location = data[i].location;
+        let timestamp = data[i].timestamp;
+        let buzz = {
+            buzz_id: feedid,
+            buzz_username: username,
+            buzz_user_image: userImage,
+            buzz_title: title,
+            buzz_description: description,
+            buzz_location: location,
+            buzz_timestamp: timestamp,
+            buzz_comments: comments,
+            buzz_images: images,
+            buzz_upvotes: upvotes,
+            buzz_downvotes: downvotes
+        }
+        console.log(buzz);
+
+        hiddenBuzzArray.push(buzz);
+        // feedInputArray.push("commentinput-" + data[i].feed_id);
+        // feedIdArray.push("feed-" + data[i].feed_id);
+    }
+    setJSONLocalStorage(HIDDEN, hiddenBuzzArray);
+}
+
+function hiddenPostMapper(data){
+    let sharedBuzzArray = []
+
+    for (let i = 0; i < data.length; i++) {
+        let feedid = data[i].feed_id;
+        let title = data[i].title;
+        let description = data[i].description;
+        let username = data[i].username;
+        let userImage = data[i].userimage;
+        let images = data[i].images;
+        let comments = data[i].comments;
+        let upvotes = data[i].upvotes;
+        let downvotes = data[i].downvotes;
+        let location = data[i].location;
+        let timestamp = data[i].timestamp;
+        let buzz = {
+            buzz_id: feedid,
+            buzz_username: username,
+            buzz_user_image: userImage,
+            buzz_title: title,
+            buzz_description: description,
+            buzz_location: location,
+            buzz_timestamp: timestamp,
+            buzz_comments: comments,
+            buzz_images: images,
+            buzz_upvotes: upvotes,
+            buzz_downvotes: downvotes
+        }
+        console.log(buzz);
+
+        sharedBuzzArray.push(buzz);
+        // feedInputArray.push("commentinput-" + data[i].feed_id);
+        // feedIdArray.push("feed-" + data[i].feed_id);
+    }
+    setJSONLocalStorage(SHARED, sharedBuzzArray);
 }
