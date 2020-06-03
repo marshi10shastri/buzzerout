@@ -199,8 +199,8 @@ function singleBuzzLoad(feed) {
                         </div>\
                     </div>\
                 </div>\
-                <div class="share-block d-flex align-items-center feather-icon mr-3">\
-                    <a href="javascript:void();"><i class="ri-share-line"></i>\
+                <div class="share-block d-flex align-items-center feather-icon mr-3" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')" id="shareBtn-' + feed.buzz_id + '">\
+                    <a><i class="ri-share-line"></i>\
            <span class="ml-1"> Share</span></a>\
                 </div>\
             </div>\
