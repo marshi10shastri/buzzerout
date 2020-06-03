@@ -206,7 +206,7 @@ function postTemplateStart(feed) {
                     </div>\
                 </div>\
                 <div class="share-block d-flex align-items-center feather-icon mr-3" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')" id="shareBtn-' + feed.buzz_id + '">\
-                    <a href="#"><i class="ri-share-line"></i>\
+                    <a><i class="ri-share-line"></i>\
            <span class="ml-1"> Share</span></a>\
                 </div>\
             </div>\
@@ -814,27 +814,44 @@ function containsFollowing(username) {
 function shareBuzzByFeedId(feedid) {
     console.log('clicked: share');
     let buzz = getPostFromFeedId(feedid);
-    //ajax
-    $.ajax({
-        type: 'POST',
-        url: SERVER_URL + 'buzz/shareBuzz',
-        data: {
-            username: getUserDetails().uname,
-            feed_id: feedid
-        },
-        success: function (data) {
-            console.log(data);
-            console.log(feedid);
-            // buzz.buzz_title = 'Shared post';
-            //local update
-            updateLocalStoragePosts(buzz);
-            //ui update
-            document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
+
+    if(getLocalStorage(USER_TYPE) == 'dummy'){
+        let shared = getUserShared();
+        shared.push(buzz);
+        buzz.buzz_title = "Shared buzz";
+        updateLocalStoragePosts(buzz);
+        document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
+    }
+    else if(getLocalStorage(USER_TYPE) == 'testuser'){
+        //testuser
+    }
+    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+        //logoutuser
+    }
+    else if(getLocalStorage(USER_TYPE) == 'liveuser'){
+        //ajax
+        $.ajax({
+            type: 'POST',
+            url: SERVER_URL + 'buzz/shareBuzz',
+            data: {
+                username: getUserDetails().uname,
+                feed_id: feedid
+            },
+            success: function (data) {
+                console.log(data);
+                console.log(feedid);
+                // buzz.buzz_title = 'Shared post';
+                //local update
+                updateLocalStoragePosts(buzz);
+                //ui update
+                document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
 }
 
 
