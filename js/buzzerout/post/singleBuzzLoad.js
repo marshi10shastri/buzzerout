@@ -24,7 +24,7 @@ function singleBuzzLoad(feed) {
                             </span>\
                         <div class="dropdown-menu m-0 p-0">';
         
-        if(getUserSaved().includes(feed.buzz_id)){
+        if(saveContains(feed.buzz_id)){
             string += '<a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')" >\
             <div class="d-flex align-items-top">\
                 <div class="icon font-size-20"><i class="ri-save-line"></i></div>\

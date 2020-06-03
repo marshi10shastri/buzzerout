@@ -62,9 +62,135 @@ const DUMMY_USER = {
             is_anonymous:"0"
         }
     ],
-    saved:['naman5eaff72ee3a50'],
-    hidden:['praty5eaff6db6ef43'],
-    shared:[]
+    saved:[{
+        feed_id: "post1",
+        username: "Anna Sthesia",
+        userimage: "http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg",
+        images: [
+            "images/page-img/p2.jpg"
+        ],
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus",
+        timestamp: "2020-05-29 18:49:14",
+
+        comments: [{
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }, {
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }],
+        upvotes:[{ username: "raman10101",
+                timestamp: "2020-05-29 18:50:07" },
+                {username: "raman",
+                timestamp: "2020-05-30 07:01:36" }
+            ],
+        
+        downvotes:[{ username: "raman10101",
+        timestamp: "2020-05-29 18:50:07" },
+        {username: "raman",
+        timestamp: "2020-05-30 07:01:36" }
+        ],
+        is_anonymous: "0",
+        location: "abc",
+        role: "0",
+        title: "Shared Buzz"
+    }],
+    hidden:[{
+        feed_id: "post4",
+        username: "Rom rom",
+        userimage: "http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg",
+        images: [
+            "images/page-img/p2.jpg"
+        ],
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus",
+        timestamp: "2020-05-29 18:49:14",
+
+        comments: [{
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }, {
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }],
+        upvotes:[{ username: "raman10101",
+                timestamp: "2020-05-29 18:50:07" },
+                {username: "raman",
+                timestamp: "2020-05-30 07:01:36" }
+            ],
+        
+        downvotes:[{ username: "raman10101",
+        timestamp: "2020-05-29 18:50:07" },
+        {username: "raman",
+        timestamp: "2020-05-30 07:01:36" }
+        ],
+        is_anonymous: "0",
+        location: "abc",
+        role: "0",
+        title: "Shared Buzz"
+    }],
+    shared:[{
+        feed_id: "post34",
+        username: "Anne",
+        userimage: "http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg",
+        images: [
+            "images/page-img/p2.jpg"
+        ],
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus",
+        timestamp: "2020-05-29 18:49:14",
+
+        comments: [{
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }, {
+            commentImg: "images/user/02.jpg",
+            comment_id:"raman101015ed1592a69e44praty5ed202f3d007f",
+            text: "Lorem ipsum dolor sit amet",
+            username:"raman",
+            first_name:"Raman",
+            last_name:"Kumar",
+            timestamp: "2020-05-29 18:49:14"
+        }],
+        upvotes:[{ username: "raman10101",
+                timestamp: "2020-05-29 18:50:07" },
+                {username: "raman",
+                timestamp: "2020-05-30 07:01:36" }
+            ],
+        
+        downvotes:[{ username: "raman10101",
+        timestamp: "2020-05-29 18:50:07" },
+        {username: "raman",
+        timestamp: "2020-05-30 07:01:36" }
+        ],
+        is_anonymous: "0",
+        location: "abc",
+        role: "0",
+        title: "Shared Buzz"
+    }]
 }
 
 const USER_TYPE = "user_type";

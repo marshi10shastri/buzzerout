@@ -330,3 +330,15 @@ function validateUser(){
         window.location = "index.html";
     }
 }
+
+function saveContains(feedid){
+    let saved = getUserSaved();
+    if(saved.length>0){
+        for(let i=0; i<saved.length; i++){
+            if(saved[i].buzz_id == feedid){
+                return true;
+            }
+        }
+    }
+    return false;
+}

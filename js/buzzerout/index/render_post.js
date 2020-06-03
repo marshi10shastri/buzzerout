@@ -23,7 +23,7 @@ function postTemplateStart(feed) {
                                 <i class="ri-more-fill"></i>\
                             </span>\
                         <div class="dropdown-menu m-0 p-0">';
-        if(getUserSaved().includes(feed.buzz_id)){
+        if(saveContains(feed.buzz_id)){
             string+=  '<a class="dropdown-item p-3"  onclick="saveBuzz(\'' + feed.buzz_id + '\')">\
                                 <div class="d-flex align-items-top">\
                                     <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
@@ -292,22 +292,27 @@ function saveBuzz(buzzid) {
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
         if(getLocalStorage(USER_TYPE) == 'dummy'){
-            let saved = getUserSaved()
+            let saved = getUserSaved();
             let flag = 0;
-            if(saved.includes(buzzid)){
-                flag = 1
-                //now we need to unsave this
+            if(saved.length>0){
+                for(let i =0; i<saved.length; i++){
+                    if(saved[i].buzz_id == buzzid){
+                        flag = 1
+                        break;
+                    }
+                }
             }
 
+            let buzz = getPostFromFeedId(buzzid);
             if(flag == 1){
                 //remove from saved and update local
                 console.log('unsaving');
-                updateLocalSaveBuzz(buzzid, flag);
+                updateLocalSaveBuzz(buzz, flag);
             }
             else{
                 //add to saved list and update ui to unsave post
                 console.log('saving');
-                updateLocalSaveBuzz(buzzid, flag);
+                updateLocalSaveBuzz(buzz, flag);
             }
         }
         else if(getLocalStorage(USER_TYPE) == 'testuser'){
@@ -335,7 +340,8 @@ function saveBuzz(buzzid) {
                     success: function (data) {
                         console.log(data);
                         //update local
-                        updateLocalSaveBuzz(buzzid, 0);
+                        let buzz = getPostFromFeedId(buzzid)
+                        updateLocalSaveBuzz(buzz, 0);
                         //update ui
                     },
                     error: function (data) {
@@ -359,7 +365,8 @@ function hideBuzz(buzzid) {
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
         if(getLocalStorage(USER_TYPE) == 'dummy'){
-            updateLocalHideBuzz(buzzid);
+            let buzz = getPostFromFeedId(buzzid);
+            updateLocalHideBuzz(buzz);
         }
         else if(getLocalStorage(USER_TYPE) == 'testuser'){
 
@@ -379,7 +386,8 @@ function hideBuzz(buzzid) {
                 success: function (data) {
                     console.log(data);
                     //update local
-                    updateLocalHideBuzz(buzzid);
+                    let buzz = getPostFromFeedId(buzzid);
+                    updateLocalHideBuzz(buzz);
                     //update ui
                 },
                 error: function (data) {

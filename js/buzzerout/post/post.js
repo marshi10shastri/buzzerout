@@ -450,15 +450,15 @@ function showDeletePost(feedid){
 
 
 //hide buzz(similar to delete)
-function updateLocalHideBuzz(feedid){
+function updateLocalHideBuzz(feed){
     //get feed by id and save it to hide list
     let hidden = getUserHidden();
-    hidden.push(feedid);
+    hidden.push(feed);
     updateUserHidden(hidden);
     //remove from posts and update local
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){
-        if(buzz[i].buzz_id == feedid){
+        if(buzz[i].buzz_id == feed.buzz_id){
             buzz.splice(i,1);
             break;
         }
@@ -466,7 +466,7 @@ function updateLocalHideBuzz(feedid){
     setJSONLocalStorage(ALL_BUZZ, buzz);
 
     console.log('show delete call');
-    showHiddenPost(feedid);
+    showHiddenPost(feed.buzz_id);
 }
 
 
@@ -479,22 +479,27 @@ function showHiddenPost(feedid){
 
 
 //save buzz
-function updateLocalSaveBuzz(feedid, ifSaved){
+function updateLocalSaveBuzz(feed, ifSaved){
     let saved = getUserSaved();
     if(ifSaved){
         //if saved-> unsave it
-        let index = saved.indexOf(feedid);
-        saved.splice(index, 1);
+        if(saved.length>0){
+            for(let i=0; i<saved.length; i++){
+                if(saved[i].buzz_id == feed.id){
+                    saved.splice(i, 1);
+                }
+            }
+        }
 
         updateUserSaved(saved);
     }
     else{
         //save it
-        saved.push(feedid);
+        saved.push(feed);
         updateUserSaved(saved);
     }
     //change ui
-    showSaveBuzz(feedid, ifSaved);
+    showSaveBuzz(feed.buzz_id, ifSaved);
 }
 
 

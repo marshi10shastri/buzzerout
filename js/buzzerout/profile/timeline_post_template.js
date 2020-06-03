@@ -343,7 +343,7 @@ function timeline_post(feed) {
                         </span>
 
                         <div class="dropdown-menu m-0 p-0">`;
-if(getUserSaved().includes(feed.buzz_id)){
+if(saveContains(feed.buzz_id)){
     post +=                     '<a class="dropdown-item p-3" onclick="saveTBuzz(\'' + feed.buzz_id + '\')">';
 
  post+=                          `<div class="d-flex align-items-top">
@@ -929,7 +929,8 @@ function hideTBuzz(feedid){
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
         if(getLocalStorage(USER_TYPE) == 'dummy'){
-            updateLocalHideTBuzz(feedid);
+            let feed = getPostFromFeedId(feedid);
+            updateLocalHideTBuzz(feed);
         }
         else if(getLocalStorage(USER_TYPE) == 'testuser'){
 
@@ -949,7 +950,8 @@ function hideTBuzz(feedid){
                 success: function(data){
                     console.log(data);
                     //update local
-                    updateLocalHideTBuzz(feedid);
+                    let feed = getPostFromFeedId(feed);
+                    updateLocalHideTBuzz(feed);
                     //update ui
                 },
                 error: function(data){
@@ -968,9 +970,8 @@ function saveTBuzz(feedid){
     // if user is not signed in 
     if (getLocalStorage(USER) == "true") {
             if(getLocalStorage(USER_TYPE) == 'dummy'){
-                let saved = getUserSaved()
                 let flag = 0;
-                if(saved.includes(feedid)){
+                if(saveContains(feedid)){
                     flag = 1
                     //now we need to unsave this
                 }
@@ -978,12 +979,14 @@ function saveTBuzz(feedid){
                 if(flag == 1){
                     //remove from saved and update local
                     console.log('unsaving');
-                    updateLocalSaveTBuzz(feedid, flag);
+                    let feed = getPostFromFeedId(feedid);
+                    updateLocalSaveTBuzz(feed, flag);
                 }
                 else{
                     //add to saved list and update ui to unsave post
                     console.log('saving');
-                    updateLocalSaveTBuzz(feedid, flag);
+                    let feed = getPostFromFeedId(feedid);
+                    updateLocalSaveTBuzz(feed, flag);
                 }
             }
             else if(getLocalStorage(USER_TYPE) == 'testuser'){
@@ -1012,7 +1015,8 @@ function saveTBuzz(feedid){
                         success: function(data){
                             console.log(data);
                             //update local
-                            updateLocalSaveTBuzz(feedid, 0);
+                            let feed = getPostFromFeedId(feedid);
+                            updateLocalSaveTBuzz(feed, 0);
                             //update ui
                         },
                         error: function(data){
