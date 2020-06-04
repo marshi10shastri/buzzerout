@@ -358,7 +358,7 @@ function saveBuzz(buzzid) {
                         feed_id: buzzid
                     },
                     success: function(data){
-                        
+                        updateLocalSaveBuzz(feedid, 1)
                     },
                     error: function(data){
 

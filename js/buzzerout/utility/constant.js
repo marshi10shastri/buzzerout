@@ -62,7 +62,7 @@ const DUMMY_USER = {
             is_anonymous:"0"
         }
     ],
-    saved:[{
+    save_buzz:[{
         feedid: "post1",
         buzz_username: "Anna Sthesia",
         buzz_userimage: "http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg",
@@ -105,7 +105,7 @@ const DUMMY_USER = {
         role: "0",
         buzz_title: "Shared Buzz"
     }],
-    hidden:[{
+    hide_buzz:[{
         feedid: "post4",
         buzz_username: "Rom rom",
         buzz_userimage: "http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg",
@@ -148,7 +148,7 @@ const DUMMY_USER = {
         role: "0",
         buzz_title: "Shared Buzz"
     }],
-    shared:[{
+    shared_buzz:[{
         feedid: "post34",
         buzz_username: "Anne",
         buzz_userimage: "http://appnivi.com/nivishare/uploads/c70863edba98ded8fb98fa329f6f890f_14.jpg",
