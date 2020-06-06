@@ -350,6 +350,20 @@ function saveBuzz(buzzid) {
                 });
             }else{
                 //ajax call for unsave post
+                $.ajax({
+                    type: 'POST',
+                    url: SERVER_URL + 'buzz/unSaveBuzz',
+                    data:{
+                        username:getUserDetails(),
+                        feed_id: buzzid
+                    },
+                    success: function(data){
+                        updateLocalSaveBuzz(feedid, 1)
+                    },
+                    error: function(data){
+
+                    }
+                });
                 // on success-> updateLocalSaveBuzz(feedid, 1);
             }
         }
