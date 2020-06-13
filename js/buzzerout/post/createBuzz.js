@@ -84,7 +84,7 @@ function showCreatedBuzz(data) {
     if(buzz != null && buzz.length != 1){
         box.innerHTML += boxContent;
     }
-    
+
 
     let inputCommentField = document.getElementById('commentinput-'+ data.buzz_id);
     inputCommentField.addEventListener("keydown", function(e) {
@@ -123,10 +123,10 @@ function showCreatedBuzz(data) {
 
                 }
                 else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
-
+                    window.location = "sign-in.html";
                 }
                 else if(getLocalStorage(USER_TYPE) == 'liveuser'){
-                    let feedid = TfeedInputArray[j].split("-")[1];
+                    let feedid = data.buzz_id;
                     addComment(feedid, inputCommentField.value, false);
                     inputCommentField.value = "";
                 }

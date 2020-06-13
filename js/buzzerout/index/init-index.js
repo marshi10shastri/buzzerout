@@ -3,6 +3,7 @@ function initIndexPage() {
     renderTopMiddle();
     renderTopRight();
     renderLeftBar();
-    fetchPost();
+    // fetchPost();
+    fetchLocalPost();
     renderLatestNews();
 }

@@ -1,15 +1,8 @@
-function postMapper(data) {
-    /**
-     * 1. Localstorage
-     * 2. Render Single Post
-     */
-    let feedInputArray = []
-    let feedIdArray = [];
-    let buzzArray = []
-
+function updateLocalPosts(data){
+    let buzzArray = [];
     for (let i = 0; i < data.length; i++) {
         let feedid = data[i].feed_id;
-        console.log('setting feed_id: ' + feedid);
+        // console.log('setting feed_id: ' + feedid);
         let title = data[i].title;
         let description = data[i].description;
         let username = data[i].username;
@@ -36,18 +29,62 @@ function postMapper(data) {
         console.log(buzz);
 
         buzzArray.push(buzz);
-        singlePostMapper(buzz);
-
-        feedInputArray.push("commentinput-" + data[i].feed_id);
-        feedIdArray.push("feed-" + data[i].feed_id);
     }
     setJSONLocalStorage(ALL_BUZZ, buzzArray);
+    // console.log(buzzArray);
+}
+
+
+function postMapper(data) {
+    /**
+     * 1. Localstorage
+     * 2. Render Single Post
+     */
+    let feedInputArray = [];
+    let feedIdArray = [];
+
+    for (let i = 0; i < data.length; i++) {
+        // let feedid = data[i].feed_id;
+        // console.log('setting feed_id: ' + feedid);
+        // let title = data[i].title;
+        // let description = data[i].description;
+        // let username = data[i].username;
+        // let userImage = data[i].userimage;
+        // let images = data[i].images;
+        // let comments = data[i].comments;
+        // let upvotes = data[i].upvotes;
+        // let downvotes = data[i].downvotes;
+        // let location = data[i].location;
+        // let timestamp = data[i].timestamp;
+        // let buzz = {
+        //     buzz_id: feedid,
+        //     buzz_username: username,
+        //     buzz_user_image: userImage,
+        //     buzz_title: title,
+        //     buzz_description: description,
+        //     buzz_location: location,
+        //     buzz_timestamp: timestamp,
+        //     buzz_comments: comments,
+        //     buzz_images: images,
+        //     buzz_upvotes: upvotes,
+        //     buzz_downvotes: downvotes
+        // }
+        // console.log(buzz);
+
+        // buzzArray.push(buzz);
+        singlePostMapper(data[i]);
+
+        feedInputArray.push("commentinput-" + data[i].buzz_id);
+        feedIdArray.push("feed-" + data[i].buzz_id);
+    }
+    // setJSONLocalStorage(ALL_BUZZ, buzzArray);
 
     for (let j = 0; j < feedInputArray.length; j++) {
         let inputCommentField = document.getElementById(feedInputArray[j]);
         inputCommentField.addEventListener("keydown", function(e) {
 
             if (e.keyCode == 13) {
+                console.log("enter");
                 // if user is not signed in 
                 if (getLocalStorage(USER) == "true") {
                     if(getLocalStorage(USER_TYPE) == 'dummy'){
@@ -103,49 +140,7 @@ function postMapper(data) {
 
 }
 
-//add comment by btn
-function addCommentByBtn(feedid, isSinglePost){
-    //depending on user type
-    if(getLocalStorage(USER_TYPE) == 'dummy'){
-        let respPost = getPostFromFeedId(feedid);
-        let inputBox = document.getElementById('commentinput-' + feedid).value;
-        let respPostComments = respPost.buzz_comments;
 
-        let newComment = {
-            commentImg: getUserProfileDetails().pImage,
-            comment_id: getUserDetails().uname + Date.now(),
-            first_name: getUserProfileDetails().fName,
-            last_name: getUserProfileDetails().lname,
-            text: inputBox,
-            timestamp: Date.now(),
-            username: getUserDetails().uname
-        }
-        respPstComments = respPostComments.unshift(newComment);
-        let resp = {
-            buzz_id: feedid,
-            buzz_comments: respPostComments,
-        };
-        addCommentToSinglePost(resp, isSinglePost);
-        document.getElementById('commentinput-' + feedid).value = '';
-
-    }
-    else if(getLocalStorage(USER_TYPE)== 'liveuser'){
-        console.log(feedid);
-        console.log(isSinglePost);
-        let inputBox = document.getElementById('commentinput-' + feedid).value;
-        addComment(feedid, inputBox, isSinglePost);
-
-        document.getElementById('commentinput-' + feedid).value = '';
-
-    }
-    else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
-        //logout user
-    }
-    else if(getLocalStorage(USER_TYPE) == 'testuser'){
-        // test user
-    }
-
-}
 
 function singlePostMapper(data) {
     // Ui 
@@ -168,159 +163,6 @@ function updateSinglePost(data) {
         if (buzz[i].buzz_id == data) {
             console.log("Changed");
             descP.textContent = buzz[i].buzz_description;
-        }
-    }
-}
-
-function addCommentToSinglePost(data, ifSinglePost) {
-    console.log(data);
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-    for (let i = 0; i < buzz.length; i++) {
-        if (buzz[i].buzz_id == data.buzz_id) {
-            console.log("Changed");
-            buzz[i].buzz_comments = data.buzz_comments;
-        }
-    }
-    setJSONLocalStorage(ALL_BUZZ, buzz);
-    updateCommentToPost(data.buzz_id, ifSinglePost);
-}
-
-function updateCommentToPost(id, ifSinglePost) {
-    let commentsDiv = document.getElementById('commentslist-' + id);
-
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-
-    for (let i = 0; i < buzz.length; i++) {
-        if (buzz[i].buzz_id == id) {
-            console.log(buzz[i]);
-            commentsDiv.innerHTML = "";
-            let comments = buzz[i].buzz_comments;
-            let len = comments.length;
-            if (len > 5 && !ifSinglePost) {
-                for (let j = 0; j < 5; j++) {
-                    let string = `
-                <li class="mb-2" id="`+ comments[j].comment_id +`">
-                    <div class="d-flex flex-wrap">
-                        <div class="user-img">
-                            <img src="`+ comments[j].commentImg +`" alt="userimg" class="avatar-35 rounded-circle img-fluid">
-                        </div>
-                        <div class="comment-data-block ml-3">
-                            <h6>` + comments[j].username + `</h6>
-                            <p class="mb-0">` + comments[j].text + `</p>
-                            <div class="d-flex flex-wrap align-items-center comment-activity">`
-                            if(comments[j].username == getUserDetails().uname){
-                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id + '\')">Edit</a>\
-                                <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
-                            }
-                               string +=
-                                `<span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                `;
-                    commentsDiv.innerHTML += string;
-                }
-            } else {
-                for (let j = 0; j < len; j++) {
-                    let string = `
-                <li class="mb-2" id="`+ comments[j].comment_id +`">
-                    <div class="d-flex flex-wrap">
-                        <div class="user-img">
-                            <img src="`+ comments[j].commentImg +`" class="avatar-35 rounded-circle img-fluid">
-                        </div>
-                        <div class="comment-data-block ml-3">
-                            <h6>` + comments[j].username + `</h6>
-                            <p class="mb-0">` + comments[j].text + `</p>
-                            <div class="d-flex flex-wrap align-items-center comment-activity">`;
-
-                            if(comments[j].username == getUserDetails().uname){
-                                string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id + '\')">Edit</a>\
-                                <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
-                            }
-                            
-                            string+=    `<span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                `;
-                    commentsDiv.innerHTML += string;
-                }
-            }
-            if(ifSinglePost){
-                commentsDiv.innerHTML = '';
-                for (let j = 0; j < len; j++) {
-                    let string = `
-                <li class="mb-2" id="`+ comments[j].comment_id +`">
-                    <div class="d-flex flex-wrap">
-                        <div class="user-img">
-                            <img src="`+ comments[j].commentImg +`" class="avatar-35 rounded-circle img-fluid">
-                        </div>
-                        <div class="comment-data-block ml-3">
-                            <h6>` + comments[j].username + `</h6>
-                            <p class="mb-0">` + comments[j].text + `</p>
-                            <div class="d-flex flex-wrap align-items-center comment-activity">`;
-
-                            if(comments[j].username == getUserDetails().uname){
-                                string +=  '<a onclick="editSCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id +'\')">Edit</a>\
-                                <a onclick="deleteSCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
-                            }
-                            
-                            string+=    `<span> ` + timeSince(new Date(comments[j].timestamp)) + ` </span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                `;
-                    commentsDiv.innerHTML += string;
-                }
-            }
-            let commentCountSpan = document.getElementById("comment-count-" + id);
-            commentCountSpan.textContent = comments.length + ' Comments';
-        }
-    }
-}
-
-function notifyUpvotesSinglePost(votes, feedid) {
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-    for (let i = 0; i < buzz.length; i++) {
-        if (buzz[i].buzz_id == feedid) {
-            buzz[i].buzz_upvotes = votes;
-        }
-    }
-    setJSONLocalStorage(ALL_BUZZ, buzz);
-    updateUpvotesSinglePost(feedid);
-}
-
-function updateUpvotesSinglePost(feedid) {
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-    let upvoteSpan = document.getElementById('upvote-count-' + feedid);
-    for (let i = 0; i < buzz.length; i++) {
-        if (buzz[i].buzz_id == feedid) {
-            upvoteSpan.innerText = buzz[i].buzz_upvotes.length;
-        }
-    }
-}
-
-
-function notifyDownvotesSinglePost(votes, feedid) {
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-    for (let i = 0; i < buzz.length; i++) {
-        if (buzz[i].buzz_id == feedid) {
-            buzz[i].buzz_downvotes = votes;
-        }
-    }
-    setJSONLocalStorage(ALL_BUZZ, buzz);
-    updateDownvotesSinglePost(feedid);
-}
-
-function updateDownvotesSinglePost(feedid) {
-    let buzz = getJSONLocalStorage(ALL_BUZZ);
-    let downvoteSpan = document.getElementById('downvote-count-' + feedid);
-    for (let i = 0; i < buzz.length; i++) {
-        if (buzz[i].buzz_id == feedid) {
-            downvoteSpan.innerText = buzz[i].buzz_downvotes.length;
         }
     }
 }

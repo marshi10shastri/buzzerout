@@ -39,11 +39,22 @@ function signIn() {
                 success: function(data) {
                     console.log(data);
                     if (data.error == false) {
-                        setLocalStorage(USER, "true");
-                        setLocalStorage(USER_TYPE, "liveuser");
+                        if(undefined != data.user.role){
+                            if(data.user.role == "1"){
+                                setLocalStorage(USER, "true");
+                                setLocalStorage(USER_TYPE, "testuser");
+                            }
+                            else{
+                                setLocalStorage(USER, "true");
+                                setLocalStorage(USER_TYPE, "liveuser");
+                            }
+                        }else{
+                            setLocalStorage(USER, "true");
+                            setLocalStorage(USER_TYPE, 'liveuser');
+                        }
                         // liveUserMapper()
                         userMapper(data);
-                        // window.location = "index.html";
+                        window.location = "index.html";
                     } else {
                         document.getElementById('modal-trigger').click();
                         setLocalStorage(USER, "false");
