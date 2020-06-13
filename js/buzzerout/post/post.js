@@ -104,7 +104,7 @@ function postMapper(data) {
                         respPstComments = respPostComments.unshift(newComment);
                         let resp = {
                             buzz_id: feedid,
-                            buzz_comments: respPostComments,
+                            buzz_comments: respPstComments,
                         };
                         addCommentToSinglePost(resp, false);
                         document.getElementById(feedInputArray[j]).value = '';
