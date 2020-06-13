@@ -240,5 +240,27 @@ const POST_IMG = "post_image";
 
 const HIDDEN = "hidden_posts";
 const SHARED = "shared_posts";
+
 // URLs
 const SERVER_URL = 'http://buzzerout.com/buzzerout_server/v1/';
+const FETCH_FEED_URL = "feed/fetchAllFeed";
+const UPLOAD_FEED_URL = "feed/uploadFeed";
+
+const ADD_COMMENT_URL = "comment/addComment";
+const EDIT_COMMENT_URL = "comment/editComment";
+const DELETE_COMMENT_URL='comment/deleteCommentById';
+
+const REMOVE_UPVOTE_URL = "buzz/removeUpvoteBuzz";
+const UPVOTE_BUZZ_URL = "buzz/upvoteBuzz";
+const REMOVE_DOWNVOTE_URL = "buzz/removeDownvoteBuzz";
+const DOWNVOTE_BUZZ_URL = "buzz/downvoteBuzz";
+
+const SAVE_BUZZ_URL = 'buzz/saveBuzz';
+const UNSAVE_BUZZ_URL = 'buzz/unSaveBuzz';
+const HIDE_BUZZ_URL = 'buzz/hideBuzz';
+
+const NEW_FOLLOW_URL = 'follow/newFollow';
+const DELETE_FOLLOWING_URL = 'follow/deleteFollowing';
+
+const EDIT_FEED_URL = "feed/editFeed";
+const CLEAR_FEED_URL = 'feed/clearFeedByFeedId';

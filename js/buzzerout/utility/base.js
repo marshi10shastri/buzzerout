@@ -1,18 +1,18 @@
 function setLocalStorage(variable, item) {
-    localStorage.setItem(variable, item);
+    sessionStorage.setItem(variable, item);
 }
 
 
 function setJSONLocalStorage(variable, item) {
-    localStorage.setItem(variable, JSON.stringify(item));
+    sessionStorage.setItem(variable, JSON.stringify(item));
 }
 
 function getLocalStorage(variable) {
-    return localStorage.getItem(variable);
+    return sessionStorage.getItem(variable);
 }
 
 function getJSONLocalStorage(variable) {
-    return JSON.parse(localStorage.getItem(variable));
+    return JSON.parse(sessionStorage.getItem(variable));
 }
 
 
@@ -143,8 +143,8 @@ function getUserPlacesDetails() {
 }
 
 function updateUserWorksDetails(data) {
-    console.log("Work Details");
-    console.log(data);
+    // console.log("Work Details");
+    // console.log(data);
     setJSONLocalStorage(WORKS, data);
 }
 

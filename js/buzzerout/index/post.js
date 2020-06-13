@@ -38,17 +38,17 @@ function createPost() {
     else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
         // condition for logout user
     }
-    else if (getLocalStorage(USER_TYPE == 'liveuser')){
-
+    else if (getLocalStorage(USER_TYPE) == 'liveuser'){
+        console.log('create post call');
         if (document.getElementById("buzz-photo-input").files.length == 0) {
             let user_name = getUserDetails().uname;
             let desc = document.getElementById("buzz-post-input").value;
             $.ajax({
                 type: "POST",
-                url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+                url: SERVER_URL + UPLOAD_FEED_URL,
                 data: {
                     username: user_name,
-                    title: "title",
+                    title: "created a post",
                     description: desc,
                     location: "abc",
                 },
@@ -184,7 +184,32 @@ function createPost() {
 
 }
 
+function fetchLocalPost(){
+    let inhtml = document.getElementById("posting-area");
 
+    if (getLocalStorage(USER_TYPE) == "liveuser") {
+        inhtml.innerHTML = "";
+        let buzz = getJSONLocalStorage(ALL_BUZZ);
+        if (0 != buzz.length) {
+            postMapper(buzz);
+        } else {
+            let inhtml = document.getElementById("posting-area");
+            inhtml.innerHTML = post_template_no_post();
+        }
+
+    }else if (getLocalStorage(USER_TYPE) == "dummy") {
+        // Add Dummy Data
+        let buzz = getJSONLocalStorage(ALL_BUZZ);
+        inhtml.innerHTML = "";
+        postMapper(buzz);
+
+    }else if (getLocalStorage(USER_TYPE) == "testuser") {
+    }
+    else if (getLocalStorage(USER_TYPE) == "logoutuser") {
+    }else{
+        console.log('user type not set');
+    }
+}
 function fetchPost() {
 
     let user = getUserDetails().uname;
@@ -194,7 +219,7 @@ function fetchPost() {
         inhtml.innerHTML = "";
         $.ajax({
             type: "POST",
-            url: "http://buzzerout.com/buzzerout_server/v1/feed/fetchAllFeed",
+            url: SERVER_URL + FETCH_FEED_URL,
             crossDomain: true,
             data: {
                 username: user
@@ -246,27 +271,7 @@ function fetchPost() {
 
 }
 
-function addComment(feedid, commentData, ifSinglePost) {
-    $.ajax({
-        type: "POST",
-        url: SERVER_URL + "comment/addComment",
-        data: {
-            username: getUserDetails().uname,
-            text: commentData,
-            feed_id: feedid,
-        },
-        success: function (response) {
-            let resp = {
-                buzz_id: feedid,
-                buzz_comments: response.comments,
-            };
-            addCommentToSinglePost(resp, ifSinglePost);
-        },
-        error: function (response) {
-            console.log(response);
-        },
-    });
-}
+
 
 function followBuzzByFeedId() {
     // highlight text as followed
@@ -285,11 +290,9 @@ function editPostModal(feedid) {
         }
     }
     $("#edit-post-modal").modal();
-    document
-        .getElementById("editPostButton")
-        .addEventListener("click", function () {
+    document.getElementById("editPostButton").addEventListener("click", function () {
             editPost(feedid);
-        });
+    });
 }
 
 function editPost(feedid) {
@@ -311,7 +314,7 @@ function editPost(feedid) {
     else if(getLocalStorage(USER_TYPE) == 'liveuser'){
         $.ajax({
             type: "POST",
-            url: SERVER_URL + "feed/editFeed",
+            url: SERVER_URL + EDIT_FEED_URL,
             data: {
                 feed_id: feedid,
                 username: getUserDetails().uname,

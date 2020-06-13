@@ -45,4 +45,7 @@ function userMapper(data) {
         }
         updateUserCollegeDetails(data.details.college);
     }
+
+    //post map 
+    updateLocalPosts(data.feed);
 }
