@@ -109,7 +109,7 @@ function createPost() {
                         // on success
                         $.ajax({
                             type: "POST",
-                            url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+                            url: "http://buzzerout.com/buzzerout_server/v1/buzz/createBuzz",
                             data: {
                                 username: user_name,
                                 title: "title",
@@ -146,7 +146,7 @@ function createPost() {
                                 //upload image to feed
                                 $.ajax({
                                     type: "POST",
-                                    url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeedImage",
+                                    url: "http://buzzerout.com/buzzerout_server/v1/buzz/createBuzz",
                                     data: {
                                         username: user_name,
                                         feed_id: feedId,
