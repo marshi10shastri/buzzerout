@@ -238,8 +238,7 @@ function postTemplateStart(feed) {
                 <a onclick="deleteCommentClick(\''+ feed.buzz_comments[i].comment_id + "-" + feed.buzz_id + '\')">Delete</a>';
             }
 
-            string += '<a href="javascript:void();">like</a>\
-              <span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
+            string += '<span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
                                             </div>\
                                         </div>\
                                     </div>\

@@ -212,7 +212,6 @@ function fetchLocalPost(){
     }
 }
 function fetchPost() {
-
     let user = getUserDetails().uname;
     let inhtml = document.getElementById("posting-area");
 
