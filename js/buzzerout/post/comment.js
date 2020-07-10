@@ -8,11 +8,16 @@ function addComment(feedid, commentData, ifSinglePost) {
             feed_id: feedid,
         },
         success: function (response) {
-            let resp = {
-                buzz_id: feedid,
-                buzz_comments: response.comments,
-            };
-            addCommentToSinglePost(resp, ifSinglePost);
+            if(response.error == false){
+                let resp = {
+                    buzz_id: feedid,
+                    buzz_comments: response.comments,
+                };
+                addCommentToSinglePost(resp, ifSinglePost);
+            }
+            else{
+                console.log(response.error);
+            }
         },
         error: function (response) {
             console.log(response);
@@ -421,15 +426,15 @@ function deleteCommentClick(Dcomment) {
             console.log(data);
             if (data.error == false) {
                 let post = getPostFromFeedId(feedid);
-
-                if (post.buzz_comments.length > 0) {
-                    for (let i = 0; i < post.buzz_comments.length; i++) {
-                        if (post.buzz_comments[i].comment_id == comment_id) {
-                            post.buzz_comments.splice(i, 1);
-                            break;
-                        }
-                    }
-                }
+                post.buzz_comments = data.comments;
+                // if (post.buzz_comments.length > 0) {
+                //     for (let i = 0; i < post.buzz_comments.length; i++) {
+                //         if (post.buzz_comments[i].comment_id == comment_id) {
+                //             post.buzz_comments.splice(i, 1);
+                //             break;
+                //         }
+                //     }
+                // }
 
                 updateAllLocalStoragePosts(post);
 
