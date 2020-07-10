@@ -55,8 +55,9 @@ function createPost() {
                 success: function (data) {
                     console.log(data);
                     if (data["error"] == false) {
+                        data = data.Feed;
                         var post = {
-                            buzz_id: data.feedid,
+                            buzz_id: data.feed_id,
                             buzz_username: getUserDetails().uname,
                             buzz_user_image: getUserProfileDetails().pImage,
                             buzz_images: [],
@@ -118,9 +119,9 @@ function createPost() {
                             },
                             success: function (data) {
                                 console.log(data);
-                                let feedId = data.feedid;
+                                let feedId = data.Feed.feed_id;
                                 var post = {
-                                    buzz_id: data.feedid,
+                                    buzz_id: feedId,
                                     buzz_username: getUserDetails().uname,
                                     buzz_user_image: getUserProfileDetails().pImage,
                                     buzz_images: link,

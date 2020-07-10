@@ -244,7 +244,7 @@ const SHARED = "shared_posts";
 // URLs
 const SERVER_URL = 'http://buzzerout.com/buzzerout_server/v1/';
 const FETCH_FEED_URL = "feed/fetchAllFeed";
-const UPLOAD_FEED_URL = "feed/uploadFeed";
+const UPLOAD_FEED_URL = "buzz/createBuzz";
 
 const ADD_COMMENT_URL = "comment/addComment";
 const EDIT_COMMENT_URL = "comment/editComment";
