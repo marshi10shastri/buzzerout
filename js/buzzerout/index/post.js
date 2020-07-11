@@ -147,7 +147,7 @@ function createPost() {
                                 //upload image to feed
                                 $.ajax({
                                     type: "POST",
-                                    url: "http://buzzerout.com/buzzerout_server/v1/buzz/createBuzz",
+                                    url: "http://buzzerout.com/buzzerout_server/v1/buzz/uploadImageToBuzz",
                                     data: {
                                         username: user_name,
                                         feed_id: feedId,
