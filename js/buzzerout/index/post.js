@@ -1,4 +1,7 @@
-
+function clearimg(){
+    document.getElementById("buzz-photo-input").value = '';
+    document.getElementById('body-div').innerHTML = '';
+}
 function createPost() {
     var file = document.getElementById("buzz-photo-input").files[0];
 
@@ -58,16 +61,16 @@ function createPost() {
                         data = data.Feed;
                         var post = {
                             buzz_id: data.feed_id,
-                            buzz_username: getUserDetails().uname,
-                            buzz_user_image: getUserProfileDetails().pImage,
+                            buzz_username: data.username,
+                            buzz_user_image: data.userimage,
                             buzz_images: [],
-                            buzz_description: desc,
-                            buzz_timestamp: "Just Now",
+                            buzz_description: data.description,
+                            buzz_timestamp: data.timestamp,
                             buzz_upvotes: [],
                             buzz_downvotes: [],
                             buzz_comments: [],
-                            buzz_title: 'title',
-                            buzz_location: 'Hyderabad'
+                            buzz_title: data.title,
+                            buzz_location: data.location
                         };
                         showCreatedBuzz(post);
                         document.getElementById('buzz-post-input').value = '';
@@ -98,7 +101,7 @@ function createPost() {
                 formData.append("message", "My Buzz");
                 $.ajax({
                     type: "POST",
-                    url: "http://appnivi.com/server/v1/file/fileupload",
+                    url: FILE_UPLOAD,
                     data: formData,
                     success: function (data) {
                         link.push(data.link);
@@ -110,7 +113,7 @@ function createPost() {
                         // on success
                         $.ajax({
                             type: "POST",
-                            url: "http://buzzerout.com/buzzerout_server/v1/buzz/createBuzz",
+                            url: SERVER_URL + UPLOAD_FEED_URL,
                             data: {
                                 username: user_name,
                                 title: "title",
@@ -122,16 +125,16 @@ function createPost() {
                                 let feedId = data.Feed.feed_id;
                                 var post = {
                                     buzz_id: feedId,
-                                    buzz_username: getUserDetails().uname,
-                                    buzz_user_image: getUserProfileDetails().pImage,
+                                    buzz_username: data.Feed.username,
+                                    buzz_user_image: data.Feed.userimage,
                                     buzz_images: link,
-                                    buzz_description: desc,
-                                    buzz_timestamp: "Just Now",
-                                    buzz_upvotes: [],
-                                    buzz_downvotes: [],
-                                    buzz_comments: [],
-                                    buzz_location: 'Hyderabad',
-                                    buzz_title: 'title'
+                                    buzz_description: data.Feed.description,
+                                    buzz_timestamp: data.Feed.timestamp,
+                                    buzz_upvotes: data.Feed.upvotes,
+                                    buzz_downvotes: data.Feed.downvotes,
+                                    buzz_comments: data.Feed.comments,
+                                    buzz_location: data.Feed.location,
+                                    buzz_title: data.Feed.title
                                 };
                                 console.log(post);
                                 showCreatedBuzz(post);
@@ -147,7 +150,7 @@ function createPost() {
                                 //upload image to feed
                                 $.ajax({
                                     type: "POST",
-                                    url: "http://buzzerout.com/buzzerout_server/v1/buzz/uploadImageToBuzz",
+                                    url: SERVER_URL + UPLOAD_IMG_TO_BUZZ,
                                     data: {
                                         username: user_name,
                                         feed_id: feedId,
@@ -182,8 +185,8 @@ function createPost() {
 
     }
 
-
 }
+
 
 function fetchLocalPost(){
     let inhtml = document.getElementById("posting-area");
@@ -211,6 +214,8 @@ function fetchLocalPost(){
         console.log('user type not set');
     }
 }
+
+
 function fetchPost() {
     let user = getUserDetails().uname;
     let inhtml = document.getElementById("posting-area");
