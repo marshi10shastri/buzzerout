@@ -2,6 +2,7 @@ function clearimg(){
     document.getElementById("buzz-photo-input").value = '';
     document.getElementById('body-div').innerHTML = '';
 }
+
 function createPost() {
     var file = document.getElementById("buzz-photo-input").files[0];
 
@@ -46,45 +47,59 @@ function createPost() {
         if (document.getElementById("buzz-photo-input").files.length == 0) {
             let user_name = getUserDetails().uname;
             let desc = document.getElementById("buzz-post-input").value;
-            $.ajax({
-                type: "POST",
-                url: SERVER_URL + UPLOAD_FEED_URL,
-                data: {
-                    username: user_name,
-                    title: "created a post",
-                    description: desc,
-                    location: "abc",
-                },
-                success: function (data) {
-                    console.log(data);
-                    if (data["error"] == false) {
-                        data = data.Feed;
-                        var post = {
-                            buzz_id: data.feed_id,
-                            buzz_username: data.username,
-                            buzz_user_image: data.userimage,
-                            buzz_images: [],
-                            buzz_description: data.description,
-                            buzz_timestamp: data.timestamp,
-                            buzz_upvotes: [],
-                            buzz_downvotes: [],
-                            buzz_comments: [],
-                            buzz_title: data.title,
-                            buzz_location: data.location
-                        };
-                        showCreatedBuzz(post);
-                        document.getElementById('buzz-post-input').value = '';
-                        document.getElementById("close-modal").click();
-                    } else {
-                        alert(data["message"]);
-                    }
-                },
-                error: function (response) {
-                    console.log(response);
-                },
-            });
+            if(desc != ''){
+                $.ajax({
+                    type: "POST",
+                    url: SERVER_URL + UPLOAD_FEED_URL,
+                    data: {
+                        username: user_name,
+                        title: "created a post",
+                        description: desc,
+                        location: "abc",
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data["error"] == false) {
+                            data = data.Feed;
+                            var post = {
+                                buzz_id: data.feed_id,
+                                buzz_username: data.username,
+                                buzz_user_image: data.userimage,
+                                buzz_images: [],
+                                buzz_description: data.description,
+                                buzz_timestamp: data.timestamp,
+                                buzz_upvotes: [],
+                                buzz_downvotes: [],
+                                buzz_comments: [],
+                                buzz_title: data.title,
+                                buzz_location: data.location
+                            };
+                            showCreatedBuzz(post);
+                            document.getElementById('buzz-post-input').value = '';
+                            document.getElementById("close-modal").click();
+                        } else {
+                            alert(data["message"]);
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    },
+                });
+            }
+            else{
+                document.getElementById('info-modal-info').textContent = 'Please add description';
+                $('#info-modal').modal('show');
+                $('#post-modal').modal('hide');
+            }
         } else {
-            // ---------------------------------------
+
+            if(document.getElementById("buzz-post-input").value == ''){
+                document.getElementById('info-modal-info').textContent = 'Please add description';
+                $('#info-modal').modal('show');
+                $('#post-modal').modal('hide');
+            }
+            else{
+                                // ---------------------------------------
             if (file.type.match(/image.*/)) {
                 console.log("An image has been loaded");
     
@@ -195,6 +210,8 @@ function createPost() {
                     processData: false,
                 });
             }
+            }
+
     
         }
         // ------------------------------------------
