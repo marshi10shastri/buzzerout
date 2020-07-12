@@ -104,72 +104,88 @@ function createPost() {
                     url: FILE_UPLOAD,
                     data: formData,
                     success: function (data) {
-                        link.push(data.link);
-                        console.log(data.link);
-                        let user_name = getUserDetails().uname;
-                        let desc = document.getElementById("buzz-post-input").value;
-                        console.log(user_name);
-                        console.log(desc);
-                        // on success
-                        $.ajax({
-                            type: "POST",
-                            url: SERVER_URL + UPLOAD_FEED_URL,
-                            data: {
-                                username: user_name,
-                                title: "title",
-                                description: desc,
-                                location: "abc",
-                            },
-                            success: function (data) {
-                                console.log(data);
-                                let feedId = data.Feed.feed_id;
-                                var post = {
-                                    buzz_id: feedId,
-                                    buzz_username: data.Feed.username,
-                                    buzz_user_image: data.Feed.userimage,
-                                    buzz_images: link,
-                                    buzz_description: data.Feed.description,
-                                    buzz_timestamp: data.Feed.timestamp,
-                                    buzz_upvotes: data.Feed.upvotes,
-                                    buzz_downvotes: data.Feed.downvotes,
-                                    buzz_comments: data.Feed.comments,
-                                    buzz_location: data.Feed.location,
-                                    buzz_title: data.Feed.title
-                                };
-                                console.log(post);
-                                showCreatedBuzz(post);
+                        console.log(data);
+                        if(data.error == false){
+                            link.push(data.link);
+                            let user_name = getUserDetails().uname;
+                            let desc = document.getElementById("buzz-post-input").value;
+                            console.log(user_name);
+                            console.log(desc);
+                            // on success
+                            $.ajax({
+                                type: "POST",
+                                url: SERVER_URL + UPLOAD_FEED_URL,
+                                data: {
+                                    username: user_name,
+                                    title: "title",
+                                    description: desc,
+                                    location: "abc",
+                                },
+                                success: function (data) {
+                                    console.log(data);
+                                    if (data["error"] == false) {
     
-                                document.getElementById('buzz-photo-input').value = '';
-                                document.getElementById('buzz-post-input').value = '';
-                                // var local_posts = getJSONLocalStorage(POSTS);
-                                // setJSONLocalStorage(POSTS, post.concat(local_posts));
-                                document.getElementById("close-modal").click();
-                                // fetchPost();
-                                // fetchTimelinePosts();
-    
-                                //upload image to feed
-                                $.ajax({
-                                    type: "POST",
-                                    url: SERVER_URL + UPLOAD_IMG_TO_BUZZ,
-                                    data: {
-                                        username: user_name,
-                                        feed_id: feedId,
-                                        img: link[0],
-                                    },
-                                    success: function (data) {
-                                        console.log(data);
+                                        let feedId = data.Feed.feed_id;
+                                        var post = {
+                                            buzz_id: feedId,
+                                            buzz_username: data.Feed.username,
+                                            buzz_user_image: data.Feed.userimage,
+                                            buzz_images: link,
+                                            buzz_description: data.Feed.description,
+                                            buzz_timestamp: data.Feed.timestamp,
+                                            buzz_upvotes: data.Feed.upvotes,
+                                            buzz_downvotes: data.Feed.downvotes,
+                                            buzz_comments: data.Feed.comments,
+                                            buzz_location: data.Feed.location,
+                                            buzz_title: data.Feed.title
+                                        };
+                                        console.log(post);
+                                        showCreatedBuzz(post);
+            
                                         document.getElementById('buzz-photo-input').value = '';
                                         document.getElementById('buzz-post-input').value = '';
-                                    },
-                                    error: function (response) {
-                                        console.log(response);
-                                    },
-                                });
-                            },
-                            error: function (data) {
-                                console.log(data);
-                            },
-                        });
+                                        // var local_posts = getJSONLocalStorage(POSTS);
+                                        // setJSONLocalStorage(POSTS, post.concat(local_posts));
+                                        document.getElementById("close-modal").click();
+                                        // fetchPost();
+                                        // fetchTimelinePosts();
+            
+                                        //upload image to feed
+                                        $.ajax({
+                                            type: "POST",
+                                            url: SERVER_URL + UPLOAD_IMG_TO_BUZZ,
+                                            data: {
+                                                username: user_name,
+                                                feed_id: feedId,
+                                                img: link[0],
+                                            },
+                                            success: function (data) {
+                                                console.log(data);
+                                                if(data.error == false){
+                                                    document.getElementById('buzz-photo-input').value = '';
+                                                    document.getElementById('buzz-post-input').value = '';
+                                                }
+                                                else{
+                                                    console.log(data.message);
+                                                }
+                                            },
+                                            error: function (response) {
+                                                console.log(response);
+                                            },
+                                        });
+                                    }
+                                    else{
+                                        console.log(data['message']);
+                                    }
+                                },
+                                error: function (data) {
+                                    console.log(data);
+                                },
+                            });
+                        }
+                        else{
+                            console.log(data.message);
+                        }
                     },
                     error: function (error) {
                         console.log(error);
