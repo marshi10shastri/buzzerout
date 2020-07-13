@@ -342,3 +342,22 @@ function saveContains(feedid){
     }
     return false;
 }
+
+
+function mapperForSinglePosts(feed){
+    let editFeed = {
+        buzz_id: feed.feed_id,
+        buzz_username: feed.username,
+        buzz_user_image: feed.userimage,
+        buzz_images: feed.images,
+        buzz_description: feed.description,
+        buzz_timestamp: feed.timestamp,
+        buzz_upvotes: feed.upvotes,
+        buzz_downvotes: feed.downvotes,
+        buzz_comments: feed.comments,
+        buzz_location: feed.location,
+        buzz_title: feed.title
+    };
+
+    return editFeed;
+}

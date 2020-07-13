@@ -176,7 +176,7 @@ function editSinglePost(editFeed) {
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == editFeed.buzz_id) {
             console.log("Changed");
-            buzz[i].buzz_description = editFeed.buzz_text
+            buzz[i] = editFeed;
         }
     }
     setJSONLocalStorage(ALL_BUZZ, buzz);
