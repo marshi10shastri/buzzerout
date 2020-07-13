@@ -128,7 +128,12 @@ function updateDownvotesSinglePost(feedid) {
     let downvoteSpan = document.getElementById('downvote-count-' + feedid);
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == feedid) {
-            downvoteSpan.innerText = buzz[i].buzz_downvotes.length;
+            if(buzz[i].buzz_downvotes.length > 0){
+                downvoteSpan.innerText = buzz[i].buzz_downvotes.length;
+            }
+            else{
+                downvoteSpan.innerText = 0;
+            }
         }
     }
 }

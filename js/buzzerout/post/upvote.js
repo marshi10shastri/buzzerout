@@ -133,7 +133,12 @@ function updateUpvotesSinglePost(feedid) {
     let upvoteSpan = document.getElementById('upvote-count-' + feedid);
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == feedid) {
+            if(buzz[i].buzz_upvotes.length > 0){
             upvoteSpan.innerText = buzz[i].buzz_upvotes.length;
+            }
+            else{
+                upvoteSpan.innerText = 0;
+            }
         }
     }
 }
