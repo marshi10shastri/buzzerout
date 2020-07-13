@@ -364,10 +364,7 @@ function editPost(feedid) {
                 console.log(data);
                 if (data.error == false) {
                     console.log('false h error');
-                    let editFeed = {
-                        buzz_id: feedid,
-                        buzz_text: text,
-                    };
+                    let editFeed = mapperForSinglePosts(data.Feed);
                     editSinglePost(editFeed);
                 }
             },
