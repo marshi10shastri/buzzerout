@@ -345,6 +345,7 @@ function saveBuzz(buzzid) {
                     success: function (data) {
                         console.log(data);
                         //update local
+                        // let buzz = mapperForSinglePosts(data.save_buzz);
                         let buzz = getPostFromFeedId(buzzid)
                         updateLocalSaveBuzz(buzz, 0);
                         //update ui
