@@ -14,7 +14,7 @@ function postTemplateStart(feed) {
                     </div>\
                     <div class="media-support-info mt-2">\
                         <h5 class="mb-0 d-inline-block"><a href="#" class="">' + feed.buzz_username + ' </a></h5>\
-                        <p class="mb-0 d-inline-block">'+ feed.buzz_title + '</p>\
+                        <p class="mb-0 d-inline-block" id="buzz_title_' + feed.buzz_id + '">'+ feed.buzz_title + '</p>\
                         <p class="mb-0 text-primary">' + timeSince(new Date(feed.buzz_timestamp)) + '</p>\
                     </div>\
                     <div class="iq-card-post-toolbar">\
@@ -204,12 +204,17 @@ function postTemplateStart(feed) {
                  </span>\
                         </div>\
                     </div>\
-                </div>\
-                <div class="share-block d-flex align-items-center feather-icon mr-3" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')" id="shareBtn-' + feed.buzz_id + '">\
-                    <a><i class="ri-share-line"></i>\
-           <span class="ml-1"> Share</span></a>\
-                </div>\
-            </div>\
+                </div>'
+                
+    if(!shareContains(feed.buzz_id)){
+        string += '<div class="share-block d-flex align-items-center feather-icon mr-3" onclick="shareBuzzByFeedId(\'' + feed.buzz_id + '\')" id="shareBtn-' + feed.buzz_id + '">\
+        <a><i class="ri-share-line"></i>\
+        <span class="ml-1"> Share</span>\
+        </a>\
+    </div>'
+    }
+
+    string += '</div>\
             <hr>\
             <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
                 <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
@@ -285,6 +290,19 @@ function postTemplateStart(feed) {
     return string;
 }
 
+
+
+function shareContains(feedid){
+    let shared = getJSONLocalStorage(SHARED);
+    if(shared.length > 0){
+        for(let i=0; i<shared.length; i++){
+            if(shared[i].buzz_id == feedid){
+                return true;
+            }
+        }
+        return false;
+    }
+}
 
 function saveBuzz(buzzid) {
     console.log("Saving Post : " + buzzid);
@@ -668,12 +686,35 @@ function shareBuzzByFeedId(feedid) {
             },
             success: function (data) {
                 console.log(data);
-                console.log(feedid);
-                // buzz.buzz_title = 'Shared post';
-                //local update
-                updateLocalStoragePosts(buzz);
-                //ui update
-                document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
+                if(data.error == false){
+                    console.log(feedid);
+                    let shared_feeds = data.shared_buzz;
+                    if(shared_feeds.length > 0){
+                        for(let i=0; i<shared_feeds.length; i++){
+                            shared_feeds[i] = mapperForSinglePosts(shared_feeds[i]);
+                        }
+                    }
+                    console.log(shared_feeds);
+                    setJSONLocalStorage(SHARED, shared_feeds);
+                    //local update
+                    if(shared_feeds.length >0){
+                        for(let i=0;i<shared_feeds.length; i++){
+                            if(shared_feeds[i].buzz_id == buzz.buzz_id){
+                                buzz.buzz_title = shared_feeds[i].buzz_title;
+                            }
+                        }
+                    }
+                    updateAllLocalStoragePosts(buzz);
+
+                    //ui update
+                    let titleP = document.getElementById('buzz_title_' + buzz.buzz_id);
+                    console.log(buzz.buzz_title);
+                    titleP.textContent = buzz.buzz_title;
+                    document.getElementById('shareBtn-' + feedid).style.visibility = 'hidden';
+                }
+                else{
+                    console.log(data.message);
+                }
             },
             error: function (data) {
                 console.log(data);
