@@ -4,8 +4,22 @@ function userMapper(data) {
     updateUserSocialDetails(data.details.socialMedia);
     updateUserFollowers(data.followers);
     updateUserFollowing(data.following);
-    updateUserSaved(data.save_buzz);
+
+    let saved = []
+    if(data.save_buzz.length >0){
+        for(let i=0; i<data.save_buzz.length; i++){
+            saved.push(mapperForSinglePosts(data.save_buzz[i]));
+        }
+    }
+    updateUserSaved(saved);
     updateUserHidden(data.hide_buzz);
+
+    let shared = []
+    if(data.shared_buzz.length >0){
+        for(let i=0; i<data.shared_buzz.length; i++){
+            shared.push(mapperForSinglePosts(data.shared_buzz[i]));
+        }
+    }
     updateUserShared(data.shared_buzz);
     console.log(data.details);
     if (undefined != data.details.user_details) {
