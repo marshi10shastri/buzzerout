@@ -344,7 +344,7 @@ function saveBuzz(buzzid) {
             if(saved.length>0){
                 for(let i =0; i<saved.length; i++){
                     if(saved[i].buzz_id == buzzid){
-                        flag = 1
+                        flag = 1;
                         break;
                     }
                 }
@@ -362,11 +362,22 @@ function saveBuzz(buzzid) {
                     },
                     success: function (data) {
                         console.log(data);
-                        //update local
-                        // let buzz = mapperForSinglePosts(data.save_buzz);
-                        let buzz = getPostFromFeedId(buzzid)
-                        updateLocalSaveBuzz(buzz, 0);
-                        //update ui
+                        if(data.error == false){
+                            //update local
+                            let buzz = []
+                            if(data.save_buzz.length > 0){
+                                for(let i=0; i<data.save_buzz.length; i++){
+                                    buzz.push(mapperForSinglePosts(data.save_buzz[i]));
+                                }
+                            }
+                            console.log(buzz);
+                            // let buzz = getPostFromFeedId(buzzid)
+                            updateLocalSaveBuzz(buzz, 0, buzzid);
+                            //update ui
+                        }
+                        else{
+                            console.log(data.message);
+                        }
                     },
                     error: function (data) {
                         console.log(data);
@@ -383,7 +394,19 @@ function saveBuzz(buzzid) {
                     },
                     success: function(data){
                         console.log(data);
-                        updateLocalSaveBuzz(feedid, 1)
+                        if(data.error == false){
+                            let buzz = []
+                            if(data.save_buzz.length > 0){
+                                for(let i=0; i<data.save_buzz.length; i++){
+                                    buzz.push(mapperForSinglePosts(data.save_buzz[i]));
+                                }
+                            }
+
+                            updateLocalSaveBuzz(buzz, 1, buzzid);
+                        }
+                        else{
+                            console.log(data.message);
+                        }
                     },
                     error: function(data){
                         console.log(data);

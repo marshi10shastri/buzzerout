@@ -323,27 +323,28 @@ function showHiddenPost(feedid){
 
 
 //save buzz
-function updateLocalSaveBuzz(feed, ifSaved){
-    let saved = getUserSaved();
-    if(ifSaved){
-        //if saved-> unsave it
-        if(saved.length>0){
-            for(let i=0; i<saved.length; i++){
-                if(saved[i].buzz_id == feed.id){
-                    saved.splice(i, 1);
-                }
-            }
-        }
+function updateLocalSaveBuzz(feed, ifSaved, buzzid){
+    // let saved = getUserSaved();
+    // if(ifSaved){
+    //     //if saved-> unsave it
+    //     if(saved.length>0){
+    //         for(let i=0; i<saved.length; i++){
+    //             if(saved[i].buzz_id == feed.id){
+    //                 saved.splice(i, 1);
+    //             }
+    //         }
+    //     }
 
-        updateUserSaved(saved);
-    }
-    else{
-        //save it
-        saved.push(feed);
-        updateUserSaved(saved);
-    }
+    //     updateUserSaved(saved);
+    // }
+    // else{
+    //     //save it
+    //     saved.push(feed);
+    //     updateUserSaved(saved);
+    // }
+    updateUserSaved(feed)
     //change ui
-    showSaveBuzz(feed.buzz_id, ifSaved);
+    showSaveBuzz(buzzid, ifSaved);
 }
 
 
