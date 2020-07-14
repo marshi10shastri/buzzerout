@@ -158,11 +158,13 @@ function updateSinglePost(data) {
     //REplace Text,and Image
     console.log('inside updateSinglePost');
     let descP = document.getElementById('buzz_description_' + data);
+    let titleP = document.getElementById('buzz_title_' + data);
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for (let i = 0; i < buzz.length; i++) {
         if (buzz[i].buzz_id == data) {
             console.log("Changed");
             descP.textContent = buzz[i].buzz_description;
+            titleP.textContent = buzz[i].buzz_title;
         }
     }
 }
