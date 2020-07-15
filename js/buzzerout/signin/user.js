@@ -17,10 +17,11 @@ function userMapper(data) {
     let shared = []
     if(data.shared_buzz.length >0){
         for(let i=0; i<data.shared_buzz.length; i++){
+            console.log('inside loop');
             shared.push(mapperForSinglePosts(data.shared_buzz[i]));
         }
     }
-    updateUserShared(data.shared_buzz);
+    updateUserShared(shared);
     console.log(data.details);
     if (undefined != data.details.user_details) {
         updateUserAboutDetails(data.details.user_details);
