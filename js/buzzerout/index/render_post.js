@@ -293,7 +293,7 @@ function postTemplateStart(feed) {
 
 
 function shareContains(feedid){
-    let shared = getJSONLocalStorage(SHARED);
+    let shared = getUserShared();
     if(shared.length > 0){
         for(let i=0; i<shared.length; i++){
             if(shared[i].buzz_id == feedid){
