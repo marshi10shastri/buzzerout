@@ -389,7 +389,7 @@ function saveBuzz(buzzid) {
                     type: 'POST',
                     url: SERVER_URL + UNSAVE_BUZZ_URL,
                     data:{
-                        username:getUserDetails(),
+                        username:getUserDetails().uname,
                         feed_id: buzzid
                     },
                     success: function(data){
