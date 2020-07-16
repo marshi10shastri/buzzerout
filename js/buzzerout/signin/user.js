@@ -12,7 +12,14 @@ function userMapper(data) {
         }
     }
     updateUserSaved(saved);
-    updateUserHidden(data.hide_buzz);
+
+    let hidden = []
+    if(data.hide_buzz.length >0){
+        for(let i=0; i<data.hide_buzz.length; i++){
+            hidden.push(mapperForSinglePosts(data.hide_buzz[i]));
+        }
+    }
+    updateUserHidden(hidden);
 
     let shared = []
     if(data.shared_buzz.length >0){
