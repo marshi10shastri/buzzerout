@@ -296,9 +296,9 @@ function showDeletePost(feedid){
 //hide buzz(similar to delete)
 function updateLocalHideBuzz(feed){
     //get feed by id and save it to hide list
-    let hidden = getUserHidden();
-    hidden.push(feed);
-    updateUserHidden(hidden);
+    // let hidden = getUserHidden();
+    // hidden.push(feed);
+    // updateUserHidden(hidden);
     //remove from posts and update local
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){

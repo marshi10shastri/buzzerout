@@ -447,10 +447,22 @@ function hideBuzz(buzzid) {
                 },
                 success: function (data) {
                     console.log(data);
-                    //update local
-                    let buzz = getPostFromFeedId(buzzid);
-                    updateLocalHideBuzz(buzz);
-                    //update ui
+                    if(data.error == false){
+                        //update local
+                        let feed = getPostFromFeedId(buzzid);
+                        let buzz = [];
+                            if(data.hide_buzz.length > 0){
+                                for(let i=0; i<data.hide_buzz.length; i++){
+                                    buzz.push(mapperForSinglePosts(data.hide_buzz[i]));
+                                }
+                            }
+                        updateUserHidden(buzz);
+                        updateLocalHideBuzz(feed);
+                        //update ui
+                    }
+                    else{
+                        console.log(data.message);
+                    }
                 },
                 error: function (data) {
                     console.log(data);
@@ -656,8 +668,11 @@ function deletePostClick(feedid) {
             },
             success: function (data) {
                 console.log(data);
-                //update local storage
-                updateDeletePost(feedid);
+                if(data.error == false){
+                    //update local storage
+                    updateDeletePost(feedid);
+                }
+
             },
             error: function (data) {
                 console.log(data);
