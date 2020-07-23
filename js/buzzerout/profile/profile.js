@@ -147,10 +147,15 @@ function addWork() {
                     work_profile: workIn.workProfile
                 },
                 success: function(data) {
-                    userWorks = data.works;
-                    updateUserWorksDetails(userWorks);
-                    showWorksDetails();
-                    // document.getElementById('workLink').click();
+                    if(data.error == false){
+                        userWorks = data.works;
+                        updateUserWorksDetails(userWorks);
+                        showWorksDetails();
+                        // document.getElementById('workLink').click();
+                    }
+                    else{
+                        console.log(data.message);
+                    }
                 },
                 error: function(data) {
                     console.log(data);
@@ -201,10 +206,15 @@ function addCollege() {
                     college_place: collegeIn.collegePlace
                 },
                 success: function(data) {
-                    userColleges = data.colleges;
-                    updateUserCollegeDetails(userColleges);
-                    showCollegesDetails();
-                    // document.getElementById('workLink').click();
+                    if(data.error == false){
+                        userColleges = data.college;
+                        updateUserCollegeDetails(userColleges);
+                        showCollegesDetails();
+                        // document.getElementById('workLink').click();
+                    }
+                    else{
+                        console.log(data.message);
+                    }
                 },
                 error: function(data) {
                     console.log(data);
@@ -256,10 +266,15 @@ function addCity() {
                     place_state: placeIn.placeState
                 },
                 success: function(data) {
-                    userCities = data.places;
-                    updateUserPlacesDetails(userCities);
-                    showPlacesDetails();
-                    // document.getElementById('placeLink').click();
+                    if(data.error == false){
+                        userCities = data.city;
+                        updateUserPlacesDetails(userCities);
+                        showPlacesDetails();
+                        // document.getElementById('placeLink').click();
+                    }
+                    else{
+                        console.log(data.message);
+                    }
                 },
                 error: function(data) {
                     console.log(data);
@@ -306,8 +321,14 @@ function editDetails() {
                 fav_quote: fav_quote_inp
             },
             success: function(data) {
-                updateUserAboutDetails(data.userdetails);
-                showDetailsAboutDetails();
+                console.log(data)
+                if(data.error == false){
+                    updateUserAboutDetails(data.user_details);
+                    showDetailsAboutDetails();
+                }
+                else{
+                    console.log(data.message);
+                }
             },
             error: function(data) {
                 console.log(data);
@@ -358,9 +379,14 @@ function editCity() {
                 place_id: cityId
             },
             success: function(data) {
-                userCities = data.places
-                updateUserPlacesDetails(userCities);
-                showPlacesDetails();
+                if(data.error == false){
+                    userCities = data.city
+                    updateUserPlacesDetails(userCities);
+                    showPlacesDetails();
+                }
+                else{
+                    console.log(data.message);
+                }
             },
             error: function(data) {
                 console.log(data);
@@ -411,9 +437,14 @@ function editCollege() {
                 college_id: college_id
             },
             success: function(data) {
-                userColleges = data.colleges;
-                updateUserCollegeDetails(userColleges);
-                showCollegesDetails();
+                if(data.error == false){
+                    userColleges = data.college;
+                    updateUserCollegeDetails(userColleges);
+                    showCollegesDetails();
+                }
+                else{
+                    console.log(data.message);
+                }
             },
             error: function(data) {
                 console.log(data);
@@ -464,9 +495,14 @@ function editWork() {
                 work_id: workId
             },
             success: function(data) {
-                userWork = data.works;
-                updateUserWorksDetails(userWork);
-                showWorksDetails();
+                if(data.error == false){
+                    userWork = data.works;
+                    updateUserWorksDetails(userWork);
+                    showWorksDetails();
+                }
+                else{
+                    console.log(data.message);
+                }
             },
             error: function(data) {
                 console.log(data);
