@@ -728,8 +728,8 @@ function updateCommentToTimelinePost(id, ifSinglePost) {
                                 <div class="d-flex flex-wrap align-items-center comment-activity">`;
 
                                 if(comments[j].username == getUserDetails().uname){
-                                    string +=  '<a onclick="editCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id +'\')">Edit</a>\
-                                    <a onclick="deleteCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
+                                    string +=  '<a onclick="editTCommentClick(\''+ comments[j].comment_id + "-" + comments[j].text + "-" + id +'\')">Edit</a>\
+                                    <a onclick="deleteTCommentClick(\''+ comments[j].comment_id + "-" + id + '\')">Delete</a>'
                                 }
         
                                 string +=    `<span> ` + timeSince(new Date(feed[i].buzz_comments[j].timestamp)) + `  </span>
@@ -881,10 +881,11 @@ function editTPost(feedid){
                 console.log(data);
                 if (data.error == false) {
                     console.log('false h error');
-                    let editFeed = {
-                        buzz_id: feedid,
-                        buzz_text: text,
-                    };
+                    // let editFeed = {
+                    //     buzz_id: feedid,
+                    //     buzz_text: text,
+                    // };
+                    let editFeed = mapperForSinglePosts(data.Feed);
                     editSingleTPost(editFeed);
                 }
             },
@@ -899,7 +900,7 @@ function editTPost(feedid){
 function editSingleTPost(editFeed){
     //save to local
     let buzz = getPostFromFeedId(editFeed.buzz_id);
-    buzz.buzz_description = editFeed.buzz_text;
+    buzz = editFeed;
     updateLocalStoragePosts(buzz);
 
     updateSingleTPost(editFeed.buzz_id);
@@ -912,22 +913,23 @@ function updateSingleTPost(feedid){
 }
 
 //save buzz
-function updateLocalSaveTBuzz(feedid, ifSaved){
-    let saved = getUserSaved();
-    if(ifSaved){
-        //if saved-> unsave it
-        let index = saved.indexOf(feedid);
-        saved.splice(index, 1);
+function updateLocalSaveTBuzz(feed, ifSaved, buzzid){
+    // let saved = getUserSaved();
+    // if(ifSaved){
+    //     //if saved-> unsave it
+    //     let index = saved.indexOf(feedid);
+    //     saved.splice(index, 1);
 
-        updateUserSaved(saved);
-    }
-    else{
-        //save it
-        saved.push(feedid);
-        updateUserSaved(saved);
-    }
+    //     updateUserSaved(saved);
+    // }
+    // else{
+    //     //save it
+    //     saved.push(feedid);
+    //     updateUserSaved(saved);
+    // }
     //change local
-    showSaveTBuzz(feedid, ifSaved);
+    updateUserSaved(feed);
+    showSaveTBuzz(buzzid, ifSaved);
 }
 
 //ui update save buzz
