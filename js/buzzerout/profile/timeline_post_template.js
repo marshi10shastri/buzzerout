@@ -326,7 +326,7 @@ function timeline_post(feed) {
 
                     <h5 class="mb-0 d-inline-block"><a href="#" class="">` + feed.buzz_username + `</a></h5>
 
-                    <p class="ml-1 mb-0 d-inline-block">`+ feed.buzz_title +`</p>
+                    <p class="ml-1 mb-0 d-inline-block" id="Tbuzz_title_`+ feed.buzz_id +`">`+ feed.buzz_title +`</p>
 
                     <p class="mb-0">` + timeSince(new Date(feed.buzz_timestamp)) + `</p>
 
@@ -918,8 +918,12 @@ function deleteTPostClick(feedid){
             },
             success: function(data){
                 console.log(data);
+                if(data.error == false){
                     //update local storage
                     updateDeleteTPost(feedid);
+                }else{
+                    console.log(data.message);
+                }
             },
             error: function(data){
                 console.log(data);
@@ -975,6 +979,7 @@ function hideTBuzz(feedid){
                                     buzz.push(mapperForSinglePosts(data.hide_buzz[i]));
                                 }
                             }
+                        updateUserHidden(buzz);
                     
                     //update local
                     let feed = getPostFromFeedId(feedid);
@@ -1483,12 +1488,36 @@ function shareTBuzzByFeedId(feedid) {
             },
             success: function (data) {
                 console.log(data);
-                console.log(feedid);
-                // buzz.buzz_title = 'Shared post';
-                //local update
-                updateLocalStoragePosts(buzz);
-                //ui update
-                document.getElementById('TshareBtn-' + feedid).style.visibility = 'hidden';
+                if(data.error == false){
+                    console.log(feedid);
+                    let shared_feeds = data.shared_buzz;
+                    if(shared_feeds.length > 0){
+                        for(let i=0; i<shared_feeds.length; i++){
+                            shared_feeds[i] = mapperForSinglePosts(shared_feeds[i]);
+                        }
+                    }
+                    console.log(shared_feeds);
+                    setJSONLocalStorage(SHARED, shared_feeds);
+
+                    //local update
+                    if(shared_feeds.length >0){
+                        for(let i=0;i<shared_feeds.length; i++){
+                            if(shared_feeds[i].buzz_id == buzz.buzz_id){
+                                buzz = shared_feeds[i];
+                            }
+                        }
+                    }
+                    updateLocalStoragePosts(buzz);
+
+                    //ui update
+                    let titleP = document.getElementById('Tbuzz_title_' + buzz.buzz_id);
+                    console.log(buzz.buzz_title);
+                    titleP.textContent = buzz.buzz_title;
+                    document.getElementById('TshareBtn-' + feedid).style.visibility = 'hidden';
+                }
+                else{
+                    console.log(data.message);
+                }
             },
             error: function (data) {
                 console.log(data);

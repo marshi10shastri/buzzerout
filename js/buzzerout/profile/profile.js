@@ -948,10 +948,10 @@ function showSaveTBuzz(feedid, ifSaved){
 }
 
 //hide t buzz local
-function updateLocalHideTBuzz(feedid){
+function updateLocalHideTBuzz(feed){
     let buzz = getJSONLocalStorage(ALL_BUZZ);
     for(let i=0; i<buzz.length; i++){
-        if(buzz[i].buzz_id == feedid){
+        if(buzz[i].buzz_id == feed.buzz_id){
             buzz.splice(i,1);
             break;
         }
@@ -960,7 +960,7 @@ function updateLocalHideTBuzz(feedid){
 
     let posts = getJSONLocalStorage(T_POSTS);
     for(let i=0; i<posts.length; i++){
-        if(posts[i].buzz_id == feedid){
+        if(posts[i].buzz_id == feed.buzz_id){
             posts.splice(i,1);
             break;
         }
@@ -968,7 +968,7 @@ function updateLocalHideTBuzz(feedid){
     setJSONLocalStorage(T_POSTS, posts);
 
     //ui update
-    showHiddenTPost(feedid);
+    showHiddenTPost(feed.buzz_id);
 }
 
 
@@ -989,7 +989,7 @@ function profileImageUpload() {
 
     if (file) {
         var formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', pImage_toke);
         formData.append('product', 'appnivi');
         formData.append('application', 'nivishare');
         formData.append('to', email);
@@ -1003,28 +1003,36 @@ function profileImageUpload() {
             success: function(data) {
                 var link = data.link;
                 console.log(data.link);
+                if(data.error == false){
+                    //change profile picture
+                    $.ajax({
+                        type: 'POST',
+                        url: SERVER_URL + 'profile/updateUserProfileImage',
+                        data: {
+                            username: user.username,
+                            img: link,
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            //set profile image as
+                            if(response.error == false){
+                                user.userimage = response.profile_detail.user_profile_image;
+                                setJSONLocalStorage(USER_INFO, user);
+                                setProfileNameImage();
+                            }
+                            else{
+                                console.log(response.message);
+                            }
 
-                //change profile picture
-                $.ajax({
-                    type: 'POST',
-                    url: SERVER_URL + 'profile/updateUserProfileImage',
-                    data: {
-                        username: user.username,
-                        img: link,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        //set profile image as
-                        user.userimage = response.profile_detail.user_profile_image;
-                        setJSONLocalStorage(USER_INFO, user);
-                        setProfileNameImage();
-
-                    },
-                    error: function(response) {
-                        console.log(response)
-                    }
-                });
-
+                        },
+                        error: function(response) {
+                            console.log(response)
+                        }
+                    });
+                }
+                else{
+                    console.log(data.message);
+                }
             },
             error: function(error) {
                 console.log(error);
@@ -1045,7 +1053,7 @@ function coverImageUpload() {
 
     if (file) {
         var formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', tImage_toke);
         formData.append('product', 'appnivi');
         formData.append('application', 'nivishare');
         formData.append('to', email);
@@ -1059,25 +1067,34 @@ function coverImageUpload() {
             success: function(data) {
                 var link = data.link;
                 console.log(data.link);
-
-                //change profile picture
-                $.ajax({
-                    type: 'POST',
-                    url: SERVER_URL + '',
-                    data: {
-                        username: user.username,
-                        image_link: link,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        //set cover image as 
-                        document.getElementById('cover-pic').src = link;
-                        //set cover-pic in user 
-                    },
-                    error: function(response) {
-                        console.log(response)
-                    }
-                });
+                if(data.error == false){
+                     //change timeline picture
+                    $.ajax({
+                        type: 'POST',
+                        url: SERVER_URL + 'updateUserTimelineImage',
+                        data: {
+                            username: user.username,
+                            image_link: link,
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            if(response.error == false){
+                                //set cover image as 
+                                document.getElementById('cover-pic').src = link;
+                                //set cover-pic in user 
+                            }
+                            else{
+                                console.log(response.message);
+                            }
+                        },
+                        error: function(response) {
+                            console.log(response)
+                        }
+                    });
+                }
+                else{
+                    console.log(data.message);
+                }
 
             },
             error: function(error) {

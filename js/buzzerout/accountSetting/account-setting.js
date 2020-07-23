@@ -51,17 +51,22 @@ function editSocialMedia() {
             },
             success: function(data) {
                 console.log(data)
+                if(data.error == false){
+
+                    updateUserSocialDetails(data.socialMedia);
     
-                updateUserSocialDetails(data.social_accounts_details);
-    
-                document.getElementById('facebook').value = getUserSocialDetails().facebook;
-                document.getElementById('twitter').value = getUserSocialDetails().twitter;
-                document.getElementById('google').value = getUserSocialDetails().google_plus
-                document.getElementById('instagram').value = getUserSocialDetails().instagram;
-                document.getElementById('youtube').value = getUserSocialDetails().youtube;
-    
-                //lock inputs
-                hideSubmit();
+                    document.getElementById('facebook').value = getUserSocialDetails().facebook;
+                    document.getElementById('twitter').value = getUserSocialDetails().twitter;
+                    document.getElementById('google').value = getUserSocialDetails().google_plus
+                    document.getElementById('instagram').value = getUserSocialDetails().instagram;
+                    document.getElementById('youtube').value = getUserSocialDetails().youtube;
+        
+                    //lock inputs
+                    hideSubmit();
+                }
+                else{
+                    console.log(data.message);
+                }
             },
             error: function(data) {
                 console.log(data);
