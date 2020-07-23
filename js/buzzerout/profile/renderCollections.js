@@ -60,31 +60,31 @@ function renderCollections(){
 
     }
     else if(getLocalStorage(USER_TYPE) == 'liveuser'){
-        $.ajax({
-            type:'POST',
-            url: SERVER_URL + 'feed/fetchCollectionByuser',
-            data:{
-                username: getUserDetails().uname
-            },
-    
-            success: function(data){
-                console.log(data);
-                if(data.error == false){
-                savedPostMapper(data.save_buzz);
-                hiddenPostMapper(data.hide_buzz);
-                sharedPostMapper(data.shared_buzz);
+        // $.ajax({
+        //     type:'POST',
+        //     url: SERVER_URL + 'feed/fetchCollectionByuser',
+        //     data:{
+        //         username: getUserDetails().uname
+        //     },
+
+        //     success: function(data){
+        //         console.log(data);
+        //         if(data.error == false){
+        //         savedPostMapper(data.save_buzz);
+        //         hiddenPostMapper(data.hide_buzz);
+        //         sharedPostMapper(data.shared_buzz);
 
                 //render collections
-                renderSavedPosts(getJSONLocalStorage(SAVED));
-                renderHiddenPosts(data.hide_buzz);
-                renderSharedPosts(data.shared_buzz);
-                }
-            },
+                renderSavedPosts(getUserSaved());
+                renderHiddenPosts(getUserHidden());
+                renderSharedPosts(getUserShared());
+        //         }
+        //     },
     
-            error: function(data){
-                console.log(data);
-            }
-        });
+        //     error: function(data){
+        //         console.log(data);
+        //     }
+        // });
     }
     
 }
