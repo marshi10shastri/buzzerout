@@ -50,6 +50,7 @@ function singleHidden(buzz){
 
     <div class="user-images position-relative overflow-hidden">`;
 
+    
     if(buzz.buzz_images.length > 0){
         hidden+=        `<a href="#">
 
@@ -212,7 +213,7 @@ function hiddenPostMapper(data){
     setJSONLocalStorage(HIDDEN, hiddenBuzzArray);
 }
 
-function hiddenPostMapper(data){
+function sharedPostMapper(data){
     let sharedBuzzArray = []
 
     for (let i = 0; i < data.length; i++) {

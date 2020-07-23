@@ -326,7 +326,7 @@ function timeline_post(feed) {
 
                     <h5 class="mb-0 d-inline-block"><a href="#" class="">` + feed.buzz_username + `</a></h5>
 
-                    <p class="ml-1 mb-0 d-inline-block">`+ feed.buzz_title +`</p>
+                    <p class="ml-1 mb-0 d-inline-block" id="Tbuzz_title_`+ feed.buzz_id +`">`+ feed.buzz_title +`</p>
 
                     <p class="mb-0">` + timeSince(new Date(feed.buzz_timestamp)) + `</p>
 
@@ -716,21 +716,29 @@ function upvoteTBuzzByFeedId(feedid){
                 notifyTDownvotesSinglePost(buzz_downvotes, feedid);
             }
         }
-        else if(getLocalStorage(USER_INFO) == 'testuser'){
+        else if(getLocalStorage(USER_TYPE) == 'testuser'){
             //test user
+            console.log('test')
         }
-        else if(getLocalStorage(USER_INFO) == 'logoutuser'){
+        else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
             // logged out user
+            console.log('logout');
         }
-        else if(getLocalStorage(USER_INFO)== 'liveuser'){
+        else if(getLocalStorage(USER_TYPE)== 'liveuser'){
+            console.log('up')
             let buzz = getPostFromFeedId(feedid);
             let buzz_upvotes = buzz.buzz_upvotes;
             let buzz_downvotes = buzz.buzz_downvotes;
             let uName = getUserDetails().uname;
             let flag = 0;
-            if(buzz_upvotes.includes(uname)){
-                flag = 1;
+            for(let i=0; i<buzz_upvotes.length; i++){
+                if(buzz_upvotes[i].username == (uName)){
+                    flag = 1;
+                    break;
+                }
             }
+
+            console.log(flag)
 
             //apis
             if (flag == 1) {
@@ -743,8 +751,13 @@ function upvoteTBuzzByFeedId(feedid){
                         feed_id: feedid
                     },
                     success: function(data) {
-                        //data.votes will be array of upvotes
-                        notifyTUpvotesSinglePost(data.upvotes, feedid);
+                        if(data.error == false){
+                            //data.votes will be array of upvotes
+                            notifyTUpvotesSinglePost(data.upvotes, feedid);
+                        }
+                        else{
+                            console.log(data.message);
+                        }
                     },
                     error: function(data) {
                         console.log('cannot like');
@@ -786,8 +799,11 @@ function downvoteTBuzzByFeedId(feedid) {
             let buzz_downvotes = buzz.buzz_downvotes;
             let uname = getUserDetails().uname;
             let flag = 0;
-            if(buzz_downvotes.includes(uname)){
-                flag = 1;
+            for(let i=0; i<buzz_downvotes.length; i++){
+                if(buzz_downvotes[i].username == (uName)){
+                    flag = 1;
+                    break;
+                }
             }
 
             if(flag == 1){
@@ -826,8 +842,11 @@ function downvoteTBuzzByFeedId(feedid) {
             let buzz_downvotes = buzz.buzz_downvotes;
             let uName = getUserDetails().uname;
             let flag = 0;
-            if(buzz_downvotes.includes(uname)){
-                flag = 1;
+            for(let i=0; i<buzz_downvotes.length; i++){
+                if(buzz_downvotes[i].username == (uName)){
+                    flag = 1;
+                    break;
+                }
             }
 
             if (flag == 1) {
@@ -841,7 +860,12 @@ function downvoteTBuzzByFeedId(feedid) {
                         feed_id: feedid
                     },
                     success: function(data) {
-                        notifyTDownvotesSinglePost(data.downvotes, feedid);
+                        if(data.error == false){
+                            notifyTDownvotesSinglePost(data.downvotes, feedid);
+                        }
+                        else{
+                            console.log(data.message);
+                        }
                     },
                     error: function(data) {
                         console.log('cannot like');
@@ -894,8 +918,12 @@ function deleteTPostClick(feedid){
             },
             success: function(data){
                 console.log(data);
+                if(data.error == false){
                     //update local storage
                     updateDeleteTPost(feedid);
+                }else{
+                    console.log(data.message);
+                }
             },
             error: function(data){
                 console.log(data);
@@ -910,7 +938,7 @@ function editTPostModal(feedid){
     console.log('clicked');
     let buzz = getPostFromFeedId(feedid);
     document.getElementById('buzz-tpost-editinput').value = buzz.buzz_description;
-    document.getElementById('profile-write-post-user-image-inside').src = getUserProfileDetails().pImage;
+    document.getElementById('profile-edit-post-user-image-inside').src = getUserProfileDetails().pImage;
     // $("#edit-post-modal").modal();
 
     document.getElementById('edit-tpost-btn').addEventListener('click', function(){
@@ -944,10 +972,20 @@ function hideTBuzz(feedid){
                 },
                 success: function(data){
                     console.log(data);
+                    if(data.error == false){
+                        let buzz = [];
+                            if(data.hide_buzz.length > 0){
+                                for(let i=0; i<data.hide_buzz.length; i++){
+                                    buzz.push(mapperForSinglePosts(data.hide_buzz[i]));
+                                }
+                            }
+                        updateUserHidden(buzz);
+                    
                     //update local
-                    let feed = getPostFromFeedId(feed);
+                    let feed = getPostFromFeedId(feedid);
                     updateLocalHideTBuzz(feed);
                     //update ui
+                    }
                 },
                 error: function(data){
                     console.log(data);
@@ -993,26 +1031,38 @@ function saveTBuzz(feedid){
             else if(getLocalStorage(USER_TYPE) == 'liveuser'){
                 let saved = getUserSaved()
                 let flag = 0;
-                if(saved.includes(feedid)){
-                    flag = 1
-                    //now we need to unsave this
-                }
+                if(saved.length>0){
+                    for(let i =0; i<saved.length; i++){
+                        if(saved[i].buzz_id == feedid){
+                            flag = 1;
+                            break;
+                        }
+                    }
+                } 
 
                 if(flag == 0){
                     // ajax call
                     $.ajax({
                         type:'POST',
-                        url: SERVER_URL + 'buzz/saveBuzz',
+                        url: SERVER_URL + SAVE_BUZZ_URL,
                         data:{
                             username: getUserDetails().uname,
                             feed_id: feedid
                         },
                         success: function(data){
                             console.log(data);
-                            //update local
-                            let feed = getPostFromFeedId(feedid);
-                            updateLocalSaveTBuzz(feed, 0);
-                            //update ui
+                            if(data.error == false){
+                                //update local
+                                let buzz = []
+                                if(data.save_buzz.length > 0){
+                                    for(let i=0; i<data.save_buzz.length; i++){
+                                        buzz.push(mapperForSinglePosts(data.save_buzz[i]));
+                                    }
+                                }
+
+                                updateLocalSaveTBuzz(buzz, 0, feedid);
+                                //update ui
+                            }
                         },
                         error: function(data){
                             console.log(data);
@@ -1020,6 +1070,33 @@ function saveTBuzz(feedid){
                     });
                 }
                 else{
+                    $.ajax({
+                        type: 'POST',
+                        url: SERVER_URL + UNSAVE_BUZZ_URL,
+                        data:{
+                            username:getUserDetails().uname,
+                            feed_id: feedid
+                        },
+                        success: function(data){
+                            console.log(data);
+                            if(data.error == false){
+                                let buzz = []
+                                if(data.save_buzz.length > 0){
+                                    for(let i=0; i<data.save_buzz.length; i++){
+                                        buzz.push(mapperForSinglePosts(data.save_buzz[i]));
+                                    }
+                                }
+    
+                                updateLocalSaveTBuzz(buzz, 1, feedid);
+                            }
+                            else{
+                                console.log(data.message);
+                            }
+                        },
+                        error: function(data){
+                            console.log(data);
+                        }
+                    });
                     //ajax for unsave
                     // then call updateLocalSaveTBuzz(feedid, 1);
                 }
@@ -1411,12 +1488,36 @@ function shareTBuzzByFeedId(feedid) {
             },
             success: function (data) {
                 console.log(data);
-                console.log(feedid);
-                // buzz.buzz_title = 'Shared post';
-                //local update
-                updateLocalStoragePosts(buzz);
-                //ui update
-                document.getElementById('TshareBtn-' + feedid).style.visibility = 'hidden';
+                if(data.error == false){
+                    console.log(feedid);
+                    let shared_feeds = data.shared_buzz;
+                    if(shared_feeds.length > 0){
+                        for(let i=0; i<shared_feeds.length; i++){
+                            shared_feeds[i] = mapperForSinglePosts(shared_feeds[i]);
+                        }
+                    }
+                    console.log(shared_feeds);
+                    setJSONLocalStorage(SHARED, shared_feeds);
+
+                    //local update
+                    if(shared_feeds.length >0){
+                        for(let i=0;i<shared_feeds.length; i++){
+                            if(shared_feeds[i].buzz_id == buzz.buzz_id){
+                                buzz = shared_feeds[i];
+                            }
+                        }
+                    }
+                    updateLocalStoragePosts(buzz);
+
+                    //ui update
+                    let titleP = document.getElementById('Tbuzz_title_' + buzz.buzz_id);
+                    console.log(buzz.buzz_title);
+                    titleP.textContent = buzz.buzz_title;
+                    document.getElementById('TshareBtn-' + feedid).style.visibility = 'hidden';
+                }
+                else{
+                    console.log(data.message);
+                }
             },
             error: function (data) {
                 console.log(data);

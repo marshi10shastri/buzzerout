@@ -738,7 +738,7 @@ function shareBuzzByFeedId(feedid) {
                     if(shared_feeds.length >0){
                         for(let i=0;i<shared_feeds.length; i++){
                             if(shared_feeds[i].buzz_id == buzz.buzz_id){
-                                buzz.buzz_title = shared_feeds[i].buzz_title;
+                                buzz = shared_feeds[i];
                             }
                         }
                     }

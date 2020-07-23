@@ -66,9 +66,9 @@ function uploadProfileImage() {
                             console.log(response);
                             //set profile image as
                             if (response.error == false) {
-                                user.pImage = response.profile_detail.user_profile_image;
+                                user.pImage = response.profile.user_profile_image;
                                 // setProfileNameImage(response.profile_detail);
-                                updateUserProfileDetails(response.profile_detail);
+                                updateUserProfileDetails(response.profile);
     
                                 //update header
                                 renderProfileEditTopRight();
@@ -148,8 +148,8 @@ function uploadCoverImage() {
                         //set cover image as
                         if (response.error == false) {
                             document.getElementById('cover-pic').src = link;
-                            user.tImage = response.profile_detail.user_timeline_image;
-                            updateUserProfileDetails(response.profile_detail);
+                            user.tImage = response.profile.user_timeline_image;
+                            updateUserProfileDetails(response.profile);
                             // update with response.profile_detail
                         } else {
                             console.log('error occurred');
