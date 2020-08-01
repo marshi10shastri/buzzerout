@@ -785,7 +785,7 @@ function upvoteTBuzzByFeedId(feedid){
         }
 
     }else{
-        alert("Please sign in.");
+        signinInfoModal();
     }
 }
 
@@ -893,7 +893,7 @@ function downvoteTBuzzByFeedId(feedid) {
         }
 
     } else {
-        alert("Please sign in.")
+        signinInfoModal();
     }
 }
 
@@ -994,7 +994,7 @@ function hideTBuzz(feedid){
         }
 
     } else {
-        alert("Please sign in.");
+        signinInfoModal();
     }
 }
 
@@ -1103,7 +1103,7 @@ function saveTBuzz(feedid){
             }
 
     } else {
-        alert("Please sign in.");
+        signinInfoModal();
     }
 }
 

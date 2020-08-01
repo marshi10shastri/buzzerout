@@ -629,7 +629,7 @@ function showProfilePosts() {
                         inputCommentField.value = "";
                     }
                 } else {
-                    alert("Please sign in.")
+                    signinInfoModal();
                 }
             }
         });
@@ -1475,7 +1475,7 @@ function showCreatedTimelineBuzz(data) {
                     inputCommentField.value = "";
                 }
             } else {
-                alert("Please sign in.")
+                signinInfoModal();
             }
         }
     });

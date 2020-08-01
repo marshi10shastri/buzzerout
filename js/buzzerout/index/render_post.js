@@ -1,8 +1,8 @@
 function postTemplateStart(feed) {
-
-    // let feedTime = new Date(feed.timestamp);
-    // feedTime = feedTime.getTime();
-    // let currentTime = new Date().now();
+    if(getLocalStorage(USER_TYPE) == 'logoutuser'){
+        return logoutUserPostTemplate(feed);
+    }
+    else{
     string = '\
 <div class="col-sm-12" id="' + feed.buzz_id + '">\
     <div class="iq-card iq-card-block iq-card-stretch iq-card-height">\
@@ -289,6 +289,203 @@ function postTemplateStart(feed) {
 
     return string;
 }
+}
+
+function logoutUserPostTemplate(feed){
+    string = '\
+    <div class="col-sm-12" id="' + feed.buzz_id + '">\
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">\
+            <div class="iq-card-body">\
+                <div class="user-post-data">\
+                    <div class="d-flex flex-wrap">\
+                        <div class="media-support-user-img mr-3">\
+                            <img class="rounded-circle img-fluid" src=" ' + feed.buzz_user_image + '" alt="">\
+                        </div>\
+                        <div class="media-support-info mt-2">\
+                            <h5 class="mb-0 d-inline-block"><a href="#" class="">' + feed.buzz_username + ' </a></h5>\
+                            <p class="mb-0 d-inline-block" id="buzz_title_' + feed.buzz_id + '">'+ feed.buzz_title + '</p>\
+                            <p class="mb-0 text-primary">' + timeSince(new Date(feed.buzz_timestamp)) + '</p>\
+                        </div>\
+                        <div class="iq-card-post-toolbar">\
+                            <div class="dropdown">\
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+                                    <i class="ri-more-fill"></i>\
+                                </span>\
+                            <div class="dropdown-menu m-0 p-0">\
+                            <a class="dropdown-item p-3"  onclick="signinInfoModal()">\
+                                    <div class="d-flex align-items-top">\
+                                        <div class="icon font-size-20"><i class="ri-save-line"></i></div>\
+                                        <div class="data ml-2"  >\
+                                            <h6 id="post-save-heading-' + feed.buzz_id + '">Save Post</h6>\
+                                            <p class="mb-0" id="post-save-para-' + feed.buzz_id + '">Add this to your saved items</p>\
+                                        </div>\
+                                    </div>\
+                                </a>';
+
+            string+=        '<a class="dropdown-item p-3" onclick="signinInfoModal()">\
+                                    <div class="d-flex align-items-top">\
+                                        <div class="icon font-size-20"><i class="ri-close-circle-line"></i></div>\
+                                        <div class="data ml-2">\
+                                            <h6>Hide Post</h6>\
+                                            <p class="mb-0">See fewer posts like this.</p>\
+                                        </div>\
+                                    </div>\
+                                </a>';
+    
+                string += '<span id="follow-option-' + feed.buzz_id + '">\
+                <a class="dropdown-item p-3" onclick="signinInfoModal()">\
+                                    <div class="d-flex align-items-top">\
+                                        <div class="icon font-size-20"><i class="ri-user-follow-line"></i></div>\
+                                        <div class="data ml-2">\
+                                            <h6>Follow User</h6>\
+                                            <p class="mb-0">See more posts from '+ feed.buzz_username + '.</p>\
+                                        </div>\
+                                    </div>\
+                                </a>\
+                                </span>';
+            string += '<a class="dropdown-item p-3" onclick="signinInfoModal()">\
+                                    <div class="d-flex align-items-top">\
+                                        <div class="icon font-size-20"><i class="ri-delete-bin-7-line"></i></div>\
+                                        <div class="data ml-2">\
+                                            <h6>Notifications</h6>\
+                                            <p class="mb-0">Turn on notifications for this post.</p>\
+                                        </div>\
+                                    </div>\
+                                </a>';
+    
+        string += '</div>\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>\
+            <div class="mt-3">\
+                <p id="buzz_description_' + feed.buzz_id + '">' + feed.buzz_description + '</p>\
+            </div>\
+            <div class="user-post">\
+                <div class="d-flex">';
+        if (feed.buzz_images.length > 0) {
+            string += ' <div class="col-md-12">\
+                        <a><img src="' + feed.buzz_images[0] + '" alt="post-image" class="img-fluid rounded w-100"></a>\
+                    </div>';
+        }
+    
+        string += '    </div>\
+            </div>\
+            <div class="comment-area mt-3">\
+                <div class="d-flex justify-content-between align-items-center">\
+                    <div class="like-block position-relative d-flex align-items-center">\
+                        <div class="d-flex align-items-center">\
+                            <div class="like-data">\
+                                <div class="dropdown">\
+                                    <span onclick="signinInfoModal()" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+                        <img src="images/icon/like.jpg" class="img-fluid" alt="">\
+                        </span>\
+                                </div>\
+                            </div>\
+                            <div class="total-like-block ml-2 mr-3">\
+                                <div class="dropdown">\
+                                    <span id="upvote-count-' + feed.buzz_id + '" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+        string += feed.buzz_upvotes.length
+        string += ' </span>\
+                                </div>\
+                            </div>\
+                        <div class="like-data">\
+                                <div class="dropdown">\
+                                    <span onclick="signinInfoModal()" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">\
+                        <img src="images/icon/dislike.jpg" class="img-fluid" alt="">\
+                        </span>\
+                                </div>\
+                            </div>\
+                            <div class="total-like-block ml-2 mr-3">\
+                                <div class="dropdown">\
+                                    <span id="downvote-count-' + feed.buzz_id + '" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">';
+        string += feed.buzz_downvotes.length
+        string += ' </span>\
+                                </div>\
+                            </div>\
+                        </div>\
+                        <div class="total-comment-block">\
+                            <div class="dropdown">\
+                                <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" data-toggle="dropdown" aria-expanded="false" role="button" id="comment-count-'+ feed.buzz_id + '">';
+        string += feed.buzz_comments.length
+        string += ' Comment\
+                     </span>\
+                            </div>\
+                        </div>\
+                    </div>'
+            string += '<div class="share-block d-flex align-items-center feather-icon mr-3" onclick="signinInfoModal()" id="shareBtn-' + feed.buzz_id + '">\
+            <a><i class="ri-share-line"></i>\
+            <span class="ml-1"> Share</span>\
+            </a>\
+        </div>'
+    
+        string += '</div>\
+                <hr>\
+                <div class="comment-text d-flex align-items-center mt-3 text-position-relative" action="javascript:void(0);">\
+                    <input type="text" class="form-control rounded" id="commentinput-' + feed.buzz_id + '" placeholder="Write Your Comment...">\
+                    <div class="comment-attagement d-flex">\
+                        <a onclick="signinInfoModal()"><i class="ri-send-plane-2-line"></i></a>\
+                    </div>\
+                </div>\
+                <hr>\
+                <ul class="post-comments p-0 m-0"  id="commentslist-' + feed.buzz_id + '" >\
+                ';
+        let len = feed.buzz_comments.length;
+        if (len > 5) {
+            for (var i = 0; i < 5; i++) {
+                string += '<li class="mb-2" id="' + feed.buzz_comments[i].comment_id + '">\
+                                        <div class="d-flex flex-wrap">\
+                                            <div class="user-img">\
+                                                <img src="' + feed.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                            </div>\
+                                            <div class="comment-data-block ml-3">\
+                                                <h6>' + feed.buzz_comments[i].username + '</h6>\
+                                                <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
+                                                <div class="d-flex flex-wrap align-items-center comment-activity">';
+                string += '<span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </li>\
+                ';
+            }
+    
+        } else {
+            for (var i = 0; i < feed.buzz_comments.length; i++) {
+                string += '<li class="mb-2" id="' + feed.buzz_comments[i].comment_id + '">\
+                                        <div class="d-flex flex-wrap">\
+                                            <div class="user-img">\
+                                                <img src="' + feed.buzz_comments[i].commentImg + '" alt="userimg" class="avatar-35 rounded-circle img-fluid">\
+                                            </div>\
+                                            <div class="comment-data-block ml-3">\
+                                                <h6>' + feed.buzz_comments[i].username + '</h6>\
+                                                <p class="mb-0">' + feed.buzz_comments[i].text + '</p>\
+                                                <div class="d-flex flex-wrap align-items-center comment-activity">';
+                string += ' <span> ' + timeSince(new Date(feed.buzz_comments[i].timestamp)) + ' </span>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </li>\
+                ';
+            }
+        }
+        string += '</ul>\
+                <hr>\
+                <div class="align-items-center" id="feed-' + feed.buzz_id + '"> <a href="javascript:void();">View full post</a></div>\
+            </div>\
+        </div>\
+    </div>\
+    </div>\
+    ';
+    
+        return string;
+}
+
+function signinInfoModal(){
+    //modal call
+   document.getElementById('info-modal-info').innerHTML = 'Please sign in to continue'
+    $('#info-modal').modal('show');
+}
 
 
 
@@ -418,7 +615,7 @@ function saveBuzz(buzzid) {
 
 
     } else {
-        alert("Please sign in.");
+        signinInfoModal();
     }
 }
 
@@ -471,7 +668,7 @@ function hideBuzz(buzzid) {
         }
 
     } else {
-        alert("Please sign in.");
+        signinInfoModal();
     }
 }
 
@@ -613,7 +810,7 @@ function unfollowUser(data) {
 
     }
     else {
-        alert('please sign in');
+        signinInfoModal();
     }
 }
 
@@ -630,7 +827,7 @@ function setUnsetBuzzNotification(buzzid) {
             unsetBuzzNotification(buzzid);
         }
     } else {
-        alert("Please sign in.");
+        signinInfoModal();
     }
 }
 

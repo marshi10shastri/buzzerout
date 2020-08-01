@@ -26,7 +26,7 @@ function updateLocalPosts(data){
             buzz_upvotes: upvotes,
             buzz_downvotes: downvotes
         }
-        console.log(buzz);
+        // console.log(buzz);
 
         buzzArray.push(buzz);
     }
@@ -44,34 +44,6 @@ function postMapper(data) {
     let feedIdArray = [];
 
     for (let i = 0; i < data.length; i++) {
-        // let feedid = data[i].feed_id;
-        // console.log('setting feed_id: ' + feedid);
-        // let title = data[i].title;
-        // let description = data[i].description;
-        // let username = data[i].username;
-        // let userImage = data[i].userimage;
-        // let images = data[i].images;
-        // let comments = data[i].comments;
-        // let upvotes = data[i].upvotes;
-        // let downvotes = data[i].downvotes;
-        // let location = data[i].location;
-        // let timestamp = data[i].timestamp;
-        // let buzz = {
-        //     buzz_id: feedid,
-        //     buzz_username: username,
-        //     buzz_user_image: userImage,
-        //     buzz_title: title,
-        //     buzz_description: description,
-        //     buzz_location: location,
-        //     buzz_timestamp: timestamp,
-        //     buzz_comments: comments,
-        //     buzz_images: images,
-        //     buzz_upvotes: upvotes,
-        //     buzz_downvotes: downvotes
-        // }
-        // console.log(buzz);
-
-        // buzzArray.push(buzz);
         singlePostMapper(data[i]);
 
         feedInputArray.push("commentinput-" + data[i].buzz_id);
@@ -113,7 +85,7 @@ function postMapper(data) {
 
                     }
                     else if(getLocalStorage(USER_TYPE) == 'logoutuser'){
-
+                        signinInfoModal();
                     }
                     else if(getLocalStorage(USER_TYPE) == 'liveuser'){
                         console.log('running');
@@ -122,7 +94,7 @@ function postMapper(data) {
                         inputCommentField.value = '';
                     }
                 } else {
-                    alert("Please sign in.");
+                    signinInfoModal();
                 }
             }
         })

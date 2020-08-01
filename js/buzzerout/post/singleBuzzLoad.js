@@ -328,7 +328,7 @@ function initSingleBuzzPage() {
                 }
 
             } else {
-                alert("Please sign in.")
+                signinInfoModal();
             }
         }
     })

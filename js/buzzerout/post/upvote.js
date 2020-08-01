@@ -111,7 +111,7 @@ function upvoteBuzzByFeedId(feedid) {
         }
 
     } else {
-        alert("Please sign in.");
+        signinInfoModal();
     }
 }
 

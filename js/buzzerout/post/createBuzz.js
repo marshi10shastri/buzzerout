@@ -131,7 +131,7 @@ function showCreatedBuzz(data) {
                     inputCommentField.value = "";
                 }
             } else {
-                alert("Please sign in.")
+                signinInfoModal();
             }
         }
     });

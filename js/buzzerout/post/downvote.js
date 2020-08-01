@@ -107,7 +107,7 @@ function downvoteBuzzByFeedId(feedid) {
         }
         
     } else {
-        alert("Please sign in.")
+        signinInfoModal();
     }
 }
 

@@ -243,6 +243,7 @@ function fetchLocalPost(){
     }else if (getLocalStorage(USER_TYPE) == "testuser") {
     }
     else if (getLocalStorage(USER_TYPE) == "logoutuser") {
+        fetchPost();
     }else{
         console.log('user type not set');
     }
@@ -285,11 +286,19 @@ function fetchPost() {
             url: "http://buzzerout.com/buzzerout_server/v1/feed/fetchAllFeedWithoutUser",
             crossDomain: true,
             success: function (resp) {
-                if (0 != resp.Feed.length) {
-                    postMapper(resp.Feed);
-                } else {
-                    let inhtml = document.getElementById("posting-area");
-                    inhtml.innerHTML = post_template_no_post();
+                // console.log(resp);
+                if(resp.error == false){
+                    if (0 != resp.Feed.length) {
+                        updateLocalPosts(resp.Feed);
+                        let buzz = getJSONLocalStorage(ALL_BUZZ)
+                        postMapper(buzz);
+                    } else {
+                        let inhtml = document.getElementById("posting-area");
+                        inhtml.innerHTML = post_template_no_post();
+                    }
+                }
+                else{
+                    console.log(resp.message)
                 }
             },
             error: function (response) {
