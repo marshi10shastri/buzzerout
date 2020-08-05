@@ -1231,6 +1231,8 @@ function showDetailsAboutDetails() {
 
 // create post
 function createPostTimeline() {
+    console.log('ssdfdsfd')
+    console.log(getLocalStorage(USER_TYPE));
     var file = document.getElementById("timeline-buzz-photo-input").files[0];
     var resizedImage = t_token;
     if(getLocalStorage(USER_TYPE) == 'dummy'){
@@ -1268,13 +1270,14 @@ function createPostTimeline() {
     }else if (getLocalStorage(USER_TYPE == 'logoutuser')){
         //logout user condition
 
-    }else if(getLocalStorage(USER_TYPE == 'liveuser')){
+    }else if(getLocalStorage(USER_TYPE == "liveuser")){
+        console.log('aaya');
         if (document.getElementById("timeline-buzz-photo-input").files.length == 0) {
             let user_name = getUserDetails().uname;
             let desc = document.getElementById("timeline-buzz-post-input").value;
             $.ajax({
                 type: "POST",
-                url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+                url: SERVER_URL + UPLOAD_FEED_URL,
                 data: {
                     username: user_name,
                     title: "title",
@@ -1284,6 +1287,7 @@ function createPostTimeline() {
                 success: function(data) {
                     console.log(data);
                     if (data["error"] == false) {
+                        data = data.Feed;
                         var post = {
                             buzz_id: data.feedid,
                             buzz_username: getUserDetails().uname,
@@ -1342,7 +1346,7 @@ function createPostTimeline() {
                     // on success
                     $.ajax({
                         type: "POST",
-                        url: "http://buzzerout.com/buzzerout_server/v1/feed/uploadFeed",
+                        url: SERVER_URL + UPLOAD_FEED_URL,
                         data: {
                             username: user_name,
                             title: "title",
